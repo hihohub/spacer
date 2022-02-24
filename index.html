@@ -2,6 +2,11 @@
 <html>
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script type='text/javascript' src='./Jdatatree10.0.js'>
 </script>
 <script type='text/javascript'>
@@ -11,16 +16,28 @@
 </script>
 </head>
 <body>
-<h1 align='center'>JDATATREE</h1>
-<h3 align='center'>copyright James Smith 2015</h3>
-<p>To install a datatree on your web page, simply include a container element with the id DATATREE and an indented outline between the tags, here a poem by Lewis Caroll. Or, import the indented text file with the attribute src='filename'. Jdatatree also accepts an HTML list, but you will have to add the attribute type='html'. The 'root' attribute designates the text for the root node, here 'a poem'. The 'toolbar' attribute adds buttons, here 'collapse,expand'. The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%. Finally, import Jdatatree10.0.js and add another script with one line in the onload handler, JDATATREE.AutoInit();</p>
+<div class="container">
+<h1 align='center' class='well'>JDATATREE</h1>
+</div>
+
+<div class="container">
+<p class='well' style='font-family:Serif'>To install a datatree on your web page, simply include a container element with the id DATATREE and an indented outline between the tags, here a poem by Lewis Caroll. Or, import the indented text file with the attribute src='filename'. Jdatatree also accepts an HTML list, but you will have to add the attribute type='html'. The 'root' attribute designates the text for the root node, here 'a poem'. The 'toolbar' attribute adds buttons, here 'collapse,expand'. The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%. Finally, import Jdatatree10.0.js and add another script with one line in the onload handler, JDATATREE.AutoInit();</p>
+</div>
 
 <div id='DATATREE' style='width:50%;margin-left:25%;' root='A poem' toolbar='collapse,expand' treeheight='200px' src='./data.txt'>
 </div>
 
-<p>Other toolbar attributes of interest (for larger data trees): search, search_horizontal, search_vertical, next, previous, reset, number, replace, edit, save, load, alphabetize. If the toolbar needs scrollbars or other styling, it should be possible to style it with CSS with the id jdatatree_toolbar.</p>
+<div class="container">
+<p class='well' style='font-family:Serif'>Other toolbar attributes of interest (for larger data trees): search, search_horizontal, search_vertical, next, previous, reset, number, replace, edit, save, load, alphabetize. If the toolbar needs scrollbars or other styling, it should be possible to style it with CSS with the id jdatatree_toolbar.</p>
+</div>
 
-<p>Other attributes of interest: lettering='font', open, closed, and empty for the three types of arrows. The arrows may be replaced with text, tags, or images. For example, open='+', closed='-', empty='#', or the same text between span tags (within quotes). Or, html img tags (between quotes) for each of them with images of your choice.</p>
+<div class="container">
+<p class='well' style='font-family:Serif'>Other attributes of interest: lettering='font', open, closed, and empty for the three types of arrows. The arrows may be replaced with text, tags, or images. For example, open='+', closed='-', empty='#', or the same text between span tags (within quotes). Or, html img tags (between quotes) for each of them with images of your choice.</p>
+</div>
+
+<footer align='center'>
+<p>&copy; James Smith 2015</p>
+</footer>
 
 </body>
 </html>
