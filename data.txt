@@ -1,8 +1,10 @@
 The Jabberwock
 Author
-   Lewis Carrol
+   Lewis Carroll
 Source
-   "Alice in Wonderland"
+   "Alice's Adventures in Wonderland"
+   Year of publication
+      1865
 Poem
    Twas brillig, and the slithey tothes
    Did gyre and gymbol in the wabe.
