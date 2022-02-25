@@ -12,5 +12,3 @@ Website
    http://technoconvergence.com
 Description
    Epoch is a newly assembled robot, naive in the ways of the world, and dependent on his friends Trep and Link for instruction. When a floating corpse turns up at a local antigravity nightclub, they are enlisted to determine whether the cause was antigravity toxicity, drug overdose, or murder. But as Epoch investigates, Trep finds himself increasingly addicted to hallucinations induced by virtual reality tablets sold illicitly at the nightclub. With each hallucination, you experience a new sci fi world through a short story. As if that wasn't enough of a distraction, Trep and Link begin to have doubts about their robot friend. Throughout the story, they debate the philosophical questions of the day. What is the purpose of artificial intelligence? Is a Turing Test a sufficient evaluation of artificial intelligence, and would Epoch pass? And what does all of this have to do with Fermi's paradox? Find out as author James Smith investigates topics in artificial intelligence.
-Copyright
-   James Smith 2021
