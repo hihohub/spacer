@@ -1,5 +1,5 @@
 /**
-Datatree version 10.0
+Ztree version 10.0
 licensed with the MIT License (MIT)
 
 Copyright (c) 2015 by Derek James Smith
@@ -31,27 +31,27 @@ SOFTWARE.
 /** list model: ul:li:(a:span:ul) WARNING:"a" could have span**/
 // add return values
 
-var DATATREE = new Datatree();
+var ZTREE = new Ztree();
 
 function Definitions() {
-    DATATREE = new Datatree();
-    DATATREE.AltQueryDocumentation = DatatreeAltQueryDocumentation;
-    DATATREE.Custom = DatatreeCustom;
-    DATATREE.Custom2 = DatatreeCustom2;
-    DATATREE.AltLoadFromTextarea = DatatreeAltLoadFromTextarea;
-    DATATREE.GetAltEditorContent = DatatreeGetAltEditorContent;
-    DATATREE.InitializeAltEditor = DatatreeInitializeAltEditor;
-    DATATREE.InsertAltEditor = DatatreeInsertAltEditor;
-    DATATREE.RemoveAltEditorInstance = DatatreeRemoveAltEditorInstance;
-    DATATREE.SetAltEditorContent = DatatreeSetAltEditorContent;
-    DATATREE.ShowAltEditBox = DatatreeShowAltEditBox;
+    ZTREE = new Ztree();
+    ZTREE.AltQueryDocumentation = ZtreeAltQueryDocumentation;
+    ZTREE.Custom = ZtreeCustom;
+    ZTREE.Custom2 = ZtreeCustom2;
+    ZTREE.AltLoadFromTextarea = ZtreeAltLoadFromTextarea;
+    ZTREE.GetAltEditorContent = ZtreeGetAltEditorContent;
+    ZTREE.InitializeAltEditor = ZtreeInitializeAltEditor;
+    ZTREE.InsertAltEditor = ZtreeInsertAltEditor;
+    ZTREE.RemoveAltEditorInstance = ZtreeRemoveAltEditorInstance;
+    ZTREE.SetAltEditorContent = ZtreeSetAltEditorContent;
+    ZTREE.ShowAltEditBox = ZtreeShowAltEditBox;
 }
 
-function DatatreeGetAltEditorContent() {
+function ZtreeGetAltEditorContent() {
     
      var PLAINTEXT = false;
-     if (document.getElementsByName('datatree_text_or_html')){
-     var radios = document.getElementsByName('datatree_text_or_html');
+     if (document.getElementsByName('ztree_text_or_html')){
+     var radios = document.getElementsByName('ztree_text_or_html');
      for (var count = 0; count < radios.length; ++count){
      var r = radios[count];
      if (r.checked){
@@ -63,8 +63,8 @@ function DatatreeGetAltEditorContent() {
      }
      }
      var datatree;
-     if (DATATREE.TREE){
-     datatree = DATATREE.TREE;
+     if (ZTREE.TREE){
+     datatree = ZTREE.TREE;
      } else if (this){
      datatree = this;
      } else {
@@ -73,9 +73,9 @@ function DatatreeGetAltEditorContent() {
      }
      if (PLAINTEXT == false && datatree.PLAIN_TEXT == false){
      var content = tinyMCE.activeEditor.getContent();
-     if (DATATREE.FULL_SCREEN_MODE == true){
+     if (ZTREE.FULL_SCREEN_MODE == true){
      content = content.split("span class=\"table\"").join("table").split("span class=\"tbody\"").join("tbody").split("span class=\"tr\"").join("tr").split("span class=\"td\"").join("td").split("%%%%%</span>").join("</tbody>").split("%%%%</span>").join("</td>").split("%%%</span>").join("</tr>").split("%%</span>").join("</table>");
-     } else if (content.indexOf("<table") >= 0 && DATATREE.FULL_SCREEN_MODE == false){
+     } else if (content.indexOf("<table") >= 0 && ZTREE.FULL_SCREEN_MODE == false){
      content = content.substring(0, content.indexOf("</table>") + "</table>".length);
      }
      return content;
@@ -86,17 +86,17 @@ function DatatreeGetAltEditorContent() {
      }
      
 }
-function DatatreeSetAltEditorContent(html) {
-    tinyMCE.activeEditor.setContent(DATATREE.StringTrim(html)); // web version
+function ZtreeSetAltEditorContent(html) {
+    tinyMCE.activeEditor.setContent(ZTREE.StringTrim(html)); // web version
 }
-function DatatreeRemoveAltEditorInstance() {
+function ZtreeRemoveAltEditorInstance() {
     tinymce.remove(); // web version
 }
-function DatatreeAltLoadFromTextarea(type, preload) { // fullscreen  html editor
+function ZtreeAltLoadFromTextarea(type, preload) { // fullscreen  html editor
         try {
-        DATATREE.FULL_SCREEN_MODE = true;
+        ZTREE.FULL_SCREEN_MODE = true;
         var html = "";
-        if (DatatreeAltLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != "") {
+        if (ZtreeAltLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != "") {
             html = preload;
         }
         html = html.split("<table").join("<span class=\"table\"").split("</table>").join("%%</span>").split("<tr").join("<span class=\"tr\"").split("</tr>").join("%%%</span>").split("<td").join("<span class=\"td\"").split("</td>").join("%%%%</span>").split("<tbody").join("<span class=\"tbody\"").split("</tbody>").join("%%%%%</span>");
@@ -128,23 +128,23 @@ function DatatreeAltLoadFromTextarea(type, preload) { // fullscreen  html editor
                 }
             }
         }
-        var datatree = DATATREE.TREE ? DATATREE.TREE : this;
-        datatree.VIEW = datatree.TOOLBAR + "<button style='padding:10px;' type='button' onclick='return DatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><div id='datatree_load_area' class='" + type + "'>" + DATATREE.InsertAltEditor(txt) + "</div>";
+        var datatree = ZTREE.TREE ? ZTREE.TREE : this;
+        datatree.VIEW = datatree.TOOLBAR + "<button style='padding:10px;' type='button' onclick='return ZtreeLoadFromTextarea2();'>SUBMIT >>></button><br/><div id='ztree_load_area' class='" + type + "'>" + ZTREE.InsertAltEditor(txt) + "</div>";
         datatree.RefreshGUI();
-        DATATREE.InitializeAltEditor('textarea.tinymce_fullscreen', '100%', 'auto', true);
+        ZTREE.InitializeAltEditor('textarea.tinymce_fullscreen', '100%', 'auto', true);
     } catch (exc) {
     }
 }
-function DatatreeInsertAltEditor(html) {
+function ZtreeInsertAltEditor(html) {
     try {
-        var alteditor = "<textarea style='white-space:pre;' class='tinymce_fullscreen' id='datatree_fullscreen_editor' rows='20' cols='150'>" + html + "</textarea>";
+        var alteditor = "<textarea style='white-space:pre;' class='tinymce_fullscreen' id='ztree_fullscreen_editor' rows='20' cols='150'>" + html + "</textarea>";
         return alteditor;
     } catch (exc) {
         alert(exc);
     }
 }
-function DatatreeInitializeAltEditor(s, w, h, full) {
-    if (DatatreeInitializeAltEditor.arguments.length < 2) {
+function ZtreeInitializeAltEditor(s, w, h, full) {
+    if (ZtreeInitializeAltEditor.arguments.length < 2) {
         w = '100%';
         h = 'auto';
         full = false;
@@ -184,32 +184,32 @@ function DatatreeInitializeAltEditor(s, w, h, full) {
         resize: 'both',
         browser_spellcheck: 'true',
     });
-    if (DatatreeInitializeAltEditor.arguments.length > 3 && full == true) {
-        tinymce.execCommand('mceAddControl', false, 'datatree_fullscreen_editor');
+    if (ZtreeInitializeAltEditor.arguments.length > 3 && full == true) {
+        tinymce.execCommand('mceAddControl', false, 'ztree_fullscreen_editor');
     }
 }
-function DatatreeAltQueryDocumentation() {
+function ZtreeAltQueryDocumentation() {
 }
-function DatatreeCustom() { // this is a customizable function...replace this code with your own
+function ZtreeCustom() { // this is a customizable function...replace this code with your own
     try {
-        var custombutton = document.getElementById('datatree_custom_button');
+        var custombutton = document.getElementById('ztree_custom_button');
         if (custombutton != null && custombutton != 'undefined') {
-            DatatreeQueryDocumentation(); // uncomment for desktop application
+            ZtreeQueryDocumentation(); // uncomment for desktop application
         }
     } catch (exc) {
         alert(exc);
     }
 }
-function DatatreeCustom2() { // this is a customizable function...replace this code with your own
+function ZtreeCustom2() { // this is a customizable function...replace this code with your own
     try {
-        var custombutton = document.getElementById('datatree_custom2_button');
+        var custombutton = document.getElementById('ztree_custom2_button');
         if (custombutton != null && custombutton != 'undefined') {
         }
     } catch (exc) {
         alert(exc);
     }
 }
-function Datatree(){
+function Ztree(){
     this.AltLoadFromTextarea; // ** customizable
     this.CleanHTMLForEditor; // ** customizable
     this.CleanHTMLFromEditor; // ** customizable
@@ -219,82 +219,82 @@ function Datatree(){
     this.RemoveAltEditorInstance;// ** customizable
     this.SetAltEditorContent; // ** customizable
     this.ShowAltEditBox; // ** customizable
-    this.AllowBackspace = DatatreeAllowBackspace;
-    this.Alphabetize = DatatreeAutoAlphabetize;
+    this.AllowBackspace = ZtreeAllowBackspace;
+    this.Alphabetize = ZtreeAutoAlphabetize;
     this.AltQueryDocumentation; // ** customizable
-    this.ArraySwap = DatatreeArraySwap;
-    this.AutoInit = DatatreeAutoInit;
-    this.Initialize = DatatreeAutoInit;
-    this.AutoSearchMacro = DatatreeAutoSearchMacro;
-    this.CleanHTML = DatatreeCleanHTML;
-    this.CloseContextMenu = DatatreeCloseContextMenu;
-    this.CloseEditBox = DatatreeCloseEditBox;
-    this.CloseMenu = DatatreeCloseMenu;
-    this.ClosePopupBox = DatatreeClosePopupBox;
-    this.CloseWaitBox = DatatreeCloseWaitBox;
-    this.Collapse = DatatreeAutoCollapse;
-    this.ContextMenu = DatatreeContextMenu;
+    this.ArraySwap = ZtreeArraySwap;
+    this.AutoInit = ZtreeAutoInit;
+    this.Initialize = ZtreeAutoInit;
+    this.AutoSearchMacro = ZtreeAutoSearchMacro;
+    this.CleanHTML = ZtreeCleanHTML;
+    this.CloseContextMenu = ZtreeCloseContextMenu;
+    this.CloseEditBox = ZtreeCloseEditBox;
+    this.CloseMenu = ZtreeCloseMenu;
+    this.ClosePopupBox = ZtreeClosePopupBox;
+    this.CloseWaitBox = ZtreeCloseWaitBox;
+    this.Collapse = ZtreeAutoCollapse;
+    this.ContextMenu = ZtreeContextMenu;
     this.Custom; // ** customizable
     this.Custom2; // ** customizable
-    this.DisallowBackspace = DatatreeDisallowBackspace;
-    this.EncodeArrows = DatatreeEncodeArrows;
-    this.EscapeTags = DatatreeEscapeTags;
-    this.EscapeTagsForPrint = DatatreeEscapeTagsForPrint;
-    this.Expand = DatatreeAutoExpand;
-    this.FocusContextMenu = DatatreeFocusContextMenu;
-    this.GetBrowser = DatatreeGetBrowser;
-    this.GetFileNameFromPath = DatatreeGetFileNameFromPath;
-    this.GetInitiator = DatatreeGetPopupEditInitiator;
-    this.GetOnload = DatatreeGetOnload;
-    this.GetTreeFromName = DatatreeGetTreeFromName;
-    this.GoToFile = DatatreeGoToFile;
-	this.HighlightTree = DatatreeHighlightTree;
-    this.IsTableTag = DatatreeIsTableTag;
-    this.LeftStringTrim = DatatreeLeftStringTrim;
-    this.Load = DatatreeAutoLoad;
-    this.LoadFromToolbar = DatatreeAutoLoadFromToolbar;
-    this.LoadSitemap = DatatreeLoadSitemap;
-    this.MenuMouseClick = DatatreeMenuMouseClick;
-    this.MenuMouseOver = DatatreeMenuMouseOver;
-    this.MenuMouseOut = DatatreeMenuMouseOut;
-    this.Next = DatatreeAutoNext;
-    this.Number = DatatreeAutoNumber;
-    this.OpenMenu = DatatreeOpenMenu;
-    this.PreventDefault = DatatreePreventDefault;
-    this.Previous = DatatreeAutoPrevious;
-    this.PrintCode = DatatreeAutoPrintCode;
-    this.PrintHtml = DatatreeAutoPrintHtml;
-    this.PrintList = DatatreeAutoPrintList;
-    this.PrintText = DatatreeAutoPrintText;
-    this.Query = DatatreeAutoQuery;
-    this.QueryDocumentation = DatatreeQueryDocumentation;
-    this.ReadFile = DatatreeReadFile;
-    this.RemoveEmptyEndTags = DatatreeRemoveEmptyEndTags;
-    this.RemoveTableWrappers = DatatreeRemoveTableWrappers;
-    this.Replace = DatatreeAutoReplace;
-    this.Reset = DatatreeAutoReset;
-    this.ResetMacro = DatatreeResetMacro;
-    this.Response = DatatreeAutoResponse;
-    this.RightClick = DatatreeRightClick;
-    this.RightStringTrim = DatatreeRightStringTrim;
-    this.Save = DatatreeAutoSave;
-    this.SaveMax = DatatreeAutoSaveMax;
-    this.Search = DatatreeAutoSearch;
-    this.SearchMacro = DatatreeSearchMacro;
-    this.SetInitiator = DatatreeSetPopupEditInitiator;
-    this.SetTreeFromName = DatatreeSetTreeFromName;
-    this.ShowPopupBox = DatatreeShowPopupBox;
-    this.Skip = DatatreeAutoSkip;
-    this.StringTrim = DatatreeStringTrim;
-    this.StripTags = DatatreeStripTags;
-    this.StripTagsPHPJS = DatatreeStripTagsPHPJS;
-    this.StripTagLeaveInner = DatatreeStripTagLeaveInner;
-    this.StripTagWithClassNameLeaveInner = DatatreeStripTagWithClassNameLeaveInner;
-    this.Tree = DatatreeTree;
-    this.ToolbarSelect = DatatreeAutoToolbarSelect;
-    this.Wait = DatatreeWait;
+    this.DisallowBackspace = ZtreeDisallowBackspace;
+    this.EncodeArrows = ZtreeEncodeArrows;
+    this.EscapeTags = ZtreeEscapeTags;
+    this.EscapeTagsForPrint = ZtreeEscapeTagsForPrint;
+    this.Expand = ZtreeAutoExpand;
+    this.FocusContextMenu = ZtreeFocusContextMenu;
+    this.GetBrowser = ZtreeGetBrowser;
+    this.GetFileNameFromPath = ZtreeGetFileNameFromPath;
+    this.GetInitiator = ZtreeGetPopupEditInitiator;
+    this.GetOnload = ZtreeGetOnload;
+    this.GetTreeFromName = ZtreeGetTreeFromName;
+    this.GoToFile = ZtreeGoToFile;
+	this.HighlightTree = ZtreeHighlightTree;
+    this.IsTableTag = ZtreeIsTableTag;
+    this.LeftStringTrim = ZtreeLeftStringTrim;
+    this.Load = ZtreeAutoLoad;
+    this.LoadFromToolbar = ZtreeAutoLoadFromToolbar;
+    this.LoadSitemap = ZtreeLoadSitemap;
+    this.MenuMouseClick = ZtreeMenuMouseClick;
+    this.MenuMouseOver = ZtreeMenuMouseOver;
+    this.MenuMouseOut = ZtreeMenuMouseOut;
+    this.Next = ZtreeAutoNext;
+    this.Number = ZtreeAutoNumber;
+    this.OpenMenu = ZtreeOpenMenu;
+    this.PreventDefault = ZtreePreventDefault;
+    this.Previous = ZtreeAutoPrevious;
+    this.PrintCode = ZtreeAutoPrintCode;
+    this.PrintHtml = ZtreeAutoPrintHtml;
+    this.PrintList = ZtreeAutoPrintList;
+    this.PrintText = ZtreeAutoPrintText;
+    this.Query = ZtreeAutoQuery;
+    this.QueryDocumentation = ZtreeQueryDocumentation;
+    this.ReadFile = ZtreeReadFile;
+    this.RemoveEmptyEndTags = ZtreeRemoveEmptyEndTags;
+    this.RemoveTableWrappers = ZtreeRemoveTableWrappers;
+    this.Replace = ZtreeAutoReplace;
+    this.Reset = ZtreeAutoReset;
+    this.ResetMacro = ZtreeResetMacro;
+    this.Response = ZtreeAutoResponse;
+    this.RightClick = ZtreeRightClick;
+    this.RightStringTrim = ZtreeRightStringTrim;
+    this.Save = ZtreeAutoSave;
+    this.SaveMax = ZtreeAutoSaveMax;
+    this.Search = ZtreeAutoSearch;
+    this.SearchMacro = ZtreeSearchMacro;
+    this.SetInitiator = ZtreeSetPopupEditInitiator;
+    this.SetTreeFromName = ZtreeSetTreeFromName;
+    this.ShowPopupBox = ZtreeShowPopupBox;
+    this.Skip = ZtreeAutoSkip;
+    this.StringTrim = ZtreeStringTrim;
+    this.StripTags = ZtreeStripTags;
+    this.StripTagsPHPJS = ZtreeStripTagsPHPJS;
+    this.StripTagLeaveInner = ZtreeStripTagLeaveInner;
+    this.StripTagWithClassNameLeaveInner = ZtreeStripTagWithClassNameLeaveInner;
+    this.Tree = ZtreeTree;
+    this.ToolbarSelect = ZtreeAutoToolbarSelect;
+    this.Wait = ZtreeWait;
     // repeats with datatree properties not allowed
-    this.ADDRESS = "http://www.datatree.com/version/latest/Datatree.js";
+    this.ADDRESS = "http://www.ztree.com/version/latest/Ztree.js";
     this.ALT_EDITOR = false; // relates to 7.9.4
     this.ALT_EDITOR_TARGET_SPAN = null;
     this.ALT_SKIP_MESSAGE = "%%%%% SKIPPED %%%%%";
@@ -308,11 +308,11 @@ function Datatree(){
     this.DEFAULT_ACCORDION = -1;
     this.DEFAULT_INNER_WRAPPER = "DATALIST";
     this.DEFAULT_OUTER_WRAPPER = "DATATREE";
-    this.DEFAULT_TOOLBAR_NAME = "datatree_toolbar";
-    this.DEFAULT_EDITBOX_NAME = "datatree_editbox";
+    this.DEFAULT_TOOLBAR_NAME = "ztree_toolbar";
+    this.DEFAULT_EDITBOX_NAME = "ztree_editbox";
     this.DEFAULT_CLOSED_ICON = "<span class='closed'>&rArr;</span>";
     this.DEFAULT_EMPTY_ICON = "<span class='empty'>&EmptySmallSquare;</span>";
-    this.DEFAULT_GO_TO_FILE = "if(DATATREE.TEMP.toLowerCase().indexOf('.txt')>=0 || DATATREE.TEMP.toLowerCase().indexOf('.html')>=0 || DATATREE.TEMP.toLowerCase().indexOf('.htm')>=0){DATATREE.TREE.Query('LOAD ' + DATATREE.TEMP);DATATREE.GO_TO_FILE = '';DATATREE.WENT_TO_FILE = true;DATATREE.TREE.Query('collapse');};";
+    this.DEFAULT_GO_TO_FILE = "if(ZTREE.TEMP.toLowerCase().indexOf('.txt')>=0 || ZTREE.TEMP.toLowerCase().indexOf('.html')>=0 || ZTREE.TEMP.toLowerCase().indexOf('.htm')>=0){ZTREE.TREE.Query('LOAD ' + ZTREE.TEMP);ZTREE.GO_TO_FILE = '';ZTREE.WENT_TO_FILE = true;ZTREE.TREE.Query('collapse');};";
     this.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR = "cyan";
     this.DEFAULT_HIGHLIGHT_TEXT_COLOR = "navy";
     this.DEFAULT_OPEN_ICON = "<span class='open'>&dArr;</span>";
@@ -320,10 +320,10 @@ function Datatree(){
     this.DEFAULT_TOOLBAR_ALIGN = "left";
     this.DEFAULT_TOOLBAR_TOOLS = "collapse,expand,search_horizontal,next,previous,reset,edit,replace,alphabetize,query,number,freestyle";
     this.DEFAULT_TOOLBAR_FREESTYLE = "";
-    this.DOCUMENTATION_ADDRESS = "http://www.datatree.com/proxy/documentation.tree.html";
+    this.DOCUMENTATION_ADDRESS = "http://www.ztree.com/proxy/documentation.tree.html";
     this.INSERT = false;
     this.FULL_SCREEN_MODE = false;
-    this.GO_TO_FILE = ""; // go to file when click on line...insert function behavior here...does not require 'function(){...}'...text of line clicked stored in DATATREE.TEMP variable
+    this.GO_TO_FILE = ""; // go to file when click on line...insert function behavior here...does not require 'function(){...}'...text of line clicked stored in ZTREE.TEMP variable
     this.MACRO = new Array(); // stores data tree files, not tree components
     this.MACRO_SEARCH_RESULTS = new Array();
     this.MOUSE_DOWN_X = -1;
@@ -362,155 +362,155 @@ function Datatree(){
     this.WENT_TO_FILE = false;
     this.NAME_OF_SEARCH_RESULT = 'search_result';
     this.NAME_OF_LINENUMBER = 'linenumber';
-    this.NAME_OF_ARROW = 'datatree_arrow';
-    this.NAME_OF_CONTENT = 'datatree_content';
-    this.NAME_OF_UL = 'datatree_ul';
-    this.NAME_OF_LI = 'datatree_li';
+    this.NAME_OF_ARROW = 'ztree_arrow';
+    this.NAME_OF_CONTENT = 'ztree_content';
+    this.NAME_OF_UL = 'ztree_ul';
+    this.NAME_OF_LI = 'ztree_li';
 }
-function DatatreeTree(outer_wrapper) {
-    DATATREE.TREES.push(this);
-    this.AutoInitialize = DatatreeAutoInitialize;
-    this.Branch = DatatreeBranch;
-    this.Clear = DatatreeClear;
-    this.ClickTreeText = DatatreeClickTreeText;
-    this.CloseTree = DatatreeCloseTree;
-    this.DivHasSelfIndentingTag = DatatreeDivHasSelfIndentingTag;
-    this.DivHasKeeperNonTextTag = DatatreeDivHasKeeperNonTextTag;
-    this.DivHasContentTag = DatatreeDivHasContentTag;
-    this.DoNotWrapOuterElement = DatatreeDoNotWrapOuterElement;
-    this.Edit = DatatreeEdit;
-    this.EditTreeText = DatatreeEditTreeText;
-    this.EvenSpacing = DatatreeEvenSpacing;
-    this.EvenSpacing2 = DatatreeEvenSpacing2;
-    this.GetCode = DatatreeGetCode;
-    this.GetFile = DatatreeGetFile;
-    this.GetFileMax = DatatreeGetFileMax;
-    this.GetHtml = DatatreeGetHtmlParagraphs;
-    this.GetHtmlLines = DatatreeGetHtmlLines;
-    this.GetLettering = DatatreeGetLettering;
-    this.GetList = DatatreeGetList;
-    this.GetMacroIndexForNode = DatatreeGetMacroIndexForNode;
-    this.GetOuterElement = DatatreeGetOuterElement;
-    this.GetScrollForSearch = DatatreeGetScrollForSearch;
-    this.GetSkipMessage = DatatreeGetSkipMessage;
-    this.GetText = DatatreeGetText;
-    this.GetTextForPrint = DatatreeGetTextForPrint;
-    this.GetTextTreeFile = DatatreeGetTextTreeFile;
-    this.GetType = DatatreeGetType;
-    this.GetView = DatatreeGetView;
-    this.HighlightSpan = DatatreeHighlightSpan;
-    this.HtmlLineBreaks = DatatreeHtmlLineBreaks;
-    this.Indent = DatatreeIndent;
-    this.Init = DatatreeInit;
-    this.InitReplaceResults = DatatreeInitReplaceResults;
-    this.InitSearchResults = DatatreeInitSearchResults;
-    this.InsertClickTreeText = DatatreeInsertClickTreeText;
-    this.InsertEditTreeText = DatatreeInsertEditTreeText;
-    this.IsRemovableFormatTag = DatatreeIsRemovableFormatTag;
-    this.LoadFromTextarea = DatatreeLoadFromTextarea;
-    this.LoadFromTextarea2 = DatatreeLoadFromTextarea2;
-    this.LoadFromToolbar = DatatreeLoadFromToolbar;
-    this.MouseDownSpan = DatatreeMouseDownSpan;
-    this.MouseUpSpan = DatatreeMouseUpSpan;
-    this.HtmlBody = DatatreeHtmlBody;
-    this.HtmlCode = DatatreeHtmlCode;
-    this.HtmlText = DatatreeHtmlText;
-    this.PlainText = DatatreePlainText;
-    this.Print = DatatreePrint;
-    this.PrintCode = DatatreePrintCode;
-    this.PrintFile = DatatreePrintFile;
-    this.PrintFileMax = DatatreePrintFileMax;
-    this.PrintHead = DatatreePrintHead;
-    this.PrintHtml = DatatreePrintHtml;
-    this.PrintHtmlLines = DatatreePrintHtmlLines;
-    this.PrintList = DatatreePrintList;
-    this.PrintText = DatatreePrintText;
-    this.PrintTextTree = DatatreePrintTextTree;
-    this.ProcessTree = DatatreeProcessTree;
-    this.Query = DatatreeQuery;
-    this.Refresh = DatatreeRefresh;
-    this.RefreshGUI = DatatreeRefreshGUI;
-    this.RemoveHtmlComments = DatatreeRemoveHtmlComments;
-    this.RemoveTables = DatatreeRemoveTables;
-    this.ReplaceBranch = DatatreeReplaceBranch;
-    this.ResetReplace = DatatreeResetReplace;
-    this.Replay = DatatreeReplay;
-    this.ResetEditBox = DatatreeResetEditBox;
-    this.ResetToolbarSelect = DatatreeResetToolbarSelect;
-    this.RestoreView = DatatreeRestoreView;
-    this.ScrollToSpan = DatatreeScrollToSpan;
-    this.SetClosedIcon = DatatreeSetClosedIcon;
-    this.SetEmptyIcon = DatatreeSetEmptyIcon;
-    this.SetIcons = DatatreeSetIcons;
-    this.SetOpenIcon = DatatreeSetOpenIcon;
-    this.SetTableStyle = DatatreeSetTableStyle;
-    this.SetToolbar = DatatreeSetToolbar;
-    this.SetType = DatatreeSetType;
-    this.SetTypeConditionally = DatatreeSetTypeConditionally;
-    this.ShowEditBox = DatatreeShowEditBox;
-    this.SubmitEdit = DatatreeSubmitEdit;
-    this.SetTreeHeight = DatatreeSetTreeHeight;
-    this.SwapBranches = DatatreeSwapBranches;
-    this.SyncFromRootNode = DatatreeSyncFromRootNode;
-    this.SyncFromDataTree = DatatreeSyncFromDataTree;
-    this.Synchronize = DatatreeSynchronize;
-    this.TagRequiresLineBreak = DatatreeTagRequiresLineBreak;
-    this.TreeFromString = DatatreeTreeFromString;
-    this.UnhighlightSpan = DatatreeUnhighlightSpan;
-    this.UndoPreservedWhiteSpace = DatatreeUndoPreservedWhiteSpace;
-    this.UpdateContent = DatatreeUpdateContent;
-    this.UpdateHtmlContent = DatatreeUpdateHtmlContent;
-    this.View = DatatreeView;
-    this.ViewIndex = DatatreeViewIndex;
-    this.ViewIndexOfSpan = DatatreeViewIndexOfSpan;
-    this.ViewFindSpanFromLi = DatatreeViewFindSpanFromLi;
-    this.ViewFindLiFromSpan = DatatreeViewFindLiFromSpan;
-    this.ViewFindUlFromSpan = DatatreeViewFindUlFromSpan;
-    this.ViewSpandex = DatatreeViewSpandex;
-    this.ViewA = DatatreeViewA;
-    this.ViewSpan = DatatreeViewSpan;
-    this.ViewUl = DatatreeViewUl;
-    this.ViewLi = DatatreeViewLi;
-    this.ViewListElement = DatatreeViewListElement;
-    this.ViewOverwrite = DatatreeViewOverwrite;
-    this.ViewSibling = DatatreeViewSibling;
-    this.ViewChild = DatatreeViewChild;
-    this.ViewSwap = DatatreeViewSwap;
-    this.ViewUp = DatatreeViewUp;
-    this.ViewDown = DatatreeViewDown;
-    this.ViewSelright = DatatreeViewSelright;
-    this.ViewSecright = DatatreeViewSecright;
-    this.ViewRight = DatatreeViewRight;
-    this.ViewLeft = DatatreeViewLeft;
-    this.View_Left = DatatreeView_Left;
-    this.ViewCut = DatatreeViewCut;
-    this.View_Cut = DatatreeView_Cut;
-    this.ViewCopysel = DatatreeViewCopysel;
-    this.ViewCopysec = DatatreeViewCopysec;
-    this.ViewCopy = DatatreeViewCopy;
-    this.ViewPaste = DatatreeViewPaste;
-    this.View_Paste = DatatreeView_Paste;
-    this.ViewRemove = DatatreeViewRemove;
-    this.ViewOpenToSpan = DatatreeViewOpenToSpan;
-    this.ViewExpand = DatatreeViewExpand;
-    this.ViewCollapse = DatatreeViewCollapse;
-    this.ViewSearch = DatatreeViewSearch;
-    this.ViewSearch2 = DatatreeViewSearch2;
-    this.ViewNext = DatatreeViewNext;
-    this.ViewPrevious = DatatreeViewPrevious;
-    this.ViewReset = DatatreeViewReset;
-    this.ViewTrim = DatatreeViewTrim;
-    this.ViewRoot = DatatreeViewRoot;
-    this.ViewSpanIsRoot = DatatreeViewSpanIsRoot;
-    this.ViewClick = DatatreeViewClick;
-    this.ViewGetList = DatatreeViewGetList;
-    this.ViewGetList2 = DatatreeViewGetList2;
-    this.ViewNumber = DatatreeViewNumber;
-    this.ViewClose = DatatreeViewClose;
-    this.ViewReplace = DatatreeViewReplace;
-    this.ViewInitReplaceResults = DatatreeViewInitReplaceResults;
-    this.ViewAlphabetize = DatatreeViewAlphabetize;
-    // repeats with Datatree properties not allowed
+function ZtreeTree(outer_wrapper) {
+    ZTREE.TREES.push(this);
+    this.AutoInitialize = ZtreeAutoInitialize;
+    this.Branch = ZtreeBranch;
+    this.Clear = ZtreeClear;
+    this.ClickTreeText = ZtreeClickTreeText;
+    this.CloseTree = ZtreeCloseTree;
+    this.DivHasSelfIndentingTag = ZtreeDivHasSelfIndentingTag;
+    this.DivHasKeeperNonTextTag = ZtreeDivHasKeeperNonTextTag;
+    this.DivHasContentTag = ZtreeDivHasContentTag;
+    this.DoNotWrapOuterElement = ZtreeDoNotWrapOuterElement;
+    this.Edit = ZtreeEdit;
+    this.EditTreeText = ZtreeEditTreeText;
+    this.EvenSpacing = ZtreeEvenSpacing;
+    this.EvenSpacing2 = ZtreeEvenSpacing2;
+    this.GetCode = ZtreeGetCode;
+    this.GetFile = ZtreeGetFile;
+    this.GetFileMax = ZtreeGetFileMax;
+    this.GetHtml = ZtreeGetHtmlParagraphs;
+    this.GetHtmlLines = ZtreeGetHtmlLines;
+    this.GetLettering = ZtreeGetLettering;
+    this.GetList = ZtreeGetList;
+    this.GetMacroIndexForNode = ZtreeGetMacroIndexForNode;
+    this.GetOuterElement = ZtreeGetOuterElement;
+    this.GetScrollForSearch = ZtreeGetScrollForSearch;
+    this.GetSkipMessage = ZtreeGetSkipMessage;
+    this.GetText = ZtreeGetText;
+    this.GetTextForPrint = ZtreeGetTextForPrint;
+    this.GetTextTreeFile = ZtreeGetTextTreeFile;
+    this.GetType = ZtreeGetType;
+    this.GetView = ZtreeGetView;
+    this.HighlightSpan = ZtreeHighlightSpan;
+    this.HtmlLineBreaks = ZtreeHtmlLineBreaks;
+    this.Indent = ZtreeIndent;
+    this.Init = ZtreeInit;
+    this.InitReplaceResults = ZtreeInitReplaceResults;
+    this.InitSearchResults = ZtreeInitSearchResults;
+    this.InsertClickTreeText = ZtreeInsertClickTreeText;
+    this.InsertEditTreeText = ZtreeInsertEditTreeText;
+    this.IsRemovableFormatTag = ZtreeIsRemovableFormatTag;
+    this.LoadFromTextarea = ZtreeLoadFromTextarea;
+    this.LoadFromTextarea2 = ZtreeLoadFromTextarea2;
+    this.LoadFromToolbar = ZtreeLoadFromToolbar;
+    this.MouseDownSpan = ZtreeMouseDownSpan;
+    this.MouseUpSpan = ZtreeMouseUpSpan;
+    this.HtmlBody = ZtreeHtmlBody;
+    this.HtmlCode = ZtreeHtmlCode;
+    this.HtmlText = ZtreeHtmlText;
+    this.PlainText = ZtreePlainText;
+    this.Print = ZtreePrint;
+    this.PrintCode = ZtreePrintCode;
+    this.PrintFile = ZtreePrintFile;
+    this.PrintFileMax = ZtreePrintFileMax;
+    this.PrintHead = ZtreePrintHead;
+    this.PrintHtml = ZtreePrintHtml;
+    this.PrintHtmlLines = ZtreePrintHtmlLines;
+    this.PrintList = ZtreePrintList;
+    this.PrintText = ZtreePrintText;
+    this.PrintTextTree = ZtreePrintTextTree;
+    this.ProcessTree = ZtreeProcessTree;
+    this.Query = ZtreeQuery;
+    this.Refresh = ZtreeRefresh;
+    this.RefreshGUI = ZtreeRefreshGUI;
+    this.RemoveHtmlComments = ZtreeRemoveHtmlComments;
+    this.RemoveTables = ZtreeRemoveTables;
+    this.ReplaceBranch = ZtreeReplaceBranch;
+    this.ResetReplace = ZtreeResetReplace;
+    this.Replay = ZtreeReplay;
+    this.ResetEditBox = ZtreeResetEditBox;
+    this.ResetToolbarSelect = ZtreeResetToolbarSelect;
+    this.RestoreView = ZtreeRestoreView;
+    this.ScrollToSpan = ZtreeScrollToSpan;
+    this.SetClosedIcon = ZtreeSetClosedIcon;
+    this.SetEmptyIcon = ZtreeSetEmptyIcon;
+    this.SetIcons = ZtreeSetIcons;
+    this.SetOpenIcon = ZtreeSetOpenIcon;
+    this.SetTableStyle = ZtreeSetTableStyle;
+    this.SetToolbar = ZtreeSetToolbar;
+    this.SetType = ZtreeSetType;
+    this.SetTypeConditionally = ZtreeSetTypeConditionally;
+    this.ShowEditBox = ZtreeShowEditBox;
+    this.SubmitEdit = ZtreeSubmitEdit;
+    this.SetTreeHeight = ZtreeSetTreeHeight;
+    this.SwapBranches = ZtreeSwapBranches;
+    this.SyncFromRootNode = ZtreeSyncFromRootNode;
+    this.SyncFromDataTree = ZtreeSyncFromDataTree;
+    this.Synchronize = ZtreeSynchronize;
+    this.TagRequiresLineBreak = ZtreeTagRequiresLineBreak;
+    this.TreeFromString = ZtreeTreeFromString;
+    this.UnhighlightSpan = ZtreeUnhighlightSpan;
+    this.UndoPreservedWhiteSpace = ZtreeUndoPreservedWhiteSpace;
+    this.UpdateContent = ZtreeUpdateContent;
+    this.UpdateHtmlContent = ZtreeUpdateHtmlContent;
+    this.View = ZtreeView;
+    this.ViewIndex = ZtreeViewIndex;
+    this.ViewIndexOfSpan = ZtreeViewIndexOfSpan;
+    this.ViewFindSpanFromLi = ZtreeViewFindSpanFromLi;
+    this.ViewFindLiFromSpan = ZtreeViewFindLiFromSpan;
+    this.ViewFindUlFromSpan = ZtreeViewFindUlFromSpan;
+    this.ViewSpandex = ZtreeViewSpandex;
+    this.ViewA = ZtreeViewA;
+    this.ViewSpan = ZtreeViewSpan;
+    this.ViewUl = ZtreeViewUl;
+    this.ViewLi = ZtreeViewLi;
+    this.ViewListElement = ZtreeViewListElement;
+    this.ViewOverwrite = ZtreeViewOverwrite;
+    this.ViewSibling = ZtreeViewSibling;
+    this.ViewChild = ZtreeViewChild;
+    this.ViewSwap = ZtreeViewSwap;
+    this.ViewUp = ZtreeViewUp;
+    this.ViewDown = ZtreeViewDown;
+    this.ViewSelright = ZtreeViewSelright;
+    this.ViewSecright = ZtreeViewSecright;
+    this.ViewRight = ZtreeViewRight;
+    this.ViewLeft = ZtreeViewLeft;
+    this.View_Left = ZtreeView_Left;
+    this.ViewCut = ZtreeViewCut;
+    this.View_Cut = ZtreeView_Cut;
+    this.ViewCopysel = ZtreeViewCopysel;
+    this.ViewCopysec = ZtreeViewCopysec;
+    this.ViewCopy = ZtreeViewCopy;
+    this.ViewPaste = ZtreeViewPaste;
+    this.View_Paste = ZtreeView_Paste;
+    this.ViewRemove = ZtreeViewRemove;
+    this.ViewOpenToSpan = ZtreeViewOpenToSpan;
+    this.ViewExpand = ZtreeViewExpand;
+    this.ViewCollapse = ZtreeViewCollapse;
+    this.ViewSearch = ZtreeViewSearch;
+    this.ViewSearch2 = ZtreeViewSearch2;
+    this.ViewNext = ZtreeViewNext;
+    this.ViewPrevious = ZtreeViewPrevious;
+    this.ViewReset = ZtreeViewReset;
+    this.ViewTrim = ZtreeViewTrim;
+    this.ViewRoot = ZtreeViewRoot;
+    this.ViewSpanIsRoot = ZtreeViewSpanIsRoot;
+    this.ViewClick = ZtreeViewClick;
+    this.ViewGetList = ZtreeViewGetList;
+    this.ViewGetList2 = ZtreeViewGetList2;
+    this.ViewNumber = ZtreeViewNumber;
+    this.ViewClose = ZtreeViewClose;
+    this.ViewReplace = ZtreeViewReplace;
+    this.ViewInitReplaceResults = ZtreeViewInitReplaceResults;
+    this.ViewAlphabetize = ZtreeViewAlphabetize;
+    // repeats with Ztree properties not allowed
     this.ACCORDION = -1;
     this.ALERTS = new Array();
     this.AUTO_ADJUST = false;
@@ -521,21 +521,21 @@ function DatatreeTree(outer_wrapper) {
     this.CONTENT = "";
     this.CURRENT_SEARCH_INDEX = -1;
     this.CURRENT_REPLACE_INDEX = -1;
-    this.ELEMENT_INNER_WRAPPER = DATATREE.DEFAULT_INNER_WRAPPER;
-    if (DatatreeTree.arguments.length >= 1){
+    this.ELEMENT_INNER_WRAPPER = ZTREE.DEFAULT_INNER_WRAPPER;
+    if (ZtreeTree.arguments.length >= 1){
         this.ELEMENT_INNER_WRAPPER = outer_wrapper + "_inner";
     }
     this.ELEMENT_INNER_WRAPPER_STYLE = "list-style-type:none;display:block;padding-left:0px;margin-top:0px;border:1px solid gray;width:100%;overflow:scroll;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;";//webkit-touch-callout disables default browser blue drag highlighting
     this.ELEMENT_INNER_WRAPPER_HEIGHT = "500px";
-    this.ELEMENT_OUTER_WRAPPER = DATATREE.DEFAULT_OUTER_WRAPPER;
-    if (DatatreeTree.arguments.length >= 1){
+    this.ELEMENT_OUTER_WRAPPER = ZTREE.DEFAULT_OUTER_WRAPPER;
+    if (ZtreeTree.arguments.length >= 1){
         this.ELEMENT_OUTER_WRAPPER = outer_wrapper;
     }
     this.ELEMENT_OUTER_WRAPPER_STYLE = "";
     this.EMPTY_ICON = "<span class='empty'>&EmptySmallSquare;</span>";
     this.HAS_ERRORS = false;
-    this.HIGHLIGHT_BACKGROUND_COLOR = DATATREE.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR;
-    this.HIGHLIGHT_TEXT_COLOR = DATATREE.DEFAULT_HIGHLIGHT_TEXT_COLOR;
+    this.HIGHLIGHT_BACKGROUND_COLOR = ZTREE.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR;
+    this.HIGHLIGHT_TEXT_COLOR = ZTREE.DEFAULT_HIGHLIGHT_TEXT_COLOR;
     this.INDENTATION = 5; 
     this.LETTERING = "";
     this.LEVELS = new Array();
@@ -560,8 +560,8 @@ function DatatreeTree(outer_wrapper) {
     this.SETTABLE_PROPS = ["ACCORDION","CLOSED_ICON","EMPTY_ICON","HIGHLIGHT_BACKGROUND_COLOR","HIGHLIGHT_TEXT_COLOR","INDENTATION","LETTERING","OPEN_ICON","TITLE","TOOLBAR_TOOLS","TYPE"];
     this.TITLE = "TREE";
     this.TOOLBAR = "";
-    this.TOOLBAR_NAME = DATATREE.DEFAULT_TOOLBAR_NAME;
-    if (DatatreeTree.arguments.length >= 1){
+    this.TOOLBAR_NAME = ZTREE.DEFAULT_TOOLBAR_NAME;
+    if (ZtreeTree.arguments.length >= 1){
         this.TOOLBAR_NAME = outer_wrapper + "_toolbar";
     }
     this.TOOLBAR_LOWER_BOUND_NAME = this.TOOLBAR_NAME + "_lower_bound";
@@ -573,7 +573,7 @@ function DatatreeTree(outer_wrapper) {
     this.TOOLBAR_STATUS_NAME = this.TOOLBAR_NAME + "_status";
     this.TOOLBAR_UPPER_BOUND_NAME = this.TOOLBAR_NAME + "_upper_bound";
     this.TOOLBAR_QUERYWINDOW_NAME = this.TOOLBAR_NAME + "_querywindow";
-    this.TOOLBAR_TOOLS = DATATREE.DEFAULT_TOOLBAR_TOOLS;
+    this.TOOLBAR_TOOLS = ZTREE.DEFAULT_TOOLBAR_TOOLS;
     this.TYPE = "text"; // relates to 7.9.4
     if (document.getElementById(this.ELEMENT_OUTER_WRAPPER) && document.getElementById(this.ELEMENT_OUTER_WRAPPER).getAttribute('type')){
         this.TYPE = document.getElementById(this.ELEMENT_OUTER_WRAPPER).getAttribute('type');
@@ -593,33 +593,33 @@ function DatatreeTree(outer_wrapper) {
     //this.InsertEditTreeText();
     //this.RefreshGUI();
 }
-function DatatreeBranch(txt, tree) {
-    this.AddBranch = DatatreeAddBranch;
-    this.Click = DatatreeClick;
-    this.Clone = DatatreeCloneBranch;
-    this.Close = DatatreeClose;
-    this.CountFromTop = DatatreeCountFromTop; // vertical top down number from root
-    this.GetChildCount = DatatreeGetChildCount;
-    this.GetIndex = DatatreeGetIndex; // vertical index in children list of parent node
-    this.GetLevel = DatatreeGetLevel; // horizontal depth
-    this.InsertBranch = DatatreeInsertBranch;
-    this.Iterate = DatatreeListIterate;
-    this.RemoveAllBranches = DatatreeRemoveAllBranches;
-    this.RemoveBranch = DatatreeRemoveBranch;
+function ZtreeBranch(txt, tree) {
+    this.AddBranch = ZtreeAddBranch;
+    this.Click = ZtreeClick;
+    this.Clone = ZtreeCloneBranch;
+    this.Close = ZtreeClose;
+    this.CountFromTop = ZtreeCountFromTop; // vertical top down number from root
+    this.GetChildCount = ZtreeGetChildCount;
+    this.GetIndex = ZtreeGetIndex; // vertical index in children list of parent node
+    this.GetLevel = ZtreeGetLevel; // horizontal depth
+    this.InsertBranch = ZtreeInsertBranch;
+    this.Iterate = ZtreeListIterate;
+    this.RemoveAllBranches = ZtreeRemoveAllBranches;
+    this.RemoveBranch = ZtreeRemoveBranch;
     this.CHILDREN = new Array();
     this.DISPLAY = "block";
-    this.TEXT = tree.AUTO_TRIM == true? DATATREE.StringTrim(txt) : txt;
+    this.TEXT = tree.AUTO_TRIM == true? ZTREE.StringTrim(txt) : txt;
     this.INDENTATION = txt.indexOf(this.TEXT.charAt(0));
     this.LINK = "";
     this.PARENT_NODE = "";
     this.TREE = tree;
     this.LINK = this.TREE.EMPTY_ICON;
 }
-function DatatreeViewExpand(span){
+function ZtreeViewExpand(span){
    var ul;
    var root = false;
-   if (DatatreeViewExpand.arguments.length < 1 || span == null || span == "undefined"){
-      ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   if (ZtreeViewExpand.arguments.length < 1 || span == null || span == "undefined"){
+      ul = document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER);
       root = true;
    } else {
       ul = this.ViewFindUlFromSpan(span);
@@ -629,33 +629,33 @@ function DatatreeViewExpand(span){
         ul.style.display = "block";
         var li = this.ViewFindLiFromSpan(span);
         if (li){
-           var arrow = li.getElementsByClassName('datatree_arrow')[0];
+           var arrow = li.getElementsByClassName('ztree_arrow')[0];
            if (arrow && arrow.firstChild.className != "empty"){
-              arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
+              arrow.innerHTML = ZTREE.TREE.OPEN_ICON;
            }
         }
      }
-     var uls = ul.getElementsByClassName('datatree_ul');
+     var uls = ul.getElementsByClassName('ztree_ul');
      for (var count = 0; count < uls.length; ++count){
         uls[count].style.display = 'block';
      }
-     var arrows = ul.getElementsByClassName('datatree_arrow');
+     var arrows = ul.getElementsByClassName('ztree_arrow');
      for (var count = 0; count < arrows.length; ++count){
         var arrow = arrows[count];
         if (arrow.firstChild.className != "empty"){
-           arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
+           arrow.innerHTML = ZTREE.TREE.OPEN_ICON;
         }
      }
      if (root){
-        //DatatreeViewClick(DatatreeViewRoot());
+        //ZtreeViewClick(ZtreeViewRoot());
      }
    }
 }
-function DatatreeViewCollapse(span){
+function ZtreeViewCollapse(span){
    var ul;
    var root = false;
-   if (DatatreeViewCollapse.arguments.length < 1 || span == null || span == "undefined"){
-      ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   if (ZtreeViewCollapse.arguments.length < 1 || span == null || span == "undefined"){
+      ul = document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER);
       root = true;
    } else {
       ul = this.ViewFindUlFromSpan(span);
@@ -665,91 +665,91 @@ function DatatreeViewCollapse(span){
         ul.style.display = "none";
         var li = this.ViewFindLiFromSpan(span);
         if (li){
-           var arrow = li.getElementsByClassName('datatree_arrow')[0];
+           var arrow = li.getElementsByClassName('ztree_arrow')[0];
            if (arrow && arrow.firstChild.className != "empty"){
-              arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
+              arrow.innerHTML = ZTREE.TREE.CLOSED_ICON;
            }
         }
      }
-     var uls = ul.getElementsByClassName('datatree_ul');
+     var uls = ul.getElementsByClassName('ztree_ul');
      for (var count = 0; count < uls.length; ++count){
         uls[count].style.display = 'none';
      }
-     var arrows = ul.getElementsByClassName('datatree_arrow');
+     var arrows = ul.getElementsByClassName('ztree_arrow');
      for (var count = 0; count < arrows.length; ++count){
         var arrow = arrows[count];
         if (arrow.firstChild.className != "empty"){
-           arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
+           arrow.innerHTML = ZTREE.TREE.CLOSED_ICON;
         }
      }
      if (root){
-        DatatreeViewClick(DatatreeViewRoot());
+        ZtreeViewClick(ZtreeViewRoot());
      }
    }
 }
-function DatatreeViewRoot(){
-   return document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
+function ZtreeViewRoot(){
+   return document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
 }
-function DatatreeViewClick(li){
+function ZtreeViewClick(li){
    if (li){
      var arrow = li.getElementsByTagName('a')[0];
      var ul = li.getElementsByTagName('ul')[0];
      if (ul.style.display == "block"){
         ul.style.display = "none";
-        arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
+        arrow.innerHTML = ZTREE.TREE.CLOSED_ICON;
      } else if (ul.style.display == "none"){
         ul.style.display = "block";
-        arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
+        arrow.innerHTML = ZTREE.TREE.OPEN_ICON;
      }
    }
 }
-function DatatreeViewSearch(searchterm,case_sensitive,exact_matches,regular_expression,dont_change_view){
-   if (DatatreeViewSearch.arguments.length < 1 || searchterm == null || searchterm == "undefined" || searchterm == ""){
-      searchterm = document.getElementById(DATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
+function ZtreeViewSearch(searchterm,case_sensitive,exact_matches,regular_expression,dont_change_view){
+   if (ZtreeViewSearch.arguments.length < 1 || searchterm == null || searchterm == "undefined" || searchterm == ""){
+      searchterm = document.getElementById(ZTREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
    }
-   if (DatatreeViewSearch.arguments.length < 2 || case_sensitive != true){
+   if (ZtreeViewSearch.arguments.length < 2 || case_sensitive != true){
       case_sensitive = false;
    }
-   if (DatatreeViewSearch.arguments.length < 3 || exact_matches != true){
+   if (ZtreeViewSearch.arguments.length < 3 || exact_matches != true){
       exact_matches = false;
    }
-   if (DatatreeViewSearch.arguments.length < 4 || regular_expression != true){
+   if (ZtreeViewSearch.arguments.length < 4 || regular_expression != true){
       regular_expression = false;
    }
-   if (DatatreeViewSearch.arguments.length < 5 || dont_change_view != true){
+   if (ZtreeViewSearch.arguments.length < 5 || dont_change_view != true){
       dont_change_view = false;
    }
    if (searchterm == ''){return;}
-   var tree = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   var tree = document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER);
    if (dont_change_view == false){
-     DatatreeViewCollapse();
-     DatatreeViewReset2(tree);
+     ZtreeViewCollapse();
+     ZtreeViewReset2(tree);
    }
-   DATATREE.TEMP = 0;
-   DatatreeViewSearch2(searchterm, tree, case_sensitive, exact_matches, regular_expression, dont_change_view);
-   if (DATATREE.REPRESS_ALERTS==false && dont_change_view == false){
-      if (DATATREE.TEMP == 0){
+   ZTREE.TEMP = 0;
+   ZtreeViewSearch2(searchterm, tree, case_sensitive, exact_matches, regular_expression, dont_change_view);
+   if (ZTREE.REPRESS_ALERTS==false && dont_change_view == false){
+      if (ZTREE.TEMP == 0){
          alert('No results.');
       } else {
-         alert('Found ' + DATATREE.TEMP + ' occurrences.');
+         alert('Found ' + ZTREE.TEMP + ' occurrences.');
       }
    }
 }
-function DatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regular_expression, dont_change_view){
+function ZtreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regular_expression, dont_change_view){
    try{
-   DATATREE.TREE.CURRENT_SEARCH_INDEX = -1;
-   DATATREE.TREE.SEARCH_RESULTS.length = 0;
-   var chldrn = ul.getElementsByClassName('datatree_content');
+   ZTREE.TREE.CURRENT_SEARCH_INDEX = -1;
+   ZTREE.TREE.SEARCH_RESULTS.length = 0;
+   var chldrn = ul.getElementsByClassName('ztree_content');
    for (var count = 0; count < chldrn.length; ++count){
      var span = chldrn[count];
      var ROOT = false;
-     if (DatatreeViewSpanIsRoot(span)){
+     if (ZtreeViewSpanIsRoot(span)){
         ROOT = true;
      }
      var txt = span.innerHTML;
      var MATCHES = false;
      if (ROOT == false){
-        var puretext = DATATREE.StripTags(txt);
+        var puretext = ZTREE.StripTags(txt);
         if (case_sensitive == false && regular_expression == false){
            puretext = puretext.toLowerCase();
            searchterm = searchterm.toLowerCase();
@@ -774,19 +774,19 @@ function DatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regu
      var div = document.createElement('div');
      div.innerHTML = txt;
      if (ROOT == false && MATCHES){
-       ++DATATREE.TEMP;
+       ++ZTREE.TEMP;
        if (dont_change_view == false){
-         var TEXT = "<span class='search_result' style='background-color:" + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + DATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
+         var TEXT = "<span class='search_result' style='background-color:" + ZTREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + ZTREE.TREE.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + ZTREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
          span.innerHTML = TEXT;
        }
-       DATATREE.TREE.SEARCH_RESULTS.push(span);
+       ZTREE.TREE.SEARCH_RESULTS.push(span);
        if (dont_change_view == false){
          var node = span.parentNode;
          while (node.nodeName.toLowerCase() != 'div'){
            if (node.nodeName.toLowerCase() == 'ul'){
              node.style.display = 'block';
            } else if (node.nodeName.toLowerCase() == 'li' && node != span.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-             node.getElementsByTagName('a')[0].innerHTML = DATATREE.TREE.OPEN_ICON;
+             node.getElementsByTagName('a')[0].innerHTML = ZTREE.TREE.OPEN_ICON;
            } 
            if (node.parentNode){ 
              node = node.parentNode;
@@ -798,16 +798,16 @@ function DatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regu
      }
    }
    if (dont_change_view == false){
-      DatatreeViewNext();
+      ZtreeViewNext();
    }
    }catch(exc){
-      if(DATATREE.REPRESS_ALERTS==false){
+      if(ZTREE.REPRESS_ALERTS==false){
          alert(exc);
       }
    } 
 }
 
-function DatatreeViewSpanIsRoot(span){
+function ZtreeViewSpanIsRoot(span){
      var ROOT = false;
      var li = span.parentNode;
      while (li.nodeName.toLowerCase() != "li"){
@@ -817,58 +817,58 @@ function DatatreeViewSpanIsRoot(span){
      while (ul.nodeName.toLowerCase() != "ul"){
         ul = ul.parentNode;
      }
-     if (ul.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER){
+     if (ul.id == ZTREE.TREE.ELEMENT_INNER_WRAPPER){
         ROOT = true;
      }
      return ROOT;
 }
 
-function DatatreeViewNext(){
-   if (DATATREE.TREE.CURRENT_SEARCH_INDEX < DATATREE.TREE.SEARCH_RESULTS.length - 1){
-      ++DATATREE.TREE.CURRENT_SEARCH_INDEX;
+function ZtreeViewNext(){
+   if (ZTREE.TREE.CURRENT_SEARCH_INDEX < ZTREE.TREE.SEARCH_RESULTS.length - 1){
+      ++ZTREE.TREE.CURRENT_SEARCH_INDEX;
    }
-   if (DATATREE.TREE.CURRENT_SEARCH_INDEX < DATATREE.TREE.SEARCH_RESULTS.length){
-      var span = DATATREE.TREE.SEARCH_RESULTS[DATATREE.TREE.CURRENT_SEARCH_INDEX];
+   if (ZTREE.TREE.CURRENT_SEARCH_INDEX < ZTREE.TREE.SEARCH_RESULTS.length){
+      var span = ZTREE.TREE.SEARCH_RESULTS[ZTREE.TREE.CURRENT_SEARCH_INDEX];
       if (span){
-        DATATREE.TREE.ViewOpenToSpan(span);
-        DATATREE.TREE.ScrollToSpan(span);
+        ZTREE.TREE.ViewOpenToSpan(span);
+        ZTREE.TREE.ScrollToSpan(span);
       }
    }
 }
 
-function DatatreeViewPrevious(){
-   if (DATATREE.TREE.CURRENT_SEARCH_INDEX > 0){
-      --DATATREE.TREE.CURRENT_SEARCH_INDEX;
+function ZtreeViewPrevious(){
+   if (ZTREE.TREE.CURRENT_SEARCH_INDEX > 0){
+      --ZTREE.TREE.CURRENT_SEARCH_INDEX;
    }
-   if (DATATREE.TREE.CURRENT_SEARCH_INDEX >= 0){
-      var span = DATATREE.TREE.SEARCH_RESULTS[DATATREE.TREE.CURRENT_SEARCH_INDEX];
-      DATATREE.TREE.ViewOpenToSpan(span);
-      DATATREE.TREE.ScrollToSpan(span);
+   if (ZTREE.TREE.CURRENT_SEARCH_INDEX >= 0){
+      var span = ZTREE.TREE.SEARCH_RESULTS[ZTREE.TREE.CURRENT_SEARCH_INDEX];
+      ZTREE.TREE.ViewOpenToSpan(span);
+      ZTREE.TREE.ScrollToSpan(span);
    }
 }
 
-function DatatreeViewClose(){
-   DATATREE.TREE.SELECTED_SPAN = null;
-   DatatreeViewCollapse();
+function ZtreeViewClose(){
+   ZTREE.TREE.SELECTED_SPAN = null;
+   ZtreeViewCollapse();
 }
-function DatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matches){
-       document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_NAME).value = "";
-       document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value = "";
-       DatatreeViewSearch(searchterm,case_sensitive,exact_matches,false,true);
-       if (DATATREE.TREE.REPLACE_RESULT_MESSAGE == true){
-           if (DATATREE.TREE.SEARCH_RESULTS.length > 0){
-               if (DATATREE.REPRESS_ALERTS == false) { alert('Your search returned: ' + DATATREE.TREE.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
+function ZtreeViewReplace(searchterm,replace_with,case_sensitive,exact_matches){
+       document.getElementById(ZTREE.TREE.TOOLBAR_REPLACE_NAME).value = "";
+       document.getElementById(ZTREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value = "";
+       ZtreeViewSearch(searchterm,case_sensitive,exact_matches,false,true);
+       if (ZTREE.TREE.REPLACE_RESULT_MESSAGE == true){
+           if (ZTREE.TREE.SEARCH_RESULTS.length > 0){
+               if (ZTREE.REPRESS_ALERTS == false) { alert('Your search returned: ' + ZTREE.TREE.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
            } else {
-               if (DATATREE.REPRESS_ALERTS == false) { alert('No results.'); }
+               if (ZTREE.REPRESS_ALERTS == false) { alert('No results.'); }
            }
        }
-       var amount = DATATREE.TREE.SEARCH_RESULTS.length;
-       if (DATATREE.TREE.SEARCH_RESULTS != null && DATATREE.TREE.SEARCH_RESULTS.length > 0){
-          DatatreeViewClose();
-          for (var count = 0; count < DATATREE.TREE.SEARCH_RESULTS.length; ++count){
-             var locate = DATATREE.TREE.SEARCH_RESULTS[count]; // span
+       var amount = ZTREE.TREE.SEARCH_RESULTS.length;
+       if (ZTREE.TREE.SEARCH_RESULTS != null && ZTREE.TREE.SEARCH_RESULTS.length > 0){
+          ZtreeViewClose();
+          for (var count = 0; count < ZTREE.TREE.SEARCH_RESULTS.length; ++count){
+             var locate = ZTREE.TREE.SEARCH_RESULTS[count]; // span
              if (locate != null){
-                var replace_result = "<span class=\"replace_result\" style=\"background-color:" + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + DATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
+                var replace_result = "<span class=\"replace_result\" style=\"background-color:" + ZTREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + ZTREE.TREE.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
                 // apparently, the string could already have the replace result in it, if it was a line with multiple search results
                 var temp = "*****temp*****";
                 if (temp.indexOf(searchterm) >= 0){
@@ -904,7 +904,7 @@ function DatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matche
                 var badindices = new Array();
                 var unstripped = "";
                 unstripped = locate.innerHTML.split(replace_result).join(temp);
-                var stripped = DATATREE.StripTags(unstripped);
+                var stripped = ZTREE.StripTags(unstripped);
                 var nextindex = unstripped.indexOf(searchterm, 0);//does not check exact matches
                 while (nextindex >= 0){
                    var indexfound = nextindex;
@@ -956,7 +956,7 @@ function DatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matche
                   if (node.nodeName.toLowerCase() == 'ul'){
                     node.style.display = 'block';
                   } else if (node.nodeName.toLowerCase() == 'li' && node != locate.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-                    node.getElementsByTagName('a')[0].innerHTML = DATATREE.TREE.OPEN_ICON;
+                    node.getElementsByTagName('a')[0].innerHTML = ZTREE.TREE.OPEN_ICON;
                   } 
                   if (node.parentNode){ 
                     node = node.parentNode;
@@ -968,45 +968,45 @@ function DatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matche
           }
        }
 }
-function DatatreeViewInitReplaceResults(){
-    DATATREE.TREE.REPLACE_RESULTS.length = 0;
-    DATATREE.TREE.CURRENT_REPLACE_INDEX = -1;
-    var spans = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
+function ZtreeViewInitReplaceResults(){
+    ZTREE.TREE.REPLACE_RESULTS.length = 0;
+    ZTREE.TREE.CURRENT_REPLACE_INDEX = -1;
+    var spans = document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
     for (var count = 0; count < spans.length; ++count){
          var span = spans[count];
          //if (span.className && span.className == "replace_result"){
-            DATATREE.TREE.REPLACE_RESULTS.push(span);
+            ZTREE.TREE.REPLACE_RESULTS.push(span);
          //}
     }
-    if (DATATREE.TREE.REPLACE_RESULTS.length > 0){
-       document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = 0;
-       DATATREE.TREE.CURRENT_REPLACE_INDEX = 0;
-       var span = DATATREE.TREE.REPLACE_RESULTS[0];
-       var y = DATATREE.TREE.GetScrollForSearch(span);
-       document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = y;
+    if (ZTREE.TREE.REPLACE_RESULTS.length > 0){
+       document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = 0;
+       ZTREE.TREE.CURRENT_REPLACE_INDEX = 0;
+       var span = ZTREE.TREE.REPLACE_RESULTS[0];
+       var y = ZTREE.TREE.GetScrollForSearch(span);
+       document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = y;
     }
 }
-function DatatreeViewCancelFullScreenEdit(){
-   document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
+function ZtreeViewCancelFullScreenEdit(){
+   document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = ZTREE.TREE.VIEW;
 }
-function DatatreeViewAlphabetize(mode,start,finish){
+function ZtreeViewAlphabetize(mode,start,finish){
    if (mode == "numbers"){
       if (typeof(start) != "number" || typeof(finish) != "number"){
-          if (DATATREE.REPRESS_ALERTS == false) { alert("invalid numbers"); }
+          if (ZTREE.REPRESS_ALERTS == false) { alert("invalid numbers"); }
           return null;
       }
       if (start >= finish){
-          if (DATATREE.REPRESS_ALERTS == false){ alert("start not less than finish"); }
+          if (ZTREE.REPRESS_ALERTS == false){ alert("start not less than finish"); }
           return null;
       }
       if (start < 0 || finish < 0){
-          if (DATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
+          if (ZTREE.REPRESS_ALERTS == false){ alert("out of range error");  }
           return null;
       }
-      var root = DatatreeViewRoot();
-      var spans = root.getElementsByClassName("datatree_content");
+      var root = ZtreeViewRoot();
+      var spans = root.getElementsByClassName("ztree_content");
       if (start > spans.length || finish > spans.length){
-          if (DATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
+          if (ZTREE.REPRESS_ALERTS == false){ alert("out of range error");  }
           return null;
       }
       var startnode = spans[start];
@@ -1020,7 +1020,7 @@ function DatatreeViewAlphabetize(mode,start,finish){
          ul2 = ul2.parentNode;
       }
       if (ul1 != ul2){
-         if (DATATREE.REPRESS_ALERTS == false){ alert("start and finish do not have the same parent"); }
+         if (ZTREE.REPRESS_ALERTS == false){ alert("start and finish do not have the same parent"); }
          return null;
       }
       var ul = ul1;
@@ -1048,7 +1048,7 @@ function DatatreeViewAlphabetize(mode,start,finish){
               }
               var earlierparent2 = earlierparent;
               if (earlierparent2 == ul && laterparent2 == ul){
-                if (DATATREE.StripTags(later.innerHTML).toLowerCase() < DATATREE.StripTags(earlier.innerHTML).toLowerCase()){
+                if (ZTREE.StripTags(later.innerHTML).toLowerCase() < ZTREE.StripTags(earlier.innerHTML).toLowerCase()){
                    var temp = earlierparent1.innerHTML;
                    earlierparent1.innerHTML = laterparent1.innerHTML;
                    laterparent1.innerHTML = temp;
@@ -1058,13 +1058,13 @@ function DatatreeViewAlphabetize(mode,start,finish){
         }
       }
    } else if (mode == "strings"){
-      var root = DatatreeViewRoot();
-      var spans = root.getElementsByClassName("datatree_content");
+      var root = ZtreeViewRoot();
+      var spans = root.getElementsByClassName("ztree_content");
       var startline = -1;
       var finishline = -1;
       for (var count = 0; count < spans.length; ++count){
          var span = spans[count];
-         var text = DATATREE.StripTags(span.innerHTML);
+         var text = ZTREE.StripTags(span.innerHTML);
          if (text == start){
             startline = count;
          } else if (text == finish){
@@ -1074,15 +1074,15 @@ function DatatreeViewAlphabetize(mode,start,finish){
             break;
          }
       }
-      DatatreeViewAlphabetize("numbers",startline,finishline);
+      ZtreeViewAlphabetize("numbers",startline,finishline);
    }
 }
-function DatatreeViewNumber(tree){
-   //if (DatatreeViewNumber.arguments.length < 1 || tree == null || tree == "undefined"){
-      //tree = DATATREE.TREE;
+function ZtreeViewNumber(tree){
+   //if (ZtreeViewNumber.arguments.length < 1 || tree == null || tree == "undefined"){
+      //tree = ZTREE.TREE;
    //}
-   var root = DatatreeViewRoot();
-   var spans = root.getElementsByClassName('datatree_content');
+   var root = ZtreeViewRoot();
+   var spans = root.getElementsByClassName('ztree_content');
    for (var count = 0; count < spans.length; ++count){
       if (count == 0){
          continue;
@@ -1093,8 +1093,8 @@ function DatatreeViewNumber(tree){
       spans[count].innerHTML = number + txt;
    }
 }
-function DatatreeViewIndex(start,stop){
-   if (DatatreeViewIndex.arguments.length != 2)
+function ZtreeViewIndex(start,stop){
+   if (ZtreeViewIndex.arguments.length != 2)
       return;
    try{
       start = parseInt(start);
@@ -1104,8 +1104,8 @@ function DatatreeViewIndex(start,stop){
    }
    if (start >= stop)
       return;
-   var root = DatatreeViewRoot();
-   var spans = root.getElementsByClassName('datatree_content');
+   var root = ZtreeViewRoot();
+   var spans = root.getElementsByClassName('ztree_content');
    var parent;
    var index = 1;
    var exit = false;
@@ -1135,36 +1135,36 @@ function DatatreeViewIndex(start,stop){
          break;
    }
 }
-function DatatreeViewReset(what){
-   if (DatatreeViewReset.arguments.length < 1){
+function ZtreeViewReset(what){
+   if (ZtreeViewReset.arguments.length < 1){
       what = "*";
    }
-   DATATREE.CloseEditBox();
+   ZTREE.CloseEditBox();
    if (what == "title"){
-      DATATREE.TREE.Query('CREATE FROM HTML ' + DATATREE.TREE.PrintHtml(true));
+      ZTREE.TREE.Query('CREATE FROM HTML ' + ZTREE.TREE.PrintHtml(true));
       return;
    }
-   var ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   var ul = document.getElementById(ZTREE.TREE.ELEMENT_INNER_WRAPPER);
    if (ul){
-      DatatreeViewReset2(ul,what);
+      ZtreeViewReset2(ul,what);
    } else {//?
-      //document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
+      //document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = ZTREE.TREE.VIEW;
    }
    if (what == "*"){
-     DATATREE.TREE.SELECTED_SPAN = null;
-     DatatreeViewCollapse();
+     ZTREE.TREE.SELECTED_SPAN = null;
+     ZtreeViewCollapse();
    }
 }
-function DatatreeViewReset2(ul,what){
+function ZtreeViewReset2(ul,what){
    if (what == "*"){
-      for (s in DATATREE.TREE.MOUSE_DRAG_SPANS){
-         var span = DATATREE.TREE.MOUSE_DRAG_SPANS[s];
-         DatatreeUnhighlightSpan(span);
+      for (s in ZTREE.TREE.MOUSE_DRAG_SPANS){
+         var span = ZTREE.TREE.MOUSE_DRAG_SPANS[s];
+         ZtreeUnhighlightSpan(span);
       }
-      if (DATATREE.TREE.SELECTED_SPAN){
-         DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
+      if (ZTREE.TREE.SELECTED_SPAN){
+         ZtreeUnhighlightSpan(ZTREE.TREE.SELECTED_SPAN);
       }
-      DATATREE.TREE.SELECTED_SPAN = null;
+      ZTREE.TREE.SELECTED_SPAN = null;
    }
    if (what == "*" || what == "linenumbers"){
      while (ul.getElementsByClassName('linenumber').length > 0){
@@ -1188,13 +1188,13 @@ function DatatreeViewReset2(ul,what){
      }
    }
    if (what == "*" || what == "replace_results"){
-      ul.innerHTML = ul.innerHTML.split(DATATREE.SKIP_MESSAGE).join(DATATREE.TREE.REPLACE);
+      ul.innerHTML = ul.innerHTML.split(ZTREE.SKIP_MESSAGE).join(ZTREE.TREE.REPLACE);
       while (ul.getElementsByClassName('replace_result').length > 0){
         var spans = ul.getElementsByClassName('replace_result');
         for (var count = 0; count < spans.length; ++count){
           var span = spans[count];
           var parent = span.parentNode;
-          while (parent.nodeName.toLowerCase() != 'span' && parent.className != 'datatree_content'){
+          while (parent.nodeName.toLowerCase() != 'span' && parent.className != 'ztree_content'){
              parent = parent.parentNode;
           }
           var html = parent.innerHTML;
@@ -1207,27 +1207,27 @@ function DatatreeViewReset2(ul,what){
         }
       }
    }
-   DATATREE.TREE.ResetReplace();
+   ZTREE.TREE.ResetReplace();
 }
-function DatatreeViewReset2_(ul){
-   var spans = ul.getElementsByTagName('span');for (var count = 0; count < spans.length; ++count){var span = spans[count];if (span.style.backgroundColor == 'cyan' || span.style.backgroundColor == 'rgb(0, 255, 255)'){if (span.className.indexOf('searchresult') >= 0){span.style.backgroundColor = '';span.style.color = '';span.className = span.className.split('searchresult').join('');if (DatatreeViewTrim(span.className) == ''){span.className = '';
+function ZtreeViewReset2_(ul){
+   var spans = ul.getElementsByTagName('span');for (var count = 0; count < spans.length; ++count){var span = spans[count];if (span.style.backgroundColor == 'cyan' || span.style.backgroundColor == 'rgb(0, 255, 255)'){if (span.className.indexOf('searchresult') >= 0){span.style.backgroundColor = '';span.style.color = '';span.className = span.className.split('searchresult').join('');if (ZtreeViewTrim(span.className) == ''){span.className = '';
 }}}}}
 
-function DatatreeViewTrim(strng){
+function ZtreeViewTrim(strng){
    var result = strng;var index = 0;for (var count = 0; count < result.length; ++count){var chr = result.charAt(count);if (!chr.match(/\\S/)){++index;continue;} else {break;}}if (index < result.length){result = result.substring(index, result.length);} else {result = '';}for (var count = result.length; count >= 0; --count){var chr = result.charAt(count);if (!chr.match(/\\S/)){continue;} else {if (count < result.length){result = result.substring(0, count + 1);}break;}}return result;
 }
-function DatatreeViewGetList(){
+function ZtreeViewGetList(){
    var UL = document.getElementById(this.ELEMENT_INNER_WRAPPER);
    var LI = UL.getElementsByTagName("li")[0];
    var list = LI.getElementsByTagName("ul")[0];
-   DATATREE.TEMP = document.createElement("div");
-   DATATREE.TEMP.innerHTML = "<ul>" + list.innerHTML + "</ul>";
-   var ul = DATATREE.TEMP.getElementsByTagName("ul")[0];
+   ZTREE.TEMP = document.createElement("div");
+   ZTREE.TEMP.innerHTML = "<ul>" + list.innerHTML + "</ul>";
+   var ul = ZTREE.TEMP.getElementsByTagName("ul")[0];
    this.ViewGetList2(ul);//***********************************************************************************
-   var result = DATATREE.TEMP.innerHTML;
+   var result = ZTREE.TEMP.innerHTML;
    return result;
 }
-function DatatreeViewGetList2(ul){
+function ZtreeViewGetList2(ul){
    var children = ul.childNodes;
    for (c in children){
       var child = children[c];
@@ -1247,23 +1247,23 @@ function DatatreeViewGetList2(ul){
          ul.setAttribute('style','');
          ul.removeAttribute('style');
          //ul.style = ""; // 9.7
-         if (arrow && arrow.className && arrow.className == "datatree_arrow"){
+         if (arrow && arrow.className && arrow.className == "ztree_arrow"){
             child.removeChild(arrow);
          }
-         if (span && span.className && span.className == "datatree_content"){
+         if (span && span.className && span.className == "ztree_content"){
             var txt = span.innerHTML;
             child.removeChild(span);
             child.removeChild(ul);
             child.innerHTML = txt;
             child.appendChild(ul);
          }
-         DatatreeViewGetList2(ul);
+         ZtreeViewGetList2(ul);
       }
    }
 }
 
-function DatatreeView(action,newval){
-      if (DatatreeView.arguments.length < 2){
+function ZtreeView(action,newval){
+      if (ZtreeView.arguments.length < 2){
          newval = "";
       }
       var command;
@@ -1276,7 +1276,7 @@ function DatatreeView(action,newval){
          }
          command = "this.View" + action.charAt(0).toUpperCase() + action.substring(1).toLowerCase() + "(\"" + newval + "\");";
          eval(command);
-      } else if (type == "object" || type == "datatreebranch"){
+      } else if (type == "object" || type == "ztreebranch"){
          switch(action){
             case "sibling":
                this.ViewSibling(newval);
@@ -1290,27 +1290,27 @@ function DatatreeView(action,newval){
       }
       this.ResetToolbarSelect();
 }
-function DatatreeViewIndexOfSpan(searchforspan){
+function ZtreeViewIndexOfSpan(searchforspan){
    var root = document.getElementById(this.ELEMENT_INNER_WRAPPER);
    var li = root.getElementsByTagName("li")[0];
-   DATATREE.TEMP = new Array();
+   ZTREE.TEMP = new Array();
    this.ViewSpandex(li,searchforspan,false);
    var result = -1;
-   for (var count = 0; count < DATATREE.TEMP.length; ++count){
-      var s = DATATREE.TEMP[count];
+   for (var count = 0; count < ZTREE.TEMP.length; ++count){
+      var s = ZTREE.TEMP[count];
       if (s === searchforspan){
          result = count-1;
          break;
       }
    }
-   DATATREE.TEMP.length = 0;
-   DATATREE.TEMP = null;
+   ZTREE.TEMP.length = 0;
+   ZTREE.TEMP = null;
    return result;
 }
-function DatatreeViewSpandex(li,searchforspan,found){
+function ZtreeViewSpandex(li,searchforspan,found){
    var span = this.ViewFindSpanFromLi(li);
    var ul = li.getElementsByTagName("ul")[0];
-   DATATREE.TEMP.push(span);
+   ZTREE.TEMP.push(span);
    if (span == searchforspan){
       //found = true;
       //return;
@@ -1324,7 +1324,7 @@ function DatatreeViewSpandex(li,searchforspan,found){
       }
    }
 }
-function DatatreeViewOpenToSpan(span){
+function ZtreeViewOpenToSpan(span){
    var li = span.parentNode;
    var ul = li;
    while(li && ul && ul.id != this.ELEMENT_INNER_WRAPPER){
@@ -1342,7 +1342,7 @@ function DatatreeViewOpenToSpan(span){
       }
    }
 }
-function DatatreeScrollToSpan(span){
+function ZtreeScrollToSpan(span){
    document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = 0;
    var y = span.offsetTop - document.getElementById(this.ELEMENT_OUTER_WRAPPER).offsetTop;
    if (this.TOOLBAR != ""){
@@ -1362,57 +1362,57 @@ function DatatreeScrollToSpan(span){
      document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = y;
    }
 }
-function DatatreeViewFindSpanFromLi(li){
+function ZtreeViewFindSpanFromLi(li){
    var spans = li.getElementsByTagName("span");
    var span;
    for (s in spans){
-      if (spans[s].className == "datatree_content"){
+      if (spans[s].className == "ztree_content"){
          span = spans[s];
          break;
       }
    }
    return span;
 }
-function DatatreeViewFindLiFromSpan(span){
+function ZtreeViewFindLiFromSpan(span){
    var result = null;
    if (span){
       result = span.parentNode;
-      while (result.nodeName.toLowerCase() != "li" && result.className != "datatree_li"){
+      while (result.nodeName.toLowerCase() != "li" && result.className != "ztree_li"){
          result = result.parentNode;
       }
    }
    return result;
 }
-function DatatreeViewFindUlFromSpan(span){
+function ZtreeViewFindUlFromSpan(span){
    var result = null;
    if (span){
       var parent = this.ViewFindLiFromSpan(span);
       if (parent){
-         result = parent.getElementsByClassName("datatree_ul")[0];
+         result = parent.getElementsByClassName("ztree_ul")[0];
       }
    }
    return result;
 }
-function DatatreeViewA(link){
-   return "<a class='datatree_arrow' style='text-decoration:none;' onclick='return clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
+function ZtreeViewA(link){
+   return "<a class='ztree_arrow' style='text-decoration:none;' onclick='return clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
 }
-function DatatreeViewSpan(text){
-   if(text.search("datatree_content") >= 0){//********************************************************10.0
+function ZtreeViewSpan(text){
+   if(text.search("ztree_content") >= 0){//********************************************************10.0
        return text;
    }
-   return "<span class='datatree_content' style='white-space:pre-wrap;padding-left:10px;' onmousedown='return DatatreeMouseDownSpan(event);' onmouseup = 'return DatatreeMouseUpSpan(event);' onclick = 'return DatatreeClickSpan(event);'>" + text + "</span>";
+   return "<span class='ztree_content' style='white-space:pre-wrap;padding-left:10px;' onmousedown='return ZtreeMouseDownSpan(event);' onmouseup = 'return ZtreeMouseUpSpan(event);' onclick = 'return ZtreeClickSpan(event);'>" + text + "</span>";
    
 }
-function DatatreeViewUl(display){
-   return "<ul class='datatree_ul' style='list-style-type:none;display:" + display + ";'></ul>";
+function ZtreeViewUl(display){
+   return "<ul class='ztree_ul' style='list-style-type:none;display:" + display + ";'></ul>";
 }
-function DatatreeViewLi(){
+function ZtreeViewLi(){
       var li = document.createElement("li");
       li.style.whiteSpace = "nowrap";
-      li.className = "datatree_li";
+      li.className = "ztree_li";
       return li;
 }
-function DatatreeViewListElement(newnode){
+function ZtreeViewListElement(newnode){
    var li = this.ViewLi();
    var a = this.ViewA(newnode.LINK);
    var span = this.ViewSpan(newnode.TEXT);
@@ -1420,10 +1420,10 @@ function DatatreeViewListElement(newnode){
    li.innerHTML = a + span + ul;
    return li;
 }
-function DatatreeViewOverwrite(newval){ 
+function ZtreeViewOverwrite(newval){ 
    this.SELECTED_SPAN.innerHTML = newval;
 }
-function DatatreeViewSibling(newnode){
+function ZtreeViewSibling(newnode){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1447,7 +1447,7 @@ function DatatreeViewSibling(newnode){
          parent.insertBefore(li,child.nextSibling);
       }
 }
-function DatatreeViewChild(newnode){
+function ZtreeViewChild(newnode){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1466,7 +1466,7 @@ function DatatreeViewChild(newnode){
       grandparent.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
       grandparent.getElementsByTagName("ul")[0].style.display = "block";
 }
-function DatatreeViewSwap(node1,node2,parent){
+function ZtreeViewSwap(node1,node2,parent){
       var temp1 = document.createElement("li");
       var temp2 = document.createElement("li");
       parent.replaceChild(temp1,node1);
@@ -1474,7 +1474,7 @@ function DatatreeViewSwap(node1,node2,parent){
       parent.replaceChild(node2,temp1);
       parent.replaceChild(node1,temp2);
 }
-function DatatreeViewUp(){
+function ZtreeViewUp(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1505,7 +1505,7 @@ function DatatreeViewUp(){
          this.ViewSwap(children[index-1],child,parent);
       }
 }
-function DatatreeViewDown(){
+function ZtreeViewDown(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1536,11 +1536,11 @@ function DatatreeViewDown(){
          this.ViewSwap(child,children[index+1],parent);
       }
 }
-function DatatreeViewSelright(){
+function ZtreeViewSelright(){
       this.ViewSecright(false);
 }
-function DatatreeViewSecright(with_children){
-   if (DatatreeViewSecright.arguments.length < 1 || with_children === ""){
+function ZtreeViewSecright(with_children){
+   if (ZtreeViewSecright.arguments.length < 1 || with_children === ""){
       with_children = true;
    }
    if (this.MOUSE_DRAG_SPANS.length > 1){
@@ -1558,7 +1558,7 @@ function DatatreeViewSecright(with_children){
       alert("error in secright");
    }
 }
-function DatatreeViewRight(with_children,source){
+function ZtreeViewRight(with_children,source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1603,7 +1603,7 @@ function DatatreeViewRight(with_children,source){
       } else {
          parent.removeChild(child);
          children[index-1].getElementsByTagName("ul")[0].appendChild(child);
-         if (DatatreeViewSecright.arguments.length > 0 && with_children == false && child.getElementsByTagName("ul")[0].hasChildNodes()){
+         if (ZtreeViewSecright.arguments.length > 0 && with_children == false && child.getElementsByTagName("ul")[0].hasChildNodes()){
             var grandchildren = new Array();
             var grandparent = child.getElementsByTagName("ul")[0];
             for (var count = 0; count < grandparent.childNodes.length; ++count){
@@ -1620,7 +1620,7 @@ function DatatreeViewRight(with_children,source){
          }
       }
 }
-function DatatreeViewLeft(){
+function ZtreeViewLeft(){
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.View_Left(this.MOUSE_DRAG_SPANS[count]);
@@ -1631,7 +1631,7 @@ function DatatreeViewLeft(){
       this.View_Left(this.MOUSE_DRAG_SPANS[0]);
    }
 }
-function DatatreeView_Left(source){
+function ZtreeView_Left(source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1711,8 +1711,8 @@ function DatatreeView_Left(source){
 
       }
 }
-function DatatreeViewCut(){
-   DATATREE.CLIPBOARD.length = 0;
+function ZtreeViewCut(){
+   ZTREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.View_Cut(this.MOUSE_DRAG_SPANS[count]);
@@ -1723,7 +1723,7 @@ function DatatreeViewCut(){
       this.View_Cut(this.MOUSE_DRAG_SPANS[0]);
    }
 }
-function DatatreeView_Cut(source){
+function ZtreeView_Cut(source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1733,7 +1733,7 @@ function DatatreeView_Cut(source){
          parent = parent.parentNode;//ul containing li
       }
       parent.removeChild(child);
-      DATATREE.CLIPBOARD.push(child);
+      ZTREE.CLIPBOARD.push(child);
       if (parent.hasChildNodes() == false){
          var grandparent = parent.parentNode;
          while (grandparent.nodeName.toLowerCase() != "li"){
@@ -1742,8 +1742,8 @@ function DatatreeView_Cut(source){
          grandparent.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
       }
 }
-function DatatreeViewCopysec(){
-   DATATREE.CLIPBOARD.length = 0;
+function ZtreeViewCopysec(){
+   ZTREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.ViewCopy(this.MOUSE_DRAG_SPANS[count],true);
@@ -1754,8 +1754,8 @@ function DatatreeViewCopysec(){
       this.ViewCopy(this.MOUSE_DRAG_SPANS[0],true);
    }
 }
-function DatatreeViewCopysel(){
-   DATATREE.CLIPBOARD.length = 0;
+function ZtreeViewCopysel(){
+   ZTREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.ViewCopy(this.MOUSE_DRAG_SPANS[count],false);
@@ -1766,7 +1766,7 @@ function DatatreeViewCopysel(){
       this.ViewCopy(this.MOUSE_DRAG_SPANS[0],false);
    }
 }
-function DatatreeViewCopy(source,with_children){
+function ZtreeViewCopy(source,with_children){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1775,12 +1775,12 @@ function DatatreeViewCopy(source,with_children){
       while (parent.nodeName.toLowerCase() != "ul"){
          parent = parent.parentNode;//ul containing li
       }
-      if (DatatreeViewCopy.arguments.length > 1 && with_children == true){
+      if (ZtreeViewCopy.arguments.length > 1 && with_children == true){
          var clone = child.cloneNode(true);
          if (with_children == false){
             clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
          }
-         DATATREE.CLIPBOARD.push(clone);
+         ZTREE.CLIPBOARD.push(clone);
       } else {
          var clone = child.cloneNode(true);
          if (clone.getElementsByTagName("ul")){
@@ -1789,20 +1789,20 @@ function DatatreeViewCopy(source,with_children){
          if (with_children == false){
             clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
          }
-         DATATREE.CLIPBOARD.push(clone);
+         ZTREE.CLIPBOARD.push(clone);
       }
 }
-function DatatreeViewPaste(){
-   if (this.SELECTED_SPAN && DATATREE.CLIPBOARD.length > 0){
+function ZtreeViewPaste(){
+   if (this.SELECTED_SPAN && ZTREE.CLIPBOARD.length > 0){
       var temp = this.SELECTED_SPAN;
-      for (var count = 0; count < DATATREE.CLIPBOARD.length; ++count){
-         this.View_Paste(this.SELECTED_SPAN,DATATREE.CLIPBOARD[count]);
-         this.SELECTED_SPAN = this.ViewFindSpanFromLi(DATATREE.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
+      for (var count = 0; count < ZTREE.CLIPBOARD.length; ++count){
+         this.View_Paste(this.SELECTED_SPAN,ZTREE.CLIPBOARD[count]);
+         this.SELECTED_SPAN = this.ViewFindSpanFromLi(ZTREE.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
       }
       this.SELECTED_SPAN = temp;
    }
 }
-function DatatreeView_Paste(source,li){
+function ZtreeView_Paste(source,li){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1829,7 +1829,7 @@ function DatatreeView_Paste(source,li){
       var spans = li.getElementsByTagName("span");
       var span;
       for (s in spans){
-         if (spans[s].className == "datatree_content"){
+         if (spans[s].className == "ztree_content"){
             span = spans[s];
             break;
          }
@@ -1842,7 +1842,7 @@ function DatatreeView_Paste(source,li){
          parent.insertBefore(li,children[index+1]);
       }
 }
-function DatatreeViewRemove(){
+function ZtreeViewRemove(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1862,16 +1862,16 @@ function DatatreeViewRemove(){
       }
 }
 /** 8.4 **/
-function DatatreeGetPopupEditInitiator(){
-   return DATATREE.POPUP_EDIT_INITIATOR;
+function ZtreeGetPopupEditInitiator(){
+   return ZTREE.POPUP_EDIT_INITIATOR;
 }
-function DatatreeSetPopupEditInitiator(initiator){
-   DATATREE.POPUP_EDIT_INITIATOR = initiator;
+function ZtreeSetPopupEditInitiator(initiator){
+   ZTREE.POPUP_EDIT_INITIATOR = initiator;
 }
-function DatatreeGetType(){
+function ZtreeGetType(){
    return this.TYPE;
 }
-function DatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new, and edit) functions...( ) = commented out
+function ZtreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new, and edit) functions...( ) = commented out
    // problem: alt_editor is property of tree manager rather than tree
    // rule: if explicitly change type with change query, or a new or edit query with an explicit type parameter, also might change other trees on webpage
    // update: don't change alt editor property...instead, have ShowAltEditor check whether tree has changed to plain text and type text...if so, outsource to plain text editor function
@@ -1883,7 +1883,7 @@ function DatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new
    }
    switch(type){
       case "text": // switch from html to plain text
-         //DATATREE.ALT_EDITOR = false;
+         //ZTREE.ALT_EDITOR = false;
          //this.PLAIN_TEXT = true;//7.9.7
          this.TYPE = "text";
          break;
@@ -1894,15 +1894,15 @@ function DatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new
          }
          //this.PLAIN_TEXT = false;//7.9.7
          this.TYPE = type;
-         if (DatatreeSetType.arguments.length > 1 && alt_editor_or_not == true){
-            //DATATREE.ALT_EDITOR = true;
+         if (ZtreeSetType.arguments.length > 1 && alt_editor_or_not == true){
+            //ZTREE.ALT_EDITOR = true;
          }
          break;
       default:
          break;
    }
 }
-function DatatreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used by (load and create) functions..( ) = commented out
+function ZtreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used by (load and create) functions..( ) = commented out
    // rule: if load text file into html editor, leave as html, don't change other trees on webpage to text
    // just describes rule and contrasts from SetType function
    var current_type = this.TYPE;
@@ -1912,21 +1912,21 @@ function DatatreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used by
    current_type = current_type.toLowerCase();
    switch(current_type){ // ignore create or load type, favor preset type (from html or javscript code)
       case "text": 
-         //DATATREE.ALT_EDITOR = false;
+         //ZTREE.ALT_EDITOR = false;
          //this.PLAIN_TEXT = true;
          break;
       case "html": 
       case "tree": 
          //this.PLAIN_TEXT = false;
-         if (DatatreeSetTypeConditionally.arguments.length > 1 && alt_editor_or_not == true){
-            //DATATREE.ALT_EDITOR = true;
+         if (ZtreeSetTypeConditionally.arguments.length > 1 && alt_editor_or_not == true){
+            //ZTREE.ALT_EDITOR = true;
          }
          break;
       default:
          break;
    }
 }
-function DatatreeCloneBranch(){
+function ZtreeCloneBranch(){
     var tree = this.TREE;
     var branch = new tree.Branch(this.TEXT, this.TREE);
     for (var count = 0; count < this.CHILDREN.length; ++count){
@@ -1935,18 +1935,18 @@ function DatatreeCloneBranch(){
     }
     return branch;
 }
-function DatatreeInit(){
+function ZtreeInit(){
     this.ROOT_NODE = this.TreeFromString(this.CONTENT, this.TITLE, this.TYPE);
     this.VIEW = this.GetView();
     this.InsertClickTreeText();
     this.InsertEditTreeText();
     this.RefreshGUI();
 }
-function DatatreeGetTreeFromName(name){
+function ZtreeGetTreeFromName(name){
    var tree = null;
    if (document.getElementById(name)){
-      for (var count = 0; count < DATATREE.TREES.length; ++count){
-         var t = DATATREE.TREES[count];
+      for (var count = 0; count < ZTREE.TREES.length; ++count){
+         var t = ZTREE.TREES[count];
          if (t.NAME == name){
             tree = t;
             break;
@@ -1955,49 +1955,49 @@ function DatatreeGetTreeFromName(name){
    }
    return tree;
 }
-function DatatreeSetTreeFromName(name){ // 9.6
-   if (name != DATATREE.TREE.NAME){ 
-     var tree = DATATREE.GetTreeFromName(name); 
+function ZtreeSetTreeFromName(name){ // 9.6
+   if (name != ZTREE.TREE.NAME){ 
+     var tree = ZTREE.GetTreeFromName(name); 
      if (tree != null){
-         DATATREE.TREE = tree;
-		 if (DATATREE.TREES.length > 1){
-		    DatatreeHighlightTree(name);
+         ZTREE.TREE = tree;
+		 if (ZTREE.TREES.length > 1){
+		    ZtreeHighlightTree(name);
 		 }
      }
    }
 }
-function DatatreeHighlightTree(name){ // 9.6
+function ZtreeHighlightTree(name){ // 9.6
    try{ 
-	  for (t in DATATREE.TREES){
-	     document.getElementById(DATATREE.TREES[t].NAME).style.border = "1px solid white";
+	  for (t in ZTREE.TREES){
+	     document.getElementById(ZTREE.TREES[t].NAME).style.border = "1px solid white";
 	  }
       var tree = document.getElementById(name);
 	  tree.style.border = "1px solid green";
    }catch(exc){
    }
 }
-function DatatreeGetFileNameFromPath(path){
+function ZtreeGetFileNameFromPath(path){
     var splits = path.split("/");
     var name = splits[splits.length - 1];
     var names = name.split("\\");
     name = names[names.length - 1];
     return name;
 }
-function DatatreeSubmitEdit(html, mode, selectedspan){ 
+function ZtreeSubmitEdit(html, mode, selectedspan){ 
     try{ 
 
-    var TOOLBARTREE = DATATREE.GetInitiator(); //DATATREE.TREE; // .TREE var had problem with popups when multiple trees...couldn't mouse over other tree
+    var TOOLBARTREE = ZTREE.GetInitiator(); //ZTREE.TREE; // .TREE var had problem with popups when multiple trees...couldn't mouse over other tree
 
     var span = null;
-    if (DatatreeSubmitEdit.arguments.length == 3){
+    if (ZtreeSubmitEdit.arguments.length == 3){
        span = selectedspan;
        TOOLBARTREE.ResetToolbarSelect();
-    } else if (document.getElementById('datatree_editbox')){
-       span = document.getElementById('datatree_editbox').span;//source event passed to ShowEditBox
+    } else if (document.getElementById('ztree_editbox')){
+       span = document.getElementById('ztree_editbox').span;//source event passed to ShowEditBox
     } else {
-       span = DATATREE.ALT_EDITOR_TARGET_SPAN;
+       span = ZTREE.ALT_EDITOR_TARGET_SPAN;
     }
-    if (DATATREE.StringTrim(html) == ""){
+    if (ZTREE.StringTrim(html) == ""){
        return;
     }
 
@@ -2005,8 +2005,8 @@ function DatatreeSubmitEdit(html, mode, selectedspan){
        html = html.split("<strong>").join("<b>").split("</strong>").join("</b>").split("<em>").join("<i>").split("</em>").join("</i>");
     }
     var PLAINTEXT = false;
-    if (document.getElementsByName('datatree_text_or_html')){//if edited with popup, check if pressed text button
-       var radios = document.getElementsByName('datatree_text_or_html');
+    if (document.getElementsByName('ztree_text_or_html')){//if edited with popup, check if pressed text button
+       var radios = document.getElementsByName('ztree_text_or_html');
        for (var count = 0; count < radios.length; ++count){
            var r = radios[count];
            if (r.checked){
@@ -2018,12 +2018,12 @@ function DatatreeSubmitEdit(html, mode, selectedspan){
        }
     }
 
-    DATATREE.CloseEditBox();
-    if (DATATREE.ALT_EDITOR == true){
-        //DatatreeRemoveAltEditorInstance(); //************************************errors
+    ZTREE.CloseEditBox();
+    if (ZTREE.ALT_EDITOR == true){
+        //ZtreeRemoveAltEditorInstance(); //************************************errors
     }
 
-    if (DATATREE.GetBrowser() == "IE"){
+    if (ZTREE.GetBrowser() == "IE"){
         if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
            document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
         }
@@ -2047,7 +2047,7 @@ function DatatreeSubmitEdit(html, mode, selectedspan){
             lines[count] = lines[count].replace("<br/>", "").replace("<br>", ""); // ???????? deprecated
        }
        html = lines[0];
-       if (DATATREE.StringTrim(html) == ""){
+       if (ZTREE.StringTrim(html) == ""){
            return;
        }
     } else if (this.REPLACE == null || this.REPLACE == "undefined" || this.REPLACE == ""){
@@ -2080,7 +2080,7 @@ function DatatreeSubmitEdit(html, mode, selectedspan){
     var macro_index = index - 1;
     var micro_index = 0;
 
-    if (DatatreeSubmitEdit.arguments.length < 2 || mode == "overwrite"){
+    if (ZtreeSubmitEdit.arguments.length < 2 || mode == "overwrite"){
 
        TOOLBARTREE.View("overwrite",newnode.TEXT);
     } else if (mode == "sibling") {
@@ -2093,18 +2093,18 @@ function DatatreeSubmitEdit(html, mode, selectedspan){
        TOOLBARTREE.UnhighlightSpan(span);
     }
     } catch (exc) {
-      if (DATATREE.REPRESS_ALERTS == false){
+      if (ZTREE.REPRESS_ALERTS == false){
         alert(exc);
       }
     }
 }
-function DatatreeEvenSpacing(node){
-   if (DatatreeEvenSpacing.arguments.length <= 0){
+function ZtreeEvenSpacing(node){
+   if (ZtreeEvenSpacing.arguments.length <= 0){
       node = this.ROOT_NODE;
    }
    this.EvenSpacing2(node);
 }
-function DatatreeEvenSpacing2(node){
+function ZtreeEvenSpacing2(node){
    try{
    if (node == this.ROOT_NODE){
       node.INDENTATION = 0;
@@ -2113,11 +2113,11 @@ function DatatreeEvenSpacing2(node){
    }
    for (var count = 0; count < node.CHILDREN.length; ++count){
       var child = node.CHILDREN[count];
-      DatatreeEvenSpacing2(child);
+      ZtreeEvenSpacing2(child);
    }
    } catch (exc) {  }
 }
-function DatatreeIndent(node,rightleft,indent_children){
+function ZtreeIndent(node,rightleft,indent_children){
    if (rightleft == "right"){
       node.INDENTATION += node.TREE.INDENTATION;
    } else if (rightleft == "left" && node.INDENTATION - node.TREE.INDENTATION >= 0){
@@ -2128,11 +2128,11 @@ function DatatreeIndent(node,rightleft,indent_children){
    if (indent_children){
       for (var count = 0; count < node.CHILDREN.length; ++count){
         var child = node.CHILDREN[count];
-        DatatreeIndent(child,rightleft,indent_children);
+        ZtreeIndent(child,rightleft,indent_children);
       }
    }
 }
-function DatatreeCleanHTML(txt){
+function ZtreeCleanHTML(txt){
    if (txt.indexOf("<table") >= 0){
       if (txt.indexOf("</table><p>") >= 0){
 	     txt = txt.substring(0, txt.indexOf("</table>") + "</table>".length);
@@ -2144,24 +2144,24 @@ function DatatreeCleanHTML(txt){
    }
    return txt;
 }
-function DatatreeAddBranch(node,update){
-    node.TEXT = DatatreeCleanHTML(node.TEXT);
+function ZtreeAddBranch(node,update){
+    node.TEXT = ZtreeCleanHTML(node.TEXT);
     this.CHILDREN.push(node);
     node.PARENT_NODE = this;
     this.LINK = this.TREE.OPEN_ICON;
-    if (DatatreeAddBranch.arguments.length > 1 && update == true){
+    if (ZtreeAddBranch.arguments.length > 1 && update == true){
       //node.INDENTATION = this.INDENTATION + this.TREE.INDENTATION;//problems with left/right
       var index = this.TREE.NODES.indexOf(this) + 1;
       //var index = this.TREE.NODES.indexOf(this) + node.GetIndex() + 1;
       this.TREE.NODES.splice(index, 0, node);
     }
 }
-function DatatreeInsertBranch(node, index, update, thisindex){
+function ZtreeInsertBranch(node, index, update, thisindex){
     try{
         this.CHILDREN.splice(index, 0, node);
         node.PARENT_NODE = this;
         this.LINK = this.TREE.OPEN_ICON;
-        if (DatatreeInsertBranch.arguments.length > 3 && update == true && thisindex >= 0){
+        if (ZtreeInsertBranch.arguments.length > 3 && update == true && thisindex >= 0){
           //node.INDENTATION = this.INDENTATION + this.TREE.INDENTATION;//problems with left/right
           //var thisindex = this.TREE.NODES.indexOf(this);
           var macro_index = thisindex + index + 1;
@@ -2169,10 +2169,10 @@ function DatatreeInsertBranch(node, index, update, thisindex){
           this.TREE.NODES.splice(macro_index, 0, node);
         }
     } catch (exc) {
-       if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
+       if (ZTREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function DatatreeClickTreeText(){
+function ZtreeClickTreeText(){
     if (document.getElementById("tree_script")){
         document.head.removeChild(document.getElementById("tree_script"));
     }
@@ -2186,7 +2186,7 @@ function DatatreeClickTreeText(){
     var clicktree = "function clicktree(evt){if (!evt){evt = window.event;}var source = evt.target? evt.target : evt.srcElement;if (source.nodeName.toLowerCase() == 'img' && source.className=='closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'img' && source.className=='open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";}if (source.firstChild.nodeName.toLowerCase() == 'img' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}} else if (source.firstChild.nodeName.toLowerCase() == 'span' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}}}";
     return clicktree;
 }
-function DatatreeInsertClickTreeText(){
+function ZtreeInsertClickTreeText(){
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
     script.setAttribute("id", "tree_script");
@@ -2194,11 +2194,11 @@ function DatatreeInsertClickTreeText(){
     script.appendChild(clicktreeText);
     document.head.appendChild(script);
 }
-function DatatreeRefresh(){
+function ZtreeRefresh(){
     this.VIEW = this.GetView();
     this.RefreshGUI();
 }
-function DatatreeRefreshGUI(){
+function ZtreeRefreshGUI(){
     if (this && document.getElementById(this.ELEMENT_OUTER_WRAPPER)){
       if (this.VIEW == "undefined"){
         this.VIEW = this.GetView();
@@ -2206,34 +2206,34 @@ function DatatreeRefreshGUI(){
         this.VIEW = this.GetView();
       }
       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
-    } else if (document.getElementById(DATATREE.DEFAULT_OUTER_WRAPPER)){
-      document.getElementById(DATATREE.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
+    } else if (document.getElementById(ZTREE.DEFAULT_OUTER_WRAPPER)){
+      document.getElementById(ZTREE.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
     }
 }
-function DatatreeQueryDocumentation(){
-   if (DATATREE.AltQueryDocumentation != ""){
-      DATATREE.AltQueryDocumentation();
+function ZtreeQueryDocumentation(){
+   if (ZTREE.AltQueryDocumentation != ""){
+      ZTREE.AltQueryDocumentation();
    } else {
-	   window.open(DATATREE.DOCUMENTATION_ADDRESS,"other");
+	   window.open(ZTREE.DOCUMENTATION_ADDRESS,"other");
    }
 }
-function DatatreeLoadFromTextarea(type, preload){ 
+function ZtreeLoadFromTextarea(type, preload){ 
        var text = "";
-       if (DatatreeLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != ""){
+       if (ZtreeLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != ""){
           text = preload;
        }
-       if (DATATREE.ALT_EDITOR == true){
-          DATATREE.ALT_EDITOR = false;
-          DATATREE.TEMP = "RESET ALT EDITOR";
+       if (ZTREE.ALT_EDITOR == true){
+          ZTREE.ALT_EDITOR = false;
+          ZTREE.TEMP = "RESET ALT EDITOR";
        }
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><button type='button' onclick='return DatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='datatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><button type='button' onclick='return ZtreeLoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='ztree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
        //this.RefreshGUI();
 }
-function DatatreeEncodeArrows(txt,spans){//8.0
+function ZtreeEncodeArrows(txt,spans){//8.0
    var result = txt;
-   if (DATATREE.TREE != null && DATATREE.TREE != "undefined" && DATATREE.TREE.TYPE.toLowerCase() != "text"){
-      if (DatatreeEncodeArrows.arguments.length == 0 || spans == true){
+   if (ZTREE.TREE != null && ZTREE.TREE != "undefined" && ZTREE.TREE.TYPE.toLowerCase() != "text"){
+      if (ZtreeEncodeArrows.arguments.length == 0 || spans == true){
          result = txt.split("&amp;nbsp;").join(" ").split("&nbsp;").join(" ").split(" &lt; ").join(" < ").split(" &gt; ").join(" > ").split(" &lt;= ").join(" <= ").split(" &gt;= ").join(" >= ").split(" < ").join(" <span><</span> ").split(" <= ").join(" <span><</span>= ").split(" > ").join(" <span>></span> ").split(" >= ").join(" <span>></span>= ");
          // do not remove blanks from around the arrows, or add blanks inside the spans, or else a second encoding would put double-spans around the first spans
       } else {
@@ -2242,84 +2242,84 @@ function DatatreeEncodeArrows(txt,spans){//8.0
    }
    return result;
 }
-function DatatreeLoadFromTextarea2(type){ 
+function ZtreeLoadFromTextarea2(type){ 
        var c;
-	  if (DatatreeLoadFromTextarea2.arguments.length > 0 && type != null && type != "undefined" && type != ""){
+	  if (ZtreeLoadFromTextarea2.arguments.length > 0 && type != null && type != "undefined" && type != ""){
 	     c = type;
 	  } else {
-          c = document.getElementById('datatree_load_area').className;
+          c = document.getElementById('ztree_load_area').className;
 	  }
        var txt = "";
-       if (c == "html" && DATATREE.ALT_EDITOR == true && DatatreeLoadFromTextarea2.arguments.length < 1){
-           txt = DatatreeGetAltEditorContent();
+       if (c == "html" && ZTREE.ALT_EDITOR == true && ZtreeLoadFromTextarea2.arguments.length < 1){
+           txt = ZtreeGetAltEditorContent();
            //txt = txt.split("span class=\"table\"").join("table").split("span class=\"tbody\"").join("tbody").split("span class=\"tr\"").join("tr").split("span class=\"td\"").join("td").split("%%%%%</span>").join("</tbody>").split("%%%%</span>").join("</td>").split("%%%</span>").join("</tr>").split("%%</span>").join("</table>");
        } else {
-           txt = document.getElementById('datatree_load_area').value;
-           txt = DATATREE.EncodeArrows(txt,true);//8.0
-           if (DATATREE.TEMP == "RESET ALT EDITOR"){
-              DATATREE.ALT_EDITOR = true;
+           txt = document.getElementById('ztree_load_area').value;
+           txt = ZTREE.EncodeArrows(txt,true);//8.0
+           if (ZTREE.TEMP == "RESET ALT EDITOR"){
+              ZTREE.ALT_EDITOR = true;
            }
        }
-       DATATREE.FULL_SCREEN_MODE = false;
-       if (DATATREE.TREE){
-          DATATREE.TREE.SELECTED_SPAN = null;//7.8.7
-          DATATREE.PLEASE_WAIT = true;
+       ZTREE.FULL_SCREEN_MODE = false;
+       if (ZTREE.TREE){
+          ZTREE.TREE.SELECTED_SPAN = null;//7.8.7
+          ZTREE.PLEASE_WAIT = true;
           if (c == 'text' || c == '' || c == 'undefined' || c == null){
-             DATATREE.TREE.Query("CREATE FROM TEXT " + txt);
+             ZTREE.TREE.Query("CREATE FROM TEXT " + txt);
           } else if (c == 'tree' || c == 'file') {
-             DATATREE.TREE.Query("CREATE FROM TREE " + txt);
+             ZTREE.TREE.Query("CREATE FROM TREE " + txt);
           } else if (c == 'html' || c == 'list') {
-		     if (DATATREE.ALT_EDITOR == true && typeof(DATATREE.CleanHTMLFromEditor) == "function"){
-                     //txt = DATATREE.CleanHTMLFromEditor(txt); 
+		     if (ZTREE.ALT_EDITOR == true && typeof(ZTREE.CleanHTMLFromEditor) == "function"){
+                     //txt = ZTREE.CleanHTMLFromEditor(txt); 
                 }
-                DATATREE.TREE.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
+                ZTREE.TREE.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
           } else {}
        } else {
           this.SELECTED_SPAN = null;//7.8.7
-          DATATREE.PLEASE_WAIT = true;
+          ZTREE.PLEASE_WAIT = true;
           if (c == 'text' || c == '' || c == 'undefined' || c == null){
              this.Query("CREATE FROM TEXT " + txt);
           } else {
-             if (DATATREE.ALT_EDITOR == true && typeof(DATATREE.CleanHTMLFromEditor) == "function"){
-                txt = DATATREE.CleanHTMLFromEditor(txt); 
+             if (ZTREE.ALT_EDITOR == true && typeof(ZTREE.CleanHTMLFromEditor) == "function"){
+                txt = ZTREE.CleanHTMLFromEditor(txt); 
              }
              this.Query("CREATE FROM HTML " + txt);
           }
        }
 }
-function DatatreeRestoreView(){
-   document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
+function ZtreeRestoreView(){
+   document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = ZTREE.TREE.VIEW;
 }
-function DatatreeAutoLoadFromToolbar(){
-	var datatree = DATATREE.TREE? DATATREE.TREE : this;
+function ZtreeAutoLoadFromToolbar(){
+	var datatree = ZTREE.TREE? ZTREE.TREE : this;
 	if (datatree){
 		datatree.LoadFromToolbar();
 	}
 }
-function DatatreeLoadFromToolbar(){
+function ZtreeLoadFromToolbar(){
        var text = "";
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button>" + "<button type='button' onclick='return DatatreeLoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return DatatreeLoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return DatatreeLoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='datatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button>" + "<button type='button' onclick='return ZtreeLoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return ZtreeLoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return ZtreeLoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='ztree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
        //this.RefreshGUI();
 }
-function DatatreeEdit(type, text){
-    if (type == "html" && DATATREE.ALT_EDITOR == true){
-        DATATREE.AltLoadFromTextarea(type, text);
+function ZtreeEdit(type, text){
+    if (type == "html" && ZTREE.ALT_EDITOR == true){
+        ZTREE.AltLoadFromTextarea(type, text);
     } else {
         this.LoadFromTextarea(type, text);
     }
 }
-function DatatreeAutoToolbarSelect(choice){ 
-   var TOOLBARTREE = DATATREE.TREE;
+function ZtreeAutoToolbarSelect(choice){ 
+   var TOOLBARTREE = ZTREE.TREE;
    if (TOOLBARTREE == null || TOOLBARTREE == "undefined"){
-      TOOLBARTREE = DATATREE.TREES[0];
+      TOOLBARTREE = ZTREE.TREES[0];
       if (TOOLBARTREE == null || TOOLBARTREE == "undefined"){
          return;
       }
    }
    var combobox;
    var selection;
-   if (DatatreeAutoToolbarSelect.arguments.length > 0 && choice != ""&& choice != null && choice != "undefined"){
+   if (ZtreeAutoToolbarSelect.arguments.length > 0 && choice != ""&& choice != null && choice != "undefined"){
       selection = choice;
    } else {
       combobox = document.getElementById(TOOLBARTREE.TOOLBAR_SELECT_NAME);
@@ -2333,7 +2333,7 @@ function DatatreeAutoToolbarSelect(choice){
    }
    switch (selection){ 
       case "close": 
-         DATATREE.CloseMenu();
+         ZTREE.CloseMenu();
          return;
          break;
       case "overwrite":
@@ -2341,11 +2341,11 @@ function DatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         DATATREE.SetInitiator(TOOLBARTREE);
-         if (DATATREE.ALT_EDITOR == true){
-            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
+         ZTREE.SetInitiator(TOOLBARTREE);
+         if (ZTREE.ALT_EDITOR == true){
+            ZtreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
          } else {
-            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
+            ZtreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
          }
          break;
       case "child":
@@ -2353,11 +2353,11 @@ function DatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         DATATREE.SetInitiator(TOOLBARTREE);
-         if (DATATREE.ALT_EDITOR == true){
-            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
+         ZTREE.SetInitiator(TOOLBARTREE);
+         if (ZTREE.ALT_EDITOR == true){
+            ZtreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
          } else {
-            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
+            ZtreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
          }
          break;
       case "sibling":
@@ -2365,11 +2365,11 @@ function DatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         DATATREE.SetInitiator(TOOLBARTREE);
-         if (DATATREE.ALT_EDITOR == true){
-            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
+         ZTREE.SetInitiator(TOOLBARTREE);
+         if (ZTREE.ALT_EDITOR == true){
+            ZtreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
          } else {
-            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
+            ZtreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
          }
          break;
       case "up":
@@ -2428,20 +2428,20 @@ function DatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (DATATREE.WAIT_IS_OPEN != true){
-	    var wait = DATATREE.Wait();
+         if (ZTREE.WAIT_IS_OPEN != true){
+	    var wait = ZTREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               if (tree.MOUSE_DRAG_SPANS.length > 0){
-                  DATATREE.CLIPBOARD.length = 0;
+                  ZTREE.CLIPBOARD.length = 0;
                   TOOLBARTREE.View("copysel");
               }
-              if (DATATREE.GetBrowser() == "IE"){
+              if (ZTREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              DATATREE.CloseWaitBox(wait);
+              ZTREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2456,8 +2456,8 @@ function DatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (DATATREE.WAIT_IS_OPEN != true){
-	    var wait = DATATREE.Wait();
+         if (ZTREE.WAIT_IS_OPEN != true){
+	    var wait = ZTREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               var index = 0;
@@ -2469,12 +2469,12 @@ function DatatreeAutoToolbarSelect(choice){
                      TOOLBARTREE.View("copysec");
                   }
               }
-              if (DATATREE.GetBrowser() == "IE"){
+              if (ZTREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              DATATREE.CloseWaitBox(wait);
+              ZTREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2487,26 +2487,26 @@ function DatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (DATATREE.CLIPBOARD.length == 0 || !TOOLBARTREE.SELECTED_SPAN){ 
+         if (ZTREE.CLIPBOARD.length == 0 || !TOOLBARTREE.SELECTED_SPAN){ 
             combobox.selectedIndex = 0; 
             return;
          }
-         if (DATATREE.WAIT_IS_OPEN != true){
-	    var wait = DATATREE.Wait();
+         if (ZTREE.WAIT_IS_OPEN != true){
+	    var wait = ZTREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               var index = 0;
               var index_above = 0;
-              if (tree && tree.SELECTED_SPAN && DATATREE.CLIPBOARD.length > 0){
+              if (tree && tree.SELECTED_SPAN && ZTREE.CLIPBOARD.length > 0){
                 TOOLBARTREE.View("paste");
-                DATATREE.CLIPBOARD.length = 0;
+                ZTREE.CLIPBOARD.length = 0;
               }
-              if (DATATREE.GetBrowser() == "IE"){
+              if (ZTREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              DATATREE.CloseWaitBox(wait);
+              ZTREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2534,63 +2534,63 @@ function DatatreeAutoToolbarSelect(choice){
          break;
    }
 }
-function DatatreeMouseDownSpan(evt,span){
+function ZtreeMouseDownSpan(evt,span){
    if (!evt){
       evt = window.event;
    }
-   DATATREE.MOUSE_DOWN_X = evt.clientX;
-   DATATREE.MOUSE_DOWN_Y = evt.clientY;
+   ZTREE.MOUSE_DOWN_X = evt.clientX;
+   ZTREE.MOUSE_DOWN_Y = evt.clientY;
    var source;
-   if (DatatreeMouseDownSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (ZtreeMouseDownSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "ztree_content"){
            source = source.parentNode;
       }
    }
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_OUTER_WRAPPER){
           return;
       } else {
-          var tree = DATATREE.TREE;
+          var tree = ZTREE.TREE;
           if (tree){
              tree.MOUSE_DOWN_SPAN = source;
           }
       }
    }
 }
-function DatatreeMouseUpSpan(evt,span){
+function ZtreeMouseUpSpan(evt,span){
    if (!evt){
       evt = window.event;
    }
    evt.stopPropagation();//*****************************************************************************************************10.0
-   DATATREE.MOUSE_UP_X = evt.clientX;
-   DATATREE.MOUSE_UP_Y = evt.clientY;
+   ZTREE.MOUSE_UP_X = evt.clientX;
+   ZTREE.MOUSE_UP_Y = evt.clientY;
    var source;
-   if (DatatreeMouseUpSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (ZtreeMouseUpSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "ztree_content"){
            source = source.parentNode;
       }
    }
    //unhighlight
-   if (DATATREE.TREE.SELECTED_SPAN){
-      DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
+   if (ZTREE.TREE.SELECTED_SPAN){
+      ZtreeUnhighlightSpan(ZTREE.TREE.SELECTED_SPAN);
    }
-   if (DATATREE.TREE.MOUSE_DRAG_SPANS){
-      for (s in DATATREE.TREE.MOUSE_DRAG_SPANS){
-         DatatreeUnhighlightSpan(DATATREE.TREE.MOUSE_DRAG_SPANS[s]);
+   if (ZTREE.TREE.MOUSE_DRAG_SPANS){
+      for (s in ZTREE.TREE.MOUSE_DRAG_SPANS){
+         ZtreeUnhighlightSpan(ZTREE.TREE.MOUSE_DRAG_SPANS[s]);
       }
    }
-   DATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
+   ZTREE.TREE.MOUSE_DRAG_SPANS.length = 0;
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_OUTER_WRAPPER){
           return;
       } else {
-          var tree = DATATREE.TREE;
+          var tree = ZTREE.TREE;
           if (tree){
              tree.MOUSE_UP_SPAN = source;
              if (tree.MOUSE_DOWN_SPAN && tree.MOUSE_UP_SPAN){
@@ -2620,7 +2620,7 @@ function DatatreeMouseUpSpan(evt,span){
                    var stopindex = 0;
                    for (var count = 0; count < parent.childNodes.length; ++count){
                       var li = parent.childNodes[count];
-                      var content = li.getElementsByClassName('datatree_content')[0];
+                      var content = li.getElementsByClassName('ztree_content')[0];
                       if (content == start){
                          startindex = count;
                       } else if (content == stop){
@@ -2629,64 +2629,64 @@ function DatatreeMouseUpSpan(evt,span){
                       }
                    }
                    for (var count = startindex; count <= stopindex; ++count){
-                      var highlightspan = parent.childNodes[count].getElementsByClassName('datatree_content')[0];
-                      DatatreeHighlightSpan(highlightspan);
+                      var highlightspan = parent.childNodes[count].getElementsByClassName('ztree_content')[0];
+                      ZtreeHighlightSpan(highlightspan);
                       tree.MOUSE_DRAG_SPANS.push(highlightspan);
                    }
                 } else {
                    //unhighlight...already done
                 }
 }}}}}
-function DatatreeClickSpan(evt,span){ 
-   if (DATATREE.TREE.SELECTED_SPAN){
-      DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
+function ZtreeClickSpan(evt,span){ 
+   if (ZTREE.TREE.SELECTED_SPAN){
+      ZtreeUnhighlightSpan(ZTREE.TREE.SELECTED_SPAN);
    }
-   for (var count = 0; count < DATATREE.TREE.MOUSE_DRAG_SPANS.length; ++count){
-       DatatreeUnhighlightSpan(DATATREE.TREE.MOUSE_DRAG_SPANS[count]);
+   for (var count = 0; count < ZTREE.TREE.MOUSE_DRAG_SPANS.length; ++count){
+       ZtreeUnhighlightSpan(ZTREE.TREE.MOUSE_DRAG_SPANS[count]);
    }   
    if (!evt){
       evt = window.event;
    }
-   DATATREE.MOUSE_DOWN_X = evt.clientX;
-   DATATREE.MOUSE_DOWN_Y = evt.clientY;
+   ZTREE.MOUSE_DOWN_X = evt.clientX;
+   ZTREE.MOUSE_DOWN_Y = evt.clientY;
    var source;
-   if (DatatreeClickSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (ZtreeClickSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "ztree_content"){
            source = source.parentNode;
       }
    }
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
-          DATATREE.TREE.SELECTED_SPAN = null; // ***
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == ZTREE.TREE.ELEMENT_OUTER_WRAPPER){
+          ZTREE.TREE.SELECTED_SPAN = null; // ***
           return;
       } else {
-          DATATREE.TREE.SELECTED_SPAN = source;
-          DATATREE.TREE.CLICK_X = evt.clientX;
-          DATATREE.TREE.CLICK_Y = evt.clientY;
+          ZTREE.TREE.SELECTED_SPAN = source;
+          ZTREE.TREE.CLICK_X = evt.clientX;
+          ZTREE.TREE.CLICK_Y = evt.clientY;
           if (source.innerHTML.indexOf('search_result') >= 0){
               var search_result = source.getElementsByTagName('span')[0];
               if (search_result.className && search_result.className == 'search_result'){
                   source.innerHTML = search_result.innerHTML;
               }
           }
-          DatatreeHighlightSpan(source);
-          DATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
-          DATATREE.TREE.MOUSE_DRAG_SPANS.push(source);
-          DATATREE.GoToFile(source);
+          ZtreeHighlightSpan(source);
+          ZTREE.TREE.MOUSE_DRAG_SPANS.length = 0;
+          ZTREE.TREE.MOUSE_DRAG_SPANS.push(source);
+          ZTREE.GoToFile(source);
       }
    }
 }
-function DatatreeGoToFile(line){
-   if (DATATREE.GO_TO_FILE != null && DATATREE.GO_TO_FILE != "undefined" && DATATREE.GO_TO_FILE != ""){
-      DATATREE.TEMP = line.innerHTML;
-      eval(DATATREE.GO_TO_FILE);
+function ZtreeGoToFile(line){
+   if (ZTREE.GO_TO_FILE != null && ZTREE.GO_TO_FILE != "undefined" && ZTREE.GO_TO_FILE != ""){
+      ZTREE.TEMP = line.innerHTML;
+      eval(ZTREE.GO_TO_FILE);
    }
 }
-function DatatreeHighlightSpan(span){
-   if (!span.className || span.className != "datatree_content"){
+function ZtreeHighlightSpan(span){
+   if (!span.className || span.className != "ztree_content"){
       var prnt = span.parentNode;
       if (prnt.nodeName.toLowerCase() == "a"){
           prnt = prnt.parentNode;
@@ -2694,17 +2694,17 @@ function DatatreeHighlightSpan(span){
       var contents = prnt.getElementsByTagName('span');
       for (var count2 = 0; count2 < contents.length; ++count2){
          var content = contents[count2];
-         if (content.className && content.className == "datatree_content"){
+         if (content.className && content.className == "ztree_content"){
             span = content;
             break;
          }
       }
    }
-   span.style.backgroundColor = DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR;
-   span.style.color = DATATREE.TREE.HIGHLIGHT_TEXT_COLOR;
+   span.style.backgroundColor = ZTREE.TREE.HIGHLIGHT_BACKGROUND_COLOR;
+   span.style.color = ZTREE.TREE.HIGHLIGHT_TEXT_COLOR;
 }
-function DatatreeUnhighlightSpan(span){
-   if (!span.className || span.className != "datatree_content"){
+function ZtreeUnhighlightSpan(span){
+   if (!span.className || span.className != "ztree_content"){
       var prnt = span.parentNode;
       if (prnt.nodeName.toLowerCase() == "a"){
           prnt = prnt.parentNode;
@@ -2712,7 +2712,7 @@ function DatatreeUnhighlightSpan(span){
       var contents = prnt.getElementsByTagName('span');
       for (var count2 = 0; count2 < contents.length; ++count2){
          var content = contents[count2];
-         if (content.className && content.className == "datatree_content"){
+         if (content.className && content.className == "ztree_content"){
             span = content;
             break;
          }
@@ -2721,27 +2721,27 @@ function DatatreeUnhighlightSpan(span){
    span.style.backgroundColor = "";
    span.style.color = "";
 }
-function DatatreeEditTreeText(){
+function ZtreeEditTreeText(){
     if (document.getElementById("edit_tree_script")){
         document.head.removeChild(document.getElementById("edit_tree_script"));
     }
-    var submitfromtoolbar = "function datatree_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('datatree_editor').value; var mode = document.getElementById('datatree_editbox_button').innerHTML;/**document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ DatatreeSubmitEdit(html,mode,DATATREE.TREE.SELECTED_SPAN);   }";
-    var altsubmitfromtoolbar = "function datatree_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = DatatreeGetAltEditorContent();var mode = document.getElementById('datatree_editbox_button').innerHTML;DatatreeSubmitEdit(html,mode,DATATREE.TREE.SELECTED_SPAN);}";
+    var submitfromtoolbar = "function ztree_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('ztree_editor').value; var mode = document.getElementById('ztree_editbox_button').innerHTML;/**document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ ZtreeSubmitEdit(html,mode,ZTREE.TREE.SELECTED_SPAN);   }";
+    var altsubmitfromtoolbar = "function ztree_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = ZtreeGetAltEditorContent();var mode = document.getElementById('ztree_editbox_button').innerHTML;ZtreeSubmitEdit(html,mode,ZTREE.TREE.SELECTED_SPAN);}";
     /** deprecated
-    var edittree = "function edittree(e){ evt = e || window.event; DATATREE.REPRESS_ALERTS = true;DATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;DatatreeShowEditBox(evt.clientX, evt.clientY, source);}";
-    var submitedit = "function datatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = document.getElementById('datatree_editor').value;DatatreeSubmitEdit(html);}";
-    var insertsibling = "function datatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'sibling');}";
-    var insertchild = "function datatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'child');}";
-    var remove = "function datatree_remove_node(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'remove');}";
-    var altedittree = "function edittree(e){evt = e || window.event;DATATREE.REPRESS_ALERTS = true;DATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;DatatreeShowAltEditBox(evt.clientX, evt.clientY, source);}";
-    var altsubmitedit = "function datatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'overwrite');}";
-    var altinsertsibling = "function datatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'sibling');}";
-    var altinsertchild = "function datatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'child');}";
-    if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && DATATREE.ALT_EDITOR == false){
+    var edittree = "function edittree(e){ evt = e || window.event; ZTREE.REPRESS_ALERTS = true;ZTREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;ZtreeShowEditBox(evt.clientX, evt.clientY, source);}";
+    var submitedit = "function ztree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = document.getElementById('ztree_editor').value;ZtreeSubmitEdit(html);}";
+    var insertsibling = "function ztree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(document.getElementById('ztree_editor').value,'sibling');}";
+    var insertchild = "function ztree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(document.getElementById('ztree_editor').value,'child');}";
+    var remove = "function ztree_remove_node(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(document.getElementById('ztree_editor').value,'remove');}";
+    var altedittree = "function edittree(e){evt = e || window.event;ZTREE.REPRESS_ALERTS = true;ZTREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;ZtreeShowAltEditBox(evt.clientX, evt.clientY, source);}";
+    var altsubmitedit = "function ztree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(ZtreeGetAltEditorContent(),'overwrite');}";
+    var altinsertsibling = "function ztree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(ZtreeGetAltEditorContent(),'sibling');}";
+    var altinsertchild = "function ztree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;ZtreeSubmitEdit(ZtreeGetAltEditorContent(),'child');}";
+    if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && ZTREE.ALT_EDITOR == false){
        return edittree + submitedit + insertchild + insertsibling + remove + submitfromtoolbar;
-    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text" && DATATREE.ALT_EDITOR == true){
+    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text" && ZTREE.ALT_EDITOR == true){
        return altedittree + altsubmitedit + altinsertchild + altinsertsibling + remove + altsubmitfromtoolbar;
-    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && DATATREE.ALT_EDITOR == true){ // 7.9.4
+    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && ZTREE.ALT_EDITOR == true){ // 7.9.4
        return altedittree + altsubmitedit + altinsertchild + altinsertsibling + remove + altsubmitfromtoolbar;
     } else {
        return edittree + submitedit + insertchild + insertsibling + remove + submitfromtoolbar;
@@ -2749,7 +2749,7 @@ function DatatreeEditTreeText(){
     **/
     return submitfromtoolbar + altsubmitfromtoolbar;
 }
-function DatatreeInsertEditTreeText(){
+function ZtreeInsertEditTreeText(){
     if (document.getElementById("edit_tree_script")){
         document.head.removeChild(document.getElementById("edit_tree_script"));
     }
@@ -2760,15 +2760,15 @@ function DatatreeInsertEditTreeText(){
     script.appendChild(edittreeText);
     document.head.appendChild(script);
 }
-function DatatreeResetEditBox(){
-	document.getElementById('datatree_editor').innerHTML = "";
+function ZtreeResetEditBox(){
+	document.getElementById('ztree_editor').innerHTML = "";
 }
-function DatatreeShowEditBox(x, y, source, toolbar) { 
+function ZtreeShowEditBox(x, y, source, toolbar) { 
     try{
-    //DATATREE.CloseEditBox();
+    //ZTREE.CloseEditBox();
     var datatree;
-    if (DATATREE.TREE){
-       datatree = DATATREE.TREE;
+    if (ZTREE.TREE){
+       datatree = ZTREE.TREE;
     } else if (this){
        datatree = this;
     } 
@@ -2779,46 +2779,46 @@ function DatatreeShowEditBox(x, y, source, toolbar) {
        y += document.body.scrollTop;
        x += document.body.scrollLeft;
     }
-    if (DATATREE.REPRESS_EDITS == true) { return; }
-    while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
+    if (ZTREE.REPRESS_EDITS == true) { return; }
+    while (source.nodeName.toLowerCase() != "span" || source.className != "ztree_content"){
         source = source.parentNode;
     }
-    if (document.getElementById('datatree_editbox')){ 
-        document.getElementById('datatree_editbox').parentNode.removeChild(document.getElementById('datatree_editbox'));
+    if (document.getElementById('ztree_editbox')){ 
+        document.getElementById('ztree_editbox').parentNode.removeChild(document.getElementById('ztree_editbox'));
     }
         var box = document.createElement('div');
-        box.id = 'datatree_editbox';
+        box.id = 'ztree_editbox';
         box.span = source;
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         box.style.height = "100px";
         box.style.width = "400px";
-        box.style.border = DATATREE.POPUP_BORDER;
+        box.style.border = ZTREE.POPUP_BORDER;
         box.style.overflow = "auto";
         box.style.borderRadius = "20px";
         box.style.padding = "10px 10px 0px 10px";
-        box.style.background = DATATREE.POPUP_BACKGROUND;
-        //box.style.background = "white url('" + DATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
+        box.style.background = ZTREE.POPUP_BACKGROUND;
+        //box.style.background = "white url('" + ZTREE.POPUP_BACKGROUND + "') repeat scroll left top";
         var datatree;
         var radio = "";
         var info = "";
-	var reset = "<button type='button' onclick='return DatatreeResetEditBox();'>reset</button>";
+	var reset = "<button type='button' onclick='return ZtreeResetEditBox();'>reset</button>";
 	var equation = "";
 	var delimiter = "&nbsp;&nbsp;&nbsp;";
         if (datatree){
            if (datatree.TYPE != "text"){ // 7.9.4
-              radio = "<input type='radio' name='datatree_text_or_html' value='text'>text</input><input type='radio' name='datatree_text_or_html' value='html' checked='checked'>html</input>";
+              radio = "<input type='radio' name='ztree_text_or_html' value='text'>text</input><input type='radio' name='ztree_text_or_html' value='html' checked='checked'>html</input>";
 	      equation = "<a href='https://codecogs.com/latex/eqneditor.php' target='_blank'>equation</a>";
-              //info = "&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick='return DATATREE.ShowPopupBox(\"In HTML, these characters are restricted: < and > . To use them, select the text option (converts entire line to plain text), or leave spaces around them like this: x > 0. However, none of these are guaranteed to work, and the best solution is to replace them with words like less than and greater than, or write math with an equation editor.\");'>?</a>";
+              //info = "&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick='return ZTREE.ShowPopupBox(\"In HTML, these characters are restricted: < and > . To use them, select the text option (converts entire line to plain text), or leave spaces around them like this: x > 0. However, none of these are guaranteed to work, and the best solution is to replace them with words like less than and greater than, or write math with an equation editor.\");'>?</a>";
            }
         }
-        if (DatatreeShowEditBox.arguments.length == 4){
-           var displaytext = DATATREE.StringTrim(source.innerHTML);
+        if (ZtreeShowEditBox.arguments.length == 4){
+           var displaytext = ZTREE.StringTrim(source.innerHTML);
            if (toolbar == "insert"){
                displaytext = "";
            }
-           box.innerHTML = "<table><tr><td><span onclick='return DatatreeCloseEditBox();' id='datatree_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='datatree_editbox_button' onclick='return datatree_submit_from_toolbar(event);'>" + toolbar + "</button></td></tr><tr><td><textarea id='datatree_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
+           box.innerHTML = "<table><tr><td><span onclick='return ZtreeCloseEditBox();' id='ztree_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='ztree_editbox_button' onclick='return ztree_submit_from_toolbar(event);'>" + toolbar + "</button></td></tr><tr><td><textarea id='ztree_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
         } else {
            return;
         }
@@ -2843,7 +2843,7 @@ function DatatreeShowEditBox(x, y, source, toolbar) {
         } else {  }
     } catch (exc) {  }
 }
-function DatatreeSwapBranches(parnt, first, second, tree, third, fourth){
+function ZtreeSwapBranches(parnt, first, second, tree, third, fourth){
    var temp = parnt.CHILDREN[first];
    parnt.CHILDREN[first] = parnt.CHILDREN[second];
    parnt.CHILDREN[second] = temp;
@@ -2851,15 +2851,15 @@ function DatatreeSwapBranches(parnt, first, second, tree, third, fourth){
    tree.NODES[third] = tree.NODES[fourth];
    tree.NODES[fourth] = temp;
 }
-function DatatreeResetToolbarSelect(){
-   var datatree = this? this : DATATREE.TREE;
+function ZtreeResetToolbarSelect(){
+   var datatree = this? this : ZTREE.TREE;
    if (document.getElementById(datatree.TOOLBAR_SELECT_NAME))
    {
       document.getElementById(datatree.TOOLBAR_SELECT_NAME).selectedIndex = 0;
    }
 }
-function DatatreeCountAllChildrenOfNode(node,result){ // not working
-   if (DatatreeCountAllChildrenOfNode.arguments.length == 1){
+function ZtreeCountAllChildrenOfNode(node,result){ // not working
+   if (ZtreeCountAllChildrenOfNode.arguments.length == 1){
       result = 0;
    }
    for (var count = 0; count < node.CHILDREN.length; ++count){
@@ -2867,15 +2867,15 @@ function DatatreeCountAllChildrenOfNode(node,result){ // not working
       ++result;
       for (var count2 = 0; count2 < newnode.CHILDREN.length; ++count2){
          var c = newnode.CHILDREN[count2];
-         result += DatatreeCountAllChildrenOfNode(c);
+         result += ZtreeCountAllChildrenOfNode(c);
       }
    }
    return result;
 }
-function DatatreeGetMacroIndexForNode(node){ //not working
+function ZtreeGetMacroIndexForNode(node){ //not working
    var datatree;
-   if (DATATREE.TREE){
-      datatree = DATATREE.TREE;
+   if (ZTREE.TREE){
+      datatree = ZTREE.TREE;
    } else if (this){
       datatree = this;
    } else {
@@ -2888,7 +2888,7 @@ function DatatreeGetMacroIndexForNode(node){ //not working
        result += index;
        for (var count = 0; count < node.GetIndex() - 1; ++count){
           var sib = parent.CHILDREN[count];
-          result += DatatreeCountAllChildrenOfNode(sib);
+          result += ZtreeCountAllChildrenOfNode(sib);
        }
        while (parent){
          if (parent.id && parent.id == datatree.ELEMENT_OUTER_WRAPPER){
@@ -2899,7 +2899,7 @@ function DatatreeGetMacroIndexForNode(node){ //not working
             result += index;
             for (var count = 0; count < parent.GetIndex() - 1; ++count){
                var sib = parent.PARENT_NODE.CHILDREN[count];
-               result += DatatreeCountAllChildrenOfNode(sib);
+               result += ZtreeCountAllChildrenOfNode(sib);
             }
             parent = parent.PARENT_NODE;
          } else {
@@ -2909,49 +2909,49 @@ function DatatreeGetMacroIndexForNode(node){ //not working
    }
    return result;
 }
-function DatatreeReplaceBranch(index, newnode){
+function ZtreeReplaceBranch(index, newnode){
     try{
-        var oldnode = DATATREE.TREE.NODES[index];
+        var oldnode = ZTREE.TREE.NODES[index];
         for (c in oldnode.CHILDREN){
            oldnode.CHILDREN[c].PARENT_NODE = newnode;
         }
         oldnode.PARENT_NODE.CHILDREN.splice(oldnode.GetIndex(), 1, newnode);
-        DATATREE.TREE.NODES.splice(index - 1, 1, newnode);
+        ZTREE.TREE.NODES.splice(index - 1, 1, newnode);
     } catch (exc) {
-       if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
+       if (ZTREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function DatatreeCloseEditBox() {
-        var box = document.getElementById("datatree_editbox");
+function ZtreeCloseEditBox() {
+        var box = document.getElementById("ztree_editbox");
         if (box) {
             box.style.display = "none";
             box.parentNode.removeChild(box);
         }
-        if (document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME)){
-           document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex = 0;
+        if (document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME)){
+           document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex = 0;
         }
 }
-function DatatreeAllowBackspace(){
-   DATATREE.BACKSPACE_ALLOWED = true;
+function ZtreeAllowBackspace(){
+   ZTREE.BACKSPACE_ALLOWED = true;
 }
-function DatatreeDisallowBackspace(){
-   DATATREE.BACKSPACE_ALLOWED = false;
+function ZtreeDisallowBackspace(){
+   ZTREE.BACKSPACE_ALLOWED = false;
 }
-function DatatreeAutoSearchMacro(evt){
+function ZtreeAutoSearchMacro(evt){
      if (!evt){
         evt = window.event;
      }
      if (evt){
         evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
      }
-     var datatree = DATATREE.TREE? DATATREE.TREE : this;
+     var datatree = ZTREE.TREE? ZTREE.TREE : this;
 	var searchterm = document.getElementById(datatree.TOOLBAR_MACRO_SEARCHBOX_NAME).value;
      var case_sensitive = "";
-     if (document.getElementById("datatree_case_files") && document.getElementById("datatree_case_files").checked){
+     if (document.getElementById("ztree_case_files") && document.getElementById("ztree_case_files").checked){
         case_sensitive = "CASE_SENSITIVE ";
      }
      var exact_matches = "";
-     if (document.getElementById("datatree_exact_files") && document.getElementById("datatree_exact_files").checked){
+     if (document.getElementById("ztree_exact_files") && document.getElementById("ztree_exact_files").checked){
         exact_matches = "EXACT_MATCHES ";
      }
 	if (searchterm != null && searchterm != 'undefined' && searchterm != ""){
@@ -2960,9 +2960,9 @@ function DatatreeAutoSearchMacro(evt){
 	   }
 	}
 }
-function DatatreeSearchMacro(searchterm,regular_expression,case_sensitive,exact_matches){
+function ZtreeSearchMacro(searchterm,regular_expression,case_sensitive,exact_matches){
    try{
-   searchterm = DATATREE.StringTrim(searchterm);
+   searchterm = ZTREE.StringTrim(searchterm);
    if (regular_expression == null || regular_expression == "undefined"){
       regular_expression = false;
    }
@@ -2972,83 +2972,83 @@ function DatatreeSearchMacro(searchterm,regular_expression,case_sensitive,exact_
    if (exact_matches == null || exact_matches == "undefined"){
       exact_matches = false;
    }
-   DATATREE.ResetMacro();
-   if (DATATREE.SITEMAP == "" || DATATREE.SITEMAP == null || DATATREE.SITEMAP == "undefined"){
+   ZTREE.ResetMacro();
+   if (ZTREE.SITEMAP == "" || ZTREE.SITEMAP == null || ZTREE.SITEMAP == "undefined"){
        alert("Error: the sitemap has not been defined.");
        return;
    }
-   var SAVE_REPRESS_ALERTS = DATATREE.REPRESS_ALERTS;
-   DATATREE.REPRESS_ALERTS = true;
-   DATATREE.PLEASE_WAIT = false;
-   var rawfiles = DATATREE.SITEMAP.split(",");
+   var SAVE_REPRESS_ALERTS = ZTREE.REPRESS_ALERTS;
+   ZTREE.REPRESS_ALERTS = true;
+   ZTREE.PLEASE_WAIT = false;
+   var rawfiles = ZTREE.SITEMAP.split(",");
    var files = new Array();
    var LIMIT_FOR_QUICK_SEARCH = 50;
    var LIMIT = LIMIT_FOR_QUICK_SEARCH;
    for (var count = 0; count < rawfiles.length; ++count){
-       var filename = DATATREE.StringTrim(rawfiles[count]);
-       if (DATATREE.StringTrim(filename) != ""){
+       var filename = ZTREE.StringTrim(rawfiles[count]);
+       if (ZTREE.StringTrim(filename) != ""){
           files.push(filename);
        }
    }
-   //var temptree = new DATATREE.Tree();
+   //var temptree = new ZTREE.Tree();
    for (var count = 0; count < files.length; ++count){
       if (count > LIMIT){
-	  if (window.confirm("Datatree has searched " + count + " trees and found " + DATATREE.MACRO_SEARCH_RESULTS.length + " results.\n Search another " + LIMIT_FOR_QUICK_SEARCH + " trees?")){
+	  if (window.confirm("Ztree has searched " + count + " trees and found " + ZTREE.MACRO_SEARCH_RESULTS.length + " results.\n Search another " + LIMIT_FOR_QUICK_SEARCH + " trees?")){
 		  LIMIT += LIMIT_FOR_QUICK_SEARCH;
 	  } else {
              break;
 	  }
       }
-      var txt = DatatreeReadFile(files[count]);
+      var txt = ZtreeReadFile(files[count]);
       if (txt != null && txt != "undefined" && txt != ""){
-		 //txt = DATATREE.StripTagsPHPJS(txt);
+		 //txt = ZTREE.StripTagsPHPJS(txt);
          try{
          if (regular_expression == true){
             var pattern = "txt.match(" + searchterm + ")";
             if (eval(pattern)){
-               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               ZTREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (case_sensitive == true && exact_matches == true){
             var pattern = "txt.match(/\\b" + searchterm + "\\b/)";
             if ( eval(pattern) ){
-               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               ZTREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (case_sensitive == true){
             var pattern = "txt.match(/" + searchterm + "/)";
             if ( eval(pattern) ){
-               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               ZTREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (exact_matches == true){
             var pattern = "txt.match(/\\b" + searchterm + "\\b/i)";
             if (eval(pattern)){
-               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               ZTREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (txt.toLowerCase().indexOf(searchterm.toLowerCase()) >= 0){
-            DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+            ZTREE.MACRO_SEARCH_RESULTS.push(files[count]);
          }
          }catch(exc){alert(exc);}
       }
    }
-   DATATREE.REPRESS_ALERTS = SAVE_REPRESS_ALERTS;
-   var datatree = DATATREE.TREE? DATATREE.TREE : this;
+   ZTREE.REPRESS_ALERTS = SAVE_REPRESS_ALERTS;
+   var datatree = ZTREE.TREE? ZTREE.TREE : this;
    if (datatree && datatree.HAS_ERRORS == true){
        datatree.Query("REPLAY");
    }
-   return DATATREE.MACRO_SEARCH_RESULTS.length;
+   return ZTREE.MACRO_SEARCH_RESULTS.length;
    } catch(exc) { return 0; }
 }
-function DatatreeResetMacro(){
-   DATATREE.MACRO.length = 0;
-   DATATREE.MACRO_SEARCH_RESULTS.length = 0;
+function ZtreeResetMacro(){
+   ZTREE.MACRO.length = 0;
+   ZTREE.MACRO_SEARCH_RESULTS.length = 0;
 }
-function DatatreePreventDefault(evt){
+function ZtreePreventDefault(evt){
    if (!evt){
       evt = window.event;
    }
    var keycode = evt.which || evt.keyCode || evt.charCode;
    var keypressed = String.fromCharCode(keycode);
    if (keycode == 13){
-      if (DATATREE.GetBrowser().toLowerCase() != "edge"){
+      if (ZTREE.GetBrowser().toLowerCase() != "edge"){
         window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
         var targ = evt.target? evt.target : evt.srcElement;
         var txt = targ.value;
@@ -3059,141 +3059,141 @@ function DatatreePreventDefault(evt){
       //
    }
 }
-function DatatreeSetToolbar(toolbar_tools){
+function ZtreeSetToolbar(toolbar_tools){
    toolbar_tools = toolbar_tools.toLowerCase();
-   DATATREE.TREE.TOOLBAR_TOOLS = toolbar_tools;
+   ZTREE.TREE.TOOLBAR_TOOLS = toolbar_tools;
    var TOOLBAR = "";
-   DATATREE.TREE = this;
-   var trimmed = DATATREE.StringTrim(toolbar_tools);
+   ZTREE.TREE = this;
+   var trimmed = ZTREE.StringTrim(toolbar_tools);
    if (trimmed.toUpperCase() == 'WRAP'){
-                       DATATREE.TOOLBAR_STYLE = DATATREE.TOOLBAR_WRAP_STYLE;
-                       toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
+                       ZTREE.TOOLBAR_STYLE = ZTREE.TOOLBAR_WRAP_STYLE;
+                       toolbar_tools = ZTREE.DEFAULT_TOOLBAR_TOOLS;
    } else if (trimmed.toUpperCase() == 'NOWRAP'){
-                       DATATREE.TOOLBAR_STYLE = DATATREE.TOOLBAR_NOWRAP_STYLE;
-                       toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
+                       ZTREE.TOOLBAR_STYLE = ZTREE.TOOLBAR_NOWRAP_STYLE;
+                       toolbar_tools = ZTREE.DEFAULT_TOOLBAR_TOOLS;
    } else if (trimmed.toUpperCase() == 'DEFAULT'){
-         DATATREE.TOOLBAR_FREESTYLE = DATATREE.DEFAULT_TOOLBAR_FREESTYLE;
-         toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
+         ZTREE.TOOLBAR_FREESTYLE = ZTREE.DEFAULT_TOOLBAR_FREESTYLE;
+         toolbar_tools = ZTREE.DEFAULT_TOOLBAR_TOOLS;
    }
-   if (DatatreeSetToolbar.arguments.length > 0 && trimmed != "" && trimmed != null && trimmed != "undefined"){
-       TOOLBAR = "<div align='" + DATATREE.TOOLBAR_ALIGN + "' id='" + this.TOOLBAR_NAME + "' onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' style='" + DATATREE.TOOLBAR_STYLE + "' >";
+   if (ZtreeSetToolbar.arguments.length > 0 && trimmed != "" && trimmed != null && trimmed != "undefined"){
+       TOOLBAR = "<div align='" + ZTREE.TOOLBAR_ALIGN + "' id='" + this.TOOLBAR_NAME + "' onmouseover='return ZtreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return ZtreeRightClick();' style='" + ZTREE.TOOLBAR_STYLE + "' >";
        var tools = toolbar_tools.split(',');
        tools.push('status');
        for (var count = 0; count < tools.length; ++count){
-          var tool = DATATREE.StringTrim(tools[count]);
-          var separator = DATATREE.TOOLBAR_SEPARATOR;
+          var tool = ZTREE.StringTrim(tools[count]);
+          var separator = ZTREE.TOOLBAR_SEPARATOR;
           switch(tool){
              case "expand":
-                TOOLBAR += "<button onclick='return DATATREE.Expand(event);'>EXPAND</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Expand(event);'>EXPAND</button>";
                 TOOLBAR += separator;
                 break;
              case "collapse":
-                TOOLBAR += "<button onclick='return DATATREE.Collapse(event);'>COLLAPSE</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Collapse(event);'>COLLAPSE</button>";
                 TOOLBAR += separator;
                 break;
              case "replace":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' size='3' title='search for' id='" + this.TOOLBAR_REPLACE_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><input type='text' size='3' title='replace with' id='" + this.TOOLBAR_REPLACE_WITH_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button title='press first to search, then press to replace' onclick='return DATATREE.Replace(event);'>REPLACE</button><button onclick='return DATATREE.Skip(event);'>SKIP</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' size='3' title='search for' id='" + this.TOOLBAR_REPLACE_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><input type='text' size='3' title='replace with' id='" + this.TOOLBAR_REPLACE_WITH_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button title='press first to search, then press to replace' onclick='return ZTREE.Replace(event);'>REPLACE</button><button onclick='return ZTREE.Skip(event);'>SKIP</button></span>";
                 TOOLBAR += separator;
                 break;
              case "search":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Search(event);'>SEARCH</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button onclick='return ZTREE.Search(event);'>SEARCH</button></span>";
                 TOOLBAR += separator;
                 break;
              case "search_horizontal":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Search(event);'>SEARCH</button><input type='checkbox' id='datatree_case'>case&nbsp;</input><input type='checkbox' id='datatree_exact'>exact&nbsp;</input></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button onclick='return ZTREE.Search(event);'>SEARCH</button><input type='checkbox' id='ztree_case'>case&nbsp;</input><input type='checkbox' id='ztree_exact'>exact&nbsp;</input></span>";
                 TOOLBAR += separator;
                 break;
              case "search_vertical":
-                TOOLBAR += "<span style='white-space:nowrap;'><table style='display:inline;'><tr><td><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /></td><td><button onclick='return DATATREE.Search(event);'>SEARCH</button></td></tr><tr><td><input type='checkbox' id='datatree_case'>case</input></td><td><input type='checkbox' id='datatree_exact'>exact</input></td></tr></table></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><table style='display:inline;'><tr><td><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /></td><td><button onclick='return ZTREE.Search(event);'>SEARCH</button></td></tr><tr><td><input type='checkbox' id='ztree_case'>case</input></td><td><input type='checkbox' id='ztree_exact'>exact</input></td></tr></table></span>";
                 TOOLBAR += separator;
                 break;
              case "next":
-                TOOLBAR += "<button onclick='return DATATREE.Next(event);'>NEXT</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Next(event);'>NEXT</button>";
                 TOOLBAR += separator;
                 break;
              case "previous":
-                TOOLBAR += "<button onclick='return DATATREE.Previous(event);'>PREVIOUS</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Previous(event);'>PREVIOUS</button>";
                 TOOLBAR += separator;
                 break;
 	     case "searchmacro":
  	     case "macrosearch":
-	 		   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.AutoSearchMacro(event);'>SEARCH FILES</button></span>";
+	 		   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button onclick='return ZTREE.AutoSearchMacro(event);'>SEARCH FILES</button></span>";
 	 		   TOOLBAR += separator;
                    break;
            case "searchmacro_horizontal":
            case "macrosearch_horizontal":
-                   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.AutoSearchMacro(event);'>SEARCH FILES</button><input type='checkbox' id='datatree_case_files'>case&nbsp;</input><input type='checkbox' id='datatree_exact_files'>exact&nbsp;</input></span>";
+                   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button onclick='return ZTREE.AutoSearchMacro(event);'>SEARCH FILES</button><input type='checkbox' id='ztree_case_files'>case&nbsp;</input><input type='checkbox' id='ztree_exact_files'>exact&nbsp;</input></span>";
                    TOOLBAR += separator;
                    break;
              case "alphabetize":
              case "sort":
-                TOOLBAR += "<span style='white-space:nowrap;'><label>from</label><input type='text' size='2' id='" + this.TOOLBAR_LOWER_BOUND_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><label>to</label><input type='text' size='2' id='" + this.TOOLBAR_UPPER_BOUND_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Alphabetize(event);'>ALPHABETIZE</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><label>from</label><input type='text' size='2' id='" + this.TOOLBAR_LOWER_BOUND_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><label>to</label><input type='text' size='2' id='" + this.TOOLBAR_UPPER_BOUND_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();' /><button onclick='return ZTREE.Alphabetize(event);'>ALPHABETIZE</button></span>";
                 TOOLBAR += separator;
                 break;
              case "input":
              case "query":
-                TOOLBAR += "<span style='white-space:nowrap;'><textarea rows='" + DATATREE.QUERYWINDOW_ROWS + "' cols='" + DATATREE.QUERYWINDOW_COLS + "' type='text' id='" + this.TOOLBAR_QUERYWINDOW_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();'></textarea><button title='Datatree input commands' onclick='return DATATREE.Query(event);' oncontextmenu='return DATATREE.QueryDocumentation();'>INPUT</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><textarea rows='" + ZTREE.QUERYWINDOW_ROWS + "' cols='" + ZTREE.QUERYWINDOW_COLS + "' type='text' id='" + this.TOOLBAR_QUERYWINDOW_NAME + "' onkeydown='return ZtreePreventDefault(event);' onmouseover='return ZtreeAllowBackspace();' onmouseout='return ZtreeDisallowBackspace();'></textarea><button title='Ztree input commands' onclick='return ZTREE.Query(event);' oncontextmenu='return ZTREE.QueryDocumentation();'>INPUT</button></span>";
                 TOOLBAR += separator;
                 break;
              case "number":
              case "numbers":
-                TOOLBAR += "<button onclick='return DATATREE.Number(event);'>NUMBER</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Number(event);'>NUMBER</button>";
                 TOOLBAR += separator;
                 break;
              case "reset":
              case "clear":
-                TOOLBAR += "<button onclick='return DATATREE.Reset(event);'>RESET</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Reset(event);'>RESET</button>";
                 TOOLBAR += separator;
                 break;
              case "save":
 			 case "savemin":
 			 case "save_min":
-                TOOLBAR += "<button onclick='return DATATREE.Save(event);'>SAVE</button>";
+                TOOLBAR += "<button onclick='return ZTREE.Save(event);'>SAVE</button>";
                 TOOLBAR += separator;
                 break;
 			 case "savemax":
 	         case "save_max":
-                TOOLBAR += "<button onclick='return DATATREE.SaveMax(event);'>SAVE</button>";
+                TOOLBAR += "<button onclick='return ZTREE.SaveMax(event);'>SAVE</button>";
                 TOOLBAR += separator;
                 break;
   	     case "load":
-                TOOLBAR += "<button onclick='return DATATREE.LoadFromToolbar(event);'>LOAD</button>";
+                TOOLBAR += "<button onclick='return ZTREE.LoadFromToolbar(event);'>LOAD</button>";
                 TOOLBAR += separator;
                 break;
              case "text":
-                TOOLBAR += "<button onclick='return DATATREE.PrintText(event);' title='copy and paste to save your text changes'>TEXT</button>";
+                TOOLBAR += "<button onclick='return ZTREE.PrintText(event);' title='copy and paste to save your text changes'>TEXT</button>";
                 TOOLBAR += separator;
                 break;
              case "html":
-                TOOLBAR += "<button onclick='return DATATREE.PrintHtml(event);' title='copy and paste to save your text changes'>HTML</button>";
+                TOOLBAR += "<button onclick='return ZTREE.PrintHtml(event);' title='copy and paste to save your text changes'>HTML</button>";
                 TOOLBAR += separator;
                 break;
              case "custom":
-                TOOLBAR += "<button id='datatree_custom_button' onclick='return DATATREE.Custom(event);' title='" + DATATREE.CUSTOM_TOOLTIP + "' >" + DATATREE.CUSTOM_VALUE + "</button>";
+                TOOLBAR += "<button id='ztree_custom_button' onclick='return ZTREE.Custom(event);' title='" + ZTREE.CUSTOM_TOOLTIP + "' >" + ZTREE.CUSTOM_VALUE + "</button>";
                 break;
              case "custom2":
-                TOOLBAR += "<button id='datatree_custom2_button' onclick='return DATATREE.Custom2(event);' title='" + DATATREE.CUSTOM2_TOOLTIP + "' >" + DATATREE.CUSTOM2_VALUE + "</button>";
+                TOOLBAR += "<button id='ztree_custom2_button' onclick='return ZTREE.Custom2(event);' title='" + ZTREE.CUSTOM2_TOOLTIP + "' >" + ZTREE.CUSTOM2_VALUE + "</button>";
                 break;
              case "freestyle":
-                TOOLBAR += DATATREE.TOOLBAR_FREESTYLE;
+                TOOLBAR += ZTREE.TOOLBAR_FREESTYLE;
                 break;
 	     case "freestyle2":
-		   TOOLBAR += DATATREE.TOOLBAR_FREESTYLE2;
+		   TOOLBAR += ZTREE.TOOLBAR_FREESTYLE2;
 		   break;
              case "edit":
-                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return DATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
+                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return ZTREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                 TOOLBAR += separator;
                 break;
              case "edit_with_popups":
-                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onclick='return DATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='right_with_popups'>move right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
+                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onclick='return ZTREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='right_with_popups'>move right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                 TOOLBAR += separator;
                 break;
              case "menu":
-                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return DATATREE.OpenMenu(false);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
+                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return ZTREE.OpenMenu(false);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
                 TOOLBAR += separator;
                 break;
              case "menu_with_popups":
-                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return DATATREE.OpenMenu(true);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
+                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return ZTREE.OpenMenu(true);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
                 TOOLBAR += separator;
                 break;
              case "status":
@@ -3207,8 +3207,8 @@ function DatatreeSetToolbar(toolbar_tools){
       this.TOOLBAR = TOOLBAR;
    }
 }
-function DatatreeOpenMenu(popups){ 
-     var menu = document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME);
+function ZtreeOpenMenu(popups){ 
+     var menu = document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME);
      var x = menu.offsetLeft;
      var y = menu.offsetTop - 15 + menu.offsetHeight;
      var p = menu.offsetParent;
@@ -3224,31 +3224,31 @@ function DatatreeOpenMenu(popups){
      ul.style.position = 'absolute';
      ul.style.zIndex = '1000';
      ul.style.backgroundColor = '#eeeeee';
-     ul.id = 'datatree_menu';
+     ul.id = 'ztree_menu';
      ul.style.paddingLeft = '0px';
      ul.style.paddingTop = '0px';
      ul.style.listStyleType = 'none';
      ul.style.border = '1px solid gray';
-     if (DatatreeOpenMenu.arguments.length > 0 && popups == true){
-        ul.innerHTML = "<li class='overwrite' onclick='return DATATREE.MenuMouseClick(event,0);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return DATATREE.MenuMouseClick(event,1);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return DATATREE.MenuMouseClick(event,2);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return DATATREE.MenuMouseClick(event,3);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return DATATREE.MenuMouseClick(event,4);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move down</li><li class='right_with_popups' onclick='return DATATREE.MenuMouseClick(event,5);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move right</li><li class='left' onclick='return DATATREE.MenuMouseClick(event,6);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return DATATREE.MenuMouseClick(event,7);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return DATATREE.MenuMouseClick(event,8);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return DATATREE.MenuMouseClick(event,9);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return DATATREE.MenuMouseClick(event,10);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return DATATREE.MenuMouseClick(event,11);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return DATATREE.MenuMouseClick(event,12);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return DATATREE.MenuMouseClick(event,13);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return DATATREE.MenuMouseClick(event,14);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);'>CLOSE</li>";
+     if (ZtreeOpenMenu.arguments.length > 0 && popups == true){
+        ul.innerHTML = "<li class='overwrite' onclick='return ZTREE.MenuMouseClick(event,0);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return ZTREE.MenuMouseClick(event,1);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return ZTREE.MenuMouseClick(event,2);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return ZTREE.MenuMouseClick(event,3);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return ZTREE.MenuMouseClick(event,4);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move down</li><li class='right_with_popups' onclick='return ZTREE.MenuMouseClick(event,5);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move right</li><li class='left' onclick='return ZTREE.MenuMouseClick(event,6);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return ZTREE.MenuMouseClick(event,7);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return ZTREE.MenuMouseClick(event,8);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return ZTREE.MenuMouseClick(event,9);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return ZTREE.MenuMouseClick(event,10);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return ZTREE.MenuMouseClick(event,11);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return ZTREE.MenuMouseClick(event,12);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return ZTREE.MenuMouseClick(event,13);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return ZTREE.MenuMouseClick(event,14);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);'>CLOSE</li>";
      } else {
-        ul.innerHTML = "<li class='overwrite' onclick='return DATATREE.MenuMouseClick(event,0);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return DATATREE.MenuMouseClick(event,1);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return DATATREE.MenuMouseClick(event,2);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return DATATREE.MenuMouseClick(event,3);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return DATATREE.MenuMouseClick(event,4);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move down</li><li class='selection right' onclick='return DATATREE.MenuMouseClick(event,5);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >selection right</li><li class='section right' onclick='return DATATREE.MenuMouseClick(event,6);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >section right</li><li class='left' onclick='return DATATREE.MenuMouseClick(event,7);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return DATATREE.MenuMouseClick(event,8);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return DATATREE.MenuMouseClick(event,9);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return DATATREE.MenuMouseClick(event,10);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return DATATREE.MenuMouseClick(event,11);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return DATATREE.MenuMouseClick(event,12);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return DATATREE.MenuMouseClick(event,13);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return DATATREE.MenuMouseClick(event,14);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return DATATREE.MenuMouseClick(event,15);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);'>CLOSE</li>";
+        ul.innerHTML = "<li class='overwrite' onclick='return ZTREE.MenuMouseClick(event,0);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return ZTREE.MenuMouseClick(event,1);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return ZTREE.MenuMouseClick(event,2);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return ZTREE.MenuMouseClick(event,3);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return ZTREE.MenuMouseClick(event,4);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move down</li><li class='selection right' onclick='return ZTREE.MenuMouseClick(event,5);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >selection right</li><li class='section right' onclick='return ZTREE.MenuMouseClick(event,6);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >section right</li><li class='left' onclick='return ZTREE.MenuMouseClick(event,7);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return ZTREE.MenuMouseClick(event,8);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return ZTREE.MenuMouseClick(event,9);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return ZTREE.MenuMouseClick(event,10);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return ZTREE.MenuMouseClick(event,11);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return ZTREE.MenuMouseClick(event,12);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return ZTREE.MenuMouseClick(event,13);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return ZTREE.MenuMouseClick(event,14);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return ZTREE.MenuMouseClick(event,15);' onmouseover='return ZTREE.MenuMouseOver(event);' onmouseout='return ZTREE.MenuMouseOut(event);'>CLOSE</li>";
      }
      ul.style.left = x + "px";
      ul.style.top = y + "px";
      document.body.appendChild(ul);
 }
-function DatatreeMenuMouseClick(evt,index){ 
+function ZtreeMenuMouseClick(evt,index){ 
    if (!evt){
       evt = window.event;
    }
    var targ = evt.target? evt.target : evt.srcElement;
    if (targ){ 
-      document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).setAttribute('selectedIndex',index);
-      DATATREE.ToolbarSelect(targ.className);
+      document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME).setAttribute('selectedIndex',index);
+      ZTREE.ToolbarSelect(targ.className);
    }
 }
-function DatatreeMenuMouseOver(evt){
+function ZtreeMenuMouseOver(evt){
    if (!evt){
       evt = window.event;
    }
@@ -3257,7 +3257,7 @@ function DatatreeMenuMouseOver(evt){
       targ.style.backgroundColor = 'gray';
    }
 }
-function DatatreeMenuMouseOut(evt){
+function ZtreeMenuMouseOut(evt){
    if (!evt){
       evt = window.event;
    }
@@ -3267,7 +3267,7 @@ function DatatreeMenuMouseOut(evt){
    }
    var clientX = evt.clientX;
    var clientY = evt.clientY;
-   var menu = document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME);
+   var menu = document.getElementById(ZTREE.TREE.TOOLBAR_SELECT_NAME);
    var x = menu.offsetLeft;
    var y = menu.offsetTop;
    var p = menu.offsetParent;
@@ -3285,85 +3285,85 @@ function DatatreeMenuMouseOut(evt){
    }
    if (clientX < x || clientX > x + menu.offsetWidth){
       if (clientY < y || clientY > y + menu.offsetHeight){
-         DATATREE.CloseMenu();
+         ZTREE.CloseMenu();
       }
    }
 }
-function DatatreeCloseMenu(){
-   document.body.removeChild(document.getElementById('datatree_menu'));
+function ZtreeCloseMenu(){
+   document.body.removeChild(document.getElementById('ztree_menu'));
 }
-function DatatreeAutoInit(outer_wrapper){ 
-   if (DatatreeAutoInit.arguments.length >= 1){
-       DATATREE.TREE = new DATATREE.Tree(outer_wrapper);
+function ZtreeAutoInit(outer_wrapper){ 
+   if (ZtreeAutoInit.arguments.length >= 1){
+       ZTREE.TREE = new ZTREE.Tree(outer_wrapper);
    } else {
-       DATATREE.TREE = new DATATREE.Tree();
+       ZTREE.TREE = new ZTREE.Tree();
    }
-   if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap')){
-	   var temp = DATATREE.REPRESS_ALERTS;
-           DATATREE.REPRESS_ALERTS = true;
-           DATATREE.PLEASE_WAIT = false;
-           var sitemap = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap');
-           if (DATATREE.StringTrim(sitemap) != ""){ 
-              DATATREE.SITEMAP_FILE = sitemap;
-              DATATREE.SITEMAP = DATATREE.LoadSitemap(sitemap);
+   if (document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap')){
+	   var temp = ZTREE.REPRESS_ALERTS;
+           ZTREE.REPRESS_ALERTS = true;
+           ZTREE.PLEASE_WAIT = false;
+           var sitemap = document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap');
+           if (ZTREE.StringTrim(sitemap) != ""){ 
+              ZTREE.SITEMAP_FILE = sitemap;
+              ZTREE.SITEMAP = ZTREE.LoadSitemap(sitemap);
            }
-           DATATREE.REPRESS_ALERTS = temp;
+           ZTREE.REPRESS_ALERTS = temp;
    }
-   if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')){
-      DATATREE.Load(document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src'));
-      TEXT = DATATREE.TEMP;
+   if (document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')){
+      ZTREE.Load(document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src'));
+      TEXT = ZTREE.TEMP;
    } else {
-      if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER)){
-         TEXT = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML;
+      if (document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER)){
+         TEXT = document.getElementById(ZTREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML;
       }
    }
-   DATATREE.TREE.AutoInitialize(TEXT);
+   ZTREE.TREE.AutoInitialize(TEXT);
 }
-function DatatreeAutoLoad(src){
+function ZtreeAutoLoad(src){
    try{
-   DATATREE.REQUEST = new XMLHttpRequest();
+   ZTREE.REQUEST = new XMLHttpRequest();
    var result = "";
-   DATATREE.REQUEST.onreadystatechange = DATATREE.Response;
+   ZTREE.REQUEST.onreadystatechange = ZTREE.Response;
    src = escape(src);
-   DATATREE.REQUEST.open("GET", src, false);
-   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   DATATREE.REQUEST.send();
+   ZTREE.REQUEST.open("GET", src, false);
+   ZTREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   ZTREE.REQUEST.send();
    } catch (exc) {  }
 }
-function DatatreeAutoResponse(){
-   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
-      var response = DATATREE.REQUEST.responseText;
-      DATATREE.TEMP = response;
+function ZtreeAutoResponse(){
+   if (ZTREE.REQUEST.readyState == 4 && ZTREE.REQUEST.status == 200){
+      var response = ZTREE.REQUEST.responseText;
+      ZTREE.TEMP = response;
    }
 }
-function DatatreeReadFile(path){
+function ZtreeReadFile(path){
    try{
-   DATATREE.REQUEST = new XMLHttpRequest();
+   ZTREE.REQUEST = new XMLHttpRequest();
    var result = "";
    path = escape(path);
-   DATATREE.REQUEST.open("GET", path, false);
-   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   DATATREE.REQUEST.send();
-   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
-      var response = DATATREE.REQUEST.responseText;
+   ZTREE.REQUEST.open("GET", path, false);
+   ZTREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   ZTREE.REQUEST.send();
+   if (ZTREE.REQUEST.readyState == 4 && ZTREE.REQUEST.status == 200){
+      var response = ZTREE.REQUEST.responseText;
       return response;
    } else {
       return null;
    }
    } catch (exc) {
-      DATATREE.TREE? DATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
+      ZTREE.TREE? ZTREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
    }
 }
-function DatatreeLoadSitemap(src){
+function ZtreeLoadSitemap(src){
    try{
-   DATATREE.REQUEST = new XMLHttpRequest();
+   ZTREE.REQUEST = new XMLHttpRequest();
    var result = "";
    src = escape(src);
-   DATATREE.REQUEST.open("GET", src, false);
-   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   DATATREE.REQUEST.send();
-   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
-          var response = DATATREE.REQUEST.responseText; 
+   ZTREE.REQUEST.open("GET", src, false);
+   ZTREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   ZTREE.REQUEST.send();
+   if (ZTREE.REQUEST.readyState == 4 && ZTREE.REQUEST.status == 200){
+          var response = ZTREE.REQUEST.responseText; 
 	  if (response == null || response == ""){
 		  return null;
 	  }
@@ -3371,7 +3371,7 @@ function DatatreeLoadSitemap(src){
                   var lines = response.split("\r").join("").split("\n");
 		  for (var count = 0; count < lines.length; ++count){
 			  var line = lines[count];
-			  var filename = DATATREE.LeftStringTrim(line);
+			  var filename = ZTREE.LeftStringTrim(line);
                           var name = filename.toLowerCase();
                           var blanks = line.length - filename.length;
 			  var file = false;
@@ -3381,7 +3381,7 @@ function DatatreeLoadSitemap(src){
                                   file = true;
                           } else if ((name.length > ".txt".length) && name.substring(name.length - ".txt".length) == ".txt"){
                                   file = true;
-                          } else if (DATATREE.StringTrim(name) != ""){
+                          } else if (ZTREE.StringTrim(name) != ""){
                                   file = true;
                           }
 			  if (file){
@@ -3389,16 +3389,16 @@ function DatatreeLoadSitemap(src){
                                   var folders = new Array();
                                   for (var back = count - 1; back >= 0; --back){
                                      var prev = lines[back];
-                                     var prevname = DATATREE.LeftStringTrim(prev);
+                                     var prevname = ZTREE.LeftStringTrim(prev);
                                      var prevblanks = prev.length - prevname.length;
                                      if (prevblanks < curblanks){
                                         curblanks = prevblanks;
-                                        folders.push(DATATREE.StringTrim(prevname));
+                                        folders.push(ZTREE.StringTrim(prevname));
                                      }
                                   }
                                   for (var back = folders.length; back >= 0; --back){
                                      var folder = folders[back];
-                                     if (folder != null && folder != "undefined" && DATATREE.StringTrim(folder) != ""){
+                                     if (folder != null && folder != "undefined" && ZTREE.StringTrim(folder) != ""){
                                         result += folder + "/";
                                      }
                                   }
@@ -3411,10 +3411,10 @@ function DatatreeLoadSitemap(src){
          return null;
    }
    } catch (exc) { 
-      DATATREE.TREE? DATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
+      ZTREE.TREE? ZTREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
    }
 }
-function DatatreeSetTreeHeight(treeheight){
+function ZtreeSetTreeHeight(treeheight){
    if (typeof treeheight == "number"){
    } else if (typeof treeheight == "string"){
        treeheight = treeheight.split(';').join('').split('px').join('');
@@ -3430,12 +3430,12 @@ function DatatreeSetTreeHeight(treeheight){
       document.getElementById(this.ELEMENT_INNER_WRAPPER).style.height = this.ELEMENT_INNER_WRAPPER_HEIGHT;
    }
 }
-function DatatreeSetIcons(open,closed,empty){
+function ZtreeSetIcons(open,closed,empty){
    this.SetOpenIcon(open);
    this.SetClosedIcon(closed);
    this.SetEmptyIcon(empty);
 }
-function DatatreeSetOpenIcon(open){
+function ZtreeSetOpenIcon(open){
    var div = document.createElement('div');
    div.innerHTML = open;
    var tag = div.firstChild;
@@ -3451,7 +3451,7 @@ function DatatreeSetOpenIcon(open){
    open.className = "open";
    this.OPEN_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function DatatreeSetClosedIcon(closed){
+function ZtreeSetClosedIcon(closed){
    var div = document.createElement('div');
    div.innerHTML = closed;
    var tag = div.firstChild;
@@ -3467,7 +3467,7 @@ function DatatreeSetClosedIcon(closed){
    closed.className = "closed";
    this.CLOSED_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function DatatreeSetEmptyIcon(empty){
+function ZtreeSetEmptyIcon(empty){
    var div = document.createElement('div');
    div.innerHTML = empty;
    var tag = div.firstChild;
@@ -3483,10 +3483,10 @@ function DatatreeSetEmptyIcon(empty){
    empty.className = "empty";
    this.EMPTY_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function DatatreeGetLettering(){
+function ZtreeGetLettering(){
     return "font-family:" + this.LETTERING + ";";
 }
-function DatatreeAutoInitialize(TEXT){ 
+function ZtreeAutoInitialize(TEXT){ 
    var elmnt = document.getElementById(this.ELEMENT_OUTER_WRAPPER);
    if (elmnt.getAttribute('root')){
       this.TITLE = elmnt.getAttribute('root');
@@ -3540,207 +3540,207 @@ function DatatreeAutoInitialize(TEXT){
             break;
       }
    }
-   //DATATREE.PLEASE_WAIT = true;
+   //ZTREE.PLEASE_WAIT = true;
    var querystring = "CREATE FROM " + TYPE + " " + TEXT;
    this.Query(querystring);
 }
-function DatatreeAutoExpand(evt){
+function ZtreeAutoExpand(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("EXPAND");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("EXPAND");
    }
 }
-function DatatreeAutoCollapse(evt){
+function ZtreeAutoCollapse(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("COLLAPSE");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("COLLAPSE");
    }
 }
-function DatatreeAutoReplace(){
+function ZtreeAutoReplace(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      var replace = document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_NAME).value;
-      var replace_with = document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value;
-      if (DATATREE.StringTrim(replace) != "" && DATATREE.StringTrim(replace_with) != ""){
-         DATATREE.TREE.Query("WITH " + replace_with);
-         DATATREE.TREE.Query("REPLACE " + replace);
-      } else if (DATATREE.StringTrim(replace) == "" && DATATREE.StringTrim(replace_with) == ""){
-         DATATREE.TREE.Query("REPLACE");
+   if (ZTREE.TREE){
+      var replace = document.getElementById(ZTREE.TREE.TOOLBAR_REPLACE_NAME).value;
+      var replace_with = document.getElementById(ZTREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value;
+      if (ZTREE.StringTrim(replace) != "" && ZTREE.StringTrim(replace_with) != ""){
+         ZTREE.TREE.Query("WITH " + replace_with);
+         ZTREE.TREE.Query("REPLACE " + replace);
+      } else if (ZTREE.StringTrim(replace) == "" && ZTREE.StringTrim(replace_with) == ""){
+         ZTREE.TREE.Query("REPLACE");
       }
    }
 }
-function DatatreeAutoSkip(){
+function ZtreeAutoSkip(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query('SKIP');
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query('SKIP');
    }
 }
-function DatatreeAutoSearch(evt){
+function ZtreeAutoSearch(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-      var searchterm = document.getElementById(DATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
-      if (DATATREE.StringTrim(searchterm) != ""){
+   if (ZTREE.TREE){
+      var searchterm = document.getElementById(ZTREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
+      if (ZTREE.StringTrim(searchterm) != ""){
          var options = "";
-         var cas = document.getElementById('datatree_case');
-         var exact = document.getElementById('datatree_exact');
+         var cas = document.getElementById('ztree_case');
+         var exact = document.getElementById('ztree_exact');
          if (cas && cas.checked == true){
             options += "CASE_SENSITIVE ";
          }
          if (exact && exact.checked == true){
             options += "EXACT_MATCHES ";
          }
-         DATATREE.TREE.Query("SEARCH " + options + "FOR " + searchterm);
+         ZTREE.TREE.Query("SEARCH " + options + "FOR " + searchterm);
       }
    }
 }
-function DatatreeAutoNext(evt){
+function ZtreeAutoNext(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-       DATATREE.TREE.Query("NEXT");
+   if (ZTREE.TREE){
+       ZTREE.TREE.Query("NEXT");
    }
 }
-function DatatreeAutoPrevious(evt){
+function ZtreeAutoPrevious(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-       DATATREE.TREE.Query("PREVIOUS");
+   if (ZTREE.TREE){
+       ZTREE.TREE.Query("PREVIOUS");
    }
 }
-function DatatreeAutoQuery(evt){
+function ZtreeAutoQuery(evt){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    } else if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-      var query = document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value;
-      if (DATATREE.StringTrim(query) != ""){
-         DATATREE.TREE.Query(query);
+   if (ZTREE.TREE){
+      var query = document.getElementById(ZTREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value;
+      if (ZTREE.StringTrim(query) != ""){
+         ZTREE.TREE.Query(query);
       }
    }
 }
-function DatatreeAutoNumber(){
+function ZtreeAutoNumber(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("NUMBER");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("NUMBER");
    }
 }
-function DatatreeAutoReset(evt){
+function ZtreeAutoReset(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (DATATREE.TREE){
-      if (document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME)){
-         document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value = "";
+   if (ZTREE.TREE){
+      if (document.getElementById(ZTREE.TREE.TOOLBAR_QUERYWINDOW_NAME)){
+         document.getElementById(ZTREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value = "";
       }
-      DATATREE.TREE.Query("CLEAR ALL");
+      ZTREE.TREE.Query("CLEAR ALL");
    }
 }
-function DatatreeAutoPrintHtml(){
+function ZtreeAutoPrintHtml(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("PRINT HTML");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("PRINT HTML");
    }
 }
-function DatatreeAutoSave(){
+function ZtreeAutoSave(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      if (DATATREE.TREE.TYPE == "text"){
-         DATATREE.TREE.Query("PRINT TEXTTREE");
+   if (ZTREE.TREE){
+      if (ZTREE.TREE.TYPE == "text"){
+         ZTREE.TREE.Query("PRINT TEXTTREE");
          alert('Please save your file as an html file with the double extension .tree.html');
-         //DATATREE.TREE.Query("PRINT TEXT");
+         //ZTREE.TREE.Query("PRINT TEXT");
          //alert('Please save your file as a text file with the extension .txt');
-      } else if (DATATREE.TREE.TYPE == "html"){
-         DATATREE.TREE.Query("PRINT HTML");
+      } else if (ZTREE.TREE.TYPE == "html"){
+         ZTREE.TREE.Query("PRINT HTML");
          alert('Please save your file as an html file with the extension .html');
       } else {
-         DATATREE.TREE.Query("PRINT FILE");
+         ZTREE.TREE.Query("PRINT FILE");
          alert('Please save your file as an html file with the double extension .tree.html');
       }
    }
 }
-function DatatreeAutoSaveMax(){
+function ZtreeAutoSaveMax(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      if (DATATREE.TREE.TYPE == "text"){
-         DATATREE.TREE.Query("PRINT TEXTTREE");
+   if (ZTREE.TREE){
+      if (ZTREE.TREE.TYPE == "text"){
+         ZTREE.TREE.Query("PRINT TEXTTREE");
          alert('Please save your file as an html file with the double extension .tree.html');
-         //DATATREE.TREE.Query("PRINT TEXT");
+         //ZTREE.TREE.Query("PRINT TEXT");
          //alert('Please save your file as a text file with the extension .txt');
       } else {
-         DATATREE.TREE.Query("PRINT FILEMAX");
+         ZTREE.TREE.Query("PRINT FILEMAX");
          alert('Please save your file as an html file with the double extension .tree.html');
       }
    }
 }
-function DatatreeAutoPrintText(){
+function ZtreeAutoPrintText(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("PRINT TEXT");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("PRINT TEXT");
    }
 }
-function DatatreeAutoPrintCode(){
+function ZtreeAutoPrintCode(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("PRINT CODE");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("PRINT CODE");
    }
 }
-function DatatreeAutoPrintList(){
+function ZtreeAutoPrintList(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("PRINT LIST");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("PRINT LIST");
    }
 }
-function DatatreeAutoPrintFile(){
+function ZtreeAutoPrintFile(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (DATATREE.TREE){
-      DATATREE.TREE.Query("PRINT FILE");
+   if (ZTREE.TREE){
+      ZTREE.TREE.Query("PRINT FILE");
    }
 }
-function DatatreeAutoAlphabetize(){
+function ZtreeAutoAlphabetize(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   var datatree = DATATREE.TREE? DATATREE.TREE : this;
+   var datatree = ZTREE.TREE? ZTREE.TREE : this;
    var lower_bound = document.getElementById(datatree.TOOLBAR_LOWER_BOUND_NAME).value;
    var upper_bound = document.getElementById(datatree.TOOLBAR_UPPER_BOUND_NAME).value;
-   lower_bound = parseInt(DATATREE.StringTrim(lower_bound));
-   upper_bound = parseInt(DATATREE.StringTrim(upper_bound));
+   lower_bound = parseInt(ZTREE.StringTrim(lower_bound));
+   upper_bound = parseInt(ZTREE.StringTrim(upper_bound));
    if (typeof lower_bound == "number" && typeof upper_bound == "number" && !isNaN(lower_bound) && !isNaN(upper_bound)){
       var input = "ALPHABETIZE FROM LINE " + lower_bound + " TO LINE " + upper_bound;
       datatree.Query(input);
@@ -3748,32 +3748,32 @@ function DatatreeAutoAlphabetize(){
       alert("Line numbers only. Please press/query number, find the appropriate lines, then press/query reset.");
    }
 }
-function DatatreeHtmlText(){
+function ZtreeHtmlText(){
     return this.CONTENT;
 }
-function DatatreeHtmlCode(){
+function ZtreeHtmlCode(){
     return this.GetCode();
 }
-function DatatreeGetText(){
+function ZtreeGetText(){
     return this.PlainText();
 }
-function DatatreePlainText(){
+function ZtreePlainText(){
     var result = "";
     var lines = new Array();
     lines = this.GetHtmlLines(this.CONTENT, lines);
     //var lines = this.HtmlLineBreaks(this.CONTENT);
     for (var count = 0; count < lines.length; ++count){
-       lines[count] = DATATREE.StripTagsPHPJS(lines[count]);
-       //lines[count] = DATATREE.StripTagLeaveInner(lines[count], "p");
-       //lines[count] = DATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "linenumber");
-       //lines[count] = DATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "search_result");
+       lines[count] = ZTREE.StripTagsPHPJS(lines[count]);
+       //lines[count] = ZTREE.StripTagLeaveInner(lines[count], "p");
+       //lines[count] = ZTREE.StripTagWithClassNameLeaveInner(lines[count], "span", "linenumber");
+       //lines[count] = ZTREE.StripTagWithClassNameLeaveInner(lines[count], "span", "search_result");
     }
     for (var count = 0; count < lines.length; ++count){
        result += lines[count] + "\n";
     }
     return result;
 }
-function DatatreeStripTagWithClassNameLeaveInner(text, tag, name){
+function ZtreeStripTagWithClassNameLeaveInner(text, tag, name){
     var result = text;
     var div = document.createElement("div");
     div.innerHTML = text;
@@ -3797,7 +3797,7 @@ function DatatreeStripTagWithClassNameLeaveInner(text, tag, name){
     }
     return result;
 }
-function DatatreeStripTagLeaveInner(text, tag){
+function ZtreeStripTagLeaveInner(text, tag){
     var result = text;
     var div = document.createElement("div");
     div.innerHTML = text;
@@ -3813,11 +3813,11 @@ function DatatreeStripTagLeaveInner(text, tag){
     }
     return result;
 }
-function DatatreeSynchronize(updateGUI){
+function ZtreeSynchronize(updateGUI){
     try{
        this.NODES.length = 0;
        this.LEVELS.length = 0;
-       if (DatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
+       if (ZtreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
           this.VIEW = "";
        }
        this.SyncFromRootNode(this.ROOT_NODE);
@@ -3840,7 +3840,7 @@ function DatatreeSynchronize(updateGUI){
                   //this.CONTENT += "<p>" + text + "</p>";//8.3
               }
           } else {
-              text = DATATREE.StringTrim(text);
+              text = ZTREE.StringTrim(text);
               node.TEXT = text;
               /** 8.3
               var indentation = "";
@@ -3856,14 +3856,14 @@ function DatatreeSynchronize(updateGUI){
           }
        }
        //this.UpdateContent();
-       if (DatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
+       if (ZtreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
           this.Refresh();
        }
     } catch (exc) {
-       if (DATATREE.REPRESS_ALERTS == false){ alert(exc); }
+       if (ZTREE.REPRESS_ALERTS == false){ alert(exc); }
     }
 }
-function DatatreeSyncFromRootNode(node){
+function ZtreeSyncFromRootNode(node){
     if (node != this.ROOT_NODE){
         this.NODES.push(node);
     }
@@ -3872,12 +3872,12 @@ function DatatreeSyncFromRootNode(node){
         this.SyncFromRootNode(node.CHILDREN[count]);
     }
 }
-function DatatreeSyncFromDataTree(tree, justreturnval){ 
+function ZtreeSyncFromDataTree(tree, justreturnval){ 
     try{
     tree = this.HtmlBody(tree);
     var div = document.createElement('div');
     div.innerHTML = tree;
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
     var UL = null;
     if (div.getElementsByTagName('ul').length > 0){
        UL = div.getElementsByTagName('ul')[0];
@@ -3891,8 +3891,8 @@ function DatatreeSyncFromDataTree(tree, justreturnval){
 		   var dv = div.getElementsByTagName('div')[0];
 		   if (dv.id == datatree.ELEMENT_OUTER_WRAPPER){
 		      var txt = dv.innerHTML;
-		      if (DATATREE.LeftStringTrim(txt).indexOf("<!--") == 0){//7.9.8
-                      DATATREE.PLEASE_WAIT = false;
+		      if (ZTREE.LeftStringTrim(txt).indexOf("<!--") == 0){//7.9.8
+                      ZTREE.PLEASE_WAIT = false;
 			      this.Query("CREATE FROM TEXT " + txt);
 		      }
 		   }
@@ -3903,13 +3903,13 @@ function DatatreeSyncFromDataTree(tree, justreturnval){
     }
     var count = 0;
     while (UL.getElementsByTagName('a').length > 0 && count < 1000){
-       UL = DatatreeRemoveAnchors(UL);
+       UL = ZtreeRemoveAnchors(UL);
        ++count;
     }
     //var div2 = document.createElement('div');
     //div2.appendChild(UL);
     //UL = div2.children[0];
-    UL = DatatreeRemoveEmptyLists(UL);
+    UL = ZtreeRemoveEmptyLists(UL);
     //var div3 = document.createElement('div');
     //div3.appendChild(UL);
     UL.style.display = "";
@@ -3931,55 +3931,55 @@ function DatatreeSyncFromDataTree(tree, justreturnval){
        u.style.listStyleType = "";
        u.removeAttribute("style");
     }
-    DatatreeRemoveContentSpanWrappers(UL);
+    ZtreeRemoveContentSpanWrappers(UL);
     var div4 = document.createElement('div');
     div4.appendChild(UL);
-    if (DatatreeSyncFromDataTree.arguments.length == 2 && (justreturnval == true || justreturnval == "true" || justreturnval == "justreturnval")){
+    if (ZtreeSyncFromDataTree.arguments.length == 2 && (justreturnval == true || justreturnval == "true" || justreturnval == "justreturnval")){
         return div4.innerHTML;
     } else {
-        DATATREE.PLEASE_WAIT = true;
+        ZTREE.PLEASE_WAIT = true;
         this.Query("CREATE FROM HTML " + div4.innerHTML);
     }
     } catch(exc) {  }
 }
-function DatatreeRemoveContentSpanWrappers(ul){
+function ZtreeRemoveContentSpanWrappers(ul){
     for (var count = 0; count < ul.getElementsByTagName('li').length; ++count){
         var li = ul.getElementsByTagName('li')[count];
         if (li.getElementsByTagName('span').length > 0){
             var span = li.getElementsByTagName('span')[0];
-            if (span.className == 'datatree_content'){
+            if (span.className == 'ztree_content'){
                 var inner = span.innerHTML;
                 li.removeChild(span);
                 li.innerHTML = inner + li.innerHTML;
             }
         }
         if (li.getElementsByTagName('ul').length > 0){
-            DatatreeRemoveContentSpanWrappers(li.getElementsByTagName('ul')[0]);
+            ZtreeRemoveContentSpanWrappers(li.getElementsByTagName('ul')[0]);
         }
     }
 }
-function DatatreeRemoveAnchors(elmnt){
+function ZtreeRemoveAnchors(elmnt){
     var anchors = elmnt.getElementsByTagName('a');
     for (var count = 0; count < anchors.length; ++count){
         var anchor = anchors[count];
-        if (anchor.className == 'datatree_arrow'){
+        if (anchor.className == 'ztree_arrow'){
             anchor.parentNode.removeChild(anchor);
         }
     }
     return elmnt;
 }
-function DatatreeRemoveEmptyLists(elmnt){
+function ZtreeRemoveEmptyLists(elmnt){
     var chils = elmnt.childNodes;
     for (var count = 0; count < chils.length; ++count){
         var c = chils[count];
         if (c.nodeName.toLowerCase() == "ul" && c.children.length <= 0){
             c.parentNode.removeChild(c);
         }
-        c = DatatreeRemoveEmptyLists(c);
+        c = ZtreeRemoveEmptyLists(c);
     }
     return elmnt;
 }
-function DatatreeUndoPreservedWhiteSpace(){
+function ZtreeUndoPreservedWhiteSpace(){
     this.PRESERVE_WHITE_SPACE = false;
     for (var count = 0; count < this.NODES.length; ++count){
         var node = this.NODES[count];
@@ -3987,14 +3987,14 @@ function DatatreeUndoPreservedWhiteSpace(){
     }
     this.Synchronize();
 }
-function DatatreeStripTags(line,remove_tables){ // remove tables when loading, don't when searching
+function ZtreeStripTags(line,remove_tables){ // remove tables when loading, don't when searching
     if (line.indexOf('table') >= 0){
       var div = document.createElement('div');
       div.innerHTML = line;
       var tables = div.getElementsByTagName('table');
       for (var count = 0; count < tables.length; ++count){
          var t = tables[count];
-         if (DatatreeStripTags.arguments.length > 0 && remove_tables == true){
+         if (ZtreeStripTags.arguments.length > 0 && remove_tables == true){
                  t.parentNode.removeChild(t);
           } else {
                  var span = document.createElement('span');
@@ -4035,9 +4035,9 @@ function DatatreeStripTags(line,remove_tables){ // remove tables when loading, d
     }
     return result;
 }
-function DatatreeStringTrim(strng){
+function ZtreeStringTrim(strng){
     if (strng == null || strng == "undefined"){
-        if (DATATREE.REPRESS_ALERTS == false){ alert("error in string trim"); }
+        if (ZTREE.REPRESS_ALERTS == false){ alert("error in string trim"); }
         return "";
     }
     var result = strng;
@@ -4069,7 +4069,7 @@ function DatatreeStringTrim(strng){
     }
     return result;
 }
-function DatatreeLeftStringTrim(strng){
+function ZtreeLeftStringTrim(strng){
     var result = "";
     var position = "left";
     for (var count = 0; count < strng.length; ++count){
@@ -4083,7 +4083,7 @@ function DatatreeLeftStringTrim(strng){
     }
     return result;
 }
-function DatatreeRightStringTrim(strng){
+function ZtreeRightStringTrim(strng){
     var result = "";
     var position = "left";
     for (var count = 0; count < strng.length; ++count){
@@ -4101,50 +4101,50 @@ function DatatreeRightStringTrim(strng){
     }
     return result;
 }
-function DatatreeArraySwap(index1, index2, aray){
+function ZtreeArraySwap(index1, index2, aray){
     var first = aray.slice(index1)[0];
     var second = aray.slice(index2)[0];
     aray.splice(index1, 1, second);
     aray.splice(index2, 1, first);
     return aray;
 }
-function DatatreeRemoveBranch(index,update){
+function ZtreeRemoveBranch(index,update){
     try{
         this.CHILDREN.splice(index, 1);
         var macro_index = this.TREE.NODES.indexOf(this) + index;
-        if (DatatreeRemoveBranch.arguments.length > 1 && update == true){
+        if (ZtreeRemoveBranch.arguments.length > 1 && update == true){
            this.TREE.NODES.splice(macro_index, 1);
         }
     } catch (exc) {
-        if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
+        if (ZTREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function DatatreeRemoveAllBranches(update){
+function ZtreeRemoveAllBranches(update){
     for (var count = 0; count < this.CHILDREN.length; ++count){
           this.RemoveBranch(count);
           count -= 1;
     }
     //this.TREE.NODES.length = 0;
 }
-function DatatreeListIterate(_click){
+function ZtreeListIterate(_click){
        var click = true;
-       if (DatatreeListIterate.arguments.length > 0 && _click == false){
+       if (ZtreeListIterate.arguments.length > 0 && _click == false){
            click = false;
        } else {
            this.Click();
        }
-       var li = "<li class='datatree_li' style='white-space:nowrap;'>";
-       var a = "<a class='datatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
-       var datatree = DATATREE.TREE? DATATREE.TREE : this;
+       var li = "<li class='ztree_li' style='white-space:nowrap;'>";
+       var a = "<a class='ztree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
+       var datatree = ZTREE.TREE? ZTREE.TREE : this;
        if (datatree.UNDERLINE_ICONS == true){
-          a = "<a class='datatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' >" + this.LINK + "</a>";
+          a = "<a class='ztree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' >" + this.LINK + "</a>";
        }
-       var span = "<span class='datatree_content' style='white-space:pre-wrap;padding-left:10px;' onclick='return DatatreeClickSpan(event);' onmousedown='return DatatreeMouseDownSpan(event);' onmouseup='return DatatreeMouseUpSpan(event);'>";
-       var text = DATATREE.StringTrim(this.TEXT);
+       var span = "<span class='ztree_content' style='white-space:pre-wrap;padding-left:10px;' onclick='return ZtreeClickSpan(event);' onmousedown='return ZtreeMouseDownSpan(event);' onmouseup='return ZtreeMouseUpSpan(event);'>";
+       var text = ZTREE.StringTrim(this.TEXT);
        text = text.split("\n").join("");
        var _span = "</span>";
        var accordion = datatree.ACCORDION >= 0? "padding-left:" + datatree.ACCORDION + "pt;": "";
-       var ul = "<ul class='datatree_ul' style='list-style-type:none;display:" + this.DISPLAY + ";" + accordion + "' >";
+       var ul = "<ul class='ztree_ul' style='list-style-type:none;display:" + this.DISPLAY + ";" + accordion + "' >";
        for (var count = 0; count < this.CHILDREN.length; ++count){
           var c = this.CHILDREN[count];
           ul += c.Iterate(click);
@@ -4152,12 +4152,12 @@ function DatatreeListIterate(_click){
        var _ul = "</ul>";
        var _li = "</li>";
        var result = li + a + span + text + _span + ul + _ul + _li;
-       if(text.search("datatree_content") >= 0){//*****************************************************************10.0
+       if(text.search("ztree_content") >= 0){//*****************************************************************10.0
            result = li + a + text + ul + _ul + _li;
        }
        return result;
 }
-function DatatreeClick(){
+function ZtreeClick(){
        if (this.LINK == this.TREE.OPEN_ICON){
           this.LINK = this.TREE.CLOSED_ICON;
        } else if (this.LINK == this.TREE.CLOSED_ICON){
@@ -4169,7 +4169,7 @@ function DatatreeClick(){
           this.DISPLAY = "block";
        }
 }
-function DatatreeClose(){
+function ZtreeClose(){
        //if (this.DISPLAY == "block"){
           this.LINK = this.TREE.CLOSED_ICON;
           if (this.CHILDREN.length < 1){
@@ -4181,8 +4181,8 @@ function DatatreeClose(){
           this.CHILDREN[count].Close();
        }
 }
-function DatatreeGetLevel(MODE){
-    if (DatatreeGetLevel.arguments.length <= 0){
+function ZtreeGetLevel(MODE){
+    if (ZtreeGetLevel.arguments.length <= 0){
        MODE = "";
     }
     var node = this;
@@ -4215,27 +4215,27 @@ function DatatreeGetLevel(MODE){
        return (level_count - 1)/2;
     }**/
 }
-function DatatreeGetChildCount(){
+function ZtreeGetChildCount(){
     return this.CHILDREN.length;
 }
-function DatatreeGetIndex(test){
+function ZtreeGetIndex(test){
    var index = -1;
    if (this.PARENT_NODE.TEXT != "undefined" && this.PARENT_NODE.TEXT != null){
       index = this.PARENT_NODE.CHILDREN.indexOf(this);
    }
    return index;
 }
-function DatatreeCountFromTop(){
+function ZtreeCountFromTop(){
    var number = -1;
    if (this.TREE && this.TREE.NODES){
       number = this.TREE.NODES.indexOf(this) + 1;//often finds -1 + 1 = 0
    }
    return number;
 }
-function DatatreeIndexFromTop(node){
+function ZtreeIndexFromTop(node){
    var index = -1;
-   for (var count = 0; count < DATATREE.TREE.NODES.length; ++count){
-      var n = DATATREE.TREE.NODES[count];
+   for (var count = 0; count < ZTREE.TREE.NODES.length; ++count){
+      var n = ZTREE.TREE.NODES[count];
       if (node == n){
          index = count;
          break;
@@ -4243,7 +4243,7 @@ function DatatreeIndexFromTop(node){
    }
    return index;
 }
-function DatatreeRemoveEmptyEndTags(line){
+function ZtreeRemoveEmptyEndTags(line){
    var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
    var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
    var break_ends = ["</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>", "</div>", "</table>", "</form>", "</ul>", "</ol>", "</li>", "</blockquote>", "<br/>", "<br>", "<hr/>", "<hr>"];
@@ -4251,7 +4251,7 @@ function DatatreeRemoveEmptyEndTags(line){
    var splits = line.split("<");
    for (var count = 0; count < splits.length; ++count){
       var s = "<" + splits[count];
-      var ss = DATATREE.StringTrim(s);
+      var ss = ZTREE.StringTrim(s);
       if (break_ends.indexOf(ss) >= 0 && !line.indexOf(break_starts[break_ends.indexOf(ss)]) >= 0){
       //
       } else {
@@ -4260,7 +4260,7 @@ function DatatreeRemoveEmptyEndTags(line){
    }
    return result;
 }
-function DatatreeIsTableTag(tag){
+function ZtreeIsTableTag(tag){
     var result = false;
     var table_tags = ["<table>","<caption>","<thead>", "<tbody>", "<tr>", "<td>", "</table>","</caption>","</thead>", "</tbody>", "</tr>", "</td>", "<table ","<caption ","<thead ", "<tbody ", "<tr ", "<td "] ;
     for (t in table_tags){
@@ -4270,7 +4270,7 @@ function DatatreeIsTableTag(tag){
     }
     return result;
 }
-function DatatreeHtmlLineBreaks(HTML, nbsp){ 
+function ZtreeHtmlLineBreaks(HTML, nbsp){ 
     try{
     var html = HTML;
     var result = new Array();
@@ -4296,14 +4296,14 @@ function DatatreeHtmlLineBreaks(HTML, nbsp){
           if (c.charCodeAt(0) == 160){
              c = ' ';
           }
-          if (tag == "" && c == ' ' && DatatreeHtmlLineBreaks.arguments.length == 2 && nbsp == true){
+          if (tag == "" && c == ' ' && ZtreeHtmlLineBreaks.arguments.length == 2 && nbsp == true){
               c = "&nbsp;";
           }
           line += c;
           if (count + 1 == html.length){
-             if (DATATREE.StringTrim(line) == ""){
+             if (ZTREE.StringTrim(line) == ""){
                ++SKIPPED_LINES;
-             } else if (break_ends.indexOf(DATATREE.StringTrim(line)) >= 0){ // line is just an end tag
+             } else if (break_ends.indexOf(ZTREE.StringTrim(line)) >= 0){ // line is just an end tag
                ++SKIPPED_LINES;
              } else {
                result.push(line);
@@ -4316,7 +4316,7 @@ function DatatreeHtmlLineBreaks(HTML, nbsp){
              tag += c;
              if (break_ends.indexOf(tag) >= 0){
                 var clear = false;
-                if (tag == DATATREE.StringTrim(line) || DATATREE.StringTrim(DATATREE.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
+                if (tag == ZTREE.StringTrim(line) || ZTREE.StringTrim(ZTREE.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
                    if (tag == "</ul>" || tag == "</ol>"){
                       if (CURRENTLISTMARGIN.length > 0){
                          CURRENTLISTMARGIN = CURRENTLISTMARGIN.substring(LISTMARGIN.length);
@@ -4361,7 +4361,7 @@ function DatatreeHtmlLineBreaks(HTML, nbsp){
              } else if (break_starts.indexOf(tag) >= 0){
                 if (lead_breaking_tag == ""){
                    lead_breaking_tag = tag;
-                   if (DATATREE.StringTrim(line) != tag){
+                   if (ZTREE.StringTrim(line) != tag){
                      line = line.substring(0, line.length - tag.length);
                      var currentresult = PADLEFTMARGIN + CURRENTBLOCKQUOTEMARGIN + CURRENTLISTMARGIN + line.split("</blockquote>").join("");
                      result.push(currentresult);
@@ -4411,7 +4411,7 @@ function DatatreeHtmlLineBreaks(HTML, nbsp){
                    var pl = null;
                    if (tg && tg.style){
                       if (tg.style.padding || tg.style.paddingTop || tg.style.paddingBottom || tg.style.paddingRight){}
-                      else if (tg.style.paddingLeft && DATATREE.StringTrim(line.replace(tag, "")) == ""){
+                      else if (tg.style.paddingLeft && ZTREE.StringTrim(line.replace(tag, "")) == ""){
                          pl = tg.style.paddingLeft;
                          pl = pl.replace("px", "");
                          pl = parseInt(pl);
@@ -4462,7 +4462,7 @@ function DatatreeHtmlLineBreaks(HTML, nbsp){
         return null;
     }
 }
-function DatatreeRemoveHtmlComments(html){
+function ZtreeRemoveHtmlComments(html){
     var c = '';
     var text = "";
     var tag = "";
@@ -4497,28 +4497,28 @@ function DatatreeRemoveHtmlComments(html){
     }
     return text;
 }
-function DatatreeDivHasSelfIndentingTag(div){
+function ZtreeDivHasSelfIndentingTag(div){
     var result = false;
     if (div.getElementsByTagName('ul').length > 0 || div.getElementsByTagName('ol').length > 0 || div.getElementsByTagName('blockquote').length > 0 || div.getElementsByTagName('hr').length > 0){ // || div.getElementsByTagName('table').length > 0 
         result = true;
     }
     return result;
 }
-function DatatreeTagRequiresLineBreak(div){ // if don't wrap tables with <p> then require <br> or else two consecutive lines with tables would merge into same line
+function ZtreeTagRequiresLineBreak(div){ // if don't wrap tables with <p> then require <br> or else two consecutive lines with tables would merge into same line
     var result = false;
     if (div.getElementsByTagName('table').length > 0){
         result = true;
     }
     return result;
 }
-function DatatreeDivHasKeeperNonTextTag(div){ // components not allowed unless they are listed here (and maybe also DivHasContentTag)
+function ZtreeDivHasKeeperNonTextTag(div){ // components not allowed unless they are listed here (and maybe also DivHasContentTag)
     var result = false;
     if (div.getElementsByTagName('math') > 0 || div.getElementsByTagName('audio').length > 0 || div.getElementsByTagName('video').length > 0 || div.getElementsByTagName('embed').length > 0 || div.getElementsByTagName('object').length > 0 || div.getElementsByTagName('iframe').length > 0 || div.getElementsByTagName('img').length > 0 || div.getElementsByTagName('table').length > 0 || div.getElementsByTagName('ul').length > 0 || div.getElementsByTagName('ol').length > 0 || div.getElementsByTagName('blockquote').length > 0 || div.getElementsByTagName('hr').length > 0){
         result = true;
     }
     return result;
 }
-function DatatreeDivHasContentTag(div){ // don't count blanks found inside content tag or after it
+function ZtreeDivHasContentTag(div){ // don't count blanks found inside content tag or after it
     var result = false;
     if (div.getElementsByTagName('audio').length > 0 || div.getElementsByTagName('video').length > 0 || div.getElementsByTagName('embed').length > 0 || div.getElementsByTagName('object').length > 0 || div.getElementsByTagName('iframe').length > 0 || div.getElementsByTagName('img').length > 0){ 
         result = true;
@@ -4527,7 +4527,7 @@ function DatatreeDivHasContentTag(div){ // don't count blanks found inside conte
     }
     return result;
 }
-function DatatreeIsRemovableFormatTag(tag){
+function ZtreeIsRemovableFormatTag(tag){
     var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<form>", "<li>"];
     var result = false;
     tag = tag.toLowerCase();
@@ -4539,7 +4539,7 @@ function DatatreeIsRemovableFormatTag(tag){
     }
     return result;
 }
-function DatatreeDoNotWrapOuterElement(line){
+function ZtreeDoNotWrapOuterElement(line){
     var returnvalue = false;
     var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
     var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
@@ -4551,7 +4551,7 @@ function DatatreeDoNotWrapOuterElement(line){
        var result = line;
        // check for blanks before first tag
        var startingblanks = "";
-       if (result.substring(0, result.indexOf("<")).length > 0 && DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
+       if (result.substring(0, result.indexOf("<")).length > 0 && ZTREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
            for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                startingblanks += " ";
            }
@@ -4564,8 +4564,8 @@ function DatatreeDoNotWrapOuterElement(line){
           var end_of_last_tag = result.lastIndexOf(">");
           var starting_tag = result.substring(start_of_first_tag, end_of_first_tag + 1);
           var ending_tag = result.substring(start_of_last_tag, end_of_last_tag + 1);
-          starting_tag = DATATREE.StringTrim(starting_tag);
-          ending_tag = DATATREE.RightStringTrim(ending_tag);
+          starting_tag = ZTREE.StringTrim(starting_tag);
+          ending_tag = ZTREE.RightStringTrim(ending_tag);
           if (starting_tag.indexOf(" ") >= 0){
              starting_tag = starting_tag.split(" ")[0] + " ";
           }
@@ -4579,7 +4579,7 @@ function DatatreeDoNotWrapOuterElement(line){
    }
    return returnvalue;
 }
-function DatatreeGetOuterElement(line){
+function ZtreeGetOuterElement(line){
    var result = "";
    var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
    var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
@@ -4591,7 +4591,7 @@ function DatatreeGetOuterElement(line){
        var result = line;
        // check for blanks before first tag
        var startingblanks = "";
-       if (result.substring(0, result.indexOf("<")).length > 0 && DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
+       if (result.substring(0, result.indexOf("<")).length > 0 && ZTREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
            for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                startingblanks += " ";
            }
@@ -4609,7 +4609,7 @@ function DatatreeGetOuterElement(line){
        } else {
            var div = document.createElement("div");
            var trimmed = line.split("&nbsp;").join(" ");
-           trimmed = DATATREE.StringTrim(line);
+           trimmed = ZTREE.StringTrim(line);
            if (trimmed == "" || trimmed == null || trimmed == "undefined"){
               result = null;
            } else {
@@ -4623,7 +4623,7 @@ function DatatreeGetOuterElement(line){
    }
    return result.replace("<","").replace(">","");
 }
-function DatatreeSetTableStyle(html){
+function ZtreeSetTableStyle(html){
     //html = html.split("</table><p>&nbsp;</p>").join("</table>");
     //html = html.split("</table><p> </p>").join("</table>");
     var div = document.createElement('div');
@@ -4635,7 +4635,7 @@ function DatatreeSetTableStyle(html){
     }
     return div.innerHTML;
 }
-function DatatreeRemoveTables(html){
+function ZtreeRemoveTables(html){
 try{
     var div = document.createElement('div');
     div.innerHTML = html;
@@ -4658,11 +4658,11 @@ try{
 } catch (exc) { }
     return html;
 }
-function DatatreeRemoveTableWrappers(lines){
+function ZtreeRemoveTableWrappers(lines){
     var newlines = new Array();
     for (var count = 0; count < lines.length; ++count){
         var l = lines[count];
-        var outer = DatatreeGetOuterElement(l);
+        var outer = ZtreeGetOuterElement(l);
         if (l.indexOf("<table ") >= 0 && outer.toUpperCase() != "TABLE"){
            if (outer.toUpperCase() == "P"){
               l = l.substring(l.indexOf(">") + 1, l.lastIndexOf("<"));
@@ -4672,25 +4672,25 @@ function DatatreeRemoveTableWrappers(lines){
     }
     return newlines;
 }
-function DatatreeGetHtmlLines(content, lines){
+function ZtreeGetHtmlLines(content, lines){
            lines.length = 0;
            content = this.HtmlBody(content);
            content = this.RemoveHtmlComments(content);
            lines = this.HtmlLineBreaks(content);
-           lines = DATATREE.RemoveTableWrappers(lines);
+           lines = ZTREE.RemoveTableWrappers(lines);
            for (var count = 0; count < lines.length; ++count){ // strip leading p or div tags, save blanks in front
                var result = lines[count]; 
                // check for blanks before first tag
                var startingblanks = "";
                var startingtext = "";
                if (result.substring(0, result.indexOf("<")).length > 0){ // has blanks or letters/numbers before first tag
-                   if (DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){ // just blanks
+                   if (ZTREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){ // just blanks
                       for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                           startingblanks += " ";
                       }
                    } else { // letters/numbers and possibly blanks
-                       startingtext = DATATREE.StringTrim(result.substring(0, result.indexOf("<")));
-                       var numblanks = result.substring(0, result.indexOf("<")).length - DATATREE.StringTrim(result.substring(0, result.indexOf("<"))).length;
+                       startingtext = ZTREE.StringTrim(result.substring(0, result.indexOf("<")));
+                       var numblanks = result.substring(0, result.indexOf("<")).length - ZTREE.StringTrim(result.substring(0, result.indexOf("<"))).length;
                        for (var blanks = 0; blanks < numblanks; ++blanks){
                            startingblanks += " ";
                        }
@@ -4707,11 +4707,11 @@ function DatatreeGetHtmlLines(content, lines){
                       result = startingblanks + startingtext + result.substring(end_of_first_tag, start_of_last_tag);
                   }
                   // look for indentation...still might have tag in front
-                  trimmed = DATATREE.StringTrim(result); // doesnt remove nested blanks, but does remove trailing end blanks
-                  tagless = DATATREE.StripTagsPHPJS(this.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
-                  trimmed_and_tagless = DATATREE.StringTrim(tagless); // should be left string trim, might leave nothing
+                  trimmed = ZTREE.StringTrim(result); // doesnt remove nested blanks, but does remove trailing end blanks
+                  tagless = ZTREE.StripTagsPHPJS(this.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
+                  trimmed_and_tagless = ZTREE.StringTrim(tagless); // should be left string trim, might leave nothing
                } else if (this.GetOuterElement(result).toLowerCase() == "table"){
-                   trimmed = DATATREE.StringTrim(result);
+                   trimmed = ZTREE.StringTrim(result);
                    tagless = trimmed;
                    trimmed_and_tagless = tagless;
                } else { 
@@ -4720,7 +4720,7 @@ function DatatreeGetHtmlLines(content, lines){
                var div = document.createElement('div');
                div.innerHTML = lines[count];
                if (trimmed_and_tagless == ""){ // line has just a tag, like img, or just blanks, like <font>   <img/></font>, don't add starting blanks again
-                   var numblanks = DATATREE.StripTags(DATATREE.RightStringTrim(result),true).length;
+                   var numblanks = ZTREE.StripTags(ZTREE.RightStringTrim(result),true).length;
                    var blanks = "";
                    for (var counter = 0; counter < numblanks - 1; ++counter){
                        blanks += " ";
@@ -4755,10 +4755,10 @@ function DatatreeGetHtmlLines(content, lines){
            }
     return lines;
 }
-function DatatreeTreeFromString(content, title, mode){ 
-    if (DatatreeTreeFromString.arguments.length <= 0){ // ??????
+function ZtreeTreeFromString(content, title, mode){ 
+    if (ZtreeTreeFromString.arguments.length <= 0){ // ??????
         title = 'TREE';
-    } else if (DatatreeTreeFromString.arguments.length < 3){ // ????????
+    } else if (ZtreeTreeFromString.arguments.length < 3){ // ????????
         mode = "html";
     }
     var EMPTY_FILE;
@@ -4772,7 +4772,7 @@ function DatatreeTreeFromString(content, title, mode){
     switch(mode){
         case "text":
            if (content.indexOf("\t") >= 0){
-              content = content.split("\t").join(DATATREE.TAB);
+              content = content.split("\t").join(ZTREE.TAB);
            }
            if (content.indexOf("\r\n") >= 0){
               lines = content.split("\r\n");
@@ -4781,23 +4781,23 @@ function DatatreeTreeFromString(content, title, mode){
            } else {
               lines.push(content);
            }
-           if (DATATREE.StringTrim(lines[0]) == "" && lines.length > 1){//7.9.8 allows newline
+           if (ZTREE.StringTrim(lines[0]) == "" && lines.length > 1){//7.9.8 allows newline
               lines.splice(0, 1);
            }
-           if (DATATREE.StringTrim(lines[0]).indexOf("<!--") == 0 && DATATREE.StringTrim(lines[lines.length - 1]).indexOf("-->") == DATATREE.StringTrim(lines[lines.length-1]).length - "-->".length){//7.9.8
+           if (ZTREE.StringTrim(lines[0]).indexOf("<!--") == 0 && ZTREE.StringTrim(lines[lines.length - 1]).indexOf("-->") == ZTREE.StringTrim(lines[lines.length-1]).length - "-->".length){//7.9.8
                lines[0] = lines[0].replace("<!--","");//7.9.8
-               if (DATATREE.StringTrim(lines[0]) == ""){
+               if (ZTREE.StringTrim(lines[0]) == ""){
                   lines.splice(0, 1);
                }
                lines[lines.length - 1] = lines[lines.length - 1].replace("-->","");
-               if (DATATREE.StringTrim(lines[lines.length - 1]) == ""){
+               if (ZTREE.StringTrim(lines[lines.length - 1]) == ""){
                   lines.splice(lines.length - 1, 1);
                }
            }
            break;
         case "html":
            if (content.indexOf("\t") >= 0){
-              content = content.split("\t").join(DATATREE.TAB);
+              content = content.split("\t").join(ZTREE.TAB);
            }
            lines = this.GetHtmlLines(content, lines);
            for (var count = 0; count < lines.length; ++count){ 
@@ -4805,7 +4805,7 @@ function DatatreeTreeFromString(content, title, mode){
            }
            break;
         default:
-           if (DATATREE.REPRESS_ALERTS == false) { alert("error in tree from string"); }
+           if (ZTREE.REPRESS_ALERTS == false) { alert("error in tree from string"); }
            break;
     }
     var Rawlines = new Array();
@@ -4818,7 +4818,7 @@ function DatatreeTreeFromString(content, title, mode){
     Keys.length = 0;
     this.NODES.length = 0;
     for (var count = 0; count < lines.length; ++count){
-       if (DATATREE.StringTrim(lines[count]) != ""){
+       if (ZTREE.StringTrim(lines[count]) != ""){
           Rawlines.push(lines[count]);
        }
     }
@@ -4827,7 +4827,7 @@ function DatatreeTreeFromString(content, title, mode){
     }
     var empty_test = "";
     for (var count = 0; count < Rawlines.length; ++count){
-       empty_test += DATATREE.StringTrim(Rawlines[count]);
+       empty_test += ZTREE.StringTrim(Rawlines[count]);
     }
     if (empty_test == ""){
         EMPTY_FILE = true;
@@ -4843,16 +4843,16 @@ function DatatreeTreeFromString(content, title, mode){
         if (chars.length == 0) {
             continue;
         }
-        if (DATATREE.StringTrim(s) == ""){
+        if (ZTREE.StringTrim(s) == ""){
             continue;
         }
         if (mode == "text"){
             s = s.split("<").join("&lt;").split(">").join("&gt;");
         }
         Masterlist.push(s);
-        Trimmedlines.push(DATATREE.LeftStringTrim(s));
+        Trimmedlines.push(ZTREE.LeftStringTrim(s));
         var key = "";
-        var txtstrt = parseInt(s.length) - parseInt(DATATREE.LeftStringTrim(s).length);
+        var txtstrt = parseInt(s.length) - parseInt(ZTREE.LeftStringTrim(s).length);
         for (var count2 = 0; count2 < txtstrt; ++count2){
            key += " ";
         }
@@ -4863,7 +4863,7 @@ function DatatreeTreeFromString(content, title, mode){
     this.NODES = new Array();
     for (var count = 0; count < Masterlist.length; ++count){
         var m = Masterlist[count];
-        if (DATATREE.StringTrim(m) != ""){
+        if (ZTREE.StringTrim(m) != ""){
            var node = new this.Branch(m, this);
            this.NODES.push(node);
         }
@@ -4877,22 +4877,22 @@ function DatatreeTreeFromString(content, title, mode){
 }
 function Traverse(branch){
    Traverse2(branch,0);
-   return DATATREE.TEMP;
+   return ZTREE.TEMP;
 }
 function Traverse2(branch,keeptrack){ // debugger
    if (branch == null || branch == "undefined"){
       return null;
    }
    if (keeptrack == 0){
-      DATATREE.TEMP = "";
+      ZTREE.TEMP = "";
    }
    for (var count = 0; count < branch.CHILDREN.length; ++count){
       var node = branch.CHILDREN[count];
-      DATATREE.TEMP += node.TEXT + "\n";
+      ZTREE.TEMP += node.TEXT + "\n";
       Traverse2(node,++keeptrack);
    }
 }
-function DatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Trimmedlines, EMPTY_FILE) {
+function ZtreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Trimmedlines, EMPTY_FILE) {
      if (EMPTY_FILE) {
          return;
      }
@@ -4902,7 +4902,7 @@ function DatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tri
         if (Keys.length == nextindex) {
             return;
         }
-        ++DATATREE.COUNTER;
+        ++ZTREE.COUNTER;
         if (thisindex == -1) { // root node
             TEMPTREE.AddBranch(nodelist[0]);
             this.LEVELS.push(nodelist[0].GetLevel());
@@ -4945,7 +4945,7 @@ function DatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tri
                    }
                }
                if (upper_right == null && upper_left == null){
-                   if (DATATREE.REPRESS_ALERTS == false) { alert("error in process tree"); }
+                   if (ZTREE.REPRESS_ALERTS == false) { alert("error in process tree"); }
                } else if (upper_right == null){
                    acceptor = upper_left;
                } else if (upper_left == null){
@@ -4978,11 +4978,11 @@ function DatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tri
         }
      }
 }
-function DatatreeUpdateContent(){
+function ZtreeUpdateContent(){
    this.Query("CREATE FROM HTML " + this.ViewGetList());
 }
-function DatatreeUpdateContentDeprecated(node){
-    if (DatatreeUpdateContent.arguments.length <= 0){
+function ZtreeUpdateContentDeprecated(node){
+    if (ZtreeUpdateContent.arguments.length <= 0){
         node = this.ROOT_NODE;
         this.CONTENT = "";
     } else if (node == this.ROOT_NODE){
@@ -5015,7 +5015,7 @@ function DatatreeUpdateContentDeprecated(node){
         }
     }
 }
-function DatatreeContextMenu(popup_text, timing, x, y) {
+function ZtreeContextMenu(popup_text, timing, x, y) {
   try{
     if (document.documentElement.scrollTop){
        y += document.documentElement.scrollTop;
@@ -5024,20 +5024,20 @@ function DatatreeContextMenu(popup_text, timing, x, y) {
        y += document.body.scrollTop;
        x += document.body.scrollLeft;
     }
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
-    DATATREE.CloseContextMenu();
-    //if (DATATREE.REPRESS_ALERTS == true) { return; }
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
+    ZTREE.CloseContextMenu();
+    //if (ZTREE.REPRESS_ALERTS == true) { return; }
     if (document.getElementById) {
-        if (document.getElementById('datatree_contextmenu')){
-            document.getElementById('datatree_contextmenu').parentNode.removeChild(document.getElementById('datatree_contextmenu'));
+        if (document.getElementById('ztree_contextmenu')){
+            document.getElementById('ztree_contextmenu').parentNode.removeChild(document.getElementById('ztree_contextmenu'));
         }
         var box = document.createElement('div');
-        box.id = 'datatree_contextmenu';
+        box.id = 'ztree_contextmenu';
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         box.style.border = "1px solid gray";
-        box.innerHTML = "<select style='background-color:#f5f2eb;overflow:visible;' id='datatree_context_message' onmouseover='return DatatreeFocusContextMenu();' onblur='return DatatreeCloseContextMenu();' multiple='multiple'></select>";
+        box.innerHTML = "<select style='background-color:#f5f2eb;overflow:visible;' id='ztree_context_message' onmouseover='return ZtreeFocusContextMenu();' onblur='return ZtreeCloseContextMenu();' multiple='multiple'></select>";
         document.body.appendChild(box);
         //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
         if (box) {
@@ -5052,7 +5052,7 @@ function DatatreeContextMenu(popup_text, timing, x, y) {
                 box.style.left = (x - (boxwidth/2)) + "px";
                 box.style.top = (y - boxheight) + "px";
             }
-            message_text = document.getElementById("datatree_context_message");
+            message_text = document.getElementById("ztree_context_message");
             if (message_text) {
                 var txts = popup_text.split("\n");
                 message_text.innerHTML = "";
@@ -5064,51 +5064,51 @@ function DatatreeContextMenu(popup_text, timing, x, y) {
                 }
                 message_text.innerHTML = message;
             }
-            window.clearTimeout(DATATREE.TIMER);
-            DATATREE.TIMER = setTimeout(DATATREE.ClosePopupBox, timing);
+            window.clearTimeout(ZTREE.TIMER);
+            ZTREE.TIMER = setTimeout(ZTREE.ClosePopupBox, timing);
         }
     }
   } catch (exc) {  }
 }
-function DatatreeFocusContextMenu(){
-   if (document.getElementById('datatree_context_message')){
-      document.getElementById('datatree_context_message').focus();
+function ZtreeFocusContextMenu(){
+   if (document.getElementById('ztree_context_message')){
+      document.getElementById('ztree_context_message').focus();
    }
 }
-function DatatreeCloseContextMenu() { 
-    if (document.getElementById('datatree_contextmenu')) {
-        box = document.getElementById("datatree_contextmenu");
+function ZtreeCloseContextMenu() { 
+    if (document.getElementById('ztree_contextmenu')) {
+        box = document.getElementById("ztree_contextmenu");
         if (box) { 
             box.style.display = "none";
-            if (DATATREE.TIMER) {
-                window.clearTimeout(DATATREE.TIMER);
+            if (ZTREE.TIMER) {
+                window.clearTimeout(ZTREE.TIMER);
             }
         }
     }
 }
-function DatatreeRightClick(){
-    if (DATATREE.BACKSPACE_ALLOWED == true){
+function ZtreeRightClick(){
+    if (ZTREE.BACKSPACE_ALLOWED == true){
        return;
     }
-    var message = "DATATREE v10.0\nCopyright &copy; 2015 Derek James Smith";
+    var message = "ZTREE v10.0\nCopyright &copy; 2015 Derek James Smith";
     var evt = window.event;
     var popupx = evt.clientX;
     var popupy = evt.clientY;
     popup_wait = 10000;
-    DATATREE.ContextMenu(message, popup_wait, popupx, popupy);
+    ZTREE.ContextMenu(message, popup_wait, popupx, popupy);
     return false;
     //show_popup_box(instr, popup_wait, (window.screen.width/2) + 30, (window.screen.height/2));
 }
 
-function DatatreeShowPopupBox(popup_text, timing, x, y) { 
+function ZtreeShowPopupBox(popup_text, timing, x, y) { 
   try{
     adjust = false;
-    if (DatatreeShowPopupBox.arguments.length < 2){
+    if (ZtreeShowPopupBox.arguments.length < 2){
        timing = 100000;
        x = window.innerWidth/2;
        y = window.innerHeight/2;
        adjust = true;
-    } else if (DatatreeShowPopupBox.arguments.length < 4){
+    } else if (ZtreeShowPopupBox.arguments.length < 4){
        x = window.innerWidth/2;
        y = window.innerHeight/2;
        adjust = true;
@@ -5122,31 +5122,31 @@ function DatatreeShowPopupBox(popup_text, timing, x, y) {
          x += document.body.scrollLeft;
        }
     }
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
-    DATATREE.ClosePopupBox();
-    if (DATATREE.REPRESS_ALERTS == true) { return; }
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
+    ZTREE.ClosePopupBox();
+    if (ZTREE.REPRESS_ALERTS == true) { return; }
     if (document.getElementById) {
-        if (document.getElementById('datatree_popupbox')){
-            document.getElementById('datatree_popupbox').parentNode.removeChild(document.getElementById('datatree_popupbox'));
+        if (document.getElementById('ztree_popupbox')){
+            document.getElementById('ztree_popupbox').parentNode.removeChild(document.getElementById('ztree_popupbox'));
         }
         var box = document.createElement('div');
-        box.id = 'datatree_popupbox';
+        box.id = 'ztree_popupbox';
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         //box.style.height = "100px";
         //box.style.width = "300px";
-        box.style.border = DATATREE.POPUP_BORDER;
+        box.style.border = ZTREE.POPUP_BORDER;
         box.style.overflow = "auto";
         box.style.borderRadius = "20px";
         box.style.padding = "15px";
-        box.style.background = "#f5f2eb";// "white url('" + DATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
+        box.style.background = "#f5f2eb";// "white url('" + ZTREE.POPUP_BACKGROUND + "') repeat scroll left top";
         box.style.maxWidth = "200px";
-        box.innerHTML = "<div onclick='return DatatreeClosePopupBox();' id='datatree_closebutton' style='position:relative;color:red;font-size:1em;top:0px;right:0px;float:right;margin:3px;border:1px dotted red;padding:3px;'>X</div><p id='datatree_popup_message'></p>";
+        box.innerHTML = "<div onclick='return ZtreeClosePopupBox();' id='ztree_closebutton' style='position:relative;color:red;font-size:1em;top:0px;right:0px;float:right;margin:3px;border:1px dotted red;padding:3px;'>X</div><p id='ztree_popup_message'></p>";
         document.body.appendChild(box);
         //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
         if (box) {
-            message_text = document.getElementById("datatree_popup_message");
+            message_text = document.getElementById("ztree_popup_message");
             if (message_text) {
                 var txts = popup_text.split("\n");
                 message_text.innerHTML = "";
@@ -5168,64 +5168,64 @@ function DatatreeShowPopupBox(popup_text, timing, x, y) {
             }
             box.style.left = x + "px";
             box.style.top = y + "px";
-            window.clearTimeout(DATATREE.TIMER);
-            DATATREE.TIMER = setTimeout(DATATREE.ClosePopupBox, timing);
+            window.clearTimeout(ZTREE.TIMER);
+            ZTREE.TIMER = setTimeout(ZTREE.ClosePopupBox, timing);
         }
     }
   } catch (exc) {  }
 }
 
-function DatatreeClosePopupBox() {
+function ZtreeClosePopupBox() {
     if (document.getElementById) {
-        box = document.getElementById("datatree_popupbox");
+        box = document.getElementById("ztree_popupbox");
         if (box) {
             box.style.display = "none";
-            if (DATATREE.TIMER) {
-                window.clearTimeout(DATATREE.TIMER);
+            if (ZTREE.TIMER) {
+                window.clearTimeout(ZTREE.TIMER);
             }
         }
     }
 }
-function DatatreeGetView(click){
+function ZtreeGetView(click){
     if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
-       if (DatatreeGetView.arguments.length == 0 || click == true){
+       if (ZtreeGetView.arguments.length == 0 || click == true){
 try{
            this.CloseTree();
            this.ROOT_NODE.Click();
 } catch (exc) {  }//7.8.7
        }
-       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return ZtreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return ZtreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
     } else {
         return "";
     }
 }
-function DatatreeGetList(){
+function ZtreeGetList(){
     return this.ViewGetList();
     //var result = this.SyncFromDataTree(this.GetCode(), true);
     //return result;
 }
-function DatatreeGetCode(click){
+function ZtreeGetCode(click){
     this.UpdateContent();
     if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
-       if (DatatreeGetCode.arguments.length == 0 || click == true){
+       if (ZtreeGetCode.arguments.length == 0 || click == true){
            this.SELECTED_SPAN = null;//7.8.6
            this.CloseTree();
            this.ROOT_NODE.Click();
        }
-       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return ZtreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return ZtreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return ul + this.ROOT_NODE.Iterate(false) + _ul;
     } else {
         return "";
     }
 }
-function DatatreeClear(node, what){
-    if (DatatreeClear.arguments.length <= 0){
+function ZtreeClear(node, what){
+    if (ZtreeClear.arguments.length <= 0){
         node = this.ROOT_NODE;
         what = "search_results";
-    } else if (DatatreeClear.arguments.length <= 1){
+    } else if (ZtreeClear.arguments.length <= 1){
         what = "search_results";
     } else if (what == "*" || what == "all" || what == "numbers" || what == "linenumbers" || what == "line_numbers" || what == "highlights" || what == "search_results"){
         what = what;
@@ -5234,11 +5234,11 @@ function DatatreeClear(node, what){
         return;
     } else if (what == "replace_results"){
     } else {
-        if (DATATREE.REPRESS_ALERTS == false) {  }
+        if (ZTREE.REPRESS_ALERTS == false) {  }
         return;
     }
     if (what == "replace_results" || what == "all" || what == "*"){
-       node.TEXT = node.TEXT.split(DATATREE.SKIP_MESSAGE).join(this.REPLACE);
+       node.TEXT = node.TEXT.split(ZTREE.SKIP_MESSAGE).join(this.REPLACE);
     }
     var temp_div = document.createElement("div");
     temp_div.innerHTML = node.TEXT;
@@ -5272,16 +5272,16 @@ function DatatreeClear(node, what){
         }
     }
 }
-function DatatreeCloseTree(){
+function ZtreeCloseTree(){
        this.ROOT_NODE.Click();
        this.ROOT_NODE.Close();
        this.SELECTED_SPAN = null;
-       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return ZtreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return ZtreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
 }
 
-function DatatreeHtmlBody(html){
+function ZtreeHtmlBody(html){
    var result = html;
    if (html.indexOf('<') >= 0 && html.indexOf('>') >= 0){
       if (html.indexOf('<body>') >= 0){
@@ -5302,7 +5302,7 @@ function DatatreeHtmlBody(html){
    }
    return result;
 }
-function DatatreeGetBrowser(){
+function ZtreeGetBrowser(){
      var result = "unknown";
      if (navigator.appName == 'Microsoft Internet Explorer' || navigator.userAgent.indexOf("IE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0){
          result = "IE";
@@ -5317,9 +5317,9 @@ function DatatreeGetBrowser(){
       }
       return result;
 }
-function DatatreeWait(){
-   var tree = DATATREE.TREE;
-   var name = DATATREE.TREE.NAME;
+function ZtreeWait(){
+   var tree = ZTREE.TREE;
+   var name = ZTREE.TREE.NAME;
    var x = document.getElementById(name).offsetLeft;
    var y = document.getElementById(name).offsetTop;
    var _parent = document.getElementById(name).offsetParent;
@@ -5347,14 +5347,14 @@ function DatatreeWait(){
    if (y + document.getElementById(name).offsetHeight <= window.innerHeight + scrollT){
       y += ycenter;
    }
-   var browser = DATATREE.GetBrowser();   
+   var browser = ZTREE.GetBrowser();   
    if (browser == "Firefox"){
-	   DATATREE.WAIT_IS_OPEN = true;
-	   DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	   ZTREE.WAIT_IS_OPEN = true;
+	   ZTREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
        return "popup";
    /**
    } else if (browser == "IE"){
-	   DATATREE.WAIT_IS_OPEN = true;
+	   ZTREE.WAIT_IS_OPEN = true;
       var left = x;
       var top = y;
       var wait = window.open("", '_blank', 'width=100,height=100,left=' + left + ',top=' + top);
@@ -5366,44 +5366,44 @@ function DatatreeWait(){
       }
    **/
    } else if (browser == "Chrome"){
-	  DATATREE.WAIT_IS_OPEN = true;
-	  DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	  ZTREE.WAIT_IS_OPEN = true;
+	  ZTREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    } else if (browser == "Safari"){
-	  DATATREE.WAIT_IS_OPEN = true;
-	  DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	  ZTREE.WAIT_IS_OPEN = true;
+	  ZTREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    } else if (browser == "Edge" || browser == "IE"){
-      DATATREE.WAIT_IS_OPEN = true;
-      DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+      ZTREE.WAIT_IS_OPEN = true;
+      ZTREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    }
 }
-function DatatreeCloseWaitBox(wait){
-    DATATREE.WAIT_IS_OPEN = false;
+function ZtreeCloseWaitBox(wait){
+    ZTREE.WAIT_IS_OPEN = false;
 	if (wait != null) {
 	   if (wait == "popup"){
-	      DATATREE.ClosePopupBox();
+	      ZTREE.ClosePopupBox();
 	   } else {
 		   wait.close();
 	   }
 	}
 }
-function DatatreeResetReplace(){
+function ZtreeResetReplace(){
     this.REPLACE_RESULTS.length = 0;
     this.CURRENT_REPLACE_INDEX = -1;
     this.REPLACE = "";
     this.REPLACE_WITH = "";
-    DATATREE.SKIP_MESSAGE = DATATREE.DEFAULT_SKIP_MESSAGE;
+    ZTREE.SKIP_MESSAGE = ZTREE.DEFAULT_SKIP_MESSAGE;
 }
-function DatatreeQuery(query_string){
-    DATATREE.TREE = this;
-    DATATREE.SetInitiator(this);//7.9.8
+function ZtreeQuery(query_string){
+    ZTREE.TREE = this;
+    ZTREE.SetInitiator(this);//7.9.8
     var RESULT = '';
-    if (DATATREE.INSERT == true && DATATREE.StringTrim(query_string.toUpperCase()) != "UNINSERT"){
+    if (ZTREE.INSERT == true && ZTREE.StringTrim(query_string.toUpperCase()) != "UNINSERT"){
        this.SubmitEdit(query_string,"sibling",this.SELECTED_SPAN);
        var spanindex = 0;
-       var spans = this.ViewRoot().getElementsByClassName('datatree_content');
+       var spans = this.ViewRoot().getElementsByClassName('ztree_content');
        for (var count = 0; count < spans.length; ++count){
            if (spans[count] == this.SELECTED_SPAN){
               spanindex = count;
@@ -5419,7 +5419,7 @@ function DatatreeQuery(query_string){
     }
     var strings = query_string.split(" ");
     for (var count = 0; count < strings.length; ++count){
-        if (DATATREE.StringTrim(strings[count]) == ""){
+        if (ZTREE.StringTrim(strings[count]) == ""){
             strings.splice(count, 1);
             count -= 1;
         }
@@ -5431,33 +5431,33 @@ function DatatreeQuery(query_string){
     var fifth = "";
     var sixth = "";
     if (strings.length > 0){
-      first = DATATREE.StringTrim(strings[0]);
+      first = ZTREE.StringTrim(strings[0]);
     }
     if (strings.length > 1){
-      second = DATATREE.StringTrim(strings[1]);
+      second = ZTREE.StringTrim(strings[1]);
     }
     if (strings.length > 2){
-      third = DATATREE.StringTrim(strings[2]);
+      third = ZTREE.StringTrim(strings[2]);
     }
     if (strings.length > 3){
-      fourth = DATATREE.StringTrim(strings[3]);
+      fourth = ZTREE.StringTrim(strings[3]);
     }
     if (strings.length > 4){
-      fifth = DATATREE.StringTrim(strings[4]);
+      fifth = ZTREE.StringTrim(strings[4]);
     }
     if (strings.length > 5){
-      sixth = DATATREE.StringTrim(strings[5]);
+      sixth = ZTREE.StringTrim(strings[5]);
     }
     switch(first.toUpperCase()){
           case "INSERT":
-             DATATREE.INSERT = true;
+             ZTREE.INSERT = true;
              break;
           case "UNINSERT":
-             DATATREE.INSERT = false;
+             ZTREE.INSERT = false;
              break;
           case "SELECT":
              try{//do not erase...checks parseInt
-             var what = DATATREE.StringTrim(query_string.substring("SELECT".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("SELECT".length)).toLowerCase();
              var check = second.toUpperCase();
              if (check != "LINE" && check != "LINES" && check != "UP" && check != "DOWN"){//allow leave out 'LINE' or 'LINES'
                 third = second;
@@ -5469,16 +5469,16 @@ function DatatreeQuery(query_string){
                    second = "LINE";
                 }
              }
-             var spans = this.ViewRoot().getElementsByClassName('datatree_content');
-             if (second != "" && third != "" && DATATREE.StringTrim(second.toUpperCase()) == "LINE"){
-                var index = parseInt(DATATREE.StringTrim(third));// - 1;
+             var spans = this.ViewRoot().getElementsByClassName('ztree_content');
+             if (second != "" && third != "" && ZTREE.StringTrim(second.toUpperCase()) == "LINE"){
+                var index = parseInt(ZTREE.StringTrim(third));// - 1;
                 if (index > 0 && index < spans.length){
                    if (this.SELECTED_SPAN){
-                      DatatreeUnhighlightSpan(this.SELECTED_SPAN);
+                      ZtreeUnhighlightSpan(this.SELECTED_SPAN);
                    }
                    if (this.MOUSE_DRAG_SPANS){
                       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                         DatatreeUnhighlightSpan(this.MOUSE_DRAG_SPANS[count]);
+                         ZtreeUnhighlightSpan(this.MOUSE_DRAG_SPANS[count]);
                       }
                    }
                    var span = spans[index];
@@ -5487,7 +5487,7 @@ function DatatreeQuery(query_string){
                    this.HighlightSpan(span);
                    this.SELECTED_SPAN = span;
                 }
-             } else if (second != "" && third != "" && DATATREE.StringTrim(second.toUpperCase()) == "LINES" && (third.indexOf("-") >= 0 || (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"))){
+             } else if (second != "" && third != "" && ZTREE.StringTrim(second.toUpperCase()) == "LINES" && (third.indexOf("-") >= 0 || (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"))){
                 if (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"){
                    third = parseInt(third) + "-" + parseInt(fifth);
                 }
@@ -5535,12 +5535,12 @@ function DatatreeQuery(query_string){
                    this.SELECTED_SPAN = span;
                 }
              }
-             }catch(exc){if(DATATREE.REPRESS_ALERTS==false){alert(exc);}}
+             }catch(exc){if(ZTREE.REPRESS_ALERTS==false){alert(exc);}}
              break;
           case "OVERWRITE":
-             var what = DATATREE.StringTrim(query_string.substring("OVERWRITE".length));
+             var what = ZTREE.StringTrim(query_string.substring("OVERWRITE".length));
              if (what == ""){
-                DATATREE.ToolbarSelect("overwrite");
+                ZTREE.ToolbarSelect("overwrite");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"overwrite",this.SELECTED_SPAN);
              }
@@ -5550,10 +5550,10 @@ function DatatreeQuery(query_string){
              if (first.toUpperCase() == "CHI"){
                 query_string = query_string.replace("CHI","CHILD");
              }
-             var what = DATATREE.StringTrim(query_string.substring("CHILD".length));
+             var what = ZTREE.StringTrim(query_string.substring("CHILD".length));
              document.getElementById(this.TOOLBAR_QUERYWINDOW_NAME).value = '';
              if (what == ""){
-                DATATREE.ToolbarSelect("child");
+                ZTREE.ToolbarSelect("child");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"child",this.SELECTED_SPAN);
              }
@@ -5563,105 +5563,105 @@ function DatatreeQuery(query_string){
              if (first.toUpperCase() == "SIB"){
                 query_string = query_string.replace("SIB","SIBLING");
              }
-             var what = DATATREE.StringTrim(query_string.substring("SIBLING".length));
+             var what = ZTREE.StringTrim(query_string.substring("SIBLING".length));
              document.getElementById(this.TOOLBAR_QUERYWINDOW_NAME).value = '';
              if (what == ""){
-                DATATREE.ToolbarSelect("sibling");
+                ZTREE.ToolbarSelect("sibling");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"sibling",this.SELECTED_SPAN);
              }
              break;
           case "MOVE":
-             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "selection right"){
-                DATATREE.ToolbarSelect("selection right");
+                ZTREE.ToolbarSelect("selection right");
              } else if (what == "right" || what == "section right"){
-                DATATREE.ToolbarSelect("section right");
+                ZTREE.ToolbarSelect("section right");
              } else if (what == "left" || what == "section left" || what == "selection left"){
-                DATATREE.ToolbarSelect("left");
+                ZTREE.ToolbarSelect("left");
              } else if (what == "up" || what == "section up" || what == "selection up"){
-                DATATREE.ToolbarSelect("up");
+                ZTREE.ToolbarSelect("up");
              } else if (what == "down" || what == "section down" || what == "selection down"){
-                DATATREE.ToolbarSelect("down");
+                ZTREE.ToolbarSelect("down");
              }
              break;
           case "SELECTION":
-             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "right"){
-                DATATREE.ToolbarSelect("selection right");
+                ZTREE.ToolbarSelect("selection right");
              } else if (what == "left"){
-                DATATREE.ToolbarSelect("left");
+                ZTREE.ToolbarSelect("left");
              } else if (what == "up"){
-                DATATREE.ToolbarSelect("up");
+                ZTREE.ToolbarSelect("up");
              } else if (what == "down"){
-                DATATREE.ToolbarSelect("down");
+                ZTREE.ToolbarSelect("down");
              }
              break;
           case "SECTION":
-             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "right"){
-                DATATREE.ToolbarSelect("section right");
+                ZTREE.ToolbarSelect("section right");
              } else if (what == "left"){
-                DATATREE.ToolbarSelect("left");
+                ZTREE.ToolbarSelect("left");
              } else if (what == "up"){
-                DATATREE.ToolbarSelect("up");
+                ZTREE.ToolbarSelect("up");
              } else if (what == "down"){
-                DATATREE.ToolbarSelect("down");
+                ZTREE.ToolbarSelect("down");
              }
              break;
           case "RIGHT":
-             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "selection" || what == "selected" || what == "line" || what == "lines" || what == "outer" || what == "shallow"){
-                DATATREE.ToolbarSelect("selection right");
+                ZTREE.ToolbarSelect("selection right");
              } else if (what == "" || what == "section" || what == "with children" || what == "w/children" || what == "w/chldrn" || what == "all" || what == "inner" || what == "deep"){
-                DATATREE.ToolbarSelect("section right");
+                ZTREE.ToolbarSelect("section right");
              }
              break;
           case "LEFT":
-             DATATREE.ToolbarSelect("left");
+             ZTREE.ToolbarSelect("left");
              break;
           case "UP":
-             DATATREE.ToolbarSelect("up");
+             ZTREE.ToolbarSelect("up");
              break;
           case "DOWN":
-             DATATREE.ToolbarSelect("down");
+             ZTREE.ToolbarSelect("down");
              break;
           case "CUT":
-             DATATREE.ToolbarSelect("cut");
+             ZTREE.ToolbarSelect("cut");
              break;
           case "COPY":
-             var what = DATATREE.StringTrim(query_string.substring("COPY".length)).toLowerCase();
+             var what = ZTREE.StringTrim(query_string.substring("COPY".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "" || what == "selection" || what == "selected" || what == "line" || what == "lines" || what == "outer" || what == "shallow"){
-                DATATREE.ToolbarSelect("copy selected");
+                ZTREE.ToolbarSelect("copy selected");
              } else if (what == "section" || what == "with children" || what == "w/children" || what == "w/chldrn" || what == "all" || what == "inner" || what == "deep"){
-                DATATREE.ToolbarSelect("copy w/children");
+                ZTREE.ToolbarSelect("copy w/children");
              }
              break;
           case "PASTE":
-             DATATREE.ToolbarSelect("paste");
+             ZTREE.ToolbarSelect("paste");
              break;
           case "DELETE":
           case "REMOVE":
-             DATATREE.ToolbarSelect("remove");
+             ZTREE.ToolbarSelect("remove");
              break;
           case "UNDO":
-             DATATREE.ToolbarSelect("undo");
+             ZTREE.ToolbarSelect("undo");
              break;
           case "REDO":
-             DATATREE.ToolbarSelect("redo");
+             ZTREE.ToolbarSelect("redo");
              break;
           case "COUNT":
-             var what = DATATREE.StringTrim(query_string.substring("COUNT".length)).toLowerCase();
-             var root = DatatreeViewRoot();
-             var lines = root.getElementsByClassName('datatree_content');
+             var what = ZTREE.StringTrim(query_string.substring("COUNT".length)).toLowerCase();
+             var root = ZtreeViewRoot();
+             var lines = root.getElementsByClassName('ztree_content');
              if (what == "lines"){
                    var result = lines.length-1;
-                   if (DATATREE.REPRESS_ALERTS == false){
+                   if (ZTREE.REPRESS_ALERTS == false){
                       alert("lines: " + result);
                    }
                    RESULT = result;
@@ -5669,10 +5669,10 @@ function DatatreeQuery(query_string){
                    var result = 0;
                    for (var count = 1; count < lines.length; ++count){
                       var line = lines[count];
-                      var text = DATATREE.StripTags(line.innerHTML);
+                      var text = ZTREE.StripTags(line.innerHTML);
                       result += text.split(" ").length;
                    }
-                   if (DATATREE.REPRESS_ALERTS == false){
+                   if (ZTREE.REPRESS_ALERTS == false){
                       alert("words: " + result);
                    }
                    RESULT = result;
@@ -5684,26 +5684,26 @@ function DatatreeQuery(query_string){
                 if (third.toUpperCase() == "TO" || third == "="){
                    query = query.replace(" TO "," ").replace(" = "," ");
                 }
-                var type = DATATREE.StringTrim(query.substring("CHANGE TYPE".length)).toLowerCase();
+                var type = ZTREE.StringTrim(query.substring("CHANGE TYPE".length)).toLowerCase();
                 if (type == "text" || type == "html"){
                    this.SetType(type);
-                   if (DATATREE.REPRESS_ALERTS == false){
+                   if (ZTREE.REPRESS_ALERTS == false){
                       alert("TYPE has been set to " + type);
                    }
                 }
              }
              break;
 		case "TOOLBAR":
-		    var tools = DATATREE.StringTrim(query_string.substring("TOOLBAR".length));
+		    var tools = ZTREE.StringTrim(query_string.substring("TOOLBAR".length));
                     if (tools != ""){
 				tools = tools.toLowerCase();
-				DATATREE.TREE.TOOLBAR_TOOLS = tools;
+				ZTREE.TREE.TOOLBAR_TOOLS = tools;
                       this.SetToolbar(tools);
 				//this.Refresh();
                     }
 		    break;
           case "HEAD":
-                    var head = DATATREE.StringTrim(query_string.substring("HEAD".length));
+                    var head = ZTREE.StringTrim(query_string.substring("HEAD".length));
                     if (head != ""){
                        if (window.confirm("Set head to " + head + "?")){
                           document.head.innerHTML = head;
@@ -5713,53 +5713,53 @@ function DatatreeQuery(query_string){
 		case "SET":
 		    if (strings.length >= 2){ // allows setting to nothing
 			    var key = second;
-			    var value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(second) + second.length));
+			    var value = ZTREE.StringTrim(query_string.substring(query_string.indexOf(second) + second.length));
 				if (third == "EQUAL" || third == "EQUALS" || third == "=" || third == "equals" || third == "Equals" || third == "equal" || third == "Equal"){
-				    var equals = DATATREE.StringTrim(third);
-				    value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(equals) + equals.length));
+				    var equals = ZTREE.StringTrim(third);
+				    value = ZTREE.StringTrim(query_string.substring(query_string.indexOf(equals) + equals.length));
 				} else if (third == "VAR" || third == "VARIABLE" || third == "VAL" || third == "VALUE" || third == "VALUEOF" || third == "VALUE_OF"){
-                           var val = DATATREE.StringTrim(third);
-                           value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(val) + val.length));
+                           var val = ZTREE.StringTrim(third);
+                           value = ZTREE.StringTrim(query_string.substring(query_string.indexOf(val) + val.length));
                            value = "" + eval(value) + "";
                      }
 				var found = false;
 				var error = false;
 				var error_message = "";
-				for (k in DATATREE){
+				for (k in ZTREE){
 					if (key == k.toString()){
-						if (DATATREE.SETTABLE_PROPERTIES.indexOf(k.toString()) >= 0){} else {
+						if (ZTREE.SETTABLE_PROPERTIES.indexOf(k.toString()) >= 0){} else {
 							error = true;
 							error_message = "not allowed to set that property";
 							break;
 						}
-						switch(typeof(DATATREE[k])){
+						switch(typeof(ZTREE[k])){
 							case "string":
                                          if (value == 'default' || value == 'DEFAULT'){
                                             var def = 'DEFAULT_' + key;
-                                            for (j in DATATREE){
+                                            for (j in ZTREE){
                                                if (def == j.toString()){
-                                                  DATATREE[k] = DATATREE[j];
+                                                  ZTREE[k] = ZTREE[j];
                                                   found = true;
                                                }
                                             }
                                         } else {
-   							      DATATREE[k] = value;
+   							      ZTREE[k] = value;
 						           found = true;
                                         }
 							   break;
 							case "number":
-							   if (parseInt(DATATREE[k]) === DATATREE[k]){
-  							       DATATREE[k] = parseInt(value);
+							   if (parseInt(ZTREE[k]) === ZTREE[k]){
+  							       ZTREE[k] = parseInt(value);
 						       } else {
-								   DATATREE[k] = parseFloat(value);
+								   ZTREE[k] = parseFloat(value);
 							   }
 						       found = true;
 							   break;
 							case "boolean":
 							   if (value == 'true'){
- 							       DATATREE[k] = true;
+ 							       ZTREE[k] = true;
 							   } else if (value == 'false'){
-								   DATATREE[k] = false;
+								   ZTREE[k] = false;
 							   } else {
 								   error = true;
 							   }
@@ -5785,9 +5785,9 @@ function DatatreeQuery(query_string){
 							  case "string":
                                           if (value == 'default' || value == 'DEFAULT'){
                                             var def = 'DEFAULT_' + key;
-                                            for (j in DATATREE){
+                                            for (j in ZTREE){
                                                if (def == j.toString()){
-                                                  this[k] = DATATREE[j];
+                                                  this[k] = ZTREE[j];
                                                   found = true;
                                                }
                                             }
@@ -5823,7 +5823,7 @@ function DatatreeQuery(query_string){
 					  }
 			   	   }
 			    }
-			if (DATATREE.REPRESS_ALERTS == false){
+			if (ZTREE.REPRESS_ALERTS == false){
 				   if (error == true){
 					  alert("syntax error" + (error_message == ""? "" : ": " + error_message));
 				   } else if (found == true){
@@ -5836,19 +5836,19 @@ function DatatreeQuery(query_string){
 		    break;
 		case "GET": 
 		    if (strings.length >= 2){
-				var key = DATATREE.StringTrim(second.toUpperCase());
+				var key = ZTREE.StringTrim(second.toUpperCase());
 				var value = "?";
 				var found = false;
 				var type = "?";
 				var index = 0;
 				var index2 = 0;
-				for (k in DATATREE){
+				for (k in ZTREE){
 					if (key == k.toString()){
-						value = DATATREE[k];
-						type = typeof(DATATREE[k]);
+						value = ZTREE[k];
+						type = typeof(ZTREE[k]);
 						found = true;
-						index = DATATREE.SETTABLE_PROPERTIES.indexOf(k);
-						index2 = DATATREE.SETTABLE_PROPERTIES.indexOf(DATATREE[k]);
+						index = ZTREE.SETTABLE_PROPERTIES.indexOf(k);
+						index2 = ZTREE.SETTABLE_PROPERTIES.indexOf(ZTREE[k]);
 						break;
 					}
 				}
@@ -5864,7 +5864,7 @@ function DatatreeQuery(query_string){
 					  }
 			   	   }
 			    }
-				if (DATATREE.REPRESS_ALERTS == false){
+				if (ZTREE.REPRESS_ALERTS == false){
 					if (found){
 						alert(key + " = " + value + " and has type " + type);
   				    } else {
@@ -5876,12 +5876,12 @@ function DatatreeQuery(query_string){
 		case "SITEMAP":
                     var links = new Array();
                     var files;
-		    if (DATATREE.SITEMAP != null && DATATREE.SITEMAP != "undefined" && DATATREE.SITEMAP != ""){
-				files = DATATREE.SITEMAP.split(",");
+		    if (ZTREE.SITEMAP != null && ZTREE.SITEMAP != "undefined" && ZTREE.SITEMAP != ""){
+				files = ZTREE.SITEMAP.split(",");
 				for (var count = 0; count < files.length; ++count){
 					var file = files[count];
-                                        var name = DATATREE.GetFileNameFromPath(file);
-                                        if (DATATREE.StringTrim(name) == ""){
+                                        var name = ZTREE.GetFileNameFromPath(file);
+                                        if (ZTREE.StringTrim(name) == ""){
                                            name = file;
                                         }
                                         file = escape(file);
@@ -5893,20 +5893,20 @@ function DatatreeQuery(query_string){
 		    } else {
 			    alert("Error - could not load sitemap.");
 		    }
-		    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != "undefined" && DATATREE.SITEMAP_FILE != ""){
-                                var temp = DATATREE.REPRESS_ALERTS;
-                                DATATREE.REPRESS_ALERTS = true;
-                                DATATREE.PLEASE_WAIT = false;
-                                DATATREE.Load(DATATREE.SITEMAP_FILE);
-                                var sitemap = DATATREE.TEMP;
+		    if (ZTREE.SITEMAP_FILE != null && ZTREE.SITEMAP_FILE != "undefined" && ZTREE.SITEMAP_FILE != ""){
+                                var temp = ZTREE.REPRESS_ALERTS;
+                                ZTREE.REPRESS_ALERTS = true;
+                                ZTREE.PLEASE_WAIT = false;
+                                ZTREE.Load(ZTREE.SITEMAP_FILE);
+                                var sitemap = ZTREE.TEMP;
                                 var linkcount = 0;
                                 for (var count = 0; count < files.length; ++count){
                                    var file = files[count];
                                    if (file == ""){
                                       continue;
                                    }
-                                   var name = DATATREE.GetFileNameFromPath(file);
-                                   if (DATATREE.StringTrim(name) == ""){
+                                   var name = ZTREE.GetFileNameFromPath(file);
+                                   if (ZTREE.StringTrim(name) == ""){
                                       name = file;
                                    }
                                    var link = links[count];
@@ -5944,14 +5944,14 @@ function DatatreeQuery(query_string){
                                    sitemap = newmap;
                                    var newmaps = newmap.split("<br/>");
                                    var firstline = newmaps[0];
-                                   var firstletter = DATATREE.StringTrim(firstline)[0];
+                                   var firstletter = ZTREE.StringTrim(firstline)[0];
                                    var spaces = firstline.indexOf(firstletter);
                                    for (var count = 0; count < newmaps.length; ++count){
                                       var line = newmaps[count];
-                                      var letter = DATATREE.StringTrim(line)[0];
+                                      var letter = ZTREE.StringTrim(line)[0];
                                       var spaces2 = line.indexOf(letter);
                                       if (spaces2 == spaces){
-                                         newmaps[count] = DATATREE.StringTrim(newmaps[count]);
+                                         newmaps[count] = ZTREE.StringTrim(newmaps[count]);
                                       }
                                    }
                                    sitemap = newmaps.join("<br/>");
@@ -5960,11 +5960,11 @@ function DatatreeQuery(query_string){
                                    this.Query("SET TITLE " + "FILE VIEW");
                                 }
                                 this.Query("CREATE FROM HTML " + sitemap);
-                                DATATREE.REPRESS_ALERTS = temp;
+                                ZTREE.REPRESS_ALERTS = temp;
 			}
 			break;
         case "EDIT":
-                    var extra = DATATREE.StringTrim(query_string.substring("EDIT".length));
+                    var extra = ZTREE.StringTrim(query_string.substring("EDIT".length));
                     if (this.TYPE == null || this.TYPE == "undefined" || this.TYPE.toLowerCase() == "text"){
                        this.Edit("html", this.ViewGetList());
                     } else if (this.TYPE != null && this.TYPE != "undefined" && (this.TYPE.toLowerCase() == "html" || this.TYPE.toLowerCase() == "tree")){
@@ -5974,28 +5974,28 @@ function DatatreeQuery(query_string){
                           this.Edit("html", this.ViewGetList());
                        }
                     } else {
-                       if (DATATREE.REPRESS_ALERTS == false){
+                       if (ZTREE.REPRESS_ALERTS == false){
                           alert("problem determining text or html type");
                        }
                     }
             break;
         case "LOAD":
             try{
-            var filename = DATATREE.StringTrim(query_string.substring("LOAD".length));
-            if (DATATREE.StringTrim(filename) == ""){
+            var filename = ZTREE.StringTrim(query_string.substring("LOAD".length));
+            if (ZTREE.StringTrim(filename) == ""){
                this.LoadFromToolbar();
-            } else if (DATATREE.StringTrim(filename).toUpperCase() == "TEXT"){
+            } else if (ZTREE.StringTrim(filename).toUpperCase() == "TEXT"){
                this.LoadFromTextarea('text');
-            } else if (DATATREE.StringTrim(filename).toUpperCase() == "HTML" || DATATREE.StringTrim(filename).toUpperCase() == "LIST"){
+            } else if (ZTREE.StringTrim(filename).toUpperCase() == "HTML" || ZTREE.StringTrim(filename).toUpperCase() == "LIST"){
                this.LoadFromTextarea('html');
-            } else if (DATATREE.StringTrim(filename).toUpperCase() == "TREE" || DATATREE.StringTrim(filename).toUpperCase() == "FILE") {
+            } else if (ZTREE.StringTrim(filename).toUpperCase() == "TREE" || ZTREE.StringTrim(filename).toUpperCase() == "FILE") {
                this.LoadFromTextarea('tree');
             } else if (filename.substring(filename.length - ".html".length) == ".html" || filename.substring(filename.length - ".txt".length) == ".txt" || filename.substring(filename.length - ".htm".length) == ".htm"){
-               DATATREE.TEMP = "";
-               DATATREE.Load(filename);
-               var tree = DATATREE.TEMP;
-               if (DATATREE.TEMP == "" || DATATREE.TEMP == null || DATATREE.TEMP == "undefined"){
-			  if (DATATREE.REPRESS_ALERTS == false){
+               ZTREE.TEMP = "";
+               ZTREE.Load(filename);
+               var tree = ZTREE.TEMP;
+               if (ZTREE.TEMP == "" || ZTREE.TEMP == null || ZTREE.TEMP == "undefined"){
+			  if (ZTREE.REPRESS_ALERTS == false){
 				 alert("could not find the file: " + filename);
 			  } else {
                       this.ALERTS.push("could not find the file: " + filename);
@@ -6003,7 +6003,7 @@ function DatatreeQuery(query_string){
 			  }
                   return;
                }
-               DATATREE.PLEASE_WAIT = true;
+               ZTREE.PLEASE_WAIT = true;
                if (filename.substring(filename.length - ".tree.html".length) == ".tree.html"){
                   this.Query("CREATE FROM TREE " + tree);
                } else if (filename.substring(filename.length - ".html".length) == ".html" || filename.substring(filename.length - ".htm".length) == ".htm"){
@@ -6018,10 +6018,10 @@ function DatatreeQuery(query_string){
             break;
         case "ALPHABETIZE":
         case "SORT":
-            DatatreeViewReset();
+            ZtreeViewReset();
             var newTree = null;
             if (query_string.indexOf("LINE") >= 0 || query_string.indexOf("line") >= 0){
-               if (strings.length >= 5 && DATATREE.StringTrim(second.toUpperCase()) == "FROM" && DATATREE.StringTrim(third.toUpperCase()) == "LINE" && DATATREE.StringTrim(fifth.toUpperCase()) == "TO" && DATATREE.StringTrim(sixth.toUpperCase()) == "LINE"){
+               if (strings.length >= 5 && ZTREE.StringTrim(second.toUpperCase()) == "FROM" && ZTREE.StringTrim(third.toUpperCase()) == "LINE" && ZTREE.StringTrim(fifth.toUpperCase()) == "TO" && ZTREE.StringTrim(sixth.toUpperCase()) == "LINE"){
                   strings[2] = "LINE";
                   strings[5] = "LINE";
                   strings[1] = "FROM";
@@ -6034,12 +6034,12 @@ function DatatreeQuery(query_string){
                      start = parseInt(strings[3]);
                      finish = parseInt(strings[6]);
                   } catch (exc) {
-                     if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
+                     if (ZTREE.REPRESS_ALERTS == false) { alert(exc); }
                      return;
                   }
-                  DatatreeViewAlphabetize("numbers",start,finish);
+                  ZtreeViewAlphabetize("numbers",start,finish);
                } else {
-                  if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+                  if (ZTREE.REPRESS_ALERTS == false) { alert("syntax error"); }
                }
             } else if (strings.length >= 4 && strings[1].toUpperCase() == "FROM" && query_string.indexOf("TO")){
                strings[1] = "FROM";
@@ -6047,12 +6047,12 @@ function DatatreeQuery(query_string){
                query_string = query_string.split(" to ").join(" TO ").split(" To ").join(" TO ");
                var startstring = "";
                var finishstring = "";
-               startstring = DATATREE.StringTrim(query_string.split(" FROM ")[1].split(" TO ")[0]);
-               finishstring = DATATREE.StringTrim(query_string.split(" TO ")[1]);
+               startstring = ZTREE.StringTrim(query_string.split(" FROM ")[1].split(" TO ")[0]);
+               finishstring = ZTREE.StringTrim(query_string.split(" TO ")[1]);
                if (startstring == "" || finishstring == ""){
                    if (POSTERTRO.REPRESS_ALERTS == false) { alert("error in alphabetize"); }
                } else {
-                   DatatreeViewAlphabetize("strings",startstring,finishstring);
+                   ZtreeViewAlphabetize("strings",startstring,finishstring);
                }
             }
             break;
@@ -6060,7 +6060,7 @@ function DatatreeQuery(query_string){
         case "RESET":
             var what = "";
             if (strings.length > 1){
-                switch(DATATREE.StringTrim(strings[1].toUpperCase())){
+                switch(ZTREE.StringTrim(strings[1].toUpperCase())){
                     case "ALL":
                     case "*":
                         what = "*";
@@ -6085,9 +6085,9 @@ function DatatreeQuery(query_string){
                 }
             }
             if (what != ""){
-                DatatreeViewReset(what);
+                ZtreeViewReset(what);
             } else {
-                DatatreeViewReset();
+                ZtreeViewReset();
             }
             this.SELECTED_SPAN = null;//7.8.6
             break;
@@ -6099,41 +6099,41 @@ function DatatreeQuery(query_string){
  		 this.HAS_ERRORS = false;
 		 this.ALERTS.length = 0;
             this.SELECTED_SPAN = null;//7.8.7
-            if (strings.length >= 2 && (DATATREE.StringTrim(second.toUpperCase()) == "TREE" || DATATREE.StringTrim(second.toUpperCase()) == "DATATREE" || DATATREE.StringTrim(second.toUpperCase()) == "DATA_TREE")){
+            if (strings.length >= 2 && (ZTREE.StringTrim(second.toUpperCase()) == "TREE" || ZTREE.StringTrim(second.toUpperCase()) == "DATATREE" || ZTREE.StringTrim(second.toUpperCase()) == "DATA_TREE")){
                 strings = strings.splice(1);
             }
-            if (strings.length < 3 || DATATREE.StringTrim(strings[1].toUpperCase()) != "FROM" || (DATATREE.StringTrim(strings[2].toUpperCase()) != "HTML" && DATATREE.StringTrim(strings[2].toUpperCase()) != "TEXT" && DATATREE.StringTrim(strings[2].toUpperCase()) != "TREE")){
-                if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+            if (strings.length < 3 || ZTREE.StringTrim(strings[1].toUpperCase()) != "FROM" || (ZTREE.StringTrim(strings[2].toUpperCase()) != "HTML" && ZTREE.StringTrim(strings[2].toUpperCase()) != "TEXT" && ZTREE.StringTrim(strings[2].toUpperCase()) != "TREE")){
+                if (ZTREE.REPRESS_ALERTS == false) { alert("syntax error"); }
             } else {
                 this.AUTO_ADJUST = true;
                 this.AUTO_TRIM = true;
-                if (DATATREE.TREE == "undefined" || DATATREE.TREE == null){
-                    DATATREE.TREE = this;
+                if (ZTREE.TREE == "undefined" || ZTREE.TREE == null){
+                    ZTREE.TREE = this;
                 }
-                var type = DATATREE.StringTrim(strings[2].toUpperCase());
+                var type = ZTREE.StringTrim(strings[2].toUpperCase());
                 switch(type){
                     case "TREE":
-					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
-							var wait = DATATREE.Wait();
+					    if (ZTREE.PLEASE_WAIT == true && ZTREE.WAIT_IS_OPEN != true){
+							var wait = ZTREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = false;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var tree = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
+								var tree = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
 								if (tree == ''){
 								   return;
 								}
 								that.SyncFromDataTree(tree);
                                            //that.EvenSpacing();
 								RESULT = that;
-								DATATREE.CloseWaitBox(wait);
+								ZTREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 							//this.PLAIN_TEXT = false;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var tree = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
+							var tree = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
 							if (tree == ''){
 							   return;
 							}
@@ -6141,17 +6141,17 @@ function DatatreeQuery(query_string){
                                       //this.EvenSpacing();
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     case "HTML":
-					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
-							var wait = DATATREE.Wait();
+					    if (ZTREE.PLEASE_WAIT == true && ZTREE.WAIT_IS_OPEN != true){
+							var wait = ZTREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = false;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
+								var content = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
 								if (content == ''){
 								   return;
 								} else {
@@ -6166,14 +6166,14 @@ function DatatreeQuery(query_string){
 								   that.RefreshGUI();
 								}
 								RESULT = that;
-								DATATREE.CloseWaitBox(wait);
+								ZTREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 							//this.PLAIN_TEXT = false;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
+							var content = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
 							if (content == ''){
 							   return;
 							} else {
@@ -6189,17 +6189,17 @@ function DatatreeQuery(query_string){
 							}
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     case "TEXT":
-					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
-							var wait = DATATREE.Wait();
+					    if (ZTREE.PLEASE_WAIT == true && ZTREE.WAIT_IS_OPEN != true){
+							var wait = ZTREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = true;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
+								var content = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
 								if (content == ''){
 								   return;
 								} else {
@@ -6213,14 +6213,14 @@ function DatatreeQuery(query_string){
 								   that.RefreshGUI();
 								}
 								RESULT = that;
-								DATATREE.CloseWaitBox(wait);
+								ZTREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 						     //this.PLAIN_TEXT = true;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
+							var content = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
 							if (content == ''){
 							   return;
 							} else {
@@ -6235,11 +6235,11 @@ function DatatreeQuery(query_string){
 							}
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && ZTREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     default:
-                        if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+                        if (ZTREE.REPRESS_ALERTS == false) { alert("syntax error"); }
                         break;
                 }
             }
@@ -6255,7 +6255,7 @@ function DatatreeQuery(query_string){
                } else if (this.TYPE != null && this.TYPE != "undefined" && (this.TYPE.toLowerCase() == "html" || this.TYPE.toLowerCase() == "tree")){
                   this.Query("CREATE FROM HTML <p>click here to start</p>");
                } else {
-                  if (DATATREE.REPRESS_ALERTS == false){
+                  if (ZTREE.REPRESS_ALERTS == false){
                      alert("problem determining text or html type");
                   }
                }
@@ -6263,21 +6263,21 @@ function DatatreeQuery(query_string){
             break;
         case "NUMBER":
             if (strings.length >= 6 && strings[1].toUpperCase() == "NESTED" && strings[2].toUpperCase() == "FROM" && strings[4].toUpperCase() == "TO"){
-               DatatreeViewIndex(strings[3],strings[5]);
+               ZtreeViewIndex(strings[3],strings[5]);
             } else {
-               DatatreeViewNumber(this);
+               ZtreeViewNumber(this);
             }
             break;
         case "INDEX":
             if (strings.length >= 5 && strings[1].toUpperCase() == "FROM" && strings[3].toUpperCase() == "TO"){
-               DatatreeViewIndex(strings[2],strings[4]);
+               ZtreeViewIndex(strings[2],strings[4]);
             }
             break;
         case "SAVE":
         case "PRINT":
             var what = "";
             if (strings.length > 1){
-                switch(DATATREE.StringTrim(strings[1].toUpperCase())){
+                switch(ZTREE.StringTrim(strings[1].toUpperCase())){
                     case "TEXT":
                         what = "text";
                         break;
@@ -6336,7 +6336,7 @@ function DatatreeQuery(query_string){
             this.Replay();
             break;
         case "SKIP":
-            DATATREE.SKIPPED = true;
+            ZTREE.SKIPPED = true;
             if (this.REPLACE_RESULTS.length > 0 && this.CURRENT_REPLACE_INDEX >= 0 && this.REPLACE != "" && this.REPLACE_WITH != ""){
                 var msg = this.GetSkipMessage();
                 if (msg == ""){
@@ -6344,21 +6344,21 @@ function DatatreeQuery(query_string){
                 }
                 var search_result = this.REPLACE_RESULTS[this.CURRENT_REPLACE_INDEX];
                 var outerspan = search_result;//7.9.8
-                while (outerspan.className != "datatree_content"){
+                while (outerspan.className != "ztree_content"){
                    outerspan = outerspan.parentNode;
                 }
                 var txt = search_result.innerHTML;
                 if (txt.indexOf(this.REPLACE) >= 0){
-                    var txtnode = document.createTextNode(DATATREE.SKIP_MESSAGE);//7.9.8
+                    var txtnode = document.createTextNode(ZTREE.SKIP_MESSAGE);//7.9.8
                     var pN = search_result.parentNode;
                     pN.replaceChild(txtnode,search_result);
                     //var line = outerspan.innerHTML;
-                    //DATATREE.PLEASE_WAIT = false;
-                    //DATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
-                    if (DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < DATATREE.TREE.REPLACE_RESULTS.length){
-                        DATATREE.TREE.Query('WITH ' + DATATREE.TREE.REPLACE_WITH);
-                        DATATREE.TREE.Query('REPLACE ' + DATATREE.TREE.REPLACE);
-                        if (DATATREE.GetBrowser() == "IE" && DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == DATATREE.TREE.REPLACE_RESULTS.length){
+                    //ZTREE.PLEASE_WAIT = false;
+                    //ZTREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
+                    if (ZTREE.TREE.CURRENT_REPLACE_INDEX + 1 < ZTREE.TREE.REPLACE_RESULTS.length){
+                        ZTREE.TREE.Query('WITH ' + ZTREE.TREE.REPLACE_WITH);
+                        ZTREE.TREE.Query('REPLACE ' + ZTREE.TREE.REPLACE);
+                        if (ZTREE.GetBrowser() == "IE" && ZTREE.TREE.CURRENT_REPLACE_INDEX + 1 == ZTREE.TREE.REPLACE_RESULTS.length){
                             this.Query('RESET *');
                             this.ResetReplace();
                         }
@@ -6372,18 +6372,18 @@ function DatatreeQuery(query_string){
         case "WITH":
             this.REPLACE_RESULTS.length = 0;
             this.CURRENT_REPLACE_INDEX = -1;
-            var replace_with = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf('WITH') + 'WITH'.length));
+            var replace_with = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf('WITH') + 'WITH'.length));
             this.REPLACE_WITH = replace_with;
             this.WITH = true;
             break;
         case "REPLACE":
-            if (DATATREE.SKIPPED == false){
+            if (ZTREE.SKIPPED == false){
                 //this.Clear();
             }
-            DATATREE.SKIPPED = false;
+            ZTREE.SKIPPED = false;
             if (strings.length > 1 && this.WITH == true){
                 this.WITH = false;
-                var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
+                var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
                 if (searchterm == ''){
                     return;
                 }
@@ -6395,13 +6395,13 @@ function DatatreeQuery(query_string){
                       this.SKIPPED = true;
                    }
                 }
-                DatatreeViewReplace(searchterm,this.REPLACE_WITH,true,true);
-                DatatreeViewInitReplaceResults();
+                ZtreeViewReplace(searchterm,this.REPLACE_WITH,true,true);
+                ZtreeViewInitReplaceResults();
             } else if (strings.length >= 4 && query_string.toUpperCase().indexOf("WITH") >= 0){
-                var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
-                var replace_with = DATATREE.StringTrim(searchterm.substring(searchterm.toUpperCase().indexOf("WITH") + "WITH".length));
+                var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
+                var replace_with = ZTREE.StringTrim(searchterm.substring(searchterm.toUpperCase().indexOf("WITH") + "WITH".length));
                 this.REPLACE_WITH = replace_with;
-                searchterm = DATATREE.StringTrim(searchterm.substring(0, searchterm.toUpperCase().indexOf("WITH")));
+                searchterm = ZTREE.StringTrim(searchterm.substring(0, searchterm.toUpperCase().indexOf("WITH")));
                 if (searchterm == ''){
                     return;
                 }
@@ -6413,7 +6413,7 @@ function DatatreeQuery(query_string){
                       this.SKIPPED = true;
                    }
                 }
-                DatatreeViewReplace(searchterm,replace_with,true,true);
+                ZtreeViewReplace(searchterm,replace_with,true,true);
                 this.ViewInitReplaceResults();
             } else if (strings.length >= 2){
                 //
@@ -6421,7 +6421,7 @@ function DatatreeQuery(query_string){
                 if (this.REPLACE_RESULTS.length > 0 && this.CURRENT_REPLACE_INDEX >= 0 && this.REPLACE != "" && this.REPLACE_WITH != ""){
                     var search_result = this.REPLACE_RESULTS[this.CURRENT_REPLACE_INDEX];//span containing search term
                     var outerspan = search_result;//7.9.8
-                    while (outerspan.className != "datatree_content"){
+                    while (outerspan.className != "ztree_content"){
                        outerspan = outerspan.parentNode;
                     }
                     var txt = search_result.innerHTML;
@@ -6431,13 +6431,13 @@ function DatatreeQuery(query_string){
                         pN.replaceChild(txtnode,search_result);
 						
                         //var line = outerspan.innerHTML;
-                        //DATATREE.PLEASE_WAIT = false;
-                        //DATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
+                        //ZTREE.PLEASE_WAIT = false;
+                        //ZTREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
 						
-                        if (DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < DATATREE.TREE.REPLACE_RESULTS.length){
-                           DATATREE.TREE.Query('WITH ' + DATATREE.TREE.REPLACE_WITH);
-                           DATATREE.TREE.Query('REPLACE ' + DATATREE.TREE.REPLACE);
-                           if (DATATREE.GetBrowser() == "IE" && DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == DATATREE.TREE.REPLACE_RESULTS.length){
+                        if (ZTREE.TREE.CURRENT_REPLACE_INDEX + 1 < ZTREE.TREE.REPLACE_RESULTS.length){
+                           ZTREE.TREE.Query('WITH ' + ZTREE.TREE.REPLACE_WITH);
+                           ZTREE.TREE.Query('REPLACE ' + ZTREE.TREE.REPLACE);
+                           if (ZTREE.GetBrowser() == "IE" && ZTREE.TREE.CURRENT_REPLACE_INDEX + 1 == ZTREE.TREE.REPLACE_RESULTS.length){
                               this.Query('RESET *');
                               this.ResetReplace();
                            }
@@ -6451,47 +6451,47 @@ function DatatreeQuery(query_string){
             break;
         case "SEARCH":
             //this.Clear();
-            DatatreeViewReset();
+            ZtreeViewReset();
             if (strings.length >= 3 && second.toUpperCase() == "FOR" && third.toUpperCase() == "PATTERN"){
-                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
+                   var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
                    if (searchterm == ''){
                       return;
                    }
-                   DatatreeViewSearch(searchterm,false,false,true);
+                   ZtreeViewSearch(searchterm,false,false,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 2 && second.toUpperCase() == "FOR"){
-                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   DatatreeViewSearch(searchterm);
+                   ZtreeViewSearch(searchterm);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && second.toUpperCase() == "CASE_SENSITIVE" && third.toUpperCase() == "FOR"){
-                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   DatatreeViewSearch(searchterm,true);
+                   ZtreeViewSearch(searchterm,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && second.toUpperCase() == "EXACT_MATCHES" && third.toUpperCase() == "FOR"){
-                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   DatatreeViewSearch(searchterm,false,true);
+                   ZtreeViewSearch(searchterm,false,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 4 && (second.toUpperCase() == "EXACT_MATCHES" || third.toUpperCase() == "EXACT_MATCHES")
                        && (second.toUpperCase() == "CASE_SENSITIVE" || third.toUpperCase() == "CASE_SENSITIVE")
                        && fourth.toUpperCase() == "FOR"){
-                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   DatatreeViewSearch(searchterm,true,true);
+                   ZtreeViewSearch(searchterm,true,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && (second.toUpperCase() == "FILES" || second.toUpperCase() == "TREES") && (third.toUpperCase() == "FOR" || third.toUpperCase() == "CASE_SENSITIVE" || third.toUpperCase() == "EXACT_MATCHES") && query_string.toUpperCase().indexOf("FOR") >= 0) {
-                if (DATATREE.SITEMAP == "" || DATATREE.SITEMAP == null || DATATREE.SITEMAP == "undefined"){
-                   if (DATATREE.REPRESS_ALERTS == false){
+                if (ZTREE.SITEMAP == "" || ZTREE.SITEMAP == null || ZTREE.SITEMAP == "undefined"){
+                   if (ZTREE.REPRESS_ALERTS == false){
                       alert("Error: the sitemap has not been defined.");
                    }
                    return;
@@ -6501,54 +6501,54 @@ function DatatreeQuery(query_string){
                 var case_sensitive = false;
                 var exact_matches = false;
                 if (strings.length >= 4 && fourth.toUpperCase() == "PATTERN"){
-                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
+                   searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
                    regular_expression = true;
                 } else if (strings.length >= 4 && third.toUpperCase() == "CASE_SENSITIVE" && fourth.toUpperCase() == "FOR"){
-                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    case_sensitive = true;
                 } else if (strings.length >= 4 && third.toUpperCase() == "EXACT_MATCHES" && fourth.toUpperCase() == "FOR"){
-                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    exact_matches = true;
                 } else if (strings.length >= 5 && (third.toUpperCase() == "EXACT_MATCHES" || fourth.toUpperCase() == "EXACT_MATCHES") && (third.toUpperCase() == "CASE_SENSITIVE" || fourth.toUpperCase() == "CASE_SENSITIVE") && fifth.toUpperCase() == "FOR"){
-                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    case_sensitive = true;
                    exact_matches = true;
                 } else {
-                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = ZTREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                 }
                 if (searchterm == ''){
                    return;
                 }
-				var wait = DATATREE.Wait();
+				var wait = ZTREE.Wait();
 				var that = this;
 				setTimeout(function(){
-					var results = DATATREE.SearchMacro(searchterm,regular_expression,case_sensitive,exact_matches);
+					var results = ZTREE.SearchMacro(searchterm,regular_expression,case_sensitive,exact_matches);
 					var tree = "";
-					for (var count = 0; count < DATATREE.MACRO_SEARCH_RESULTS.length; ++count){
-						var link = DATATREE.MACRO_SEARCH_RESULTS[count];
-                                if (DATATREE.WENT_TO_FILE == false && (DATATREE.GO_TO_FILE == "" || DATATREE.GO_TO_FILE == null || DATATREE.GO_TO_FILE == "undefined")){
+					for (var count = 0; count < ZTREE.MACRO_SEARCH_RESULTS.length; ++count){
+						var link = ZTREE.MACRO_SEARCH_RESULTS[count];
+                                if (ZTREE.WENT_TO_FILE == false && (ZTREE.GO_TO_FILE == "" || ZTREE.GO_TO_FILE == null || ZTREE.GO_TO_FILE == "undefined")){
 						   tree += "<p><a href='" + link + "' target='_blank'>" + link + "</a></p>";
                                 } else {
                                    tree += "<p>" + link + "</p>";
-                                   if ((DATATREE.GO_TO_FILE == null || DATATREE.GO_TO_FILE == "undefined" || DATATREE.GO_TO_FILE == "") && DATATREE.WENT_TO_FILE == true){
-                                      DATATREE.GO_TO_FILE = DATATREE.DEFAULT_GO_TO_FILE;
-                                   } else if (DATATREE.GO_TO_FILE == ""){
-                                      DATATREE.DEFAULT_GO_TO_FILE = DATATREE.GO_TO_FILE;//save their version
+                                   if ((ZTREE.GO_TO_FILE == null || ZTREE.GO_TO_FILE == "undefined" || ZTREE.GO_TO_FILE == "") && ZTREE.WENT_TO_FILE == true){
+                                      ZTREE.GO_TO_FILE = ZTREE.DEFAULT_GO_TO_FILE;
+                                   } else if (ZTREE.GO_TO_FILE == ""){
+                                      ZTREE.DEFAULT_GO_TO_FILE = ZTREE.GO_TO_FILE;//save their version
                                    }
-                                   DATATREE.WENT_TO_FILE = true;
+                                   ZTREE.WENT_TO_FILE = true;
                                 }
 					}
-                                        DATATREE.PLEASE_WAIT = false;
-                                        var if_repress = DATATREE.REPRESS_ALERTS;
-                                        var go_to = DATATREE.GO_TO_FILE;
-					DATATREE.REPRESS_ALERTS = true;
+                                        ZTREE.PLEASE_WAIT = false;
+                                        var if_repress = ZTREE.REPRESS_ALERTS;
+                                        var go_to = ZTREE.GO_TO_FILE;
+					ZTREE.REPRESS_ALERTS = true;
 					if (tree == ""){
 						tree = "no results found";
 					}
 					that.Query("CREATE FROM HTML " + tree);
-                                        DATATREE.REPRESS_ALERTS = if_repress;
-                                        DATATREE.GO_TO_FILE = go_to;
-					DATATREE.CloseWaitBox(wait);
+                                        ZTREE.REPRESS_ALERTS = if_repress;
+                                        ZTREE.GO_TO_FILE = go_to;
+					ZTREE.CloseWaitBox(wait);
 					if (results != null && results != "" && results != 0){
 						//alert("found " + results + " trees");
 					} else {
@@ -6556,40 +6556,40 @@ function DatatreeQuery(query_string){
 					}
 				}, 1);
             } else {
-                if (DATATREE.REPRESS_ALERTS == false) {  }
+                if (ZTREE.REPRESS_ALERTS == false) {  }
             }            
             break;
         case "NEXT":
-            DatatreeViewNext();
+            ZtreeViewNext();
             break;
         case "PREVIOUS":
-            DatatreeViewPrevious();
+            ZtreeViewPrevious();
             break;
         default:
-            if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+            if (ZTREE.REPRESS_ALERTS == false) { alert("syntax error"); }
             break;
     }
     return RESULT;
 }
-function DatatreeGetSkipMessage(){
-   var result = DATATREE.SKIP_MESSAGE;
-   if (DATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
-       DATATREE.SKIP_MESSAGE = DATATREE.ALT_SKIP_MESSAGE;
-       result = DATATREE.SKIP_MESSAGE;
+function ZtreeGetSkipMessage(){
+   var result = ZTREE.SKIP_MESSAGE;
+   if (ZTREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
+       ZTREE.SKIP_MESSAGE = ZTREE.ALT_SKIP_MESSAGE;
+       result = ZTREE.SKIP_MESSAGE;
    }
-   if (DATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
-       DATATREE.SKIP_MESSAGE = DATATREE.SKIP_MESSAGE.split(this.REPLACE).join("");
-       result = DATATREE.SKIP_MESSAGE;
+   if (ZTREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
+       ZTREE.SKIP_MESSAGE = ZTREE.SKIP_MESSAGE.split(this.REPLACE).join("");
+       result = ZTREE.SKIP_MESSAGE;
    }
-   if (DATATREE.SKIP_MESSAGE.length < 5){
-       if (DATATREE.REPRESS_ALERTS == false){
+   if (ZTREE.SKIP_MESSAGE.length < 5){
+       if (ZTREE.REPRESS_ALERTS == false){
           //alert("problem with skipping");
        }
        result = "";
    }
    return result;
 }
-function DatatreeInitReplaceResults(){
+function ZtreeInitReplaceResults(){
     this.REPLACE_RESULTS.length = 0;
     this.CURRENT_REPLACE_INDEX = -1;
     var spans = document.getElementById(this.ELEMENT_OUTER_WRAPPER).getElementsByTagName("span");
@@ -6607,7 +6607,7 @@ function DatatreeInitReplaceResults(){
        document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = y;
     }
 }
-function DatatreeInitSearchResults(){
+function ZtreeInitSearchResults(){
     //this.SEARCH_RESULTS.length = 0;
     //this.CURRENT_SEARCH_INDEX = -1;
     /**
@@ -6631,7 +6631,7 @@ function DatatreeInitSearchResults(){
 function findPos(obj) { var curleft = 0; var curtop = 0; if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft); if(obj.offsetTop) curtop += parseInt(obj.offsetTop); if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop); if(obj.offsetParent) { var pos = findPos(obj.offsetParent); curleft += pos[0]; curtop += pos[1]; } else if(obj.ownerDocument) { var thewindow = obj.ownerDocument.defaultView; if(!thewindow && obj.ownerDocument.parentWindow) thewindow = obj.ownerDocument.parentWindow; if(thewindow) { if(thewindow.frameElement) { var pos = findPos(thewindow.frameElement); curleft += pos[0]; curtop += pos[1]; } } } return [curleft,curtop]; }
 function findPos2(obj, foundScrollLeft, foundScrollTop) { var curleft = 0; var curtop = 0; if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft); if(obj.offsetTop) curtop += parseInt(obj.offsetTop); if(obj.scrollTop && obj.scrollTop > 0) { curtop -= parseInt(obj.scrollTop); foundScrollTop = true; } if(obj.scrollLeft && obj.scrollLeft > 0) { curleft -= parseInt(obj.scrollLeft); foundScrollLeft = true; } if(obj.offsetParent) { var pos = findPos(obj.offsetParent, foundScrollLeft, foundScrollTop); curleft += pos[0]; curtop += pos[1]; } else if(obj.ownerDocument) { var thewindow = obj.ownerDocument.defaultView; if(!thewindow && obj.ownerDocument.parentWindow) thewindow = obj.ownerDocument.parentWindow; if(thewindow) { if (!foundScrollTop && thewindow.scrollY && thewindow.scrollY > 0) curtop -= parseInt(thewindow.scrollY); if (!foundScrollLeft && thewindow.scrollX && thewindow.scrollX > 0) curleft -= parseInt(thewindow.scrollX); if(thewindow.frameElement) { var pos = findPos(thewindow.frameElement); curleft += pos[0]; curtop += pos[1]; } } } return [curleft,curtop]; }
 
-function DatatreeGetScrollForSearch(span){
+function ZtreeGetScrollForSearch(span){
    var y = span.offsetTop;
    var x = span.offsetLeft;
    var _parent = span.offsetParent;
@@ -6646,7 +6646,7 @@ function DatatreeGetScrollForSearch(span){
    var scroll = y - top;
    return scroll;
 }
-function DatatreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_tags/
+function ZtreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_tags/
   allowed = (((allowed || '') + '')
     .toLowerCase()
     .match(/<[a-z][a-z0-9]*>/g) || [])
@@ -6658,7 +6658,7 @@ function DatatreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_t
       return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
     });
 }
-function DatatreeEscapeTags(input, allowed){ // allowed example: "<span></span><font></font>"
+function ZtreeEscapeTags(input, allowed){ // allowed example: "<span></span><font></font>"
    var tags = allowed.split(">");
    var full_tags = new Array();
    var partial_tags = new Array();
@@ -6680,7 +6680,7 @@ function DatatreeEscapeTags(input, allowed){ // allowed example: "<span></span><
    }
    return output;
 }
-function DatatreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span></span><font></font>"
+function ZtreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span></span><font></font>"
    var tags = allowed.split(">");
    var full_tags = new Array();
    var partial_tags = new Array();
@@ -6702,7 +6702,7 @@ function DatatreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span>
    }
    return output;
 }
-function DatatreeGetTextForPrint(){
+function ZtreeGetTextForPrint(){
     this.UpdateContent();
     var content = this.CONTENT;
     var chars;
@@ -6710,7 +6710,7 @@ function DatatreeGetTextForPrint(){
     content = this.HtmlBody(content);
     lines = this.HtmlLineBreaks(content);
     for (var count = 0; count < lines.length; ++count){
-       lines[count] = DATATREE.StripTagsPHPJS(lines[count]);
+       lines[count] = ZTREE.StripTagsPHPJS(lines[count]);
     }
     var result = "";
     for (var count = 0; count < lines.length; ++count){
@@ -6718,17 +6718,17 @@ function DatatreeGetTextForPrint(){
     }
     return result;
 }
-function DatatreePrintText(){
+function ZtreePrintText(){
      var result = this.GetTextForPrint();
      this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
 }
-function DatatreeGetHtmlParagraphs(){
+function ZtreeGetHtmlParagraphs(){
     this.UpdateHtmlContent();
     return this.CONTENT;
 }
-function DatatreeUpdateHtmlContent(node){
-    if (DatatreeUpdateHtmlContent.arguments.length <= 0){
+function ZtreeUpdateHtmlContent(node){
+    if (ZtreeUpdateHtmlContent.arguments.length <= 0){
         node = this.ROOT_NODE;
         this.CONTENT = "";
     } else if (node == this.ROOT_NODE){
@@ -6761,18 +6761,18 @@ function DatatreeUpdateHtmlContent(node){
         }
     }
 }
-function DatatreePrintHtmlLines(justreturnval){
+function ZtreePrintHtmlLines(justreturnval){
     try{
     var result;
     result = this.GetHtml();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
             //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (DatatreePrintHtmlLines.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintHtmlLines.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
-       result = DATATREE.EncodeArrows(result,true);//8.0
+       result = ZTREE.EncodeArrows(result,true);//8.0
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6781,21 +6781,21 @@ function DatatreePrintHtmlLines(justreturnval){
         alert(exc);
     }
 }
-function DatatreePrintHtml(justreturnval){
+function ZtreePrintHtml(justreturnval){
     this.PrintList(justreturnval);
 }
-function DatatreePrintList(justreturnval){
+function ZtreePrintList(justreturnval){
     try{
     var result;
     result = this.ViewGetList();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
             //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (DatatreePrintList.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintList.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
-       result = DATATREE.EncodeArrows(result,true);//8.0
+       result = ZTREE.EncodeArrows(result,true);//8.0
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6804,16 +6804,16 @@ function DatatreePrintList(justreturnval){
         
     }
 }
-function DatatreePrintCode(justreturnval){
+function ZtreePrintCode(justreturnval){
     try{
     var result = this.GetCode();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (DatatreePrintCode.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintCode.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6822,46 +6822,46 @@ function DatatreePrintCode(justreturnval){
         
     }
 }
-function DatatreePrintHead(){
+function ZtreePrintHead(){
      var result = document.head.innerHTML;
      this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
 }
-function DatatreeGetOnload(datatree){
+function ZtreeGetOnload(datatree){
     var result = "";
     result += "onload = function(){ ";
-    result += "DATATREE.REPRESS_ALERTS = " + !!DATATREE.REPRESS_ALERTS + "; ";
-    result += "DATATREE.TAB = \"" + DATATREE.TAB + "\"; ";
-    result += "DATATREE.ALT_EDITOR = " + DATATREE.ALT_EDITOR + "; ";
-    result += "DATATREE.TOOLBAR_ALIGN = \"" + datatree.TOOLBAR_ALIGN + "\"; ";
-    result += "DATATREE.TOOLBAR_STYLE = \"" + DATATREE.TOOLBAR_STYLE + "\"; ";
-    result += "DATATREE.TOOLBAR_FREESTYLE = \"" + DATATREE.TOOLBAR_FREESTYLE.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
-    result += "DATATREE.TOOLBAR_FREESTYLE2 = \"" + DATATREE.TOOLBAR_FREESTYLE2.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
-    result += "DATATREE.GO_TO_FILE = \"" + DATATREE.GO_TO_FILE + "\"; ";
-    result += DATATREE.PRINT_EXTRA_SCRIPT_BEFORE;
-    result += "DATATREE.PLEASE_WAIT = true;DATATREE.AutoInit('" + datatree.NAME + "');";
-    result += DATATREE.PRINT_EXTRA_SCRIPT_AFTER;
-    result += "DATATREE.TREE.ACCORDION = " + parseInt(datatree.ACCORDION) + "; ";
-    result += "DATATREE.TREE.LETTERING = \"" + datatree.LETTERING + "\"; ";
-    result += "DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR = \"" + datatree.HIGHLIGHT_BACKGROUND_COLOR + "\"; ";
-    result += "DATATREE.TREE.HIGHLIGHT_TEXT_COLOR = \"" + datatree.HIGHLIGHT_TEXT_COLOR + "\"; ";
-    result += "DATATREE.PRINT_EXTRA_SCRIPT_BEFORE = \"" + DATATREE.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
-    result += "DATATREE.PRINT_EXTRA_SCRIPT_AFTER = \"" + DATATREE.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
+    result += "ZTREE.REPRESS_ALERTS = " + !!ZTREE.REPRESS_ALERTS + "; ";
+    result += "ZTREE.TAB = \"" + ZTREE.TAB + "\"; ";
+    result += "ZTREE.ALT_EDITOR = " + ZTREE.ALT_EDITOR + "; ";
+    result += "ZTREE.TOOLBAR_ALIGN = \"" + datatree.TOOLBAR_ALIGN + "\"; ";
+    result += "ZTREE.TOOLBAR_STYLE = \"" + ZTREE.TOOLBAR_STYLE + "\"; ";
+    result += "ZTREE.TOOLBAR_FREESTYLE = \"" + ZTREE.TOOLBAR_FREESTYLE.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
+    result += "ZTREE.TOOLBAR_FREESTYLE2 = \"" + ZTREE.TOOLBAR_FREESTYLE2.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
+    result += "ZTREE.GO_TO_FILE = \"" + ZTREE.GO_TO_FILE + "\"; ";
+    result += ZTREE.PRINT_EXTRA_SCRIPT_BEFORE;
+    result += "ZTREE.PLEASE_WAIT = true;ZTREE.AutoInit('" + datatree.NAME + "');";
+    result += ZTREE.PRINT_EXTRA_SCRIPT_AFTER;
+    result += "ZTREE.TREE.ACCORDION = " + parseInt(datatree.ACCORDION) + "; ";
+    result += "ZTREE.TREE.LETTERING = \"" + datatree.LETTERING + "\"; ";
+    result += "ZTREE.TREE.HIGHLIGHT_BACKGROUND_COLOR = \"" + datatree.HIGHLIGHT_BACKGROUND_COLOR + "\"; ";
+    result += "ZTREE.TREE.HIGHLIGHT_TEXT_COLOR = \"" + datatree.HIGHLIGHT_TEXT_COLOR + "\"; ";
+    result += "ZTREE.PRINT_EXTRA_SCRIPT_BEFORE = \"" + ZTREE.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
+    result += "ZTREE.PRINT_EXTRA_SCRIPT_AFTER = \"" + ZTREE.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
     result += "}";
     return result;
 }
-function DatatreeGetFile(){
+function ZtreeGetFile(){
     this.UpdateContent();
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
     var result = "<!doctype html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    result += "<" + "script type='text/javascript' src='" + DATATREE.ADDRESS + "'><" + "/script>";
+    result += "<" + "script type='text/javascript' src='" + ZTREE.ADDRESS + "'><" + "/script>";
     result += "<" + "script type='text/javascript'>";
-    result += DATATREE.GetOnload(datatree);
+    result += ZTREE.GetOnload(datatree);
     result += "<" + "/script>";
     result += "<" + "/head><" + "body>";
     var SITEMAP = "";
-    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
-       SITEMAP = DATATREE.SITEMAP_FILE;
+    if (ZTREE.SITEMAP_FILE != null && ZTREE.SITEMAP_FILE != 'undefined' && ZTREE.SITEMAP_FILE != ""){
+       SITEMAP = ZTREE.SITEMAP_FILE;
     }
     result += "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='html' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     if (this.CONTENT.indexOf('<table') >= 0){
@@ -6873,9 +6873,9 @@ function DatatreeGetFile(){
     result += "</body></html>";
     return result;
 }
-function DatatreeGetFileMax(){
+function ZtreeGetFileMax(){
     this.UpdateContent();
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
     var result = "<!doctype html><html><head>";
     result += "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
     var top = document.createElement('div');
@@ -6884,7 +6884,7 @@ function DatatreeGetFileMax(){
     for (var s = 0; s < scripts.length; ++s){
        var script = scripts[s];
        try{
-          if (script.id == 'tree_script' || script.innerHTML.indexOf('DATATREE') >= 0){
+          if (script.id == 'tree_script' || script.innerHTML.indexOf('ZTREE') >= 0){
              top.removeChild(script);
 			 --s;
           }
@@ -6892,14 +6892,14 @@ function DatatreeGetFileMax(){
     }
     var script = document.createElement('script');
     script.setAttribute('type','text/javascript');
-    var onload = DATATREE.GetOnload(datatree);
+    var onload = ZTREE.GetOnload(datatree);
     script.innerHTML = onload;
     top.appendChild(script);
     result += top.innerHTML;
     result += "<" + "/head><" + "body>";
     var SITEMAP = "";
-    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
-       SITEMAP = DATATREE.SITEMAP_FILE;
+    if (ZTREE.SITEMAP_FILE != null && ZTREE.SITEMAP_FILE != 'undefined' && ZTREE.SITEMAP_FILE != ""){
+       SITEMAP = ZTREE.SITEMAP_FILE;
     }
     var tree = "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='html' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     if (this.CONTENT.indexOf('<table') >= 0){
@@ -6921,18 +6921,18 @@ function DatatreeGetFileMax(){
     result += "</body></html>";
     return result;
 }
-function DatatreePrintFile(justreturnval){
+function ZtreePrintFile(justreturnval){
     try{
     var result = this.GetFile();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should use PRINT TEXT and save it as a text file. It is often not possible to write about code from within code, especially with html. Always write about computer code from a text file.");
     }
-    if (DatatreePrintFile.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintFile.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6941,18 +6941,18 @@ function DatatreePrintFile(justreturnval){
         
     }
 }
-function DatatreePrintFileMax(justreturnval){
+function ZtreePrintFileMax(justreturnval){
     try{
     var result = this.GetFileMax();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should use PRINT TEXT and save it as a text file. It is often not possible to write about code from within code, especially with html. Always write about computer code from a text file.");
     }
-    if (DatatreePrintFileMax.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintFileMax.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6961,19 +6961,19 @@ function DatatreePrintFileMax(justreturnval){
         
     }
 }
-function DatatreePrintTextTree(justreturnval){
+function ZtreePrintTextTree(justreturnval){
     try{
     var result = this.GetTextTreeFile();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text"){
        //alert('For plain text trees only.');
        //return;
     }
-    if (DatatreePrintTextTree.arguments.length < 1 || justreturnval != true){
+    if (ZtreePrintTextTree.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return ZtreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6982,19 +6982,19 @@ function DatatreePrintTextTree(justreturnval){
         
     }
 }
-function DatatreeGetTextTreeFile(){
+function ZtreeGetTextTreeFile(){
     this.UpdateContent();
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
     var result = "<!doctype html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    result += "<" + "script type='text/javascript' src='" + DATATREE.ADDRESS + "'><" + "/script>";
+    result += "<" + "script type='text/javascript' src='" + ZTREE.ADDRESS + "'><" + "/script>";
     result += "<" + "script type='text/javascript'>";
-    result += DATATREE.GetOnload(datatree);
+    result += ZTREE.GetOnload(datatree);
     result += "<" + "/script>";
     result += "<" + "/head><" + "body>";
-    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    var datatree = ZTREE.TREE? ZTREE.TREE : this;
     var SITEMAP = "";
-    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
-        SITEMAP = DATATREE.SITEMAP_FILE;
+    if (ZTREE.SITEMAP_FILE != null && ZTREE.SITEMAP_FILE != 'undefined' && ZTREE.SITEMAP_FILE != ""){
+        SITEMAP = ZTREE.SITEMAP_FILE;
     }
 	result += "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='text' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     result += "<!-- \n";
@@ -7004,12 +7004,12 @@ function DatatreeGetTextTreeFile(){
     result += "</body></html>";
     return result;
 }
-function DatatreePrint(){
+function ZtreePrint(){
     this.PrintList();
     //this.PrintText();
 }
-function DatatreeReplay(returnvalue){
-	if (this.ALERTS.length < 2 && (DatatreeReplay.arguments.length < 1 || returnvalue == false)){
+function ZtreeReplay(returnvalue){
+	if (this.ALERTS.length < 2 && (ZtreeReplay.arguments.length < 1 || returnvalue == false)){
            for (var count = 0; count < this.ALERTS.length; ++count){
               alert(this.ALERTS[count]);
            }
@@ -7018,8 +7018,8 @@ function DatatreeReplay(returnvalue){
 	   for (var count = 0; count < this.ALERTS.length; ++count){
               alerts += this.ALERTS[count] + "\n";
            }
-           if (DatatreeReplay.arguments.length < 1 || returnvalue == false){
-              DATATREE.ShowPopupBox(alerts, 30000, (window.screen.width/3), (window.screen.height/3));
+           if (ZtreeReplay.arguments.length < 1 || returnvalue == false){
+              ZTREE.ShowPopupBox(alerts, 30000, (window.screen.width/3), (window.screen.height/3));
            } else if (returnvalue == true){
              return alerts;
            }
