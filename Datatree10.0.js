@@ -1,5 +1,5 @@
 /**
-Jdatatree version 10.0
+Datatree version 10.0
 licensed with the MIT License (MIT)
 
 Copyright (c) 2015 by Derek James Smith
@@ -31,27 +31,27 @@ SOFTWARE.
 /** list model: ul:li:(a:span:ul) WARNING:"a" could have span**/
 // add return values
 
-var JDATATREE = new Jdatatree();
+var DATATREE = new Datatree();
 
 function Definitions() {
-    JDATATREE = new Jdatatree();
-    JDATATREE.AltQueryDocumentation = JdatatreeAltQueryDocumentation;
-    JDATATREE.Custom = JdatatreeCustom;
-    JDATATREE.Custom2 = JdatatreeCustom2;
-    JDATATREE.AltLoadFromTextarea = JdatatreeAltLoadFromTextarea;
-    JDATATREE.GetAltEditorContent = JdatatreeGetAltEditorContent;
-    JDATATREE.InitializeAltEditor = JdatatreeInitializeAltEditor;
-    JDATATREE.InsertAltEditor = JdatatreeInsertAltEditor;
-    JDATATREE.RemoveAltEditorInstance = JdatatreeRemoveAltEditorInstance;
-    JDATATREE.SetAltEditorContent = JdatatreeSetAltEditorContent;
-    JDATATREE.ShowAltEditBox = JdatatreeShowAltEditBox;
+    DATATREE = new Datatree();
+    DATATREE.AltQueryDocumentation = DatatreeAltQueryDocumentation;
+    DATATREE.Custom = DatatreeCustom;
+    DATATREE.Custom2 = DatatreeCustom2;
+    DATATREE.AltLoadFromTextarea = DatatreeAltLoadFromTextarea;
+    DATATREE.GetAltEditorContent = DatatreeGetAltEditorContent;
+    DATATREE.InitializeAltEditor = DatatreeInitializeAltEditor;
+    DATATREE.InsertAltEditor = DatatreeInsertAltEditor;
+    DATATREE.RemoveAltEditorInstance = DatatreeRemoveAltEditorInstance;
+    DATATREE.SetAltEditorContent = DatatreeSetAltEditorContent;
+    DATATREE.ShowAltEditBox = DatatreeShowAltEditBox;
 }
 
-function JdatatreeGetAltEditorContent() {
+function DatatreeGetAltEditorContent() {
     
      var PLAINTEXT = false;
-     if (document.getElementsByName('jdatatree_text_or_html')){
-     var radios = document.getElementsByName('jdatatree_text_or_html');
+     if (document.getElementsByName('datatree_text_or_html')){
+     var radios = document.getElementsByName('datatree_text_or_html');
      for (var count = 0; count < radios.length; ++count){
      var r = radios[count];
      if (r.checked){
@@ -63,8 +63,8 @@ function JdatatreeGetAltEditorContent() {
      }
      }
      var datatree;
-     if (JDATATREE.TREE){
-     datatree = JDATATREE.TREE;
+     if (DATATREE.TREE){
+     datatree = DATATREE.TREE;
      } else if (this){
      datatree = this;
      } else {
@@ -73,9 +73,9 @@ function JdatatreeGetAltEditorContent() {
      }
      if (PLAINTEXT == false && datatree.PLAIN_TEXT == false){
      var content = tinyMCE.activeEditor.getContent();
-     if (JDATATREE.FULL_SCREEN_MODE == true){
+     if (DATATREE.FULL_SCREEN_MODE == true){
      content = content.split("span class=\"table\"").join("table").split("span class=\"tbody\"").join("tbody").split("span class=\"tr\"").join("tr").split("span class=\"td\"").join("td").split("%%%%%</span>").join("</tbody>").split("%%%%</span>").join("</td>").split("%%%</span>").join("</tr>").split("%%</span>").join("</table>");
-     } else if (content.indexOf("<table") >= 0 && JDATATREE.FULL_SCREEN_MODE == false){
+     } else if (content.indexOf("<table") >= 0 && DATATREE.FULL_SCREEN_MODE == false){
      content = content.substring(0, content.indexOf("</table>") + "</table>".length);
      }
      return content;
@@ -86,17 +86,17 @@ function JdatatreeGetAltEditorContent() {
      }
      
 }
-function JdatatreeSetAltEditorContent(html) {
-    tinyMCE.activeEditor.setContent(JDATATREE.StringTrim(html)); // web version
+function DatatreeSetAltEditorContent(html) {
+    tinyMCE.activeEditor.setContent(DATATREE.StringTrim(html)); // web version
 }
-function JdatatreeRemoveAltEditorInstance() {
+function DatatreeRemoveAltEditorInstance() {
     tinymce.remove(); // web version
 }
-function JdatatreeAltLoadFromTextarea(type, preload) { // fullscreen  html editor
+function DatatreeAltLoadFromTextarea(type, preload) { // fullscreen  html editor
         try {
-        JDATATREE.FULL_SCREEN_MODE = true;
+        DATATREE.FULL_SCREEN_MODE = true;
         var html = "";
-        if (JdatatreeAltLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != "") {
+        if (DatatreeAltLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != "") {
             html = preload;
         }
         html = html.split("<table").join("<span class=\"table\"").split("</table>").join("%%</span>").split("<tr").join("<span class=\"tr\"").split("</tr>").join("%%%</span>").split("<td").join("<span class=\"td\"").split("</td>").join("%%%%</span>").split("<tbody").join("<span class=\"tbody\"").split("</tbody>").join("%%%%%</span>");
@@ -128,23 +128,23 @@ function JdatatreeAltLoadFromTextarea(type, preload) { // fullscreen  html edito
                 }
             }
         }
-        var datatree = JDATATREE.TREE ? JDATATREE.TREE : this;
-        datatree.VIEW = datatree.TOOLBAR + "<button style='padding:10px;' type='button' onclick='return JdatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><div id='jdatatree_load_area' class='" + type + "'>" + JDATATREE.InsertAltEditor(txt) + "</div>";
+        var datatree = DATATREE.TREE ? DATATREE.TREE : this;
+        datatree.VIEW = datatree.TOOLBAR + "<button style='padding:10px;' type='button' onclick='return DatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><div id='datatree_load_area' class='" + type + "'>" + DATATREE.InsertAltEditor(txt) + "</div>";
         datatree.RefreshGUI();
-        JDATATREE.InitializeAltEditor('textarea.tinymce_fullscreen', '100%', 'auto', true);
+        DATATREE.InitializeAltEditor('textarea.tinymce_fullscreen', '100%', 'auto', true);
     } catch (exc) {
     }
 }
-function JdatatreeInsertAltEditor(html) {
+function DatatreeInsertAltEditor(html) {
     try {
-        var alteditor = "<textarea style='white-space:pre;' class='tinymce_fullscreen' id='jdatatree_fullscreen_editor' rows='20' cols='150'>" + html + "</textarea>";
+        var alteditor = "<textarea style='white-space:pre;' class='tinymce_fullscreen' id='datatree_fullscreen_editor' rows='20' cols='150'>" + html + "</textarea>";
         return alteditor;
     } catch (exc) {
         alert(exc);
     }
 }
-function JdatatreeInitializeAltEditor(s, w, h, full) {
-    if (JdatatreeInitializeAltEditor.arguments.length < 2) {
+function DatatreeInitializeAltEditor(s, w, h, full) {
+    if (DatatreeInitializeAltEditor.arguments.length < 2) {
         w = '100%';
         h = 'auto';
         full = false;
@@ -184,32 +184,32 @@ function JdatatreeInitializeAltEditor(s, w, h, full) {
         resize: 'both',
         browser_spellcheck: 'true',
     });
-    if (JdatatreeInitializeAltEditor.arguments.length > 3 && full == true) {
-        tinymce.execCommand('mceAddControl', false, 'jdatatree_fullscreen_editor');
+    if (DatatreeInitializeAltEditor.arguments.length > 3 && full == true) {
+        tinymce.execCommand('mceAddControl', false, 'datatree_fullscreen_editor');
     }
 }
-function JdatatreeAltQueryDocumentation() {
+function DatatreeAltQueryDocumentation() {
 }
-function JdatatreeCustom() { // this is a customizable function...replace this code with your own
+function DatatreeCustom() { // this is a customizable function...replace this code with your own
     try {
-        var custombutton = document.getElementById('jdatatree_custom_button');
+        var custombutton = document.getElementById('datatree_custom_button');
         if (custombutton != null && custombutton != 'undefined') {
-            JdatatreeQueryDocumentation(); // uncomment for desktop application
+            DatatreeQueryDocumentation(); // uncomment for desktop application
         }
     } catch (exc) {
         alert(exc);
     }
 }
-function JdatatreeCustom2() { // this is a customizable function...replace this code with your own
+function DatatreeCustom2() { // this is a customizable function...replace this code with your own
     try {
-        var custombutton = document.getElementById('jdatatree_custom2_button');
+        var custombutton = document.getElementById('datatree_custom2_button');
         if (custombutton != null && custombutton != 'undefined') {
         }
     } catch (exc) {
         alert(exc);
     }
 }
-function Jdatatree(){
+function Datatree(){
     this.AltLoadFromTextarea; // ** customizable
     this.CleanHTMLForEditor; // ** customizable
     this.CleanHTMLFromEditor; // ** customizable
@@ -219,82 +219,82 @@ function Jdatatree(){
     this.RemoveAltEditorInstance;// ** customizable
     this.SetAltEditorContent; // ** customizable
     this.ShowAltEditBox; // ** customizable
-    this.AllowBackspace = JdatatreeAllowBackspace;
-    this.Alphabetize = JdatatreeAutoAlphabetize;
+    this.AllowBackspace = DatatreeAllowBackspace;
+    this.Alphabetize = DatatreeAutoAlphabetize;
     this.AltQueryDocumentation; // ** customizable
-    this.ArraySwap = JdatatreeArraySwap;
-    this.AutoInit = JdatatreeAutoInit;
-    this.Initialize = JdatatreeAutoInit;
-    this.AutoSearchMacro = JdatatreeAutoSearchMacro;
-    this.CleanHTML = JdatatreeCleanHTML;
-    this.CloseContextMenu = JdatatreeCloseContextMenu;
-    this.CloseEditBox = JdatatreeCloseEditBox;
-    this.CloseMenu = JdatatreeCloseMenu;
-    this.ClosePopupBox = JdatatreeClosePopupBox;
-    this.CloseWaitBox = JdatatreeCloseWaitBox;
-    this.Collapse = JdatatreeAutoCollapse;
-    this.ContextMenu = JdatatreeContextMenu;
+    this.ArraySwap = DatatreeArraySwap;
+    this.AutoInit = DatatreeAutoInit;
+    this.Initialize = DatatreeAutoInit;
+    this.AutoSearchMacro = DatatreeAutoSearchMacro;
+    this.CleanHTML = DatatreeCleanHTML;
+    this.CloseContextMenu = DatatreeCloseContextMenu;
+    this.CloseEditBox = DatatreeCloseEditBox;
+    this.CloseMenu = DatatreeCloseMenu;
+    this.ClosePopupBox = DatatreeClosePopupBox;
+    this.CloseWaitBox = DatatreeCloseWaitBox;
+    this.Collapse = DatatreeAutoCollapse;
+    this.ContextMenu = DatatreeContextMenu;
     this.Custom; // ** customizable
     this.Custom2; // ** customizable
-    this.DisallowBackspace = JdatatreeDisallowBackspace;
-    this.EncodeArrows = JdatatreeEncodeArrows;
-    this.EscapeTags = JdatatreeEscapeTags;
-    this.EscapeTagsForPrint = JdatatreeEscapeTagsForPrint;
-    this.Expand = JdatatreeAutoExpand;
-    this.FocusContextMenu = JdatatreeFocusContextMenu;
-    this.GetBrowser = JdatatreeGetBrowser;
-    this.GetFileNameFromPath = JdatatreeGetFileNameFromPath;
-    this.GetInitiator = JdatatreeGetPopupEditInitiator;
-    this.GetOnload = JdatatreeGetOnload;
-    this.GetTreeFromName = JdatatreeGetTreeFromName;
-    this.GoToFile = JdatatreeGoToFile;
-	this.HighlightTree = JdatatreeHighlightTree;
-    this.IsTableTag = JdatatreeIsTableTag;
-    this.LeftStringTrim = JdatatreeLeftStringTrim;
-    this.Load = JdatatreeAutoLoad;
-    this.LoadFromToolbar = JdatatreeAutoLoadFromToolbar;
-    this.LoadSitemap = JdatatreeLoadSitemap;
-    this.MenuMouseClick = JdatatreeMenuMouseClick;
-    this.MenuMouseOver = JdatatreeMenuMouseOver;
-    this.MenuMouseOut = JdatatreeMenuMouseOut;
-    this.Next = JdatatreeAutoNext;
-    this.Number = JdatatreeAutoNumber;
-    this.OpenMenu = JdatatreeOpenMenu;
-    this.PreventDefault = JdatatreePreventDefault;
-    this.Previous = JdatatreeAutoPrevious;
-    this.PrintCode = JdatatreeAutoPrintCode;
-    this.PrintHtml = JdatatreeAutoPrintHtml;
-    this.PrintList = JdatatreeAutoPrintList;
-    this.PrintText = JdatatreeAutoPrintText;
-    this.Query = JdatatreeAutoQuery;
-    this.QueryDocumentation = JdatatreeQueryDocumentation;
-    this.ReadFile = JdatatreeReadFile;
-    this.RemoveEmptyEndTags = JdatatreeRemoveEmptyEndTags;
-    this.RemoveTableWrappers = JdatatreeRemoveTableWrappers;
-    this.Replace = JdatatreeAutoReplace;
-    this.Reset = JdatatreeAutoReset;
-    this.ResetMacro = JdatatreeResetMacro;
-    this.Response = JdatatreeAutoResponse;
-    this.RightClick = JdatatreeRightClick;
-    this.RightStringTrim = JdatatreeRightStringTrim;
-    this.Save = JdatatreeAutoSave;
-    this.SaveMax = JdatatreeAutoSaveMax;
-    this.Search = JdatatreeAutoSearch;
-    this.SearchMacro = JdatatreeSearchMacro;
-    this.SetInitiator = JdatatreeSetPopupEditInitiator;
-    this.SetTreeFromName = JdatatreeSetTreeFromName;
-    this.ShowPopupBox = JdatatreeShowPopupBox;
-    this.Skip = JdatatreeAutoSkip;
-    this.StringTrim = JdatatreeStringTrim;
-    this.StripTags = JdatatreeStripTags;
-    this.StripTagsPHPJS = JdatatreeStripTagsPHPJS;
-    this.StripTagLeaveInner = JdatatreeStripTagLeaveInner;
-    this.StripTagWithClassNameLeaveInner = JdatatreeStripTagWithClassNameLeaveInner;
-    this.Tree = JdatatreeTree;
-    this.ToolbarSelect = JdatatreeAutoToolbarSelect;
-    this.Wait = JdatatreeWait;
+    this.DisallowBackspace = DatatreeDisallowBackspace;
+    this.EncodeArrows = DatatreeEncodeArrows;
+    this.EscapeTags = DatatreeEscapeTags;
+    this.EscapeTagsForPrint = DatatreeEscapeTagsForPrint;
+    this.Expand = DatatreeAutoExpand;
+    this.FocusContextMenu = DatatreeFocusContextMenu;
+    this.GetBrowser = DatatreeGetBrowser;
+    this.GetFileNameFromPath = DatatreeGetFileNameFromPath;
+    this.GetInitiator = DatatreeGetPopupEditInitiator;
+    this.GetOnload = DatatreeGetOnload;
+    this.GetTreeFromName = DatatreeGetTreeFromName;
+    this.GoToFile = DatatreeGoToFile;
+	this.HighlightTree = DatatreeHighlightTree;
+    this.IsTableTag = DatatreeIsTableTag;
+    this.LeftStringTrim = DatatreeLeftStringTrim;
+    this.Load = DatatreeAutoLoad;
+    this.LoadFromToolbar = DatatreeAutoLoadFromToolbar;
+    this.LoadSitemap = DatatreeLoadSitemap;
+    this.MenuMouseClick = DatatreeMenuMouseClick;
+    this.MenuMouseOver = DatatreeMenuMouseOver;
+    this.MenuMouseOut = DatatreeMenuMouseOut;
+    this.Next = DatatreeAutoNext;
+    this.Number = DatatreeAutoNumber;
+    this.OpenMenu = DatatreeOpenMenu;
+    this.PreventDefault = DatatreePreventDefault;
+    this.Previous = DatatreeAutoPrevious;
+    this.PrintCode = DatatreeAutoPrintCode;
+    this.PrintHtml = DatatreeAutoPrintHtml;
+    this.PrintList = DatatreeAutoPrintList;
+    this.PrintText = DatatreeAutoPrintText;
+    this.Query = DatatreeAutoQuery;
+    this.QueryDocumentation = DatatreeQueryDocumentation;
+    this.ReadFile = DatatreeReadFile;
+    this.RemoveEmptyEndTags = DatatreeRemoveEmptyEndTags;
+    this.RemoveTableWrappers = DatatreeRemoveTableWrappers;
+    this.Replace = DatatreeAutoReplace;
+    this.Reset = DatatreeAutoReset;
+    this.ResetMacro = DatatreeResetMacro;
+    this.Response = DatatreeAutoResponse;
+    this.RightClick = DatatreeRightClick;
+    this.RightStringTrim = DatatreeRightStringTrim;
+    this.Save = DatatreeAutoSave;
+    this.SaveMax = DatatreeAutoSaveMax;
+    this.Search = DatatreeAutoSearch;
+    this.SearchMacro = DatatreeSearchMacro;
+    this.SetInitiator = DatatreeSetPopupEditInitiator;
+    this.SetTreeFromName = DatatreeSetTreeFromName;
+    this.ShowPopupBox = DatatreeShowPopupBox;
+    this.Skip = DatatreeAutoSkip;
+    this.StringTrim = DatatreeStringTrim;
+    this.StripTags = DatatreeStripTags;
+    this.StripTagsPHPJS = DatatreeStripTagsPHPJS;
+    this.StripTagLeaveInner = DatatreeStripTagLeaveInner;
+    this.StripTagWithClassNameLeaveInner = DatatreeStripTagWithClassNameLeaveInner;
+    this.Tree = DatatreeTree;
+    this.ToolbarSelect = DatatreeAutoToolbarSelect;
+    this.Wait = DatatreeWait;
     // repeats with datatree properties not allowed
-    this.ADDRESS = "http://www.jdatatree.com/version/latest/Jdatatree.js";
+    this.ADDRESS = "http://www.datatree.com/version/latest/Datatree.js";
     this.ALT_EDITOR = false; // relates to 7.9.4
     this.ALT_EDITOR_TARGET_SPAN = null;
     this.ALT_SKIP_MESSAGE = "%%%%% SKIPPED %%%%%";
@@ -308,11 +308,11 @@ function Jdatatree(){
     this.DEFAULT_ACCORDION = -1;
     this.DEFAULT_INNER_WRAPPER = "DATALIST";
     this.DEFAULT_OUTER_WRAPPER = "DATATREE";
-    this.DEFAULT_TOOLBAR_NAME = "jdatatree_toolbar";
-    this.DEFAULT_EDITBOX_NAME = "jdatatree_editbox";
+    this.DEFAULT_TOOLBAR_NAME = "datatree_toolbar";
+    this.DEFAULT_EDITBOX_NAME = "datatree_editbox";
     this.DEFAULT_CLOSED_ICON = "<span class='closed'>&rArr;</span>";
     this.DEFAULT_EMPTY_ICON = "<span class='empty'>&EmptySmallSquare;</span>";
-    this.DEFAULT_GO_TO_FILE = "if(JDATATREE.TEMP.toLowerCase().indexOf('.txt')>=0 || JDATATREE.TEMP.toLowerCase().indexOf('.html')>=0 || JDATATREE.TEMP.toLowerCase().indexOf('.htm')>=0){JDATATREE.TREE.Query('LOAD ' + JDATATREE.TEMP);JDATATREE.GO_TO_FILE = '';JDATATREE.WENT_TO_FILE = true;JDATATREE.TREE.Query('collapse');};";
+    this.DEFAULT_GO_TO_FILE = "if(DATATREE.TEMP.toLowerCase().indexOf('.txt')>=0 || DATATREE.TEMP.toLowerCase().indexOf('.html')>=0 || DATATREE.TEMP.toLowerCase().indexOf('.htm')>=0){DATATREE.TREE.Query('LOAD ' + DATATREE.TEMP);DATATREE.GO_TO_FILE = '';DATATREE.WENT_TO_FILE = true;DATATREE.TREE.Query('collapse');};";
     this.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR = "cyan";
     this.DEFAULT_HIGHLIGHT_TEXT_COLOR = "navy";
     this.DEFAULT_OPEN_ICON = "<span class='open'>&dArr;</span>";
@@ -320,10 +320,10 @@ function Jdatatree(){
     this.DEFAULT_TOOLBAR_ALIGN = "left";
     this.DEFAULT_TOOLBAR_TOOLS = "collapse,expand,search_horizontal,next,previous,reset,edit,replace,alphabetize,query,number,freestyle";
     this.DEFAULT_TOOLBAR_FREESTYLE = "";
-    this.DOCUMENTATION_ADDRESS = "http://www.jdatatree.com/proxy/documentation.tree.html";
+    this.DOCUMENTATION_ADDRESS = "http://www.datatree.com/proxy/documentation.tree.html";
     this.INSERT = false;
     this.FULL_SCREEN_MODE = false;
-    this.GO_TO_FILE = ""; // go to file when click on line...insert function behavior here...does not require 'function(){...}'...text of line clicked stored in JDATATREE.TEMP variable
+    this.GO_TO_FILE = ""; // go to file when click on line...insert function behavior here...does not require 'function(){...}'...text of line clicked stored in DATATREE.TEMP variable
     this.MACRO = new Array(); // stores data tree files, not tree components
     this.MACRO_SEARCH_RESULTS = new Array();
     this.MOUSE_DOWN_X = -1;
@@ -362,155 +362,155 @@ function Jdatatree(){
     this.WENT_TO_FILE = false;
     this.NAME_OF_SEARCH_RESULT = 'search_result';
     this.NAME_OF_LINENUMBER = 'linenumber';
-    this.NAME_OF_ARROW = 'jdatatree_arrow';
-    this.NAME_OF_CONTENT = 'jdatatree_content';
-    this.NAME_OF_UL = 'jdatatree_ul';
-    this.NAME_OF_LI = 'jdatatree_li';
+    this.NAME_OF_ARROW = 'datatree_arrow';
+    this.NAME_OF_CONTENT = 'datatree_content';
+    this.NAME_OF_UL = 'datatree_ul';
+    this.NAME_OF_LI = 'datatree_li';
 }
-function JdatatreeTree(outer_wrapper) {
-    JDATATREE.TREES.push(this);
-    this.AutoInitialize = JdatatreeAutoInitialize;
-    this.Branch = JdatatreeBranch;
-    this.Clear = JdatatreeClear;
-    this.ClickTreeText = JdatatreeClickTreeText;
-    this.CloseTree = JdatatreeCloseTree;
-    this.DivHasSelfIndentingTag = JdatatreeDivHasSelfIndentingTag;
-    this.DivHasKeeperNonTextTag = JdatatreeDivHasKeeperNonTextTag;
-    this.DivHasContentTag = JdatatreeDivHasContentTag;
-    this.DoNotWrapOuterElement = JdatatreeDoNotWrapOuterElement;
-    this.Edit = JdatatreeEdit;
-    this.EditTreeText = JdatatreeEditTreeText;
-    this.EvenSpacing = JdatatreeEvenSpacing;
-    this.EvenSpacing2 = JdatatreeEvenSpacing2;
-    this.GetCode = JdatatreeGetCode;
-    this.GetFile = JdatatreeGetFile;
-    this.GetFileMax = JdatatreeGetFileMax;
-    this.GetHtml = JdatatreeGetHtmlParagraphs;
-    this.GetHtmlLines = JdatatreeGetHtmlLines;
-    this.GetLettering = JdatatreeGetLettering;
-    this.GetList = JdatatreeGetList;
-    this.GetMacroIndexForNode = JdatatreeGetMacroIndexForNode;
-    this.GetOuterElement = JdatatreeGetOuterElement;
-    this.GetScrollForSearch = JdatatreeGetScrollForSearch;
-    this.GetSkipMessage = JdatatreeGetSkipMessage;
-    this.GetText = JdatatreeGetText;
-    this.GetTextForPrint = JdatatreeGetTextForPrint;
-    this.GetTextTreeFile = JdatatreeGetTextTreeFile;
-    this.GetType = JdatatreeGetType;
-    this.GetView = JdatatreeGetView;
-    this.HighlightSpan = JdatatreeHighlightSpan;
-    this.HtmlLineBreaks = JdatatreeHtmlLineBreaks;
-    this.Indent = JdatatreeIndent;
-    this.Init = JdatatreeInit;
-    this.InitReplaceResults = JdatatreeInitReplaceResults;
-    this.InitSearchResults = JdatatreeInitSearchResults;
-    this.InsertClickTreeText = JdatatreeInsertClickTreeText;
-    this.InsertEditTreeText = JdatatreeInsertEditTreeText;
-    this.IsRemovableFormatTag = JdatatreeIsRemovableFormatTag;
-    this.LoadFromTextarea = JdatatreeLoadFromTextarea;
-    this.LoadFromTextarea2 = JdatatreeLoadFromTextarea2;
-    this.LoadFromToolbar = JdatatreeLoadFromToolbar;
-    this.MouseDownSpan = JdatatreeMouseDownSpan;
-    this.MouseUpSpan = JdatatreeMouseUpSpan;
-    this.HtmlBody = JdatatreeHtmlBody;
-    this.HtmlCode = JdatatreeHtmlCode;
-    this.HtmlText = JdatatreeHtmlText;
-    this.PlainText = JdatatreePlainText;
-    this.Print = JdatatreePrint;
-    this.PrintCode = JdatatreePrintCode;
-    this.PrintFile = JdatatreePrintFile;
-    this.PrintFileMax = JdatatreePrintFileMax;
-    this.PrintHead = JdatatreePrintHead;
-    this.PrintHtml = JdatatreePrintHtml;
-    this.PrintHtmlLines = JdatatreePrintHtmlLines;
-    this.PrintList = JdatatreePrintList;
-    this.PrintText = JdatatreePrintText;
-    this.PrintTextTree = JdatatreePrintTextTree;
-    this.ProcessTree = JdatatreeProcessTree;
-    this.Query = JdatatreeQuery;
-    this.Refresh = JdatatreeRefresh;
-    this.RefreshGUI = JdatatreeRefreshGUI;
-    this.RemoveHtmlComments = JdatatreeRemoveHtmlComments;
-    this.RemoveTables = JdatatreeRemoveTables;
-    this.ReplaceBranch = JdatatreeReplaceBranch;
-    this.ResetReplace = JdatatreeResetReplace;
-    this.Replay = JdatatreeReplay;
-    this.ResetEditBox = JdatatreeResetEditBox;
-    this.ResetToolbarSelect = JdatatreeResetToolbarSelect;
-    this.RestoreView = JdatatreeRestoreView;
-    this.ScrollToSpan = JdatatreeScrollToSpan;
-    this.SetClosedIcon = JdatatreeSetClosedIcon;
-    this.SetEmptyIcon = JdatatreeSetEmptyIcon;
-    this.SetIcons = JdatatreeSetIcons;
-    this.SetOpenIcon = JdatatreeSetOpenIcon;
-    this.SetTableStyle = JdatatreeSetTableStyle;
-    this.SetToolbar = JdatatreeSetToolbar;
-    this.SetType = JdatatreeSetType;
-    this.SetTypeConditionally = JdatatreeSetTypeConditionally;
-    this.ShowEditBox = JdatatreeShowEditBox;
-    this.SubmitEdit = JdatatreeSubmitEdit;
-    this.SetTreeHeight = JdatatreeSetTreeHeight;
-    this.SwapBranches = JdatatreeSwapBranches;
-    this.SyncFromRootNode = JdatatreeSyncFromRootNode;
-    this.SyncFromDataTree = JdatatreeSyncFromDataTree;
-    this.Synchronize = JdatatreeSynchronize;
-    this.TagRequiresLineBreak = JdatatreeTagRequiresLineBreak;
-    this.TreeFromString = JdatatreeTreeFromString;
-    this.UnhighlightSpan = JdatatreeUnhighlightSpan;
-    this.UndoPreservedWhiteSpace = JdatatreeUndoPreservedWhiteSpace;
-    this.UpdateContent = JdatatreeUpdateContent;
-    this.UpdateHtmlContent = JdatatreeUpdateHtmlContent;
-    this.View = JdatatreeView;
-    this.ViewIndex = JdatatreeViewIndex;
-    this.ViewIndexOfSpan = JdatatreeViewIndexOfSpan;
-    this.ViewFindSpanFromLi = JdatatreeViewFindSpanFromLi;
-    this.ViewFindLiFromSpan = JdatatreeViewFindLiFromSpan;
-    this.ViewFindUlFromSpan = JdatatreeViewFindUlFromSpan;
-    this.ViewSpandex = JdatatreeViewSpandex;
-    this.ViewA = JdatatreeViewA;
-    this.ViewSpan = JdatatreeViewSpan;
-    this.ViewUl = JdatatreeViewUl;
-    this.ViewLi = JdatatreeViewLi;
-    this.ViewListElement = JdatatreeViewListElement;
-    this.ViewOverwrite = JdatatreeViewOverwrite;
-    this.ViewSibling = JdatatreeViewSibling;
-    this.ViewChild = JdatatreeViewChild;
-    this.ViewSwap = JdatatreeViewSwap;
-    this.ViewUp = JdatatreeViewUp;
-    this.ViewDown = JdatatreeViewDown;
-    this.ViewSelright = JdatatreeViewSelright;
-    this.ViewSecright = JdatatreeViewSecright;
-    this.ViewRight = JdatatreeViewRight;
-    this.ViewLeft = JdatatreeViewLeft;
-    this.View_Left = JdatatreeView_Left;
-    this.ViewCut = JdatatreeViewCut;
-    this.View_Cut = JdatatreeView_Cut;
-    this.ViewCopysel = JdatatreeViewCopysel;
-    this.ViewCopysec = JdatatreeViewCopysec;
-    this.ViewCopy = JdatatreeViewCopy;
-    this.ViewPaste = JdatatreeViewPaste;
-    this.View_Paste = JdatatreeView_Paste;
-    this.ViewRemove = JdatatreeViewRemove;
-    this.ViewOpenToSpan = JdatatreeViewOpenToSpan;
-    this.ViewExpand = JdatatreeViewExpand;
-    this.ViewCollapse = JdatatreeViewCollapse;
-    this.ViewSearch = JdatatreeViewSearch;
-    this.ViewSearch2 = JdatatreeViewSearch2;
-    this.ViewNext = JdatatreeViewNext;
-    this.ViewPrevious = JdatatreeViewPrevious;
-    this.ViewReset = JdatatreeViewReset;
-    this.ViewTrim = JdatatreeViewTrim;
-    this.ViewRoot = JdatatreeViewRoot;
-    this.ViewSpanIsRoot = JdatatreeViewSpanIsRoot;
-    this.ViewClick = JdatatreeViewClick;
-    this.ViewGetList = JdatatreeViewGetList;
-    this.ViewGetList2 = JdatatreeViewGetList2;
-    this.ViewNumber = JdatatreeViewNumber;
-    this.ViewClose = JdatatreeViewClose;
-    this.ViewReplace = JdatatreeViewReplace;
-    this.ViewInitReplaceResults = JdatatreeViewInitReplaceResults;
-    this.ViewAlphabetize = JdatatreeViewAlphabetize;
-    // repeats with Jdatatree properties not allowed
+function DatatreeTree(outer_wrapper) {
+    DATATREE.TREES.push(this);
+    this.AutoInitialize = DatatreeAutoInitialize;
+    this.Branch = DatatreeBranch;
+    this.Clear = DatatreeClear;
+    this.ClickTreeText = DatatreeClickTreeText;
+    this.CloseTree = DatatreeCloseTree;
+    this.DivHasSelfIndentingTag = DatatreeDivHasSelfIndentingTag;
+    this.DivHasKeeperNonTextTag = DatatreeDivHasKeeperNonTextTag;
+    this.DivHasContentTag = DatatreeDivHasContentTag;
+    this.DoNotWrapOuterElement = DatatreeDoNotWrapOuterElement;
+    this.Edit = DatatreeEdit;
+    this.EditTreeText = DatatreeEditTreeText;
+    this.EvenSpacing = DatatreeEvenSpacing;
+    this.EvenSpacing2 = DatatreeEvenSpacing2;
+    this.GetCode = DatatreeGetCode;
+    this.GetFile = DatatreeGetFile;
+    this.GetFileMax = DatatreeGetFileMax;
+    this.GetHtml = DatatreeGetHtmlParagraphs;
+    this.GetHtmlLines = DatatreeGetHtmlLines;
+    this.GetLettering = DatatreeGetLettering;
+    this.GetList = DatatreeGetList;
+    this.GetMacroIndexForNode = DatatreeGetMacroIndexForNode;
+    this.GetOuterElement = DatatreeGetOuterElement;
+    this.GetScrollForSearch = DatatreeGetScrollForSearch;
+    this.GetSkipMessage = DatatreeGetSkipMessage;
+    this.GetText = DatatreeGetText;
+    this.GetTextForPrint = DatatreeGetTextForPrint;
+    this.GetTextTreeFile = DatatreeGetTextTreeFile;
+    this.GetType = DatatreeGetType;
+    this.GetView = DatatreeGetView;
+    this.HighlightSpan = DatatreeHighlightSpan;
+    this.HtmlLineBreaks = DatatreeHtmlLineBreaks;
+    this.Indent = DatatreeIndent;
+    this.Init = DatatreeInit;
+    this.InitReplaceResults = DatatreeInitReplaceResults;
+    this.InitSearchResults = DatatreeInitSearchResults;
+    this.InsertClickTreeText = DatatreeInsertClickTreeText;
+    this.InsertEditTreeText = DatatreeInsertEditTreeText;
+    this.IsRemovableFormatTag = DatatreeIsRemovableFormatTag;
+    this.LoadFromTextarea = DatatreeLoadFromTextarea;
+    this.LoadFromTextarea2 = DatatreeLoadFromTextarea2;
+    this.LoadFromToolbar = DatatreeLoadFromToolbar;
+    this.MouseDownSpan = DatatreeMouseDownSpan;
+    this.MouseUpSpan = DatatreeMouseUpSpan;
+    this.HtmlBody = DatatreeHtmlBody;
+    this.HtmlCode = DatatreeHtmlCode;
+    this.HtmlText = DatatreeHtmlText;
+    this.PlainText = DatatreePlainText;
+    this.Print = DatatreePrint;
+    this.PrintCode = DatatreePrintCode;
+    this.PrintFile = DatatreePrintFile;
+    this.PrintFileMax = DatatreePrintFileMax;
+    this.PrintHead = DatatreePrintHead;
+    this.PrintHtml = DatatreePrintHtml;
+    this.PrintHtmlLines = DatatreePrintHtmlLines;
+    this.PrintList = DatatreePrintList;
+    this.PrintText = DatatreePrintText;
+    this.PrintTextTree = DatatreePrintTextTree;
+    this.ProcessTree = DatatreeProcessTree;
+    this.Query = DatatreeQuery;
+    this.Refresh = DatatreeRefresh;
+    this.RefreshGUI = DatatreeRefreshGUI;
+    this.RemoveHtmlComments = DatatreeRemoveHtmlComments;
+    this.RemoveTables = DatatreeRemoveTables;
+    this.ReplaceBranch = DatatreeReplaceBranch;
+    this.ResetReplace = DatatreeResetReplace;
+    this.Replay = DatatreeReplay;
+    this.ResetEditBox = DatatreeResetEditBox;
+    this.ResetToolbarSelect = DatatreeResetToolbarSelect;
+    this.RestoreView = DatatreeRestoreView;
+    this.ScrollToSpan = DatatreeScrollToSpan;
+    this.SetClosedIcon = DatatreeSetClosedIcon;
+    this.SetEmptyIcon = DatatreeSetEmptyIcon;
+    this.SetIcons = DatatreeSetIcons;
+    this.SetOpenIcon = DatatreeSetOpenIcon;
+    this.SetTableStyle = DatatreeSetTableStyle;
+    this.SetToolbar = DatatreeSetToolbar;
+    this.SetType = DatatreeSetType;
+    this.SetTypeConditionally = DatatreeSetTypeConditionally;
+    this.ShowEditBox = DatatreeShowEditBox;
+    this.SubmitEdit = DatatreeSubmitEdit;
+    this.SetTreeHeight = DatatreeSetTreeHeight;
+    this.SwapBranches = DatatreeSwapBranches;
+    this.SyncFromRootNode = DatatreeSyncFromRootNode;
+    this.SyncFromDataTree = DatatreeSyncFromDataTree;
+    this.Synchronize = DatatreeSynchronize;
+    this.TagRequiresLineBreak = DatatreeTagRequiresLineBreak;
+    this.TreeFromString = DatatreeTreeFromString;
+    this.UnhighlightSpan = DatatreeUnhighlightSpan;
+    this.UndoPreservedWhiteSpace = DatatreeUndoPreservedWhiteSpace;
+    this.UpdateContent = DatatreeUpdateContent;
+    this.UpdateHtmlContent = DatatreeUpdateHtmlContent;
+    this.View = DatatreeView;
+    this.ViewIndex = DatatreeViewIndex;
+    this.ViewIndexOfSpan = DatatreeViewIndexOfSpan;
+    this.ViewFindSpanFromLi = DatatreeViewFindSpanFromLi;
+    this.ViewFindLiFromSpan = DatatreeViewFindLiFromSpan;
+    this.ViewFindUlFromSpan = DatatreeViewFindUlFromSpan;
+    this.ViewSpandex = DatatreeViewSpandex;
+    this.ViewA = DatatreeViewA;
+    this.ViewSpan = DatatreeViewSpan;
+    this.ViewUl = DatatreeViewUl;
+    this.ViewLi = DatatreeViewLi;
+    this.ViewListElement = DatatreeViewListElement;
+    this.ViewOverwrite = DatatreeViewOverwrite;
+    this.ViewSibling = DatatreeViewSibling;
+    this.ViewChild = DatatreeViewChild;
+    this.ViewSwap = DatatreeViewSwap;
+    this.ViewUp = DatatreeViewUp;
+    this.ViewDown = DatatreeViewDown;
+    this.ViewSelright = DatatreeViewSelright;
+    this.ViewSecright = DatatreeViewSecright;
+    this.ViewRight = DatatreeViewRight;
+    this.ViewLeft = DatatreeViewLeft;
+    this.View_Left = DatatreeView_Left;
+    this.ViewCut = DatatreeViewCut;
+    this.View_Cut = DatatreeView_Cut;
+    this.ViewCopysel = DatatreeViewCopysel;
+    this.ViewCopysec = DatatreeViewCopysec;
+    this.ViewCopy = DatatreeViewCopy;
+    this.ViewPaste = DatatreeViewPaste;
+    this.View_Paste = DatatreeView_Paste;
+    this.ViewRemove = DatatreeViewRemove;
+    this.ViewOpenToSpan = DatatreeViewOpenToSpan;
+    this.ViewExpand = DatatreeViewExpand;
+    this.ViewCollapse = DatatreeViewCollapse;
+    this.ViewSearch = DatatreeViewSearch;
+    this.ViewSearch2 = DatatreeViewSearch2;
+    this.ViewNext = DatatreeViewNext;
+    this.ViewPrevious = DatatreeViewPrevious;
+    this.ViewReset = DatatreeViewReset;
+    this.ViewTrim = DatatreeViewTrim;
+    this.ViewRoot = DatatreeViewRoot;
+    this.ViewSpanIsRoot = DatatreeViewSpanIsRoot;
+    this.ViewClick = DatatreeViewClick;
+    this.ViewGetList = DatatreeViewGetList;
+    this.ViewGetList2 = DatatreeViewGetList2;
+    this.ViewNumber = DatatreeViewNumber;
+    this.ViewClose = DatatreeViewClose;
+    this.ViewReplace = DatatreeViewReplace;
+    this.ViewInitReplaceResults = DatatreeViewInitReplaceResults;
+    this.ViewAlphabetize = DatatreeViewAlphabetize;
+    // repeats with Datatree properties not allowed
     this.ACCORDION = -1;
     this.ALERTS = new Array();
     this.AUTO_ADJUST = false;
@@ -521,21 +521,21 @@ function JdatatreeTree(outer_wrapper) {
     this.CONTENT = "";
     this.CURRENT_SEARCH_INDEX = -1;
     this.CURRENT_REPLACE_INDEX = -1;
-    this.ELEMENT_INNER_WRAPPER = JDATATREE.DEFAULT_INNER_WRAPPER;
-    if (JdatatreeTree.arguments.length >= 1){
+    this.ELEMENT_INNER_WRAPPER = DATATREE.DEFAULT_INNER_WRAPPER;
+    if (DatatreeTree.arguments.length >= 1){
         this.ELEMENT_INNER_WRAPPER = outer_wrapper + "_inner";
     }
     this.ELEMENT_INNER_WRAPPER_STYLE = "list-style-type:none;display:block;padding-left:0px;margin-top:0px;border:1px solid gray;width:100%;overflow:scroll;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;";//webkit-touch-callout disables default browser blue drag highlighting
     this.ELEMENT_INNER_WRAPPER_HEIGHT = "500px";
-    this.ELEMENT_OUTER_WRAPPER = JDATATREE.DEFAULT_OUTER_WRAPPER;
-    if (JdatatreeTree.arguments.length >= 1){
+    this.ELEMENT_OUTER_WRAPPER = DATATREE.DEFAULT_OUTER_WRAPPER;
+    if (DatatreeTree.arguments.length >= 1){
         this.ELEMENT_OUTER_WRAPPER = outer_wrapper;
     }
     this.ELEMENT_OUTER_WRAPPER_STYLE = "";
     this.EMPTY_ICON = "<span class='empty'>&EmptySmallSquare;</span>";
     this.HAS_ERRORS = false;
-    this.HIGHLIGHT_BACKGROUND_COLOR = JDATATREE.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR;
-    this.HIGHLIGHT_TEXT_COLOR = JDATATREE.DEFAULT_HIGHLIGHT_TEXT_COLOR;
+    this.HIGHLIGHT_BACKGROUND_COLOR = DATATREE.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR;
+    this.HIGHLIGHT_TEXT_COLOR = DATATREE.DEFAULT_HIGHLIGHT_TEXT_COLOR;
     this.INDENTATION = 5; 
     this.LETTERING = "";
     this.LEVELS = new Array();
@@ -560,8 +560,8 @@ function JdatatreeTree(outer_wrapper) {
     this.SETTABLE_PROPS = ["ACCORDION","CLOSED_ICON","EMPTY_ICON","HIGHLIGHT_BACKGROUND_COLOR","HIGHLIGHT_TEXT_COLOR","INDENTATION","LETTERING","OPEN_ICON","TITLE","TOOLBAR_TOOLS","TYPE"];
     this.TITLE = "TREE";
     this.TOOLBAR = "";
-    this.TOOLBAR_NAME = JDATATREE.DEFAULT_TOOLBAR_NAME;
-    if (JdatatreeTree.arguments.length >= 1){
+    this.TOOLBAR_NAME = DATATREE.DEFAULT_TOOLBAR_NAME;
+    if (DatatreeTree.arguments.length >= 1){
         this.TOOLBAR_NAME = outer_wrapper + "_toolbar";
     }
     this.TOOLBAR_LOWER_BOUND_NAME = this.TOOLBAR_NAME + "_lower_bound";
@@ -573,7 +573,7 @@ function JdatatreeTree(outer_wrapper) {
     this.TOOLBAR_STATUS_NAME = this.TOOLBAR_NAME + "_status";
     this.TOOLBAR_UPPER_BOUND_NAME = this.TOOLBAR_NAME + "_upper_bound";
     this.TOOLBAR_QUERYWINDOW_NAME = this.TOOLBAR_NAME + "_querywindow";
-    this.TOOLBAR_TOOLS = JDATATREE.DEFAULT_TOOLBAR_TOOLS;
+    this.TOOLBAR_TOOLS = DATATREE.DEFAULT_TOOLBAR_TOOLS;
     this.TYPE = "text"; // relates to 7.9.4
     if (document.getElementById(this.ELEMENT_OUTER_WRAPPER) && document.getElementById(this.ELEMENT_OUTER_WRAPPER).getAttribute('type')){
         this.TYPE = document.getElementById(this.ELEMENT_OUTER_WRAPPER).getAttribute('type');
@@ -593,33 +593,33 @@ function JdatatreeTree(outer_wrapper) {
     //this.InsertEditTreeText();
     //this.RefreshGUI();
 }
-function JdatatreeBranch(txt, tree) {
-    this.AddBranch = JdatatreeAddBranch;
-    this.Click = JdatatreeClick;
-    this.Clone = JdatatreeCloneBranch;
-    this.Close = JdatatreeClose;
-    this.CountFromTop = JdatatreeCountFromTop; // vertical top down number from root
-    this.GetChildCount = JdatatreeGetChildCount;
-    this.GetIndex = JdatatreeGetIndex; // vertical index in children list of parent node
-    this.GetLevel = JdatatreeGetLevel; // horizontal depth
-    this.InsertBranch = JdatatreeInsertBranch;
-    this.Iterate = JdatatreeListIterate;
-    this.RemoveAllBranches = JdatatreeRemoveAllBranches;
-    this.RemoveBranch = JdatatreeRemoveBranch;
+function DatatreeBranch(txt, tree) {
+    this.AddBranch = DatatreeAddBranch;
+    this.Click = DatatreeClick;
+    this.Clone = DatatreeCloneBranch;
+    this.Close = DatatreeClose;
+    this.CountFromTop = DatatreeCountFromTop; // vertical top down number from root
+    this.GetChildCount = DatatreeGetChildCount;
+    this.GetIndex = DatatreeGetIndex; // vertical index in children list of parent node
+    this.GetLevel = DatatreeGetLevel; // horizontal depth
+    this.InsertBranch = DatatreeInsertBranch;
+    this.Iterate = DatatreeListIterate;
+    this.RemoveAllBranches = DatatreeRemoveAllBranches;
+    this.RemoveBranch = DatatreeRemoveBranch;
     this.CHILDREN = new Array();
     this.DISPLAY = "block";
-    this.TEXT = tree.AUTO_TRIM == true? JDATATREE.StringTrim(txt) : txt;
+    this.TEXT = tree.AUTO_TRIM == true? DATATREE.StringTrim(txt) : txt;
     this.INDENTATION = txt.indexOf(this.TEXT.charAt(0));
     this.LINK = "";
     this.PARENT_NODE = "";
     this.TREE = tree;
     this.LINK = this.TREE.EMPTY_ICON;
 }
-function JdatatreeViewExpand(span){
+function DatatreeViewExpand(span){
    var ul;
    var root = false;
-   if (JdatatreeViewExpand.arguments.length < 1 || span == null || span == "undefined"){
-      ul = document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   if (DatatreeViewExpand.arguments.length < 1 || span == null || span == "undefined"){
+      ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
       root = true;
    } else {
       ul = this.ViewFindUlFromSpan(span);
@@ -629,33 +629,33 @@ function JdatatreeViewExpand(span){
         ul.style.display = "block";
         var li = this.ViewFindLiFromSpan(span);
         if (li){
-           var arrow = li.getElementsByClassName('jdatatree_arrow')[0];
+           var arrow = li.getElementsByClassName('datatree_arrow')[0];
            if (arrow && arrow.firstChild.className != "empty"){
-              arrow.innerHTML = JDATATREE.TREE.OPEN_ICON;
+              arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
            }
         }
      }
-     var uls = ul.getElementsByClassName('jdatatree_ul');
+     var uls = ul.getElementsByClassName('datatree_ul');
      for (var count = 0; count < uls.length; ++count){
         uls[count].style.display = 'block';
      }
-     var arrows = ul.getElementsByClassName('jdatatree_arrow');
+     var arrows = ul.getElementsByClassName('datatree_arrow');
      for (var count = 0; count < arrows.length; ++count){
         var arrow = arrows[count];
         if (arrow.firstChild.className != "empty"){
-           arrow.innerHTML = JDATATREE.TREE.OPEN_ICON;
+           arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
         }
      }
      if (root){
-        //JdatatreeViewClick(JdatatreeViewRoot());
+        //DatatreeViewClick(DatatreeViewRoot());
      }
    }
 }
-function JdatatreeViewCollapse(span){
+function DatatreeViewCollapse(span){
    var ul;
    var root = false;
-   if (JdatatreeViewCollapse.arguments.length < 1 || span == null || span == "undefined"){
-      ul = document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   if (DatatreeViewCollapse.arguments.length < 1 || span == null || span == "undefined"){
+      ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
       root = true;
    } else {
       ul = this.ViewFindUlFromSpan(span);
@@ -665,91 +665,91 @@ function JdatatreeViewCollapse(span){
         ul.style.display = "none";
         var li = this.ViewFindLiFromSpan(span);
         if (li){
-           var arrow = li.getElementsByClassName('jdatatree_arrow')[0];
+           var arrow = li.getElementsByClassName('datatree_arrow')[0];
            if (arrow && arrow.firstChild.className != "empty"){
-              arrow.innerHTML = JDATATREE.TREE.CLOSED_ICON;
+              arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
            }
         }
      }
-     var uls = ul.getElementsByClassName('jdatatree_ul');
+     var uls = ul.getElementsByClassName('datatree_ul');
      for (var count = 0; count < uls.length; ++count){
         uls[count].style.display = 'none';
      }
-     var arrows = ul.getElementsByClassName('jdatatree_arrow');
+     var arrows = ul.getElementsByClassName('datatree_arrow');
      for (var count = 0; count < arrows.length; ++count){
         var arrow = arrows[count];
         if (arrow.firstChild.className != "empty"){
-           arrow.innerHTML = JDATATREE.TREE.CLOSED_ICON;
+           arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
         }
      }
      if (root){
-        JdatatreeViewClick(JdatatreeViewRoot());
+        DatatreeViewClick(DatatreeViewRoot());
      }
    }
 }
-function JdatatreeViewRoot(){
-   return document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
+function DatatreeViewRoot(){
+   return document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
 }
-function JdatatreeViewClick(li){
+function DatatreeViewClick(li){
    if (li){
      var arrow = li.getElementsByTagName('a')[0];
      var ul = li.getElementsByTagName('ul')[0];
      if (ul.style.display == "block"){
         ul.style.display = "none";
-        arrow.innerHTML = JDATATREE.TREE.CLOSED_ICON;
+        arrow.innerHTML = DATATREE.TREE.CLOSED_ICON;
      } else if (ul.style.display == "none"){
         ul.style.display = "block";
-        arrow.innerHTML = JDATATREE.TREE.OPEN_ICON;
+        arrow.innerHTML = DATATREE.TREE.OPEN_ICON;
      }
    }
 }
-function JdatatreeViewSearch(searchterm,case_sensitive,exact_matches,regular_expression,dont_change_view){
-   if (JdatatreeViewSearch.arguments.length < 1 || searchterm == null || searchterm == "undefined" || searchterm == ""){
-      searchterm = document.getElementById(JDATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
+function DatatreeViewSearch(searchterm,case_sensitive,exact_matches,regular_expression,dont_change_view){
+   if (DatatreeViewSearch.arguments.length < 1 || searchterm == null || searchterm == "undefined" || searchterm == ""){
+      searchterm = document.getElementById(DATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
    }
-   if (JdatatreeViewSearch.arguments.length < 2 || case_sensitive != true){
+   if (DatatreeViewSearch.arguments.length < 2 || case_sensitive != true){
       case_sensitive = false;
    }
-   if (JdatatreeViewSearch.arguments.length < 3 || exact_matches != true){
+   if (DatatreeViewSearch.arguments.length < 3 || exact_matches != true){
       exact_matches = false;
    }
-   if (JdatatreeViewSearch.arguments.length < 4 || regular_expression != true){
+   if (DatatreeViewSearch.arguments.length < 4 || regular_expression != true){
       regular_expression = false;
    }
-   if (JdatatreeViewSearch.arguments.length < 5 || dont_change_view != true){
+   if (DatatreeViewSearch.arguments.length < 5 || dont_change_view != true){
       dont_change_view = false;
    }
    if (searchterm == ''){return;}
-   var tree = document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   var tree = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
    if (dont_change_view == false){
-     JdatatreeViewCollapse();
-     JdatatreeViewReset2(tree);
+     DatatreeViewCollapse();
+     DatatreeViewReset2(tree);
    }
-   JDATATREE.TEMP = 0;
-   JdatatreeViewSearch2(searchterm, tree, case_sensitive, exact_matches, regular_expression, dont_change_view);
-   if (JDATATREE.REPRESS_ALERTS==false && dont_change_view == false){
-      if (JDATATREE.TEMP == 0){
+   DATATREE.TEMP = 0;
+   DatatreeViewSearch2(searchterm, tree, case_sensitive, exact_matches, regular_expression, dont_change_view);
+   if (DATATREE.REPRESS_ALERTS==false && dont_change_view == false){
+      if (DATATREE.TEMP == 0){
          alert('No results.');
       } else {
-         alert('Found ' + JDATATREE.TEMP + ' occurrences.');
+         alert('Found ' + DATATREE.TEMP + ' occurrences.');
       }
    }
 }
-function JdatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regular_expression, dont_change_view){
+function DatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, regular_expression, dont_change_view){
    try{
-   JDATATREE.TREE.CURRENT_SEARCH_INDEX = -1;
-   JDATATREE.TREE.SEARCH_RESULTS.length = 0;
-   var chldrn = ul.getElementsByClassName('jdatatree_content');
+   DATATREE.TREE.CURRENT_SEARCH_INDEX = -1;
+   DATATREE.TREE.SEARCH_RESULTS.length = 0;
+   var chldrn = ul.getElementsByClassName('datatree_content');
    for (var count = 0; count < chldrn.length; ++count){
      var span = chldrn[count];
      var ROOT = false;
-     if (JdatatreeViewSpanIsRoot(span)){
+     if (DatatreeViewSpanIsRoot(span)){
         ROOT = true;
      }
      var txt = span.innerHTML;
      var MATCHES = false;
      if (ROOT == false){
-        var puretext = JDATATREE.StripTags(txt);
+        var puretext = DATATREE.StripTags(txt);
         if (case_sensitive == false && regular_expression == false){
            puretext = puretext.toLowerCase();
            searchterm = searchterm.toLowerCase();
@@ -774,19 +774,19 @@ function JdatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, reg
      var div = document.createElement('div');
      div.innerHTML = txt;
      if (ROOT == false && MATCHES){
-       ++JDATATREE.TEMP;
+       ++DATATREE.TEMP;
        if (dont_change_view == false){
-         var TEXT = "<span class='search_result' style='background-color:" + JDATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + JDATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + JDATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
+         var TEXT = "<span class='search_result' style='background-color:" + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + DATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
          span.innerHTML = TEXT;
        }
-       JDATATREE.TREE.SEARCH_RESULTS.push(span);
+       DATATREE.TREE.SEARCH_RESULTS.push(span);
        if (dont_change_view == false){
          var node = span.parentNode;
          while (node.nodeName.toLowerCase() != 'div'){
            if (node.nodeName.toLowerCase() == 'ul'){
              node.style.display = 'block';
            } else if (node.nodeName.toLowerCase() == 'li' && node != span.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-             node.getElementsByTagName('a')[0].innerHTML = JDATATREE.TREE.OPEN_ICON;
+             node.getElementsByTagName('a')[0].innerHTML = DATATREE.TREE.OPEN_ICON;
            } 
            if (node.parentNode){ 
              node = node.parentNode;
@@ -798,16 +798,16 @@ function JdatatreeViewSearch2(searchterm, ul, case_sensitive, exact_matches, reg
      }
    }
    if (dont_change_view == false){
-      JdatatreeViewNext();
+      DatatreeViewNext();
    }
    }catch(exc){
-      if(JDATATREE.REPRESS_ALERTS==false){
+      if(DATATREE.REPRESS_ALERTS==false){
          alert(exc);
       }
    } 
 }
 
-function JdatatreeViewSpanIsRoot(span){
+function DatatreeViewSpanIsRoot(span){
      var ROOT = false;
      var li = span.parentNode;
      while (li.nodeName.toLowerCase() != "li"){
@@ -817,58 +817,58 @@ function JdatatreeViewSpanIsRoot(span){
      while (ul.nodeName.toLowerCase() != "ul"){
         ul = ul.parentNode;
      }
-     if (ul.id == JDATATREE.TREE.ELEMENT_INNER_WRAPPER){
+     if (ul.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER){
         ROOT = true;
      }
      return ROOT;
 }
 
-function JdatatreeViewNext(){
-   if (JDATATREE.TREE.CURRENT_SEARCH_INDEX < JDATATREE.TREE.SEARCH_RESULTS.length - 1){
-      ++JDATATREE.TREE.CURRENT_SEARCH_INDEX;
+function DatatreeViewNext(){
+   if (DATATREE.TREE.CURRENT_SEARCH_INDEX < DATATREE.TREE.SEARCH_RESULTS.length - 1){
+      ++DATATREE.TREE.CURRENT_SEARCH_INDEX;
    }
-   if (JDATATREE.TREE.CURRENT_SEARCH_INDEX < JDATATREE.TREE.SEARCH_RESULTS.length){
-      var span = JDATATREE.TREE.SEARCH_RESULTS[JDATATREE.TREE.CURRENT_SEARCH_INDEX];
+   if (DATATREE.TREE.CURRENT_SEARCH_INDEX < DATATREE.TREE.SEARCH_RESULTS.length){
+      var span = DATATREE.TREE.SEARCH_RESULTS[DATATREE.TREE.CURRENT_SEARCH_INDEX];
       if (span){
-        JDATATREE.TREE.ViewOpenToSpan(span);
-        JDATATREE.TREE.ScrollToSpan(span);
+        DATATREE.TREE.ViewOpenToSpan(span);
+        DATATREE.TREE.ScrollToSpan(span);
       }
    }
 }
 
-function JdatatreeViewPrevious(){
-   if (JDATATREE.TREE.CURRENT_SEARCH_INDEX > 0){
-      --JDATATREE.TREE.CURRENT_SEARCH_INDEX;
+function DatatreeViewPrevious(){
+   if (DATATREE.TREE.CURRENT_SEARCH_INDEX > 0){
+      --DATATREE.TREE.CURRENT_SEARCH_INDEX;
    }
-   if (JDATATREE.TREE.CURRENT_SEARCH_INDEX >= 0){
-      var span = JDATATREE.TREE.SEARCH_RESULTS[JDATATREE.TREE.CURRENT_SEARCH_INDEX];
-      JDATATREE.TREE.ViewOpenToSpan(span);
-      JDATATREE.TREE.ScrollToSpan(span);
+   if (DATATREE.TREE.CURRENT_SEARCH_INDEX >= 0){
+      var span = DATATREE.TREE.SEARCH_RESULTS[DATATREE.TREE.CURRENT_SEARCH_INDEX];
+      DATATREE.TREE.ViewOpenToSpan(span);
+      DATATREE.TREE.ScrollToSpan(span);
    }
 }
 
-function JdatatreeViewClose(){
-   JDATATREE.TREE.SELECTED_SPAN = null;
-   JdatatreeViewCollapse();
+function DatatreeViewClose(){
+   DATATREE.TREE.SELECTED_SPAN = null;
+   DatatreeViewCollapse();
 }
-function JdatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matches){
-       document.getElementById(JDATATREE.TREE.TOOLBAR_REPLACE_NAME).value = "";
-       document.getElementById(JDATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value = "";
-       JdatatreeViewSearch(searchterm,case_sensitive,exact_matches,false,true);
-       if (JDATATREE.TREE.REPLACE_RESULT_MESSAGE == true){
-           if (JDATATREE.TREE.SEARCH_RESULTS.length > 0){
-               if (JDATATREE.REPRESS_ALERTS == false) { alert('Your search returned: ' + JDATATREE.TREE.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
+function DatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_matches){
+       document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_NAME).value = "";
+       document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value = "";
+       DatatreeViewSearch(searchterm,case_sensitive,exact_matches,false,true);
+       if (DATATREE.TREE.REPLACE_RESULT_MESSAGE == true){
+           if (DATATREE.TREE.SEARCH_RESULTS.length > 0){
+               if (DATATREE.REPRESS_ALERTS == false) { alert('Your search returned: ' + DATATREE.TREE.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
            } else {
-               if (JDATATREE.REPRESS_ALERTS == false) { alert('No results.'); }
+               if (DATATREE.REPRESS_ALERTS == false) { alert('No results.'); }
            }
        }
-       var amount = JDATATREE.TREE.SEARCH_RESULTS.length;
-       if (JDATATREE.TREE.SEARCH_RESULTS != null && JDATATREE.TREE.SEARCH_RESULTS.length > 0){
-          JdatatreeViewClose();
-          for (var count = 0; count < JDATATREE.TREE.SEARCH_RESULTS.length; ++count){
-             var locate = JDATATREE.TREE.SEARCH_RESULTS[count]; // span
+       var amount = DATATREE.TREE.SEARCH_RESULTS.length;
+       if (DATATREE.TREE.SEARCH_RESULTS != null && DATATREE.TREE.SEARCH_RESULTS.length > 0){
+          DatatreeViewClose();
+          for (var count = 0; count < DATATREE.TREE.SEARCH_RESULTS.length; ++count){
+             var locate = DATATREE.TREE.SEARCH_RESULTS[count]; // span
              if (locate != null){
-                var replace_result = "<span class=\"replace_result\" style=\"background-color:" + JDATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + JDATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
+                var replace_result = "<span class=\"replace_result\" style=\"background-color:" + DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + DATATREE.TREE.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
                 // apparently, the string could already have the replace result in it, if it was a line with multiple search results
                 var temp = "*****temp*****";
                 if (temp.indexOf(searchterm) >= 0){
@@ -904,7 +904,7 @@ function JdatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_match
                 var badindices = new Array();
                 var unstripped = "";
                 unstripped = locate.innerHTML.split(replace_result).join(temp);
-                var stripped = JDATATREE.StripTags(unstripped);
+                var stripped = DATATREE.StripTags(unstripped);
                 var nextindex = unstripped.indexOf(searchterm, 0);//does not check exact matches
                 while (nextindex >= 0){
                    var indexfound = nextindex;
@@ -956,7 +956,7 @@ function JdatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_match
                   if (node.nodeName.toLowerCase() == 'ul'){
                     node.style.display = 'block';
                   } else if (node.nodeName.toLowerCase() == 'li' && node != locate.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-                    node.getElementsByTagName('a')[0].innerHTML = JDATATREE.TREE.OPEN_ICON;
+                    node.getElementsByTagName('a')[0].innerHTML = DATATREE.TREE.OPEN_ICON;
                   } 
                   if (node.parentNode){ 
                     node = node.parentNode;
@@ -968,45 +968,45 @@ function JdatatreeViewReplace(searchterm,replace_with,case_sensitive,exact_match
           }
        }
 }
-function JdatatreeViewInitReplaceResults(){
-    JDATATREE.TREE.REPLACE_RESULTS.length = 0;
-    JDATATREE.TREE.CURRENT_REPLACE_INDEX = -1;
-    var spans = document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
+function DatatreeViewInitReplaceResults(){
+    DATATREE.TREE.REPLACE_RESULTS.length = 0;
+    DATATREE.TREE.CURRENT_REPLACE_INDEX = -1;
+    var spans = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
     for (var count = 0; count < spans.length; ++count){
          var span = spans[count];
          //if (span.className && span.className == "replace_result"){
-            JDATATREE.TREE.REPLACE_RESULTS.push(span);
+            DATATREE.TREE.REPLACE_RESULTS.push(span);
          //}
     }
-    if (JDATATREE.TREE.REPLACE_RESULTS.length > 0){
-       document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = 0;
-       JDATATREE.TREE.CURRENT_REPLACE_INDEX = 0;
-       var span = JDATATREE.TREE.REPLACE_RESULTS[0];
-       var y = JDATATREE.TREE.GetScrollForSearch(span);
-       document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = y;
+    if (DATATREE.TREE.REPLACE_RESULTS.length > 0){
+       document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = 0;
+       DATATREE.TREE.CURRENT_REPLACE_INDEX = 0;
+       var span = DATATREE.TREE.REPLACE_RESULTS[0];
+       var y = DATATREE.TREE.GetScrollForSearch(span);
+       document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER).scrollTop = y;
     }
 }
-function JdatatreeViewCancelFullScreenEdit(){
-   document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = JDATATREE.TREE.VIEW;
+function DatatreeViewCancelFullScreenEdit(){
+   document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
 }
-function JdatatreeViewAlphabetize(mode,start,finish){
+function DatatreeViewAlphabetize(mode,start,finish){
    if (mode == "numbers"){
       if (typeof(start) != "number" || typeof(finish) != "number"){
-          if (JDATATREE.REPRESS_ALERTS == false) { alert("invalid numbers"); }
+          if (DATATREE.REPRESS_ALERTS == false) { alert("invalid numbers"); }
           return null;
       }
       if (start >= finish){
-          if (JDATATREE.REPRESS_ALERTS == false){ alert("start not less than finish"); }
+          if (DATATREE.REPRESS_ALERTS == false){ alert("start not less than finish"); }
           return null;
       }
       if (start < 0 || finish < 0){
-          if (JDATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
+          if (DATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
           return null;
       }
-      var root = JdatatreeViewRoot();
-      var spans = root.getElementsByClassName("jdatatree_content");
+      var root = DatatreeViewRoot();
+      var spans = root.getElementsByClassName("datatree_content");
       if (start > spans.length || finish > spans.length){
-          if (JDATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
+          if (DATATREE.REPRESS_ALERTS == false){ alert("out of range error");  }
           return null;
       }
       var startnode = spans[start];
@@ -1020,7 +1020,7 @@ function JdatatreeViewAlphabetize(mode,start,finish){
          ul2 = ul2.parentNode;
       }
       if (ul1 != ul2){
-         if (JDATATREE.REPRESS_ALERTS == false){ alert("start and finish do not have the same parent"); }
+         if (DATATREE.REPRESS_ALERTS == false){ alert("start and finish do not have the same parent"); }
          return null;
       }
       var ul = ul1;
@@ -1048,7 +1048,7 @@ function JdatatreeViewAlphabetize(mode,start,finish){
               }
               var earlierparent2 = earlierparent;
               if (earlierparent2 == ul && laterparent2 == ul){
-                if (JDATATREE.StripTags(later.innerHTML).toLowerCase() < JDATATREE.StripTags(earlier.innerHTML).toLowerCase()){
+                if (DATATREE.StripTags(later.innerHTML).toLowerCase() < DATATREE.StripTags(earlier.innerHTML).toLowerCase()){
                    var temp = earlierparent1.innerHTML;
                    earlierparent1.innerHTML = laterparent1.innerHTML;
                    laterparent1.innerHTML = temp;
@@ -1058,13 +1058,13 @@ function JdatatreeViewAlphabetize(mode,start,finish){
         }
       }
    } else if (mode == "strings"){
-      var root = JdatatreeViewRoot();
-      var spans = root.getElementsByClassName("jdatatree_content");
+      var root = DatatreeViewRoot();
+      var spans = root.getElementsByClassName("datatree_content");
       var startline = -1;
       var finishline = -1;
       for (var count = 0; count < spans.length; ++count){
          var span = spans[count];
-         var text = JDATATREE.StripTags(span.innerHTML);
+         var text = DATATREE.StripTags(span.innerHTML);
          if (text == start){
             startline = count;
          } else if (text == finish){
@@ -1074,15 +1074,15 @@ function JdatatreeViewAlphabetize(mode,start,finish){
             break;
          }
       }
-      JdatatreeViewAlphabetize("numbers",startline,finishline);
+      DatatreeViewAlphabetize("numbers",startline,finishline);
    }
 }
-function JdatatreeViewNumber(tree){
-   //if (JdatatreeViewNumber.arguments.length < 1 || tree == null || tree == "undefined"){
-      //tree = JDATATREE.TREE;
+function DatatreeViewNumber(tree){
+   //if (DatatreeViewNumber.arguments.length < 1 || tree == null || tree == "undefined"){
+      //tree = DATATREE.TREE;
    //}
-   var root = JdatatreeViewRoot();
-   var spans = root.getElementsByClassName('jdatatree_content');
+   var root = DatatreeViewRoot();
+   var spans = root.getElementsByClassName('datatree_content');
    for (var count = 0; count < spans.length; ++count){
       if (count == 0){
          continue;
@@ -1093,8 +1093,8 @@ function JdatatreeViewNumber(tree){
       spans[count].innerHTML = number + txt;
    }
 }
-function JdatatreeViewIndex(start,stop){
-   if (JdatatreeViewIndex.arguments.length != 2)
+function DatatreeViewIndex(start,stop){
+   if (DatatreeViewIndex.arguments.length != 2)
       return;
    try{
       start = parseInt(start);
@@ -1104,8 +1104,8 @@ function JdatatreeViewIndex(start,stop){
    }
    if (start >= stop)
       return;
-   var root = JdatatreeViewRoot();
-   var spans = root.getElementsByClassName('jdatatree_content');
+   var root = DatatreeViewRoot();
+   var spans = root.getElementsByClassName('datatree_content');
    var parent;
    var index = 1;
    var exit = false;
@@ -1135,36 +1135,36 @@ function JdatatreeViewIndex(start,stop){
          break;
    }
 }
-function JdatatreeViewReset(what){
-   if (JdatatreeViewReset.arguments.length < 1){
+function DatatreeViewReset(what){
+   if (DatatreeViewReset.arguments.length < 1){
       what = "*";
    }
-   JDATATREE.CloseEditBox();
+   DATATREE.CloseEditBox();
    if (what == "title"){
-      JDATATREE.TREE.Query('CREATE FROM HTML ' + JDATATREE.TREE.PrintHtml(true));
+      DATATREE.TREE.Query('CREATE FROM HTML ' + DATATREE.TREE.PrintHtml(true));
       return;
    }
-   var ul = document.getElementById(JDATATREE.TREE.ELEMENT_INNER_WRAPPER);
+   var ul = document.getElementById(DATATREE.TREE.ELEMENT_INNER_WRAPPER);
    if (ul){
-      JdatatreeViewReset2(ul,what);
+      DatatreeViewReset2(ul,what);
    } else {//?
-      //document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = JDATATREE.TREE.VIEW;
+      //document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
    }
    if (what == "*"){
-     JDATATREE.TREE.SELECTED_SPAN = null;
-     JdatatreeViewCollapse();
+     DATATREE.TREE.SELECTED_SPAN = null;
+     DatatreeViewCollapse();
    }
 }
-function JdatatreeViewReset2(ul,what){
+function DatatreeViewReset2(ul,what){
    if (what == "*"){
-      for (s in JDATATREE.TREE.MOUSE_DRAG_SPANS){
-         var span = JDATATREE.TREE.MOUSE_DRAG_SPANS[s];
-         JdatatreeUnhighlightSpan(span);
+      for (s in DATATREE.TREE.MOUSE_DRAG_SPANS){
+         var span = DATATREE.TREE.MOUSE_DRAG_SPANS[s];
+         DatatreeUnhighlightSpan(span);
       }
-      if (JDATATREE.TREE.SELECTED_SPAN){
-         JdatatreeUnhighlightSpan(JDATATREE.TREE.SELECTED_SPAN);
+      if (DATATREE.TREE.SELECTED_SPAN){
+         DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
       }
-      JDATATREE.TREE.SELECTED_SPAN = null;
+      DATATREE.TREE.SELECTED_SPAN = null;
    }
    if (what == "*" || what == "linenumbers"){
      while (ul.getElementsByClassName('linenumber').length > 0){
@@ -1188,13 +1188,13 @@ function JdatatreeViewReset2(ul,what){
      }
    }
    if (what == "*" || what == "replace_results"){
-      ul.innerHTML = ul.innerHTML.split(JDATATREE.SKIP_MESSAGE).join(JDATATREE.TREE.REPLACE);
+      ul.innerHTML = ul.innerHTML.split(DATATREE.SKIP_MESSAGE).join(DATATREE.TREE.REPLACE);
       while (ul.getElementsByClassName('replace_result').length > 0){
         var spans = ul.getElementsByClassName('replace_result');
         for (var count = 0; count < spans.length; ++count){
           var span = spans[count];
           var parent = span.parentNode;
-          while (parent.nodeName.toLowerCase() != 'span' && parent.className != 'jdatatree_content'){
+          while (parent.nodeName.toLowerCase() != 'span' && parent.className != 'datatree_content'){
              parent = parent.parentNode;
           }
           var html = parent.innerHTML;
@@ -1207,27 +1207,27 @@ function JdatatreeViewReset2(ul,what){
         }
       }
    }
-   JDATATREE.TREE.ResetReplace();
+   DATATREE.TREE.ResetReplace();
 }
-function JdatatreeViewReset2_(ul){
-   var spans = ul.getElementsByTagName('span');for (var count = 0; count < spans.length; ++count){var span = spans[count];if (span.style.backgroundColor == 'cyan' || span.style.backgroundColor == 'rgb(0, 255, 255)'){if (span.className.indexOf('searchresult') >= 0){span.style.backgroundColor = '';span.style.color = '';span.className = span.className.split('searchresult').join('');if (JdatatreeViewTrim(span.className) == ''){span.className = '';
+function DatatreeViewReset2_(ul){
+   var spans = ul.getElementsByTagName('span');for (var count = 0; count < spans.length; ++count){var span = spans[count];if (span.style.backgroundColor == 'cyan' || span.style.backgroundColor == 'rgb(0, 255, 255)'){if (span.className.indexOf('searchresult') >= 0){span.style.backgroundColor = '';span.style.color = '';span.className = span.className.split('searchresult').join('');if (DatatreeViewTrim(span.className) == ''){span.className = '';
 }}}}}
 
-function JdatatreeViewTrim(strng){
+function DatatreeViewTrim(strng){
    var result = strng;var index = 0;for (var count = 0; count < result.length; ++count){var chr = result.charAt(count);if (!chr.match(/\\S/)){++index;continue;} else {break;}}if (index < result.length){result = result.substring(index, result.length);} else {result = '';}for (var count = result.length; count >= 0; --count){var chr = result.charAt(count);if (!chr.match(/\\S/)){continue;} else {if (count < result.length){result = result.substring(0, count + 1);}break;}}return result;
 }
-function JdatatreeViewGetList(){
+function DatatreeViewGetList(){
    var UL = document.getElementById(this.ELEMENT_INNER_WRAPPER);
    var LI = UL.getElementsByTagName("li")[0];
    var list = LI.getElementsByTagName("ul")[0];
-   JDATATREE.TEMP = document.createElement("div");
-   JDATATREE.TEMP.innerHTML = "<ul>" + list.innerHTML + "</ul>";
-   var ul = JDATATREE.TEMP.getElementsByTagName("ul")[0];
+   DATATREE.TEMP = document.createElement("div");
+   DATATREE.TEMP.innerHTML = "<ul>" + list.innerHTML + "</ul>";
+   var ul = DATATREE.TEMP.getElementsByTagName("ul")[0];
    this.ViewGetList2(ul);//***********************************************************************************
-   var result = JDATATREE.TEMP.innerHTML;
+   var result = DATATREE.TEMP.innerHTML;
    return result;
 }
-function JdatatreeViewGetList2(ul){
+function DatatreeViewGetList2(ul){
    var children = ul.childNodes;
    for (c in children){
       var child = children[c];
@@ -1247,23 +1247,23 @@ function JdatatreeViewGetList2(ul){
          ul.setAttribute('style','');
          ul.removeAttribute('style');
          //ul.style = ""; // 9.7
-         if (arrow && arrow.className && arrow.className == "jdatatree_arrow"){
+         if (arrow && arrow.className && arrow.className == "datatree_arrow"){
             child.removeChild(arrow);
          }
-         if (span && span.className && span.className == "jdatatree_content"){
+         if (span && span.className && span.className == "datatree_content"){
             var txt = span.innerHTML;
             child.removeChild(span);
             child.removeChild(ul);
             child.innerHTML = txt;
             child.appendChild(ul);
          }
-         JdatatreeViewGetList2(ul);
+         DatatreeViewGetList2(ul);
       }
    }
 }
 
-function JdatatreeView(action,newval){
-      if (JdatatreeView.arguments.length < 2){
+function DatatreeView(action,newval){
+      if (DatatreeView.arguments.length < 2){
          newval = "";
       }
       var command;
@@ -1276,7 +1276,7 @@ function JdatatreeView(action,newval){
          }
          command = "this.View" + action.charAt(0).toUpperCase() + action.substring(1).toLowerCase() + "(\"" + newval + "\");";
          eval(command);
-      } else if (type == "object" || type == "jdatatreebranch"){
+      } else if (type == "object" || type == "datatreebranch"){
          switch(action){
             case "sibling":
                this.ViewSibling(newval);
@@ -1290,27 +1290,27 @@ function JdatatreeView(action,newval){
       }
       this.ResetToolbarSelect();
 }
-function JdatatreeViewIndexOfSpan(searchforspan){
+function DatatreeViewIndexOfSpan(searchforspan){
    var root = document.getElementById(this.ELEMENT_INNER_WRAPPER);
    var li = root.getElementsByTagName("li")[0];
-   JDATATREE.TEMP = new Array();
+   DATATREE.TEMP = new Array();
    this.ViewSpandex(li,searchforspan,false);
    var result = -1;
-   for (var count = 0; count < JDATATREE.TEMP.length; ++count){
-      var s = JDATATREE.TEMP[count];
+   for (var count = 0; count < DATATREE.TEMP.length; ++count){
+      var s = DATATREE.TEMP[count];
       if (s === searchforspan){
          result = count-1;
          break;
       }
    }
-   JDATATREE.TEMP.length = 0;
-   JDATATREE.TEMP = null;
+   DATATREE.TEMP.length = 0;
+   DATATREE.TEMP = null;
    return result;
 }
-function JdatatreeViewSpandex(li,searchforspan,found){
+function DatatreeViewSpandex(li,searchforspan,found){
    var span = this.ViewFindSpanFromLi(li);
    var ul = li.getElementsByTagName("ul")[0];
-   JDATATREE.TEMP.push(span);
+   DATATREE.TEMP.push(span);
    if (span == searchforspan){
       //found = true;
       //return;
@@ -1324,7 +1324,7 @@ function JdatatreeViewSpandex(li,searchforspan,found){
       }
    }
 }
-function JdatatreeViewOpenToSpan(span){
+function DatatreeViewOpenToSpan(span){
    var li = span.parentNode;
    var ul = li;
    while(li && ul && ul.id != this.ELEMENT_INNER_WRAPPER){
@@ -1342,7 +1342,7 @@ function JdatatreeViewOpenToSpan(span){
       }
    }
 }
-function JdatatreeScrollToSpan(span){
+function DatatreeScrollToSpan(span){
    document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = 0;
    var y = span.offsetTop - document.getElementById(this.ELEMENT_OUTER_WRAPPER).offsetTop;
    if (this.TOOLBAR != ""){
@@ -1362,57 +1362,57 @@ function JdatatreeScrollToSpan(span){
      document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = y;
    }
 }
-function JdatatreeViewFindSpanFromLi(li){
+function DatatreeViewFindSpanFromLi(li){
    var spans = li.getElementsByTagName("span");
    var span;
    for (s in spans){
-      if (spans[s].className == "jdatatree_content"){
+      if (spans[s].className == "datatree_content"){
          span = spans[s];
          break;
       }
    }
    return span;
 }
-function JdatatreeViewFindLiFromSpan(span){
+function DatatreeViewFindLiFromSpan(span){
    var result = null;
    if (span){
       result = span.parentNode;
-      while (result.nodeName.toLowerCase() != "li" && result.className != "jdatatree_li"){
+      while (result.nodeName.toLowerCase() != "li" && result.className != "datatree_li"){
          result = result.parentNode;
       }
    }
    return result;
 }
-function JdatatreeViewFindUlFromSpan(span){
+function DatatreeViewFindUlFromSpan(span){
    var result = null;
    if (span){
       var parent = this.ViewFindLiFromSpan(span);
       if (parent){
-         result = parent.getElementsByClassName("jdatatree_ul")[0];
+         result = parent.getElementsByClassName("datatree_ul")[0];
       }
    }
    return result;
 }
-function JdatatreeViewA(link){
-   return "<a class='jdatatree_arrow' style='text-decoration:none;' onclick='return clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
+function DatatreeViewA(link){
+   return "<a class='datatree_arrow' style='text-decoration:none;' onclick='return clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
 }
-function JdatatreeViewSpan(text){
-   if(text.search("jdatatree_content") >= 0){//********************************************************10.0
+function DatatreeViewSpan(text){
+   if(text.search("datatree_content") >= 0){//********************************************************10.0
        return text;
    }
-   return "<span class='jdatatree_content' style='white-space:pre-wrap;padding-left:10px;' onmousedown='return JdatatreeMouseDownSpan(event);' onmouseup = 'return JdatatreeMouseUpSpan(event);' onclick = 'return JdatatreeClickSpan(event);'>" + text + "</span>";
+   return "<span class='datatree_content' style='white-space:pre-wrap;padding-left:10px;' onmousedown='return DatatreeMouseDownSpan(event);' onmouseup = 'return DatatreeMouseUpSpan(event);' onclick = 'return DatatreeClickSpan(event);'>" + text + "</span>";
    
 }
-function JdatatreeViewUl(display){
-   return "<ul class='jdatatree_ul' style='list-style-type:none;display:" + display + ";'></ul>";
+function DatatreeViewUl(display){
+   return "<ul class='datatree_ul' style='list-style-type:none;display:" + display + ";'></ul>";
 }
-function JdatatreeViewLi(){
+function DatatreeViewLi(){
       var li = document.createElement("li");
       li.style.whiteSpace = "nowrap";
-      li.className = "jdatatree_li";
+      li.className = "datatree_li";
       return li;
 }
-function JdatatreeViewListElement(newnode){
+function DatatreeViewListElement(newnode){
    var li = this.ViewLi();
    var a = this.ViewA(newnode.LINK);
    var span = this.ViewSpan(newnode.TEXT);
@@ -1420,10 +1420,10 @@ function JdatatreeViewListElement(newnode){
    li.innerHTML = a + span + ul;
    return li;
 }
-function JdatatreeViewOverwrite(newval){ 
+function DatatreeViewOverwrite(newval){ 
    this.SELECTED_SPAN.innerHTML = newval;
 }
-function JdatatreeViewSibling(newnode){
+function DatatreeViewSibling(newnode){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1447,7 +1447,7 @@ function JdatatreeViewSibling(newnode){
          parent.insertBefore(li,child.nextSibling);
       }
 }
-function JdatatreeViewChild(newnode){
+function DatatreeViewChild(newnode){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1466,7 +1466,7 @@ function JdatatreeViewChild(newnode){
       grandparent.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
       grandparent.getElementsByTagName("ul")[0].style.display = "block";
 }
-function JdatatreeViewSwap(node1,node2,parent){
+function DatatreeViewSwap(node1,node2,parent){
       var temp1 = document.createElement("li");
       var temp2 = document.createElement("li");
       parent.replaceChild(temp1,node1);
@@ -1474,7 +1474,7 @@ function JdatatreeViewSwap(node1,node2,parent){
       parent.replaceChild(node2,temp1);
       parent.replaceChild(node1,temp2);
 }
-function JdatatreeViewUp(){
+function DatatreeViewUp(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1505,7 +1505,7 @@ function JdatatreeViewUp(){
          this.ViewSwap(children[index-1],child,parent);
       }
 }
-function JdatatreeViewDown(){
+function DatatreeViewDown(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1536,11 +1536,11 @@ function JdatatreeViewDown(){
          this.ViewSwap(child,children[index+1],parent);
       }
 }
-function JdatatreeViewSelright(){
+function DatatreeViewSelright(){
       this.ViewSecright(false);
 }
-function JdatatreeViewSecright(with_children){
-   if (JdatatreeViewSecright.arguments.length < 1 || with_children === ""){
+function DatatreeViewSecright(with_children){
+   if (DatatreeViewSecright.arguments.length < 1 || with_children === ""){
       with_children = true;
    }
    if (this.MOUSE_DRAG_SPANS.length > 1){
@@ -1558,7 +1558,7 @@ function JdatatreeViewSecright(with_children){
       alert("error in secright");
    }
 }
-function JdatatreeViewRight(with_children,source){
+function DatatreeViewRight(with_children,source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1603,7 +1603,7 @@ function JdatatreeViewRight(with_children,source){
       } else {
          parent.removeChild(child);
          children[index-1].getElementsByTagName("ul")[0].appendChild(child);
-         if (JdatatreeViewSecright.arguments.length > 0 && with_children == false && child.getElementsByTagName("ul")[0].hasChildNodes()){
+         if (DatatreeViewSecright.arguments.length > 0 && with_children == false && child.getElementsByTagName("ul")[0].hasChildNodes()){
             var grandchildren = new Array();
             var grandparent = child.getElementsByTagName("ul")[0];
             for (var count = 0; count < grandparent.childNodes.length; ++count){
@@ -1620,7 +1620,7 @@ function JdatatreeViewRight(with_children,source){
          }
       }
 }
-function JdatatreeViewLeft(){
+function DatatreeViewLeft(){
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.View_Left(this.MOUSE_DRAG_SPANS[count]);
@@ -1631,7 +1631,7 @@ function JdatatreeViewLeft(){
       this.View_Left(this.MOUSE_DRAG_SPANS[0]);
    }
 }
-function JdatatreeView_Left(source){
+function DatatreeView_Left(source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1711,8 +1711,8 @@ function JdatatreeView_Left(source){
 
       }
 }
-function JdatatreeViewCut(){
-   JDATATREE.CLIPBOARD.length = 0;
+function DatatreeViewCut(){
+   DATATREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.View_Cut(this.MOUSE_DRAG_SPANS[count]);
@@ -1723,7 +1723,7 @@ function JdatatreeViewCut(){
       this.View_Cut(this.MOUSE_DRAG_SPANS[0]);
    }
 }
-function JdatatreeView_Cut(source){
+function DatatreeView_Cut(source){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1733,7 +1733,7 @@ function JdatatreeView_Cut(source){
          parent = parent.parentNode;//ul containing li
       }
       parent.removeChild(child);
-      JDATATREE.CLIPBOARD.push(child);
+      DATATREE.CLIPBOARD.push(child);
       if (parent.hasChildNodes() == false){
          var grandparent = parent.parentNode;
          while (grandparent.nodeName.toLowerCase() != "li"){
@@ -1742,8 +1742,8 @@ function JdatatreeView_Cut(source){
          grandparent.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
       }
 }
-function JdatatreeViewCopysec(){
-   JDATATREE.CLIPBOARD.length = 0;
+function DatatreeViewCopysec(){
+   DATATREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.ViewCopy(this.MOUSE_DRAG_SPANS[count],true);
@@ -1754,8 +1754,8 @@ function JdatatreeViewCopysec(){
       this.ViewCopy(this.MOUSE_DRAG_SPANS[0],true);
    }
 }
-function JdatatreeViewCopysel(){
-   JDATATREE.CLIPBOARD.length = 0;
+function DatatreeViewCopysel(){
+   DATATREE.CLIPBOARD.length = 0;
    if (this.MOUSE_DRAG_SPANS.length > 1){
       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
          this.ViewCopy(this.MOUSE_DRAG_SPANS[count],false);
@@ -1766,7 +1766,7 @@ function JdatatreeViewCopysel(){
       this.ViewCopy(this.MOUSE_DRAG_SPANS[0],false);
    }
 }
-function JdatatreeViewCopy(source,with_children){
+function DatatreeViewCopy(source,with_children){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1775,12 +1775,12 @@ function JdatatreeViewCopy(source,with_children){
       while (parent.nodeName.toLowerCase() != "ul"){
          parent = parent.parentNode;//ul containing li
       }
-      if (JdatatreeViewCopy.arguments.length > 1 && with_children == true){
+      if (DatatreeViewCopy.arguments.length > 1 && with_children == true){
          var clone = child.cloneNode(true);
          if (with_children == false){
             clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
          }
-         JDATATREE.CLIPBOARD.push(clone);
+         DATATREE.CLIPBOARD.push(clone);
       } else {
          var clone = child.cloneNode(true);
          if (clone.getElementsByTagName("ul")){
@@ -1789,20 +1789,20 @@ function JdatatreeViewCopy(source,with_children){
          if (with_children == false){
             clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
          }
-         JDATATREE.CLIPBOARD.push(clone);
+         DATATREE.CLIPBOARD.push(clone);
       }
 }
-function JdatatreeViewPaste(){
-   if (this.SELECTED_SPAN && JDATATREE.CLIPBOARD.length > 0){
+function DatatreeViewPaste(){
+   if (this.SELECTED_SPAN && DATATREE.CLIPBOARD.length > 0){
       var temp = this.SELECTED_SPAN;
-      for (var count = 0; count < JDATATREE.CLIPBOARD.length; ++count){
-         this.View_Paste(this.SELECTED_SPAN,JDATATREE.CLIPBOARD[count]);
-         this.SELECTED_SPAN = this.ViewFindSpanFromLi(JDATATREE.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
+      for (var count = 0; count < DATATREE.CLIPBOARD.length; ++count){
+         this.View_Paste(this.SELECTED_SPAN,DATATREE.CLIPBOARD[count]);
+         this.SELECTED_SPAN = this.ViewFindSpanFromLi(DATATREE.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
       }
       this.SELECTED_SPAN = temp;
    }
 }
-function JdatatreeView_Paste(source,li){
+function DatatreeView_Paste(source,li){
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
          parent = parent.parentNode;
@@ -1829,7 +1829,7 @@ function JdatatreeView_Paste(source,li){
       var spans = li.getElementsByTagName("span");
       var span;
       for (s in spans){
-         if (spans[s].className == "jdatatree_content"){
+         if (spans[s].className == "datatree_content"){
             span = spans[s];
             break;
          }
@@ -1842,7 +1842,7 @@ function JdatatreeView_Paste(source,li){
          parent.insertBefore(li,children[index+1]);
       }
 }
-function JdatatreeViewRemove(){
+function DatatreeViewRemove(){
       var source = this.SELECTED_SPAN;
       var parent = source.parentNode;
       while (parent.nodeName.toLowerCase() != "li"){
@@ -1862,16 +1862,16 @@ function JdatatreeViewRemove(){
       }
 }
 /** 8.4 **/
-function JdatatreeGetPopupEditInitiator(){
-   return JDATATREE.POPUP_EDIT_INITIATOR;
+function DatatreeGetPopupEditInitiator(){
+   return DATATREE.POPUP_EDIT_INITIATOR;
 }
-function JdatatreeSetPopupEditInitiator(initiator){
-   JDATATREE.POPUP_EDIT_INITIATOR = initiator;
+function DatatreeSetPopupEditInitiator(initiator){
+   DATATREE.POPUP_EDIT_INITIATOR = initiator;
 }
-function JdatatreeGetType(){
+function DatatreeGetType(){
    return this.TYPE;
 }
-function JdatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new, and edit) functions...( ) = commented out
+function DatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (new, and edit) functions...( ) = commented out
    // problem: alt_editor is property of tree manager rather than tree
    // rule: if explicitly change type with change query, or a new or edit query with an explicit type parameter, also might change other trees on webpage
    // update: don't change alt editor property...instead, have ShowAltEditor check whether tree has changed to plain text and type text...if so, outsource to plain text editor function
@@ -1883,7 +1883,7 @@ function JdatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (ne
    }
    switch(type){
       case "text": // switch from html to plain text
-         //JDATATREE.ALT_EDITOR = false;
+         //DATATREE.ALT_EDITOR = false;
          //this.PLAIN_TEXT = true;//7.9.7
          this.TYPE = "text";
          break;
@@ -1894,15 +1894,15 @@ function JdatatreeSetType(type, alt_editor_or_not){ // 7.9.4 used by change, (ne
          }
          //this.PLAIN_TEXT = false;//7.9.7
          this.TYPE = type;
-         if (JdatatreeSetType.arguments.length > 1 && alt_editor_or_not == true){
-            //JDATATREE.ALT_EDITOR = true;
+         if (DatatreeSetType.arguments.length > 1 && alt_editor_or_not == true){
+            //DATATREE.ALT_EDITOR = true;
          }
          break;
       default:
          break;
    }
 }
-function JdatatreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used by (load and create) functions..( ) = commented out
+function DatatreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used by (load and create) functions..( ) = commented out
    // rule: if load text file into html editor, leave as html, don't change other trees on webpage to text
    // just describes rule and contrasts from SetType function
    var current_type = this.TYPE;
@@ -1912,21 +1912,21 @@ function JdatatreeSetTypeConditionally(type, alt_editor_or_not){ // 7.9.4 used b
    current_type = current_type.toLowerCase();
    switch(current_type){ // ignore create or load type, favor preset type (from html or javscript code)
       case "text": 
-         //JDATATREE.ALT_EDITOR = false;
+         //DATATREE.ALT_EDITOR = false;
          //this.PLAIN_TEXT = true;
          break;
       case "html": 
       case "tree": 
          //this.PLAIN_TEXT = false;
-         if (JdatatreeSetTypeConditionally.arguments.length > 1 && alt_editor_or_not == true){
-            //JDATATREE.ALT_EDITOR = true;
+         if (DatatreeSetTypeConditionally.arguments.length > 1 && alt_editor_or_not == true){
+            //DATATREE.ALT_EDITOR = true;
          }
          break;
       default:
          break;
    }
 }
-function JdatatreeCloneBranch(){
+function DatatreeCloneBranch(){
     var tree = this.TREE;
     var branch = new tree.Branch(this.TEXT, this.TREE);
     for (var count = 0; count < this.CHILDREN.length; ++count){
@@ -1935,18 +1935,18 @@ function JdatatreeCloneBranch(){
     }
     return branch;
 }
-function JdatatreeInit(){
+function DatatreeInit(){
     this.ROOT_NODE = this.TreeFromString(this.CONTENT, this.TITLE, this.TYPE);
     this.VIEW = this.GetView();
     this.InsertClickTreeText();
     this.InsertEditTreeText();
     this.RefreshGUI();
 }
-function JdatatreeGetTreeFromName(name){
+function DatatreeGetTreeFromName(name){
    var tree = null;
    if (document.getElementById(name)){
-      for (var count = 0; count < JDATATREE.TREES.length; ++count){
-         var t = JDATATREE.TREES[count];
+      for (var count = 0; count < DATATREE.TREES.length; ++count){
+         var t = DATATREE.TREES[count];
          if (t.NAME == name){
             tree = t;
             break;
@@ -1955,49 +1955,49 @@ function JdatatreeGetTreeFromName(name){
    }
    return tree;
 }
-function JdatatreeSetTreeFromName(name){ // 9.6
-   if (name != JDATATREE.TREE.NAME){ 
-     var tree = JDATATREE.GetTreeFromName(name); 
+function DatatreeSetTreeFromName(name){ // 9.6
+   if (name != DATATREE.TREE.NAME){ 
+     var tree = DATATREE.GetTreeFromName(name); 
      if (tree != null){
-         JDATATREE.TREE = tree;
-		 if (JDATATREE.TREES.length > 1){
-		    JdatatreeHighlightTree(name);
+         DATATREE.TREE = tree;
+		 if (DATATREE.TREES.length > 1){
+		    DatatreeHighlightTree(name);
 		 }
      }
    }
 }
-function JdatatreeHighlightTree(name){ // 9.6
+function DatatreeHighlightTree(name){ // 9.6
    try{ 
-	  for (t in JDATATREE.TREES){
-	     document.getElementById(JDATATREE.TREES[t].NAME).style.border = "1px solid white";
+	  for (t in DATATREE.TREES){
+	     document.getElementById(DATATREE.TREES[t].NAME).style.border = "1px solid white";
 	  }
       var tree = document.getElementById(name);
 	  tree.style.border = "1px solid green";
    }catch(exc){
    }
 }
-function JdatatreeGetFileNameFromPath(path){
+function DatatreeGetFileNameFromPath(path){
     var splits = path.split("/");
     var name = splits[splits.length - 1];
     var names = name.split("\\");
     name = names[names.length - 1];
     return name;
 }
-function JdatatreeSubmitEdit(html, mode, selectedspan){ 
+function DatatreeSubmitEdit(html, mode, selectedspan){ 
     try{ 
 
-    var TOOLBARTREE = JDATATREE.GetInitiator(); //JDATATREE.TREE; // .TREE var had problem with popups when multiple trees...couldn't mouse over other tree
+    var TOOLBARTREE = DATATREE.GetInitiator(); //DATATREE.TREE; // .TREE var had problem with popups when multiple trees...couldn't mouse over other tree
 
     var span = null;
-    if (JdatatreeSubmitEdit.arguments.length == 3){
+    if (DatatreeSubmitEdit.arguments.length == 3){
        span = selectedspan;
        TOOLBARTREE.ResetToolbarSelect();
-    } else if (document.getElementById('jdatatree_editbox')){
-       span = document.getElementById('jdatatree_editbox').span;//source event passed to ShowEditBox
+    } else if (document.getElementById('datatree_editbox')){
+       span = document.getElementById('datatree_editbox').span;//source event passed to ShowEditBox
     } else {
-       span = JDATATREE.ALT_EDITOR_TARGET_SPAN;
+       span = DATATREE.ALT_EDITOR_TARGET_SPAN;
     }
-    if (JDATATREE.StringTrim(html) == ""){
+    if (DATATREE.StringTrim(html) == ""){
        return;
     }
 
@@ -2005,8 +2005,8 @@ function JdatatreeSubmitEdit(html, mode, selectedspan){
        html = html.split("<strong>").join("<b>").split("</strong>").join("</b>").split("<em>").join("<i>").split("</em>").join("</i>");
     }
     var PLAINTEXT = false;
-    if (document.getElementsByName('jdatatree_text_or_html')){//if edited with popup, check if pressed text button
-       var radios = document.getElementsByName('jdatatree_text_or_html');
+    if (document.getElementsByName('datatree_text_or_html')){//if edited with popup, check if pressed text button
+       var radios = document.getElementsByName('datatree_text_or_html');
        for (var count = 0; count < radios.length; ++count){
            var r = radios[count];
            if (r.checked){
@@ -2018,12 +2018,12 @@ function JdatatreeSubmitEdit(html, mode, selectedspan){
        }
     }
 
-    JDATATREE.CloseEditBox();
-    if (JDATATREE.ALT_EDITOR == true){
-        //JdatatreeRemoveAltEditorInstance(); //************************************errors
+    DATATREE.CloseEditBox();
+    if (DATATREE.ALT_EDITOR == true){
+        //DatatreeRemoveAltEditorInstance(); //************************************errors
     }
 
-    if (JDATATREE.GetBrowser() == "IE"){
+    if (DATATREE.GetBrowser() == "IE"){
         if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
            document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
         }
@@ -2047,7 +2047,7 @@ function JdatatreeSubmitEdit(html, mode, selectedspan){
             lines[count] = lines[count].replace("<br/>", "").replace("<br>", ""); // ???????? deprecated
        }
        html = lines[0];
-       if (JDATATREE.StringTrim(html) == ""){
+       if (DATATREE.StringTrim(html) == ""){
            return;
        }
     } else if (this.REPLACE == null || this.REPLACE == "undefined" || this.REPLACE == ""){
@@ -2080,7 +2080,7 @@ function JdatatreeSubmitEdit(html, mode, selectedspan){
     var macro_index = index - 1;
     var micro_index = 0;
 
-    if (JdatatreeSubmitEdit.arguments.length < 2 || mode == "overwrite"){
+    if (DatatreeSubmitEdit.arguments.length < 2 || mode == "overwrite"){
 
        TOOLBARTREE.View("overwrite",newnode.TEXT);
     } else if (mode == "sibling") {
@@ -2093,18 +2093,18 @@ function JdatatreeSubmitEdit(html, mode, selectedspan){
        TOOLBARTREE.UnhighlightSpan(span);
     }
     } catch (exc) {
-      if (JDATATREE.REPRESS_ALERTS == false){
+      if (DATATREE.REPRESS_ALERTS == false){
         alert(exc);
       }
     }
 }
-function JdatatreeEvenSpacing(node){
-   if (JdatatreeEvenSpacing.arguments.length <= 0){
+function DatatreeEvenSpacing(node){
+   if (DatatreeEvenSpacing.arguments.length <= 0){
       node = this.ROOT_NODE;
    }
    this.EvenSpacing2(node);
 }
-function JdatatreeEvenSpacing2(node){
+function DatatreeEvenSpacing2(node){
    try{
    if (node == this.ROOT_NODE){
       node.INDENTATION = 0;
@@ -2113,11 +2113,11 @@ function JdatatreeEvenSpacing2(node){
    }
    for (var count = 0; count < node.CHILDREN.length; ++count){
       var child = node.CHILDREN[count];
-      JdatatreeEvenSpacing2(child);
+      DatatreeEvenSpacing2(child);
    }
    } catch (exc) {  }
 }
-function JdatatreeIndent(node,rightleft,indent_children){
+function DatatreeIndent(node,rightleft,indent_children){
    if (rightleft == "right"){
       node.INDENTATION += node.TREE.INDENTATION;
    } else if (rightleft == "left" && node.INDENTATION - node.TREE.INDENTATION >= 0){
@@ -2128,11 +2128,11 @@ function JdatatreeIndent(node,rightleft,indent_children){
    if (indent_children){
       for (var count = 0; count < node.CHILDREN.length; ++count){
         var child = node.CHILDREN[count];
-        JdatatreeIndent(child,rightleft,indent_children);
+        DatatreeIndent(child,rightleft,indent_children);
       }
    }
 }
-function JdatatreeCleanHTML(txt){
+function DatatreeCleanHTML(txt){
    if (txt.indexOf("<table") >= 0){
       if (txt.indexOf("</table><p>") >= 0){
 	     txt = txt.substring(0, txt.indexOf("</table>") + "</table>".length);
@@ -2144,24 +2144,24 @@ function JdatatreeCleanHTML(txt){
    }
    return txt;
 }
-function JdatatreeAddBranch(node,update){
-    node.TEXT = JdatatreeCleanHTML(node.TEXT);
+function DatatreeAddBranch(node,update){
+    node.TEXT = DatatreeCleanHTML(node.TEXT);
     this.CHILDREN.push(node);
     node.PARENT_NODE = this;
     this.LINK = this.TREE.OPEN_ICON;
-    if (JdatatreeAddBranch.arguments.length > 1 && update == true){
+    if (DatatreeAddBranch.arguments.length > 1 && update == true){
       //node.INDENTATION = this.INDENTATION + this.TREE.INDENTATION;//problems with left/right
       var index = this.TREE.NODES.indexOf(this) + 1;
       //var index = this.TREE.NODES.indexOf(this) + node.GetIndex() + 1;
       this.TREE.NODES.splice(index, 0, node);
     }
 }
-function JdatatreeInsertBranch(node, index, update, thisindex){
+function DatatreeInsertBranch(node, index, update, thisindex){
     try{
         this.CHILDREN.splice(index, 0, node);
         node.PARENT_NODE = this;
         this.LINK = this.TREE.OPEN_ICON;
-        if (JdatatreeInsertBranch.arguments.length > 3 && update == true && thisindex >= 0){
+        if (DatatreeInsertBranch.arguments.length > 3 && update == true && thisindex >= 0){
           //node.INDENTATION = this.INDENTATION + this.TREE.INDENTATION;//problems with left/right
           //var thisindex = this.TREE.NODES.indexOf(this);
           var macro_index = thisindex + index + 1;
@@ -2169,10 +2169,10 @@ function JdatatreeInsertBranch(node, index, update, thisindex){
           this.TREE.NODES.splice(macro_index, 0, node);
         }
     } catch (exc) {
-       if (JDATATREE.REPRESS_ALERTS == false) { alert(exc); }
+       if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function JdatatreeClickTreeText(){
+function DatatreeClickTreeText(){
     if (document.getElementById("tree_script")){
         document.head.removeChild(document.getElementById("tree_script"));
     }
@@ -2186,7 +2186,7 @@ function JdatatreeClickTreeText(){
     var clicktree = "function clicktree(evt){if (!evt){evt = window.event;}var source = evt.target? evt.target : evt.srcElement;if (source.nodeName.toLowerCase() == 'img' && source.className=='closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'img' && source.className=='open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";}if (source.firstChild.nodeName.toLowerCase() == 'img' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}} else if (source.firstChild.nodeName.toLowerCase() == 'span' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}}}";
     return clicktree;
 }
-function JdatatreeInsertClickTreeText(){
+function DatatreeInsertClickTreeText(){
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
     script.setAttribute("id", "tree_script");
@@ -2194,11 +2194,11 @@ function JdatatreeInsertClickTreeText(){
     script.appendChild(clicktreeText);
     document.head.appendChild(script);
 }
-function JdatatreeRefresh(){
+function DatatreeRefresh(){
     this.VIEW = this.GetView();
     this.RefreshGUI();
 }
-function JdatatreeRefreshGUI(){
+function DatatreeRefreshGUI(){
     if (this && document.getElementById(this.ELEMENT_OUTER_WRAPPER)){
       if (this.VIEW == "undefined"){
         this.VIEW = this.GetView();
@@ -2206,34 +2206,34 @@ function JdatatreeRefreshGUI(){
         this.VIEW = this.GetView();
       }
       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
-    } else if (document.getElementById(JDATATREE.DEFAULT_OUTER_WRAPPER)){
-      document.getElementById(JDATATREE.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
+    } else if (document.getElementById(DATATREE.DEFAULT_OUTER_WRAPPER)){
+      document.getElementById(DATATREE.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
     }
 }
-function JdatatreeQueryDocumentation(){
-   if (JDATATREE.AltQueryDocumentation != ""){
-      JDATATREE.AltQueryDocumentation();
+function DatatreeQueryDocumentation(){
+   if (DATATREE.AltQueryDocumentation != ""){
+      DATATREE.AltQueryDocumentation();
    } else {
-	   window.open(JDATATREE.DOCUMENTATION_ADDRESS,"other");
+	   window.open(DATATREE.DOCUMENTATION_ADDRESS,"other");
    }
 }
-function JdatatreeLoadFromTextarea(type, preload){ 
+function DatatreeLoadFromTextarea(type, preload){ 
        var text = "";
-       if (JdatatreeLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != ""){
+       if (DatatreeLoadFromTextarea.arguments.length == 2 && preload != null && preload != "undefined" && preload != ""){
           text = preload;
        }
-       if (JDATATREE.ALT_EDITOR == true){
-          JDATATREE.ALT_EDITOR = false;
-          JDATATREE.TEMP = "RESET ALT EDITOR";
+       if (DATATREE.ALT_EDITOR == true){
+          DATATREE.ALT_EDITOR = false;
+          DATATREE.TEMP = "RESET ALT EDITOR";
        }
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><button type='button' onclick='return JdatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='jdatatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><button type='button' onclick='return DatatreeLoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='datatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
        //this.RefreshGUI();
 }
-function JdatatreeEncodeArrows(txt,spans){//8.0
+function DatatreeEncodeArrows(txt,spans){//8.0
    var result = txt;
-   if (JDATATREE.TREE != null && JDATATREE.TREE != "undefined" && JDATATREE.TREE.TYPE.toLowerCase() != "text"){
-      if (JdatatreeEncodeArrows.arguments.length == 0 || spans == true){
+   if (DATATREE.TREE != null && DATATREE.TREE != "undefined" && DATATREE.TREE.TYPE.toLowerCase() != "text"){
+      if (DatatreeEncodeArrows.arguments.length == 0 || spans == true){
          result = txt.split("&amp;nbsp;").join(" ").split("&nbsp;").join(" ").split(" &lt; ").join(" < ").split(" &gt; ").join(" > ").split(" &lt;= ").join(" <= ").split(" &gt;= ").join(" >= ").split(" < ").join(" <span><</span> ").split(" <= ").join(" <span><</span>= ").split(" > ").join(" <span>></span> ").split(" >= ").join(" <span>></span>= ");
          // do not remove blanks from around the arrows, or add blanks inside the spans, or else a second encoding would put double-spans around the first spans
       } else {
@@ -2242,84 +2242,84 @@ function JdatatreeEncodeArrows(txt,spans){//8.0
    }
    return result;
 }
-function JdatatreeLoadFromTextarea2(type){ 
+function DatatreeLoadFromTextarea2(type){ 
        var c;
-	  if (JdatatreeLoadFromTextarea2.arguments.length > 0 && type != null && type != "undefined" && type != ""){
+	  if (DatatreeLoadFromTextarea2.arguments.length > 0 && type != null && type != "undefined" && type != ""){
 	     c = type;
 	  } else {
-          c = document.getElementById('jdatatree_load_area').className;
+          c = document.getElementById('datatree_load_area').className;
 	  }
        var txt = "";
-       if (c == "html" && JDATATREE.ALT_EDITOR == true && JdatatreeLoadFromTextarea2.arguments.length < 1){
-           txt = JdatatreeGetAltEditorContent();
+       if (c == "html" && DATATREE.ALT_EDITOR == true && DatatreeLoadFromTextarea2.arguments.length < 1){
+           txt = DatatreeGetAltEditorContent();
            //txt = txt.split("span class=\"table\"").join("table").split("span class=\"tbody\"").join("tbody").split("span class=\"tr\"").join("tr").split("span class=\"td\"").join("td").split("%%%%%</span>").join("</tbody>").split("%%%%</span>").join("</td>").split("%%%</span>").join("</tr>").split("%%</span>").join("</table>");
        } else {
-           txt = document.getElementById('jdatatree_load_area').value;
-           txt = JDATATREE.EncodeArrows(txt,true);//8.0
-           if (JDATATREE.TEMP == "RESET ALT EDITOR"){
-              JDATATREE.ALT_EDITOR = true;
+           txt = document.getElementById('datatree_load_area').value;
+           txt = DATATREE.EncodeArrows(txt,true);//8.0
+           if (DATATREE.TEMP == "RESET ALT EDITOR"){
+              DATATREE.ALT_EDITOR = true;
            }
        }
-       JDATATREE.FULL_SCREEN_MODE = false;
-       if (JDATATREE.TREE){
-          JDATATREE.TREE.SELECTED_SPAN = null;//7.8.7
-          JDATATREE.PLEASE_WAIT = true;
+       DATATREE.FULL_SCREEN_MODE = false;
+       if (DATATREE.TREE){
+          DATATREE.TREE.SELECTED_SPAN = null;//7.8.7
+          DATATREE.PLEASE_WAIT = true;
           if (c == 'text' || c == '' || c == 'undefined' || c == null){
-             JDATATREE.TREE.Query("CREATE FROM TEXT " + txt);
+             DATATREE.TREE.Query("CREATE FROM TEXT " + txt);
           } else if (c == 'tree' || c == 'file') {
-             JDATATREE.TREE.Query("CREATE FROM TREE " + txt);
+             DATATREE.TREE.Query("CREATE FROM TREE " + txt);
           } else if (c == 'html' || c == 'list') {
-		     if (JDATATREE.ALT_EDITOR == true && typeof(JDATATREE.CleanHTMLFromEditor) == "function"){
-                     //txt = JDATATREE.CleanHTMLFromEditor(txt); 
+		     if (DATATREE.ALT_EDITOR == true && typeof(DATATREE.CleanHTMLFromEditor) == "function"){
+                     //txt = DATATREE.CleanHTMLFromEditor(txt); 
                 }
-                JDATATREE.TREE.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
+                DATATREE.TREE.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
           } else {}
        } else {
           this.SELECTED_SPAN = null;//7.8.7
-          JDATATREE.PLEASE_WAIT = true;
+          DATATREE.PLEASE_WAIT = true;
           if (c == 'text' || c == '' || c == 'undefined' || c == null){
              this.Query("CREATE FROM TEXT " + txt);
           } else {
-             if (JDATATREE.ALT_EDITOR == true && typeof(JDATATREE.CleanHTMLFromEditor) == "function"){
-                txt = JDATATREE.CleanHTMLFromEditor(txt); 
+             if (DATATREE.ALT_EDITOR == true && typeof(DATATREE.CleanHTMLFromEditor) == "function"){
+                txt = DATATREE.CleanHTMLFromEditor(txt); 
              }
              this.Query("CREATE FROM HTML " + txt);
           }
        }
 }
-function JdatatreeRestoreView(){
-   document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = JDATATREE.TREE.VIEW;
+function DatatreeRestoreView(){
+   document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = DATATREE.TREE.VIEW;
 }
-function JdatatreeAutoLoadFromToolbar(){
-	var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+function DatatreeAutoLoadFromToolbar(){
+	var datatree = DATATREE.TREE? DATATREE.TREE : this;
 	if (datatree){
 		datatree.LoadFromToolbar();
 	}
 }
-function JdatatreeLoadFromToolbar(){
+function DatatreeLoadFromToolbar(){
        var text = "";
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button>" + "<button type='button' onclick='return JdatatreeLoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return JdatatreeLoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return JdatatreeLoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='jdatatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button>" + "<button type='button' onclick='return DatatreeLoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return DatatreeLoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return DatatreeLoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='datatree_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
        //this.RefreshGUI();
 }
-function JdatatreeEdit(type, text){
-    if (type == "html" && JDATATREE.ALT_EDITOR == true){
-        JDATATREE.AltLoadFromTextarea(type, text);
+function DatatreeEdit(type, text){
+    if (type == "html" && DATATREE.ALT_EDITOR == true){
+        DATATREE.AltLoadFromTextarea(type, text);
     } else {
         this.LoadFromTextarea(type, text);
     }
 }
-function JdatatreeAutoToolbarSelect(choice){ 
-   var TOOLBARTREE = JDATATREE.TREE;
+function DatatreeAutoToolbarSelect(choice){ 
+   var TOOLBARTREE = DATATREE.TREE;
    if (TOOLBARTREE == null || TOOLBARTREE == "undefined"){
-      TOOLBARTREE = JDATATREE.TREES[0];
+      TOOLBARTREE = DATATREE.TREES[0];
       if (TOOLBARTREE == null || TOOLBARTREE == "undefined"){
          return;
       }
    }
    var combobox;
    var selection;
-   if (JdatatreeAutoToolbarSelect.arguments.length > 0 && choice != ""&& choice != null && choice != "undefined"){
+   if (DatatreeAutoToolbarSelect.arguments.length > 0 && choice != ""&& choice != null && choice != "undefined"){
       selection = choice;
    } else {
       combobox = document.getElementById(TOOLBARTREE.TOOLBAR_SELECT_NAME);
@@ -2333,7 +2333,7 @@ function JdatatreeAutoToolbarSelect(choice){
    }
    switch (selection){ 
       case "close": 
-         JDATATREE.CloseMenu();
+         DATATREE.CloseMenu();
          return;
          break;
       case "overwrite":
@@ -2341,11 +2341,11 @@ function JdatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         JDATATREE.SetInitiator(TOOLBARTREE);
-         if (JDATATREE.ALT_EDITOR == true){
-            JdatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
+         DATATREE.SetInitiator(TOOLBARTREE);
+         if (DATATREE.ALT_EDITOR == true){
+            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
          } else {
-            JdatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
+            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'overwrite');
          }
          break;
       case "child":
@@ -2353,11 +2353,11 @@ function JdatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         JDATATREE.SetInitiator(TOOLBARTREE);
-         if (JDATATREE.ALT_EDITOR == true){
-            JdatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
+         DATATREE.SetInitiator(TOOLBARTREE);
+         if (DATATREE.ALT_EDITOR == true){
+            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
          } else {
-            JdatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
+            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'child');
          }
          break;
       case "sibling":
@@ -2365,11 +2365,11 @@ function JdatatreeAutoToolbarSelect(choice){
             combobox.selectedIndex = 0;
             return;
          }
-         JDATATREE.SetInitiator(TOOLBARTREE);
-         if (JDATATREE.ALT_EDITOR == true){
-            JdatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
+         DATATREE.SetInitiator(TOOLBARTREE);
+         if (DATATREE.ALT_EDITOR == true){
+            DatatreeShowAltEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
          } else {
-            JdatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
+            DatatreeShowEditBox(TOOLBARTREE.CLICK_X, TOOLBARTREE.CLICK_Y, TOOLBARTREE.SELECTED_SPAN,'sibling');
          }
          break;
       case "up":
@@ -2428,20 +2428,20 @@ function JdatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (JDATATREE.WAIT_IS_OPEN != true){
-	    var wait = JDATATREE.Wait();
+         if (DATATREE.WAIT_IS_OPEN != true){
+	    var wait = DATATREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               if (tree.MOUSE_DRAG_SPANS.length > 0){
-                  JDATATREE.CLIPBOARD.length = 0;
+                  DATATREE.CLIPBOARD.length = 0;
                   TOOLBARTREE.View("copysel");
               }
-              if (JDATATREE.GetBrowser() == "IE"){
+              if (DATATREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              JDATATREE.CloseWaitBox(wait);
+              DATATREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2456,8 +2456,8 @@ function JdatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (JDATATREE.WAIT_IS_OPEN != true){
-	    var wait = JDATATREE.Wait();
+         if (DATATREE.WAIT_IS_OPEN != true){
+	    var wait = DATATREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               var index = 0;
@@ -2469,12 +2469,12 @@ function JdatatreeAutoToolbarSelect(choice){
                      TOOLBARTREE.View("copysec");
                   }
               }
-              if (JDATATREE.GetBrowser() == "IE"){
+              if (DATATREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              JDATATREE.CloseWaitBox(wait);
+              DATATREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2487,26 +2487,26 @@ function JdatatreeAutoToolbarSelect(choice){
                  TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
              }
          }
-         if (JDATATREE.CLIPBOARD.length == 0 || !TOOLBARTREE.SELECTED_SPAN){ 
+         if (DATATREE.CLIPBOARD.length == 0 || !TOOLBARTREE.SELECTED_SPAN){ 
             combobox.selectedIndex = 0; 
             return;
          }
-         if (JDATATREE.WAIT_IS_OPEN != true){
-	    var wait = JDATATREE.Wait();
+         if (DATATREE.WAIT_IS_OPEN != true){
+	    var wait = DATATREE.Wait();
 	    setTimeout(function(){
               var tree = TOOLBARTREE;
               var index = 0;
               var index_above = 0;
-              if (tree && tree.SELECTED_SPAN && JDATATREE.CLIPBOARD.length > 0){
+              if (tree && tree.SELECTED_SPAN && DATATREE.CLIPBOARD.length > 0){
                 TOOLBARTREE.View("paste");
-                JDATATREE.CLIPBOARD.length = 0;
+                DATATREE.CLIPBOARD.length = 0;
               }
-              if (JDATATREE.GetBrowser() == "IE"){
+              if (DATATREE.GetBrowser() == "IE"){
                   if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
                      document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME).select();
                   }
               }
-              JDATATREE.CloseWaitBox(wait);
+              DATATREE.CloseWaitBox(wait);
             }, 1);
          }
          break;
@@ -2534,63 +2534,63 @@ function JdatatreeAutoToolbarSelect(choice){
          break;
    }
 }
-function JdatatreeMouseDownSpan(evt,span){
+function DatatreeMouseDownSpan(evt,span){
    if (!evt){
       evt = window.event;
    }
-   JDATATREE.MOUSE_DOWN_X = evt.clientX;
-   JDATATREE.MOUSE_DOWN_Y = evt.clientY;
+   DATATREE.MOUSE_DOWN_X = evt.clientX;
+   DATATREE.MOUSE_DOWN_Y = evt.clientY;
    var source;
-   if (JdatatreeMouseDownSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (DatatreeMouseDownSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "jdatatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
            source = source.parentNode;
       }
    }
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_OUTER_WRAPPER){
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
           return;
       } else {
-          var tree = JDATATREE.TREE;
+          var tree = DATATREE.TREE;
           if (tree){
              tree.MOUSE_DOWN_SPAN = source;
           }
       }
    }
 }
-function JdatatreeMouseUpSpan(evt,span){
+function DatatreeMouseUpSpan(evt,span){
    if (!evt){
       evt = window.event;
    }
    evt.stopPropagation();//*****************************************************************************************************10.0
-   JDATATREE.MOUSE_UP_X = evt.clientX;
-   JDATATREE.MOUSE_UP_Y = evt.clientY;
+   DATATREE.MOUSE_UP_X = evt.clientX;
+   DATATREE.MOUSE_UP_Y = evt.clientY;
    var source;
-   if (JdatatreeMouseUpSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (DatatreeMouseUpSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "jdatatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
            source = source.parentNode;
       }
    }
    //unhighlight
-   if (JDATATREE.TREE.SELECTED_SPAN){
-      JdatatreeUnhighlightSpan(JDATATREE.TREE.SELECTED_SPAN);
+   if (DATATREE.TREE.SELECTED_SPAN){
+      DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
    }
-   if (JDATATREE.TREE.MOUSE_DRAG_SPANS){
-      for (s in JDATATREE.TREE.MOUSE_DRAG_SPANS){
-         JdatatreeUnhighlightSpan(JDATATREE.TREE.MOUSE_DRAG_SPANS[s]);
+   if (DATATREE.TREE.MOUSE_DRAG_SPANS){
+      for (s in DATATREE.TREE.MOUSE_DRAG_SPANS){
+         DatatreeUnhighlightSpan(DATATREE.TREE.MOUSE_DRAG_SPANS[s]);
       }
    }
-   JDATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
+   DATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_OUTER_WRAPPER){
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
           return;
       } else {
-          var tree = JDATATREE.TREE;
+          var tree = DATATREE.TREE;
           if (tree){
              tree.MOUSE_UP_SPAN = source;
              if (tree.MOUSE_DOWN_SPAN && tree.MOUSE_UP_SPAN){
@@ -2620,7 +2620,7 @@ function JdatatreeMouseUpSpan(evt,span){
                    var stopindex = 0;
                    for (var count = 0; count < parent.childNodes.length; ++count){
                       var li = parent.childNodes[count];
-                      var content = li.getElementsByClassName('jdatatree_content')[0];
+                      var content = li.getElementsByClassName('datatree_content')[0];
                       if (content == start){
                          startindex = count;
                       } else if (content == stop){
@@ -2629,64 +2629,64 @@ function JdatatreeMouseUpSpan(evt,span){
                       }
                    }
                    for (var count = startindex; count <= stopindex; ++count){
-                      var highlightspan = parent.childNodes[count].getElementsByClassName('jdatatree_content')[0];
-                      JdatatreeHighlightSpan(highlightspan);
+                      var highlightspan = parent.childNodes[count].getElementsByClassName('datatree_content')[0];
+                      DatatreeHighlightSpan(highlightspan);
                       tree.MOUSE_DRAG_SPANS.push(highlightspan);
                    }
                 } else {
                    //unhighlight...already done
                 }
 }}}}}
-function JdatatreeClickSpan(evt,span){ 
-   if (JDATATREE.TREE.SELECTED_SPAN){
-      JdatatreeUnhighlightSpan(JDATATREE.TREE.SELECTED_SPAN);
+function DatatreeClickSpan(evt,span){ 
+   if (DATATREE.TREE.SELECTED_SPAN){
+      DatatreeUnhighlightSpan(DATATREE.TREE.SELECTED_SPAN);
    }
-   for (var count = 0; count < JDATATREE.TREE.MOUSE_DRAG_SPANS.length; ++count){
-       JdatatreeUnhighlightSpan(JDATATREE.TREE.MOUSE_DRAG_SPANS[count]);
+   for (var count = 0; count < DATATREE.TREE.MOUSE_DRAG_SPANS.length; ++count){
+       DatatreeUnhighlightSpan(DATATREE.TREE.MOUSE_DRAG_SPANS[count]);
    }   
    if (!evt){
       evt = window.event;
    }
-   JDATATREE.MOUSE_DOWN_X = evt.clientX;
-   JDATATREE.MOUSE_DOWN_Y = evt.clientY;
+   DATATREE.MOUSE_DOWN_X = evt.clientX;
+   DATATREE.MOUSE_DOWN_Y = evt.clientY;
    var source;
-   if (JdatatreeClickSpan.arguments.length > 1 && span != null && span != "undefined"){
+   if (DatatreeClickSpan.arguments.length > 1 && span != null && span != "undefined"){
       source = span;
    } else {
       source = evt.target? evt.target : evt.srcElement;
-      while (source.nodeName.toLowerCase() != "span" || source.className != "jdatatree_content"){
+      while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
            source = source.parentNode;
       }
    }
    if (source.nodeName.toLowerCase() == "span"){
-      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == JDATATREE.TREE.ELEMENT_OUTER_WRAPPER){
-          JDATATREE.TREE.SELECTED_SPAN = null; // ***
+      if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == DATATREE.TREE.ELEMENT_OUTER_WRAPPER){
+          DATATREE.TREE.SELECTED_SPAN = null; // ***
           return;
       } else {
-          JDATATREE.TREE.SELECTED_SPAN = source;
-          JDATATREE.TREE.CLICK_X = evt.clientX;
-          JDATATREE.TREE.CLICK_Y = evt.clientY;
+          DATATREE.TREE.SELECTED_SPAN = source;
+          DATATREE.TREE.CLICK_X = evt.clientX;
+          DATATREE.TREE.CLICK_Y = evt.clientY;
           if (source.innerHTML.indexOf('search_result') >= 0){
               var search_result = source.getElementsByTagName('span')[0];
               if (search_result.className && search_result.className == 'search_result'){
                   source.innerHTML = search_result.innerHTML;
               }
           }
-          JdatatreeHighlightSpan(source);
-          JDATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
-          JDATATREE.TREE.MOUSE_DRAG_SPANS.push(source);
-          JDATATREE.GoToFile(source);
+          DatatreeHighlightSpan(source);
+          DATATREE.TREE.MOUSE_DRAG_SPANS.length = 0;
+          DATATREE.TREE.MOUSE_DRAG_SPANS.push(source);
+          DATATREE.GoToFile(source);
       }
    }
 }
-function JdatatreeGoToFile(line){
-   if (JDATATREE.GO_TO_FILE != null && JDATATREE.GO_TO_FILE != "undefined" && JDATATREE.GO_TO_FILE != ""){
-      JDATATREE.TEMP = line.innerHTML;
-      eval(JDATATREE.GO_TO_FILE);
+function DatatreeGoToFile(line){
+   if (DATATREE.GO_TO_FILE != null && DATATREE.GO_TO_FILE != "undefined" && DATATREE.GO_TO_FILE != ""){
+      DATATREE.TEMP = line.innerHTML;
+      eval(DATATREE.GO_TO_FILE);
    }
 }
-function JdatatreeHighlightSpan(span){
-   if (!span.className || span.className != "jdatatree_content"){
+function DatatreeHighlightSpan(span){
+   if (!span.className || span.className != "datatree_content"){
       var prnt = span.parentNode;
       if (prnt.nodeName.toLowerCase() == "a"){
           prnt = prnt.parentNode;
@@ -2694,17 +2694,17 @@ function JdatatreeHighlightSpan(span){
       var contents = prnt.getElementsByTagName('span');
       for (var count2 = 0; count2 < contents.length; ++count2){
          var content = contents[count2];
-         if (content.className && content.className == "jdatatree_content"){
+         if (content.className && content.className == "datatree_content"){
             span = content;
             break;
          }
       }
    }
-   span.style.backgroundColor = JDATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR;
-   span.style.color = JDATATREE.TREE.HIGHLIGHT_TEXT_COLOR;
+   span.style.backgroundColor = DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR;
+   span.style.color = DATATREE.TREE.HIGHLIGHT_TEXT_COLOR;
 }
-function JdatatreeUnhighlightSpan(span){
-   if (!span.className || span.className != "jdatatree_content"){
+function DatatreeUnhighlightSpan(span){
+   if (!span.className || span.className != "datatree_content"){
       var prnt = span.parentNode;
       if (prnt.nodeName.toLowerCase() == "a"){
           prnt = prnt.parentNode;
@@ -2712,7 +2712,7 @@ function JdatatreeUnhighlightSpan(span){
       var contents = prnt.getElementsByTagName('span');
       for (var count2 = 0; count2 < contents.length; ++count2){
          var content = contents[count2];
-         if (content.className && content.className == "jdatatree_content"){
+         if (content.className && content.className == "datatree_content"){
             span = content;
             break;
          }
@@ -2721,27 +2721,27 @@ function JdatatreeUnhighlightSpan(span){
    span.style.backgroundColor = "";
    span.style.color = "";
 }
-function JdatatreeEditTreeText(){
+function DatatreeEditTreeText(){
     if (document.getElementById("edit_tree_script")){
         document.head.removeChild(document.getElementById("edit_tree_script"));
     }
-    var submitfromtoolbar = "function jdatatree_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('jdatatree_editor').value; var mode = document.getElementById('jdatatree_editbox_button').innerHTML;/**document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ JdatatreeSubmitEdit(html,mode,JDATATREE.TREE.SELECTED_SPAN);   }";
-    var altsubmitfromtoolbar = "function jdatatree_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = JdatatreeGetAltEditorContent();var mode = document.getElementById('jdatatree_editbox_button').innerHTML;JdatatreeSubmitEdit(html,mode,JDATATREE.TREE.SELECTED_SPAN);}";
+    var submitfromtoolbar = "function datatree_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('datatree_editor').value; var mode = document.getElementById('datatree_editbox_button').innerHTML;/**document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ DatatreeSubmitEdit(html,mode,DATATREE.TREE.SELECTED_SPAN);   }";
+    var altsubmitfromtoolbar = "function datatree_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = DatatreeGetAltEditorContent();var mode = document.getElementById('datatree_editbox_button').innerHTML;DatatreeSubmitEdit(html,mode,DATATREE.TREE.SELECTED_SPAN);}";
     /** deprecated
-    var edittree = "function edittree(e){ evt = e || window.event; JDATATREE.REPRESS_ALERTS = true;JDATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;JdatatreeShowEditBox(evt.clientX, evt.clientY, source);}";
-    var submitedit = "function jdatatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = document.getElementById('jdatatree_editor').value;JdatatreeSubmitEdit(html);}";
-    var insertsibling = "function jdatatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(document.getElementById('jdatatree_editor').value,'sibling');}";
-    var insertchild = "function jdatatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(document.getElementById('jdatatree_editor').value,'child');}";
-    var remove = "function jdatatree_remove_node(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(document.getElementById('jdatatree_editor').value,'remove');}";
-    var altedittree = "function edittree(e){evt = e || window.event;JDATATREE.REPRESS_ALERTS = true;JDATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;JdatatreeShowAltEditBox(evt.clientX, evt.clientY, source);}";
-    var altsubmitedit = "function jdatatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(JdatatreeGetAltEditorContent(),'overwrite');}";
-    var altinsertsibling = "function jdatatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(JdatatreeGetAltEditorContent(),'sibling');}";
-    var altinsertchild = "function jdatatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;JdatatreeSubmitEdit(JdatatreeGetAltEditorContent(),'child');}";
-    if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && JDATATREE.ALT_EDITOR == false){
+    var edittree = "function edittree(e){ evt = e || window.event; DATATREE.REPRESS_ALERTS = true;DATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;DatatreeShowEditBox(evt.clientX, evt.clientY, source);}";
+    var submitedit = "function datatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = document.getElementById('datatree_editor').value;DatatreeSubmitEdit(html);}";
+    var insertsibling = "function datatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'sibling');}";
+    var insertchild = "function datatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'child');}";
+    var remove = "function datatree_remove_node(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(document.getElementById('datatree_editor').value,'remove');}";
+    var altedittree = "function edittree(e){evt = e || window.event;DATATREE.REPRESS_ALERTS = true;DATATREE.PLEASE_WAIT = false;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;DatatreeShowAltEditBox(evt.clientX, evt.clientY, source);}";
+    var altsubmitedit = "function datatree_submit_edit(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'overwrite');}";
+    var altinsertsibling = "function datatree_insert_sibling(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'sibling');}";
+    var altinsertchild = "function datatree_insert_child(e){evt = e || window.event;if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;DatatreeSubmitEdit(DatatreeGetAltEditorContent(),'child');}";
+    if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && DATATREE.ALT_EDITOR == false){
        return edittree + submitedit + insertchild + insertsibling + remove + submitfromtoolbar;
-    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text" && JDATATREE.ALT_EDITOR == true){
+    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text" && DATATREE.ALT_EDITOR == true){
        return altedittree + altsubmitedit + altinsertchild + altinsertsibling + remove + altsubmitfromtoolbar;
-    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && JDATATREE.ALT_EDITOR == true){ // 7.9.4
+    } else if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text" && DATATREE.ALT_EDITOR == true){ // 7.9.4
        return altedittree + altsubmitedit + altinsertchild + altinsertsibling + remove + altsubmitfromtoolbar;
     } else {
        return edittree + submitedit + insertchild + insertsibling + remove + submitfromtoolbar;
@@ -2749,7 +2749,7 @@ function JdatatreeEditTreeText(){
     **/
     return submitfromtoolbar + altsubmitfromtoolbar;
 }
-function JdatatreeInsertEditTreeText(){
+function DatatreeInsertEditTreeText(){
     if (document.getElementById("edit_tree_script")){
         document.head.removeChild(document.getElementById("edit_tree_script"));
     }
@@ -2760,15 +2760,15 @@ function JdatatreeInsertEditTreeText(){
     script.appendChild(edittreeText);
     document.head.appendChild(script);
 }
-function JdatatreeResetEditBox(){
-	document.getElementById('jdatatree_editor').innerHTML = "";
+function DatatreeResetEditBox(){
+	document.getElementById('datatree_editor').innerHTML = "";
 }
-function JdatatreeShowEditBox(x, y, source, toolbar) { 
+function DatatreeShowEditBox(x, y, source, toolbar) { 
     try{
-    //JDATATREE.CloseEditBox();
+    //DATATREE.CloseEditBox();
     var datatree;
-    if (JDATATREE.TREE){
-       datatree = JDATATREE.TREE;
+    if (DATATREE.TREE){
+       datatree = DATATREE.TREE;
     } else if (this){
        datatree = this;
     } 
@@ -2779,46 +2779,46 @@ function JdatatreeShowEditBox(x, y, source, toolbar) {
        y += document.body.scrollTop;
        x += document.body.scrollLeft;
     }
-    if (JDATATREE.REPRESS_EDITS == true) { return; }
-    while (source.nodeName.toLowerCase() != "span" || source.className != "jdatatree_content"){
+    if (DATATREE.REPRESS_EDITS == true) { return; }
+    while (source.nodeName.toLowerCase() != "span" || source.className != "datatree_content"){
         source = source.parentNode;
     }
-    if (document.getElementById('jdatatree_editbox')){ 
-        document.getElementById('jdatatree_editbox').parentNode.removeChild(document.getElementById('jdatatree_editbox'));
+    if (document.getElementById('datatree_editbox')){ 
+        document.getElementById('datatree_editbox').parentNode.removeChild(document.getElementById('datatree_editbox'));
     }
         var box = document.createElement('div');
-        box.id = 'jdatatree_editbox';
+        box.id = 'datatree_editbox';
         box.span = source;
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         box.style.height = "100px";
         box.style.width = "400px";
-        box.style.border = JDATATREE.POPUP_BORDER;
+        box.style.border = DATATREE.POPUP_BORDER;
         box.style.overflow = "auto";
         box.style.borderRadius = "20px";
         box.style.padding = "10px 10px 0px 10px";
-        box.style.background = JDATATREE.POPUP_BACKGROUND;
-        //box.style.background = "white url('" + JDATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
+        box.style.background = DATATREE.POPUP_BACKGROUND;
+        //box.style.background = "white url('" + DATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
         var datatree;
         var radio = "";
         var info = "";
-	var reset = "<button type='button' onclick='return JdatatreeResetEditBox();'>reset</button>";
+	var reset = "<button type='button' onclick='return DatatreeResetEditBox();'>reset</button>";
 	var equation = "";
 	var delimiter = "&nbsp;&nbsp;&nbsp;";
         if (datatree){
            if (datatree.TYPE != "text"){ // 7.9.4
-              radio = "<input type='radio' name='jdatatree_text_or_html' value='text'>text</input><input type='radio' name='jdatatree_text_or_html' value='html' checked='checked'>html</input>";
+              radio = "<input type='radio' name='datatree_text_or_html' value='text'>text</input><input type='radio' name='datatree_text_or_html' value='html' checked='checked'>html</input>";
 	      equation = "<a href='https://codecogs.com/latex/eqneditor.php' target='_blank'>equation</a>";
-              //info = "&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick='return JDATATREE.ShowPopupBox(\"In HTML, these characters are restricted: < and > . To use them, select the text option (converts entire line to plain text), or leave spaces around them like this: x > 0. However, none of these are guaranteed to work, and the best solution is to replace them with words like less than and greater than, or write math with an equation editor.\");'>?</a>";
+              //info = "&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick='return DATATREE.ShowPopupBox(\"In HTML, these characters are restricted: < and > . To use them, select the text option (converts entire line to plain text), or leave spaces around them like this: x > 0. However, none of these are guaranteed to work, and the best solution is to replace them with words like less than and greater than, or write math with an equation editor.\");'>?</a>";
            }
         }
-        if (JdatatreeShowEditBox.arguments.length == 4){
-           var displaytext = JDATATREE.StringTrim(source.innerHTML);
+        if (DatatreeShowEditBox.arguments.length == 4){
+           var displaytext = DATATREE.StringTrim(source.innerHTML);
            if (toolbar == "insert"){
                displaytext = "";
            }
-           box.innerHTML = "<table><tr><td><span onclick='return JdatatreeCloseEditBox();' id='jdatatree_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='jdatatree_editbox_button' onclick='return jdatatree_submit_from_toolbar(event);'>" + toolbar + "</button></td></tr><tr><td><textarea id='jdatatree_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
+           box.innerHTML = "<table><tr><td><span onclick='return DatatreeCloseEditBox();' id='datatree_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='datatree_editbox_button' onclick='return datatree_submit_from_toolbar(event);'>" + toolbar + "</button></td></tr><tr><td><textarea id='datatree_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
         } else {
            return;
         }
@@ -2843,7 +2843,7 @@ function JdatatreeShowEditBox(x, y, source, toolbar) {
         } else {  }
     } catch (exc) {  }
 }
-function JdatatreeSwapBranches(parnt, first, second, tree, third, fourth){
+function DatatreeSwapBranches(parnt, first, second, tree, third, fourth){
    var temp = parnt.CHILDREN[first];
    parnt.CHILDREN[first] = parnt.CHILDREN[second];
    parnt.CHILDREN[second] = temp;
@@ -2851,15 +2851,15 @@ function JdatatreeSwapBranches(parnt, first, second, tree, third, fourth){
    tree.NODES[third] = tree.NODES[fourth];
    tree.NODES[fourth] = temp;
 }
-function JdatatreeResetToolbarSelect(){
-   var datatree = this? this : JDATATREE.TREE;
+function DatatreeResetToolbarSelect(){
+   var datatree = this? this : DATATREE.TREE;
    if (document.getElementById(datatree.TOOLBAR_SELECT_NAME))
    {
       document.getElementById(datatree.TOOLBAR_SELECT_NAME).selectedIndex = 0;
    }
 }
-function JdatatreeCountAllChildrenOfNode(node,result){ // not working
-   if (JdatatreeCountAllChildrenOfNode.arguments.length == 1){
+function DatatreeCountAllChildrenOfNode(node,result){ // not working
+   if (DatatreeCountAllChildrenOfNode.arguments.length == 1){
       result = 0;
    }
    for (var count = 0; count < node.CHILDREN.length; ++count){
@@ -2867,15 +2867,15 @@ function JdatatreeCountAllChildrenOfNode(node,result){ // not working
       ++result;
       for (var count2 = 0; count2 < newnode.CHILDREN.length; ++count2){
          var c = newnode.CHILDREN[count2];
-         result += JdatatreeCountAllChildrenOfNode(c);
+         result += DatatreeCountAllChildrenOfNode(c);
       }
    }
    return result;
 }
-function JdatatreeGetMacroIndexForNode(node){ //not working
+function DatatreeGetMacroIndexForNode(node){ //not working
    var datatree;
-   if (JDATATREE.TREE){
-      datatree = JDATATREE.TREE;
+   if (DATATREE.TREE){
+      datatree = DATATREE.TREE;
    } else if (this){
       datatree = this;
    } else {
@@ -2888,7 +2888,7 @@ function JdatatreeGetMacroIndexForNode(node){ //not working
        result += index;
        for (var count = 0; count < node.GetIndex() - 1; ++count){
           var sib = parent.CHILDREN[count];
-          result += JdatatreeCountAllChildrenOfNode(sib);
+          result += DatatreeCountAllChildrenOfNode(sib);
        }
        while (parent){
          if (parent.id && parent.id == datatree.ELEMENT_OUTER_WRAPPER){
@@ -2899,7 +2899,7 @@ function JdatatreeGetMacroIndexForNode(node){ //not working
             result += index;
             for (var count = 0; count < parent.GetIndex() - 1; ++count){
                var sib = parent.PARENT_NODE.CHILDREN[count];
-               result += JdatatreeCountAllChildrenOfNode(sib);
+               result += DatatreeCountAllChildrenOfNode(sib);
             }
             parent = parent.PARENT_NODE;
          } else {
@@ -2909,49 +2909,49 @@ function JdatatreeGetMacroIndexForNode(node){ //not working
    }
    return result;
 }
-function JdatatreeReplaceBranch(index, newnode){
+function DatatreeReplaceBranch(index, newnode){
     try{
-        var oldnode = JDATATREE.TREE.NODES[index];
+        var oldnode = DATATREE.TREE.NODES[index];
         for (c in oldnode.CHILDREN){
            oldnode.CHILDREN[c].PARENT_NODE = newnode;
         }
         oldnode.PARENT_NODE.CHILDREN.splice(oldnode.GetIndex(), 1, newnode);
-        JDATATREE.TREE.NODES.splice(index - 1, 1, newnode);
+        DATATREE.TREE.NODES.splice(index - 1, 1, newnode);
     } catch (exc) {
-       if (JDATATREE.REPRESS_ALERTS == false) { alert(exc); }
+       if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function JdatatreeCloseEditBox() {
-        var box = document.getElementById("jdatatree_editbox");
+function DatatreeCloseEditBox() {
+        var box = document.getElementById("datatree_editbox");
         if (box) {
             box.style.display = "none";
             box.parentNode.removeChild(box);
         }
-        if (document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME)){
-           document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex = 0;
+        if (document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME)){
+           document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).selectedIndex = 0;
         }
 }
-function JdatatreeAllowBackspace(){
-   JDATATREE.BACKSPACE_ALLOWED = true;
+function DatatreeAllowBackspace(){
+   DATATREE.BACKSPACE_ALLOWED = true;
 }
-function JdatatreeDisallowBackspace(){
-   JDATATREE.BACKSPACE_ALLOWED = false;
+function DatatreeDisallowBackspace(){
+   DATATREE.BACKSPACE_ALLOWED = false;
 }
-function JdatatreeAutoSearchMacro(evt){
+function DatatreeAutoSearchMacro(evt){
      if (!evt){
         evt = window.event;
      }
      if (evt){
         evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
      }
-     var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+     var datatree = DATATREE.TREE? DATATREE.TREE : this;
 	var searchterm = document.getElementById(datatree.TOOLBAR_MACRO_SEARCHBOX_NAME).value;
      var case_sensitive = "";
-     if (document.getElementById("jdatatree_case_files") && document.getElementById("jdatatree_case_files").checked){
+     if (document.getElementById("datatree_case_files") && document.getElementById("datatree_case_files").checked){
         case_sensitive = "CASE_SENSITIVE ";
      }
      var exact_matches = "";
-     if (document.getElementById("jdatatree_exact_files") && document.getElementById("jdatatree_exact_files").checked){
+     if (document.getElementById("datatree_exact_files") && document.getElementById("datatree_exact_files").checked){
         exact_matches = "EXACT_MATCHES ";
      }
 	if (searchterm != null && searchterm != 'undefined' && searchterm != ""){
@@ -2960,9 +2960,9 @@ function JdatatreeAutoSearchMacro(evt){
 	   }
 	}
 }
-function JdatatreeSearchMacro(searchterm,regular_expression,case_sensitive,exact_matches){
+function DatatreeSearchMacro(searchterm,regular_expression,case_sensitive,exact_matches){
    try{
-   searchterm = JDATATREE.StringTrim(searchterm);
+   searchterm = DATATREE.StringTrim(searchterm);
    if (regular_expression == null || regular_expression == "undefined"){
       regular_expression = false;
    }
@@ -2972,83 +2972,83 @@ function JdatatreeSearchMacro(searchterm,regular_expression,case_sensitive,exact
    if (exact_matches == null || exact_matches == "undefined"){
       exact_matches = false;
    }
-   JDATATREE.ResetMacro();
-   if (JDATATREE.SITEMAP == "" || JDATATREE.SITEMAP == null || JDATATREE.SITEMAP == "undefined"){
+   DATATREE.ResetMacro();
+   if (DATATREE.SITEMAP == "" || DATATREE.SITEMAP == null || DATATREE.SITEMAP == "undefined"){
        alert("Error: the sitemap has not been defined.");
        return;
    }
-   var SAVE_REPRESS_ALERTS = JDATATREE.REPRESS_ALERTS;
-   JDATATREE.REPRESS_ALERTS = true;
-   JDATATREE.PLEASE_WAIT = false;
-   var rawfiles = JDATATREE.SITEMAP.split(",");
+   var SAVE_REPRESS_ALERTS = DATATREE.REPRESS_ALERTS;
+   DATATREE.REPRESS_ALERTS = true;
+   DATATREE.PLEASE_WAIT = false;
+   var rawfiles = DATATREE.SITEMAP.split(",");
    var files = new Array();
    var LIMIT_FOR_QUICK_SEARCH = 50;
    var LIMIT = LIMIT_FOR_QUICK_SEARCH;
    for (var count = 0; count < rawfiles.length; ++count){
-       var filename = JDATATREE.StringTrim(rawfiles[count]);
-       if (JDATATREE.StringTrim(filename) != ""){
+       var filename = DATATREE.StringTrim(rawfiles[count]);
+       if (DATATREE.StringTrim(filename) != ""){
           files.push(filename);
        }
    }
-   //var temptree = new JDATATREE.Tree();
+   //var temptree = new DATATREE.Tree();
    for (var count = 0; count < files.length; ++count){
       if (count > LIMIT){
-	  if (window.confirm("Jdatatree has searched " + count + " trees and found " + JDATATREE.MACRO_SEARCH_RESULTS.length + " results.\n Search another " + LIMIT_FOR_QUICK_SEARCH + " trees?")){
+	  if (window.confirm("Datatree has searched " + count + " trees and found " + DATATREE.MACRO_SEARCH_RESULTS.length + " results.\n Search another " + LIMIT_FOR_QUICK_SEARCH + " trees?")){
 		  LIMIT += LIMIT_FOR_QUICK_SEARCH;
 	  } else {
              break;
 	  }
       }
-      var txt = JdatatreeReadFile(files[count]);
+      var txt = DatatreeReadFile(files[count]);
       if (txt != null && txt != "undefined" && txt != ""){
-		 //txt = JDATATREE.StripTagsPHPJS(txt);
+		 //txt = DATATREE.StripTagsPHPJS(txt);
          try{
          if (regular_expression == true){
             var pattern = "txt.match(" + searchterm + ")";
             if (eval(pattern)){
-               JDATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (case_sensitive == true && exact_matches == true){
             var pattern = "txt.match(/\\b" + searchterm + "\\b/)";
             if ( eval(pattern) ){
-               JDATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (case_sensitive == true){
             var pattern = "txt.match(/" + searchterm + "/)";
             if ( eval(pattern) ){
-               JDATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (exact_matches == true){
             var pattern = "txt.match(/\\b" + searchterm + "\\b/i)";
             if (eval(pattern)){
-               JDATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+               DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
             }
          } else if (txt.toLowerCase().indexOf(searchterm.toLowerCase()) >= 0){
-            JDATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
+            DATATREE.MACRO_SEARCH_RESULTS.push(files[count]);
          }
          }catch(exc){alert(exc);}
       }
    }
-   JDATATREE.REPRESS_ALERTS = SAVE_REPRESS_ALERTS;
-   var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+   DATATREE.REPRESS_ALERTS = SAVE_REPRESS_ALERTS;
+   var datatree = DATATREE.TREE? DATATREE.TREE : this;
    if (datatree && datatree.HAS_ERRORS == true){
        datatree.Query("REPLAY");
    }
-   return JDATATREE.MACRO_SEARCH_RESULTS.length;
+   return DATATREE.MACRO_SEARCH_RESULTS.length;
    } catch(exc) { return 0; }
 }
-function JdatatreeResetMacro(){
-   JDATATREE.MACRO.length = 0;
-   JDATATREE.MACRO_SEARCH_RESULTS.length = 0;
+function DatatreeResetMacro(){
+   DATATREE.MACRO.length = 0;
+   DATATREE.MACRO_SEARCH_RESULTS.length = 0;
 }
-function JdatatreePreventDefault(evt){
+function DatatreePreventDefault(evt){
    if (!evt){
       evt = window.event;
    }
    var keycode = evt.which || evt.keyCode || evt.charCode;
    var keypressed = String.fromCharCode(keycode);
    if (keycode == 13){
-      if (JDATATREE.GetBrowser().toLowerCase() != "edge"){
+      if (DATATREE.GetBrowser().toLowerCase() != "edge"){
         window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
         var targ = evt.target? evt.target : evt.srcElement;
         var txt = targ.value;
@@ -3059,141 +3059,141 @@ function JdatatreePreventDefault(evt){
       //
    }
 }
-function JdatatreeSetToolbar(toolbar_tools){
+function DatatreeSetToolbar(toolbar_tools){
    toolbar_tools = toolbar_tools.toLowerCase();
-   JDATATREE.TREE.TOOLBAR_TOOLS = toolbar_tools;
+   DATATREE.TREE.TOOLBAR_TOOLS = toolbar_tools;
    var TOOLBAR = "";
-   JDATATREE.TREE = this;
-   var trimmed = JDATATREE.StringTrim(toolbar_tools);
+   DATATREE.TREE = this;
+   var trimmed = DATATREE.StringTrim(toolbar_tools);
    if (trimmed.toUpperCase() == 'WRAP'){
-                       JDATATREE.TOOLBAR_STYLE = JDATATREE.TOOLBAR_WRAP_STYLE;
-                       toolbar_tools = JDATATREE.DEFAULT_TOOLBAR_TOOLS;
+                       DATATREE.TOOLBAR_STYLE = DATATREE.TOOLBAR_WRAP_STYLE;
+                       toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
    } else if (trimmed.toUpperCase() == 'NOWRAP'){
-                       JDATATREE.TOOLBAR_STYLE = JDATATREE.TOOLBAR_NOWRAP_STYLE;
-                       toolbar_tools = JDATATREE.DEFAULT_TOOLBAR_TOOLS;
+                       DATATREE.TOOLBAR_STYLE = DATATREE.TOOLBAR_NOWRAP_STYLE;
+                       toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
    } else if (trimmed.toUpperCase() == 'DEFAULT'){
-         JDATATREE.TOOLBAR_FREESTYLE = JDATATREE.DEFAULT_TOOLBAR_FREESTYLE;
-         toolbar_tools = JDATATREE.DEFAULT_TOOLBAR_TOOLS;
+         DATATREE.TOOLBAR_FREESTYLE = DATATREE.DEFAULT_TOOLBAR_FREESTYLE;
+         toolbar_tools = DATATREE.DEFAULT_TOOLBAR_TOOLS;
    }
-   if (JdatatreeSetToolbar.arguments.length > 0 && trimmed != "" && trimmed != null && trimmed != "undefined"){
-       TOOLBAR = "<div align='" + JDATATREE.TOOLBAR_ALIGN + "' id='" + this.TOOLBAR_NAME + "' onmouseover='return JdatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return JdatatreeRightClick();' style='" + JDATATREE.TOOLBAR_STYLE + "' >";
+   if (DatatreeSetToolbar.arguments.length > 0 && trimmed != "" && trimmed != null && trimmed != "undefined"){
+       TOOLBAR = "<div align='" + DATATREE.TOOLBAR_ALIGN + "' id='" + this.TOOLBAR_NAME + "' onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' style='" + DATATREE.TOOLBAR_STYLE + "' >";
        var tools = toolbar_tools.split(',');
        tools.push('status');
        for (var count = 0; count < tools.length; ++count){
-          var tool = JDATATREE.StringTrim(tools[count]);
-          var separator = JDATATREE.TOOLBAR_SEPARATOR;
+          var tool = DATATREE.StringTrim(tools[count]);
+          var separator = DATATREE.TOOLBAR_SEPARATOR;
           switch(tool){
              case "expand":
-                TOOLBAR += "<button onclick='return JDATATREE.Expand(event);'>EXPAND</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Expand(event);'>EXPAND</button>";
                 TOOLBAR += separator;
                 break;
              case "collapse":
-                TOOLBAR += "<button onclick='return JDATATREE.Collapse(event);'>COLLAPSE</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Collapse(event);'>COLLAPSE</button>";
                 TOOLBAR += separator;
                 break;
              case "replace":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' size='3' title='search for' id='" + this.TOOLBAR_REPLACE_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><input type='text' size='3' title='replace with' id='" + this.TOOLBAR_REPLACE_WITH_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button title='press first to search, then press to replace' onclick='return JDATATREE.Replace(event);'>REPLACE</button><button onclick='return JDATATREE.Skip(event);'>SKIP</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' size='3' title='search for' id='" + this.TOOLBAR_REPLACE_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><input type='text' size='3' title='replace with' id='" + this.TOOLBAR_REPLACE_WITH_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button title='press first to search, then press to replace' onclick='return DATATREE.Replace(event);'>REPLACE</button><button onclick='return DATATREE.Skip(event);'>SKIP</button></span>";
                 TOOLBAR += separator;
                 break;
              case "search":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button onclick='return JDATATREE.Search(event);'>SEARCH</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Search(event);'>SEARCH</button></span>";
                 TOOLBAR += separator;
                 break;
              case "search_horizontal":
-                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button onclick='return JDATATREE.Search(event);'>SEARCH</button><input type='checkbox' id='jdatatree_case'>case&nbsp;</input><input type='checkbox' id='jdatatree_exact'>exact&nbsp;</input></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Search(event);'>SEARCH</button><input type='checkbox' id='datatree_case'>case&nbsp;</input><input type='checkbox' id='datatree_exact'>exact&nbsp;</input></span>";
                 TOOLBAR += separator;
                 break;
              case "search_vertical":
-                TOOLBAR += "<span style='white-space:nowrap;'><table style='display:inline;'><tr><td><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /></td><td><button onclick='return JDATATREE.Search(event);'>SEARCH</button></td></tr><tr><td><input type='checkbox' id='jdatatree_case'>case</input></td><td><input type='checkbox' id='jdatatree_exact'>exact</input></td></tr></table></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><table style='display:inline;'><tr><td><input type='text' id='" + this.TOOLBAR_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /></td><td><button onclick='return DATATREE.Search(event);'>SEARCH</button></td></tr><tr><td><input type='checkbox' id='datatree_case'>case</input></td><td><input type='checkbox' id='datatree_exact'>exact</input></td></tr></table></span>";
                 TOOLBAR += separator;
                 break;
              case "next":
-                TOOLBAR += "<button onclick='return JDATATREE.Next(event);'>NEXT</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Next(event);'>NEXT</button>";
                 TOOLBAR += separator;
                 break;
              case "previous":
-                TOOLBAR += "<button onclick='return JDATATREE.Previous(event);'>PREVIOUS</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Previous(event);'>PREVIOUS</button>";
                 TOOLBAR += separator;
                 break;
 	     case "searchmacro":
  	     case "macrosearch":
-	 		   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button onclick='return JDATATREE.AutoSearchMacro(event);'>SEARCH FILES</button></span>";
+	 		   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.AutoSearchMacro(event);'>SEARCH FILES</button></span>";
 	 		   TOOLBAR += separator;
                    break;
            case "searchmacro_horizontal":
            case "macrosearch_horizontal":
-                   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button onclick='return JDATATREE.AutoSearchMacro(event);'>SEARCH FILES</button><input type='checkbox' id='jdatatree_case_files'>case&nbsp;</input><input type='checkbox' id='jdatatree_exact_files'>exact&nbsp;</input></span>";
+                   TOOLBAR += "<span style='white-space:nowrap;'><input type='text' id='" + this.TOOLBAR_MACRO_SEARCHBOX_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.AutoSearchMacro(event);'>SEARCH FILES</button><input type='checkbox' id='datatree_case_files'>case&nbsp;</input><input type='checkbox' id='datatree_exact_files'>exact&nbsp;</input></span>";
                    TOOLBAR += separator;
                    break;
              case "alphabetize":
              case "sort":
-                TOOLBAR += "<span style='white-space:nowrap;'><label>from</label><input type='text' size='2' id='" + this.TOOLBAR_LOWER_BOUND_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><label>to</label><input type='text' size='2' id='" + this.TOOLBAR_UPPER_BOUND_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();' /><button onclick='return JDATATREE.Alphabetize(event);'>ALPHABETIZE</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><label>from</label><input type='text' size='2' id='" + this.TOOLBAR_LOWER_BOUND_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><label>to</label><input type='text' size='2' id='" + this.TOOLBAR_UPPER_BOUND_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();' /><button onclick='return DATATREE.Alphabetize(event);'>ALPHABETIZE</button></span>";
                 TOOLBAR += separator;
                 break;
              case "input":
              case "query":
-                TOOLBAR += "<span style='white-space:nowrap;'><textarea rows='" + JDATATREE.QUERYWINDOW_ROWS + "' cols='" + JDATATREE.QUERYWINDOW_COLS + "' type='text' id='" + this.TOOLBAR_QUERYWINDOW_NAME + "' onkeydown='return JdatatreePreventDefault(event);' onmouseover='return JdatatreeAllowBackspace();' onmouseout='return JdatatreeDisallowBackspace();'></textarea><button title='Jdatatree input commands' onclick='return JDATATREE.Query(event);' oncontextmenu='return JDATATREE.QueryDocumentation();'>INPUT</button></span>";
+                TOOLBAR += "<span style='white-space:nowrap;'><textarea rows='" + DATATREE.QUERYWINDOW_ROWS + "' cols='" + DATATREE.QUERYWINDOW_COLS + "' type='text' id='" + this.TOOLBAR_QUERYWINDOW_NAME + "' onkeydown='return DatatreePreventDefault(event);' onmouseover='return DatatreeAllowBackspace();' onmouseout='return DatatreeDisallowBackspace();'></textarea><button title='Datatree input commands' onclick='return DATATREE.Query(event);' oncontextmenu='return DATATREE.QueryDocumentation();'>INPUT</button></span>";
                 TOOLBAR += separator;
                 break;
              case "number":
              case "numbers":
-                TOOLBAR += "<button onclick='return JDATATREE.Number(event);'>NUMBER</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Number(event);'>NUMBER</button>";
                 TOOLBAR += separator;
                 break;
              case "reset":
              case "clear":
-                TOOLBAR += "<button onclick='return JDATATREE.Reset(event);'>RESET</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Reset(event);'>RESET</button>";
                 TOOLBAR += separator;
                 break;
              case "save":
 			 case "savemin":
 			 case "save_min":
-                TOOLBAR += "<button onclick='return JDATATREE.Save(event);'>SAVE</button>";
+                TOOLBAR += "<button onclick='return DATATREE.Save(event);'>SAVE</button>";
                 TOOLBAR += separator;
                 break;
 			 case "savemax":
 	         case "save_max":
-                TOOLBAR += "<button onclick='return JDATATREE.SaveMax(event);'>SAVE</button>";
+                TOOLBAR += "<button onclick='return DATATREE.SaveMax(event);'>SAVE</button>";
                 TOOLBAR += separator;
                 break;
   	     case "load":
-                TOOLBAR += "<button onclick='return JDATATREE.LoadFromToolbar(event);'>LOAD</button>";
+                TOOLBAR += "<button onclick='return DATATREE.LoadFromToolbar(event);'>LOAD</button>";
                 TOOLBAR += separator;
                 break;
              case "text":
-                TOOLBAR += "<button onclick='return JDATATREE.PrintText(event);' title='copy and paste to save your text changes'>TEXT</button>";
+                TOOLBAR += "<button onclick='return DATATREE.PrintText(event);' title='copy and paste to save your text changes'>TEXT</button>";
                 TOOLBAR += separator;
                 break;
              case "html":
-                TOOLBAR += "<button onclick='return JDATATREE.PrintHtml(event);' title='copy and paste to save your text changes'>HTML</button>";
+                TOOLBAR += "<button onclick='return DATATREE.PrintHtml(event);' title='copy and paste to save your text changes'>HTML</button>";
                 TOOLBAR += separator;
                 break;
              case "custom":
-                TOOLBAR += "<button id='jdatatree_custom_button' onclick='return JDATATREE.Custom(event);' title='" + JDATATREE.CUSTOM_TOOLTIP + "' >" + JDATATREE.CUSTOM_VALUE + "</button>";
+                TOOLBAR += "<button id='datatree_custom_button' onclick='return DATATREE.Custom(event);' title='" + DATATREE.CUSTOM_TOOLTIP + "' >" + DATATREE.CUSTOM_VALUE + "</button>";
                 break;
              case "custom2":
-                TOOLBAR += "<button id='jdatatree_custom2_button' onclick='return JDATATREE.Custom2(event);' title='" + JDATATREE.CUSTOM2_TOOLTIP + "' >" + JDATATREE.CUSTOM2_VALUE + "</button>";
+                TOOLBAR += "<button id='datatree_custom2_button' onclick='return DATATREE.Custom2(event);' title='" + DATATREE.CUSTOM2_TOOLTIP + "' >" + DATATREE.CUSTOM2_VALUE + "</button>";
                 break;
              case "freestyle":
-                TOOLBAR += JDATATREE.TOOLBAR_FREESTYLE;
+                TOOLBAR += DATATREE.TOOLBAR_FREESTYLE;
                 break;
 	     case "freestyle2":
-		   TOOLBAR += JDATATREE.TOOLBAR_FREESTYLE2;
+		   TOOLBAR += DATATREE.TOOLBAR_FREESTYLE2;
 		   break;
              case "edit":
-                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return JDATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
+                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return DATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                 TOOLBAR += separator;
                 break;
              case "edit_with_popups":
-                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onclick='return JDATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='right_with_popups'>move right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
+                TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onclick='return DATATREE.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='right_with_popups'>move right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                 TOOLBAR += separator;
                 break;
              case "menu":
-                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return JDATATREE.OpenMenu(false);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
+                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return DATATREE.OpenMenu(false);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
                 TOOLBAR += separator;
                 break;
              case "menu_with_popups":
-                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return JDATATREE.OpenMenu(true);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
+                TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return DATATREE.OpenMenu(true);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
                 TOOLBAR += separator;
                 break;
              case "status":
@@ -3207,8 +3207,8 @@ function JdatatreeSetToolbar(toolbar_tools){
       this.TOOLBAR = TOOLBAR;
    }
 }
-function JdatatreeOpenMenu(popups){ 
-     var menu = document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME);
+function DatatreeOpenMenu(popups){ 
+     var menu = document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME);
      var x = menu.offsetLeft;
      var y = menu.offsetTop - 15 + menu.offsetHeight;
      var p = menu.offsetParent;
@@ -3224,31 +3224,31 @@ function JdatatreeOpenMenu(popups){
      ul.style.position = 'absolute';
      ul.style.zIndex = '1000';
      ul.style.backgroundColor = '#eeeeee';
-     ul.id = 'jdatatree_menu';
+     ul.id = 'datatree_menu';
      ul.style.paddingLeft = '0px';
      ul.style.paddingTop = '0px';
      ul.style.listStyleType = 'none';
      ul.style.border = '1px solid gray';
-     if (JdatatreeOpenMenu.arguments.length > 0 && popups == true){
-        ul.innerHTML = "<li class='overwrite' onclick='return JDATATREE.MenuMouseClick(event,0);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return JDATATREE.MenuMouseClick(event,1);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return JDATATREE.MenuMouseClick(event,2);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return JDATATREE.MenuMouseClick(event,3);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return JDATATREE.MenuMouseClick(event,4);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move down</li><li class='right_with_popups' onclick='return JDATATREE.MenuMouseClick(event,5);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move right</li><li class='left' onclick='return JDATATREE.MenuMouseClick(event,6);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return JDATATREE.MenuMouseClick(event,7);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return JDATATREE.MenuMouseClick(event,8);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return JDATATREE.MenuMouseClick(event,9);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return JDATATREE.MenuMouseClick(event,10);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return JDATATREE.MenuMouseClick(event,11);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return JDATATREE.MenuMouseClick(event,12);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return JDATATREE.MenuMouseClick(event,13);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return JDATATREE.MenuMouseClick(event,14);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);'>CLOSE</li>";
+     if (DatatreeOpenMenu.arguments.length > 0 && popups == true){
+        ul.innerHTML = "<li class='overwrite' onclick='return DATATREE.MenuMouseClick(event,0);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return DATATREE.MenuMouseClick(event,1);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return DATATREE.MenuMouseClick(event,2);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return DATATREE.MenuMouseClick(event,3);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return DATATREE.MenuMouseClick(event,4);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move down</li><li class='right_with_popups' onclick='return DATATREE.MenuMouseClick(event,5);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move right</li><li class='left' onclick='return DATATREE.MenuMouseClick(event,6);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return DATATREE.MenuMouseClick(event,7);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return DATATREE.MenuMouseClick(event,8);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return DATATREE.MenuMouseClick(event,9);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return DATATREE.MenuMouseClick(event,10);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return DATATREE.MenuMouseClick(event,11);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return DATATREE.MenuMouseClick(event,12);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return DATATREE.MenuMouseClick(event,13);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return DATATREE.MenuMouseClick(event,14);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);'>CLOSE</li>";
      } else {
-        ul.innerHTML = "<li class='overwrite' onclick='return JDATATREE.MenuMouseClick(event,0);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return JDATATREE.MenuMouseClick(event,1);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return JDATATREE.MenuMouseClick(event,2);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return JDATATREE.MenuMouseClick(event,3);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return JDATATREE.MenuMouseClick(event,4);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move down</li><li class='selection right' onclick='return JDATATREE.MenuMouseClick(event,5);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >selection right</li><li class='section right' onclick='return JDATATREE.MenuMouseClick(event,6);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >section right</li><li class='left' onclick='return JDATATREE.MenuMouseClick(event,7);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return JDATATREE.MenuMouseClick(event,8);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return JDATATREE.MenuMouseClick(event,9);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return JDATATREE.MenuMouseClick(event,10);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return JDATATREE.MenuMouseClick(event,11);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return JDATATREE.MenuMouseClick(event,12);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return JDATATREE.MenuMouseClick(event,13);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return JDATATREE.MenuMouseClick(event,14);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return JDATATREE.MenuMouseClick(event,15);' onmouseover='return JDATATREE.MenuMouseOver(event);' onmouseout='return JDATATREE.MenuMouseOut(event);'>CLOSE</li>";
+        ul.innerHTML = "<li class='overwrite' onclick='return DATATREE.MenuMouseClick(event,0);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return DATATREE.MenuMouseClick(event,1);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return DATATREE.MenuMouseClick(event,2);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return DATATREE.MenuMouseClick(event,3);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move up</li><li class='down' onclick='return DATATREE.MenuMouseClick(event,4);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move down</li><li class='selection right' onclick='return DATATREE.MenuMouseClick(event,5);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >selection right</li><li class='section right' onclick='return DATATREE.MenuMouseClick(event,6);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >section right</li><li class='left' onclick='return DATATREE.MenuMouseClick(event,7);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return DATATREE.MenuMouseClick(event,8);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return DATATREE.MenuMouseClick(event,9);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return DATATREE.MenuMouseClick(event,10);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return DATATREE.MenuMouseClick(event,11);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return DATATREE.MenuMouseClick(event,12);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return DATATREE.MenuMouseClick(event,13);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return DATATREE.MenuMouseClick(event,14);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);' >redo</li><li class='close' onclick='return DATATREE.MenuMouseClick(event,15);' onmouseover='return DATATREE.MenuMouseOver(event);' onmouseout='return DATATREE.MenuMouseOut(event);'>CLOSE</li>";
      }
      ul.style.left = x + "px";
      ul.style.top = y + "px";
      document.body.appendChild(ul);
 }
-function JdatatreeMenuMouseClick(evt,index){ 
+function DatatreeMenuMouseClick(evt,index){ 
    if (!evt){
       evt = window.event;
    }
    var targ = evt.target? evt.target : evt.srcElement;
    if (targ){ 
-      document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME).setAttribute('selectedIndex',index);
-      JDATATREE.ToolbarSelect(targ.className);
+      document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME).setAttribute('selectedIndex',index);
+      DATATREE.ToolbarSelect(targ.className);
    }
 }
-function JdatatreeMenuMouseOver(evt){
+function DatatreeMenuMouseOver(evt){
    if (!evt){
       evt = window.event;
    }
@@ -3257,7 +3257,7 @@ function JdatatreeMenuMouseOver(evt){
       targ.style.backgroundColor = 'gray';
    }
 }
-function JdatatreeMenuMouseOut(evt){
+function DatatreeMenuMouseOut(evt){
    if (!evt){
       evt = window.event;
    }
@@ -3267,7 +3267,7 @@ function JdatatreeMenuMouseOut(evt){
    }
    var clientX = evt.clientX;
    var clientY = evt.clientY;
-   var menu = document.getElementById(JDATATREE.TREE.TOOLBAR_SELECT_NAME);
+   var menu = document.getElementById(DATATREE.TREE.TOOLBAR_SELECT_NAME);
    var x = menu.offsetLeft;
    var y = menu.offsetTop;
    var p = menu.offsetParent;
@@ -3285,85 +3285,85 @@ function JdatatreeMenuMouseOut(evt){
    }
    if (clientX < x || clientX > x + menu.offsetWidth){
       if (clientY < y || clientY > y + menu.offsetHeight){
-         JDATATREE.CloseMenu();
+         DATATREE.CloseMenu();
       }
    }
 }
-function JdatatreeCloseMenu(){
-   document.body.removeChild(document.getElementById('jdatatree_menu'));
+function DatatreeCloseMenu(){
+   document.body.removeChild(document.getElementById('datatree_menu'));
 }
-function JdatatreeAutoInit(outer_wrapper){ 
-   if (JdatatreeAutoInit.arguments.length >= 1){
-       JDATATREE.TREE = new JDATATREE.Tree(outer_wrapper);
+function DatatreeAutoInit(outer_wrapper){ 
+   if (DatatreeAutoInit.arguments.length >= 1){
+       DATATREE.TREE = new DATATREE.Tree(outer_wrapper);
    } else {
-       JDATATREE.TREE = new JDATATREE.Tree();
+       DATATREE.TREE = new DATATREE.Tree();
    }
-   if (document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap')){
-	   var temp = JDATATREE.REPRESS_ALERTS;
-           JDATATREE.REPRESS_ALERTS = true;
-           JDATATREE.PLEASE_WAIT = false;
-           var sitemap = document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap');
-           if (JDATATREE.StringTrim(sitemap) != ""){ 
-              JDATATREE.SITEMAP_FILE = sitemap;
-              JDATATREE.SITEMAP = JDATATREE.LoadSitemap(sitemap);
+   if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap')){
+	   var temp = DATATREE.REPRESS_ALERTS;
+           DATATREE.REPRESS_ALERTS = true;
+           DATATREE.PLEASE_WAIT = false;
+           var sitemap = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('sitemap');
+           if (DATATREE.StringTrim(sitemap) != ""){ 
+              DATATREE.SITEMAP_FILE = sitemap;
+              DATATREE.SITEMAP = DATATREE.LoadSitemap(sitemap);
            }
-           JDATATREE.REPRESS_ALERTS = temp;
+           DATATREE.REPRESS_ALERTS = temp;
    }
-   if (document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')){
-      JDATATREE.Load(document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src'));
-      TEXT = JDATATREE.TEMP;
+   if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')){
+      DATATREE.Load(document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src'));
+      TEXT = DATATREE.TEMP;
    } else {
-      if (document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER)){
-         TEXT = document.getElementById(JDATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML;
+      if (document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER)){
+         TEXT = document.getElementById(DATATREE.TREE.ELEMENT_OUTER_WRAPPER).innerHTML;
       }
    }
-   JDATATREE.TREE.AutoInitialize(TEXT);
+   DATATREE.TREE.AutoInitialize(TEXT);
 }
-function JdatatreeAutoLoad(src){
+function DatatreeAutoLoad(src){
    try{
-   JDATATREE.REQUEST = new XMLHttpRequest();
+   DATATREE.REQUEST = new XMLHttpRequest();
    var result = "";
-   JDATATREE.REQUEST.onreadystatechange = JDATATREE.Response;
+   DATATREE.REQUEST.onreadystatechange = DATATREE.Response;
    src = escape(src);
-   JDATATREE.REQUEST.open("GET", src, false);
-   JDATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   JDATATREE.REQUEST.send();
+   DATATREE.REQUEST.open("GET", src, false);
+   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   DATATREE.REQUEST.send();
    } catch (exc) {  }
 }
-function JdatatreeAutoResponse(){
-   if (JDATATREE.REQUEST.readyState == 4 && JDATATREE.REQUEST.status == 200){
-      var response = JDATATREE.REQUEST.responseText;
-      JDATATREE.TEMP = response;
+function DatatreeAutoResponse(){
+   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
+      var response = DATATREE.REQUEST.responseText;
+      DATATREE.TEMP = response;
    }
 }
-function JdatatreeReadFile(path){
+function DatatreeReadFile(path){
    try{
-   JDATATREE.REQUEST = new XMLHttpRequest();
+   DATATREE.REQUEST = new XMLHttpRequest();
    var result = "";
    path = escape(path);
-   JDATATREE.REQUEST.open("GET", path, false);
-   JDATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   JDATATREE.REQUEST.send();
-   if (JDATATREE.REQUEST.readyState == 4 && JDATATREE.REQUEST.status == 200){
-      var response = JDATATREE.REQUEST.responseText;
+   DATATREE.REQUEST.open("GET", path, false);
+   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   DATATREE.REQUEST.send();
+   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
+      var response = DATATREE.REQUEST.responseText;
       return response;
    } else {
       return null;
    }
    } catch (exc) {
-      JDATATREE.TREE? JDATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
+      DATATREE.TREE? DATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
    }
 }
-function JdatatreeLoadSitemap(src){
+function DatatreeLoadSitemap(src){
    try{
-   JDATATREE.REQUEST = new XMLHttpRequest();
+   DATATREE.REQUEST = new XMLHttpRequest();
    var result = "";
    src = escape(src);
-   JDATATREE.REQUEST.open("GET", src, false);
-   JDATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
-   JDATATREE.REQUEST.send();
-   if (JDATATREE.REQUEST.readyState == 4 && JDATATREE.REQUEST.status == 200){
-          var response = JDATATREE.REQUEST.responseText; 
+   DATATREE.REQUEST.open("GET", src, false);
+   DATATREE.REQUEST.setRequestHeader("Access-Control-Allow-Origin", "*");
+   DATATREE.REQUEST.send();
+   if (DATATREE.REQUEST.readyState == 4 && DATATREE.REQUEST.status == 200){
+          var response = DATATREE.REQUEST.responseText; 
 	  if (response == null || response == ""){
 		  return null;
 	  }
@@ -3371,7 +3371,7 @@ function JdatatreeLoadSitemap(src){
                   var lines = response.split("\r").join("").split("\n");
 		  for (var count = 0; count < lines.length; ++count){
 			  var line = lines[count];
-			  var filename = JDATATREE.LeftStringTrim(line);
+			  var filename = DATATREE.LeftStringTrim(line);
                           var name = filename.toLowerCase();
                           var blanks = line.length - filename.length;
 			  var file = false;
@@ -3381,7 +3381,7 @@ function JdatatreeLoadSitemap(src){
                                   file = true;
                           } else if ((name.length > ".txt".length) && name.substring(name.length - ".txt".length) == ".txt"){
                                   file = true;
-                          } else if (JDATATREE.StringTrim(name) != ""){
+                          } else if (DATATREE.StringTrim(name) != ""){
                                   file = true;
                           }
 			  if (file){
@@ -3389,16 +3389,16 @@ function JdatatreeLoadSitemap(src){
                                   var folders = new Array();
                                   for (var back = count - 1; back >= 0; --back){
                                      var prev = lines[back];
-                                     var prevname = JDATATREE.LeftStringTrim(prev);
+                                     var prevname = DATATREE.LeftStringTrim(prev);
                                      var prevblanks = prev.length - prevname.length;
                                      if (prevblanks < curblanks){
                                         curblanks = prevblanks;
-                                        folders.push(JDATATREE.StringTrim(prevname));
+                                        folders.push(DATATREE.StringTrim(prevname));
                                      }
                                   }
                                   for (var back = folders.length; back >= 0; --back){
                                      var folder = folders[back];
-                                     if (folder != null && folder != "undefined" && JDATATREE.StringTrim(folder) != ""){
+                                     if (folder != null && folder != "undefined" && DATATREE.StringTrim(folder) != ""){
                                         result += folder + "/";
                                      }
                                   }
@@ -3411,10 +3411,10 @@ function JdatatreeLoadSitemap(src){
          return null;
    }
    } catch (exc) { 
-      JDATATREE.TREE? JDATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
+      DATATREE.TREE? DATATREE.TREE.ALERTS.push("error loading sitemap") : this.ALERTS.push("error loading sitemap");
    }
 }
-function JdatatreeSetTreeHeight(treeheight){
+function DatatreeSetTreeHeight(treeheight){
    if (typeof treeheight == "number"){
    } else if (typeof treeheight == "string"){
        treeheight = treeheight.split(';').join('').split('px').join('');
@@ -3430,12 +3430,12 @@ function JdatatreeSetTreeHeight(treeheight){
       document.getElementById(this.ELEMENT_INNER_WRAPPER).style.height = this.ELEMENT_INNER_WRAPPER_HEIGHT;
    }
 }
-function JdatatreeSetIcons(open,closed,empty){
+function DatatreeSetIcons(open,closed,empty){
    this.SetOpenIcon(open);
    this.SetClosedIcon(closed);
    this.SetEmptyIcon(empty);
 }
-function JdatatreeSetOpenIcon(open){
+function DatatreeSetOpenIcon(open){
    var div = document.createElement('div');
    div.innerHTML = open;
    var tag = div.firstChild;
@@ -3451,7 +3451,7 @@ function JdatatreeSetOpenIcon(open){
    open.className = "open";
    this.OPEN_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function JdatatreeSetClosedIcon(closed){
+function DatatreeSetClosedIcon(closed){
    var div = document.createElement('div');
    div.innerHTML = closed;
    var tag = div.firstChild;
@@ -3467,7 +3467,7 @@ function JdatatreeSetClosedIcon(closed){
    closed.className = "closed";
    this.CLOSED_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function JdatatreeSetEmptyIcon(empty){
+function DatatreeSetEmptyIcon(empty){
    var div = document.createElement('div');
    div.innerHTML = empty;
    var tag = div.firstChild;
@@ -3483,10 +3483,10 @@ function JdatatreeSetEmptyIcon(empty){
    empty.className = "empty";
    this.EMPTY_ICON = div.innerHTML.split("\\\"").join("~~~").split("\"").join("'").split("~~~").join("\\\"");
 }
-function JdatatreeGetLettering(){
+function DatatreeGetLettering(){
     return "font-family:" + this.LETTERING + ";";
 }
-function JdatatreeAutoInitialize(TEXT){ 
+function DatatreeAutoInitialize(TEXT){ 
    var elmnt = document.getElementById(this.ELEMENT_OUTER_WRAPPER);
    if (elmnt.getAttribute('root')){
       this.TITLE = elmnt.getAttribute('root');
@@ -3540,207 +3540,207 @@ function JdatatreeAutoInitialize(TEXT){
             break;
       }
    }
-   //JDATATREE.PLEASE_WAIT = true;
+   //DATATREE.PLEASE_WAIT = true;
    var querystring = "CREATE FROM " + TYPE + " " + TEXT;
    this.Query(querystring);
 }
-function JdatatreeAutoExpand(evt){
+function DatatreeAutoExpand(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("EXPAND");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("EXPAND");
    }
 }
-function JdatatreeAutoCollapse(evt){
+function DatatreeAutoCollapse(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("COLLAPSE");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("COLLAPSE");
    }
 }
-function JdatatreeAutoReplace(){
+function DatatreeAutoReplace(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      var replace = document.getElementById(JDATATREE.TREE.TOOLBAR_REPLACE_NAME).value;
-      var replace_with = document.getElementById(JDATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value;
-      if (JDATATREE.StringTrim(replace) != "" && JDATATREE.StringTrim(replace_with) != ""){
-         JDATATREE.TREE.Query("WITH " + replace_with);
-         JDATATREE.TREE.Query("REPLACE " + replace);
-      } else if (JDATATREE.StringTrim(replace) == "" && JDATATREE.StringTrim(replace_with) == ""){
-         JDATATREE.TREE.Query("REPLACE");
+   if (DATATREE.TREE){
+      var replace = document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_NAME).value;
+      var replace_with = document.getElementById(DATATREE.TREE.TOOLBAR_REPLACE_WITH_NAME).value;
+      if (DATATREE.StringTrim(replace) != "" && DATATREE.StringTrim(replace_with) != ""){
+         DATATREE.TREE.Query("WITH " + replace_with);
+         DATATREE.TREE.Query("REPLACE " + replace);
+      } else if (DATATREE.StringTrim(replace) == "" && DATATREE.StringTrim(replace_with) == ""){
+         DATATREE.TREE.Query("REPLACE");
       }
    }
 }
-function JdatatreeAutoSkip(){
+function DatatreeAutoSkip(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query('SKIP');
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query('SKIP');
    }
 }
-function JdatatreeAutoSearch(evt){
+function DatatreeAutoSearch(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      var searchterm = document.getElementById(JDATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
-      if (JDATATREE.StringTrim(searchterm) != ""){
+   if (DATATREE.TREE){
+      var searchterm = document.getElementById(DATATREE.TREE.TOOLBAR_SEARCHBOX_NAME).value;
+      if (DATATREE.StringTrim(searchterm) != ""){
          var options = "";
-         var cas = document.getElementById('jdatatree_case');
-         var exact = document.getElementById('jdatatree_exact');
+         var cas = document.getElementById('datatree_case');
+         var exact = document.getElementById('datatree_exact');
          if (cas && cas.checked == true){
             options += "CASE_SENSITIVE ";
          }
          if (exact && exact.checked == true){
             options += "EXACT_MATCHES ";
          }
-         JDATATREE.TREE.Query("SEARCH " + options + "FOR " + searchterm);
+         DATATREE.TREE.Query("SEARCH " + options + "FOR " + searchterm);
       }
    }
 }
-function JdatatreeAutoNext(evt){
+function DatatreeAutoNext(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-       JDATATREE.TREE.Query("NEXT");
+   if (DATATREE.TREE){
+       DATATREE.TREE.Query("NEXT");
    }
 }
-function JdatatreeAutoPrevious(evt){
+function DatatreeAutoPrevious(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-       JDATATREE.TREE.Query("PREVIOUS");
+   if (DATATREE.TREE){
+       DATATREE.TREE.Query("PREVIOUS");
    }
 }
-function JdatatreeAutoQuery(evt){
+function DatatreeAutoQuery(evt){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    } else if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      var query = document.getElementById(JDATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value;
-      if (JDATATREE.StringTrim(query) != ""){
-         JDATATREE.TREE.Query(query);
+   if (DATATREE.TREE){
+      var query = document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value;
+      if (DATATREE.StringTrim(query) != ""){
+         DATATREE.TREE.Query(query);
       }
    }
 }
-function JdatatreeAutoNumber(){
+function DatatreeAutoNumber(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("NUMBER");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("NUMBER");
    }
 }
-function JdatatreeAutoReset(evt){
+function DatatreeAutoReset(evt){
    if (!evt){ evt = window.event; }
    if (evt){
       evt.preventDefault? evt.preventDefault() : evt.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      if (document.getElementById(JDATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME)){
-         document.getElementById(JDATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value = "";
+   if (DATATREE.TREE){
+      if (document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME)){
+         document.getElementById(DATATREE.TREE.TOOLBAR_QUERYWINDOW_NAME).value = "";
       }
-      JDATATREE.TREE.Query("CLEAR ALL");
+      DATATREE.TREE.Query("CLEAR ALL");
    }
 }
-function JdatatreeAutoPrintHtml(){
+function DatatreeAutoPrintHtml(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("PRINT HTML");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("PRINT HTML");
    }
 }
-function JdatatreeAutoSave(){
+function DatatreeAutoSave(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      if (JDATATREE.TREE.TYPE == "text"){
-         JDATATREE.TREE.Query("PRINT TEXTTREE");
+   if (DATATREE.TREE){
+      if (DATATREE.TREE.TYPE == "text"){
+         DATATREE.TREE.Query("PRINT TEXTTREE");
          alert('Please save your file as an html file with the double extension .tree.html');
-         //JDATATREE.TREE.Query("PRINT TEXT");
+         //DATATREE.TREE.Query("PRINT TEXT");
          //alert('Please save your file as a text file with the extension .txt');
-      } else if (JDATATREE.TREE.TYPE == "html"){
-         JDATATREE.TREE.Query("PRINT HTML");
+      } else if (DATATREE.TREE.TYPE == "html"){
+         DATATREE.TREE.Query("PRINT HTML");
          alert('Please save your file as an html file with the extension .html');
       } else {
-         JDATATREE.TREE.Query("PRINT FILE");
+         DATATREE.TREE.Query("PRINT FILE");
          alert('Please save your file as an html file with the double extension .tree.html');
       }
    }
 }
-function JdatatreeAutoSaveMax(){
+function DatatreeAutoSaveMax(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      if (JDATATREE.TREE.TYPE == "text"){
-         JDATATREE.TREE.Query("PRINT TEXTTREE");
+   if (DATATREE.TREE){
+      if (DATATREE.TREE.TYPE == "text"){
+         DATATREE.TREE.Query("PRINT TEXTTREE");
          alert('Please save your file as an html file with the double extension .tree.html');
-         //JDATATREE.TREE.Query("PRINT TEXT");
+         //DATATREE.TREE.Query("PRINT TEXT");
          //alert('Please save your file as a text file with the extension .txt');
       } else {
-         JDATATREE.TREE.Query("PRINT FILEMAX");
+         DATATREE.TREE.Query("PRINT FILEMAX");
          alert('Please save your file as an html file with the double extension .tree.html');
       }
    }
 }
-function JdatatreeAutoPrintText(){
+function DatatreeAutoPrintText(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("PRINT TEXT");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("PRINT TEXT");
    }
 }
-function JdatatreeAutoPrintCode(){
+function DatatreeAutoPrintCode(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("PRINT CODE");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("PRINT CODE");
    }
 }
-function JdatatreeAutoPrintList(){
+function DatatreeAutoPrintList(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("PRINT LIST");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("PRINT LIST");
    }
 }
-function JdatatreeAutoPrintFile(){
+function DatatreeAutoPrintFile(){
   if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   if (JDATATREE.TREE){
-      JDATATREE.TREE.Query("PRINT FILE");
+   if (DATATREE.TREE){
+      DATATREE.TREE.Query("PRINT FILE");
    }
 }
-function JdatatreeAutoAlphabetize(){
+function DatatreeAutoAlphabetize(){
    if (window.event){
       window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
    }
-   var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+   var datatree = DATATREE.TREE? DATATREE.TREE : this;
    var lower_bound = document.getElementById(datatree.TOOLBAR_LOWER_BOUND_NAME).value;
    var upper_bound = document.getElementById(datatree.TOOLBAR_UPPER_BOUND_NAME).value;
-   lower_bound = parseInt(JDATATREE.StringTrim(lower_bound));
-   upper_bound = parseInt(JDATATREE.StringTrim(upper_bound));
+   lower_bound = parseInt(DATATREE.StringTrim(lower_bound));
+   upper_bound = parseInt(DATATREE.StringTrim(upper_bound));
    if (typeof lower_bound == "number" && typeof upper_bound == "number" && !isNaN(lower_bound) && !isNaN(upper_bound)){
       var input = "ALPHABETIZE FROM LINE " + lower_bound + " TO LINE " + upper_bound;
       datatree.Query(input);
@@ -3748,32 +3748,32 @@ function JdatatreeAutoAlphabetize(){
       alert("Line numbers only. Please press/query number, find the appropriate lines, then press/query reset.");
    }
 }
-function JdatatreeHtmlText(){
+function DatatreeHtmlText(){
     return this.CONTENT;
 }
-function JdatatreeHtmlCode(){
+function DatatreeHtmlCode(){
     return this.GetCode();
 }
-function JdatatreeGetText(){
+function DatatreeGetText(){
     return this.PlainText();
 }
-function JdatatreePlainText(){
+function DatatreePlainText(){
     var result = "";
     var lines = new Array();
     lines = this.GetHtmlLines(this.CONTENT, lines);
     //var lines = this.HtmlLineBreaks(this.CONTENT);
     for (var count = 0; count < lines.length; ++count){
-       lines[count] = JDATATREE.StripTagsPHPJS(lines[count]);
-       //lines[count] = JDATATREE.StripTagLeaveInner(lines[count], "p");
-       //lines[count] = JDATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "linenumber");
-       //lines[count] = JDATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "search_result");
+       lines[count] = DATATREE.StripTagsPHPJS(lines[count]);
+       //lines[count] = DATATREE.StripTagLeaveInner(lines[count], "p");
+       //lines[count] = DATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "linenumber");
+       //lines[count] = DATATREE.StripTagWithClassNameLeaveInner(lines[count], "span", "search_result");
     }
     for (var count = 0; count < lines.length; ++count){
        result += lines[count] + "\n";
     }
     return result;
 }
-function JdatatreeStripTagWithClassNameLeaveInner(text, tag, name){
+function DatatreeStripTagWithClassNameLeaveInner(text, tag, name){
     var result = text;
     var div = document.createElement("div");
     div.innerHTML = text;
@@ -3797,7 +3797,7 @@ function JdatatreeStripTagWithClassNameLeaveInner(text, tag, name){
     }
     return result;
 }
-function JdatatreeStripTagLeaveInner(text, tag){
+function DatatreeStripTagLeaveInner(text, tag){
     var result = text;
     var div = document.createElement("div");
     div.innerHTML = text;
@@ -3813,11 +3813,11 @@ function JdatatreeStripTagLeaveInner(text, tag){
     }
     return result;
 }
-function JdatatreeSynchronize(updateGUI){
+function DatatreeSynchronize(updateGUI){
     try{
        this.NODES.length = 0;
        this.LEVELS.length = 0;
-       if (JdatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
+       if (DatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
           this.VIEW = "";
        }
        this.SyncFromRootNode(this.ROOT_NODE);
@@ -3840,7 +3840,7 @@ function JdatatreeSynchronize(updateGUI){
                   //this.CONTENT += "<p>" + text + "</p>";//8.3
               }
           } else {
-              text = JDATATREE.StringTrim(text);
+              text = DATATREE.StringTrim(text);
               node.TEXT = text;
               /** 8.3
               var indentation = "";
@@ -3856,14 +3856,14 @@ function JdatatreeSynchronize(updateGUI){
           }
        }
        //this.UpdateContent();
-       if (JdatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
+       if (DatatreeSynchronize.arguments.length > 0 && updateGUI == false){}else{
           this.Refresh();
        }
     } catch (exc) {
-       if (JDATATREE.REPRESS_ALERTS == false){ alert(exc); }
+       if (DATATREE.REPRESS_ALERTS == false){ alert(exc); }
     }
 }
-function JdatatreeSyncFromRootNode(node){
+function DatatreeSyncFromRootNode(node){
     if (node != this.ROOT_NODE){
         this.NODES.push(node);
     }
@@ -3872,12 +3872,12 @@ function JdatatreeSyncFromRootNode(node){
         this.SyncFromRootNode(node.CHILDREN[count]);
     }
 }
-function JdatatreeSyncFromDataTree(tree, justreturnval){ 
+function DatatreeSyncFromDataTree(tree, justreturnval){ 
     try{
     tree = this.HtmlBody(tree);
     var div = document.createElement('div');
     div.innerHTML = tree;
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
     var UL = null;
     if (div.getElementsByTagName('ul').length > 0){
        UL = div.getElementsByTagName('ul')[0];
@@ -3891,8 +3891,8 @@ function JdatatreeSyncFromDataTree(tree, justreturnval){
 		   var dv = div.getElementsByTagName('div')[0];
 		   if (dv.id == datatree.ELEMENT_OUTER_WRAPPER){
 		      var txt = dv.innerHTML;
-		      if (JDATATREE.LeftStringTrim(txt).indexOf("<!--") == 0){//7.9.8
-                      JDATATREE.PLEASE_WAIT = false;
+		      if (DATATREE.LeftStringTrim(txt).indexOf("<!--") == 0){//7.9.8
+                      DATATREE.PLEASE_WAIT = false;
 			      this.Query("CREATE FROM TEXT " + txt);
 		      }
 		   }
@@ -3903,13 +3903,13 @@ function JdatatreeSyncFromDataTree(tree, justreturnval){
     }
     var count = 0;
     while (UL.getElementsByTagName('a').length > 0 && count < 1000){
-       UL = JdatatreeRemoveAnchors(UL);
+       UL = DatatreeRemoveAnchors(UL);
        ++count;
     }
     //var div2 = document.createElement('div');
     //div2.appendChild(UL);
     //UL = div2.children[0];
-    UL = JdatatreeRemoveEmptyLists(UL);
+    UL = DatatreeRemoveEmptyLists(UL);
     //var div3 = document.createElement('div');
     //div3.appendChild(UL);
     UL.style.display = "";
@@ -3931,55 +3931,55 @@ function JdatatreeSyncFromDataTree(tree, justreturnval){
        u.style.listStyleType = "";
        u.removeAttribute("style");
     }
-    JdatatreeRemoveContentSpanWrappers(UL);
+    DatatreeRemoveContentSpanWrappers(UL);
     var div4 = document.createElement('div');
     div4.appendChild(UL);
-    if (JdatatreeSyncFromDataTree.arguments.length == 2 && (justreturnval == true || justreturnval == "true" || justreturnval == "justreturnval")){
+    if (DatatreeSyncFromDataTree.arguments.length == 2 && (justreturnval == true || justreturnval == "true" || justreturnval == "justreturnval")){
         return div4.innerHTML;
     } else {
-        JDATATREE.PLEASE_WAIT = true;
+        DATATREE.PLEASE_WAIT = true;
         this.Query("CREATE FROM HTML " + div4.innerHTML);
     }
     } catch(exc) {  }
 }
-function JdatatreeRemoveContentSpanWrappers(ul){
+function DatatreeRemoveContentSpanWrappers(ul){
     for (var count = 0; count < ul.getElementsByTagName('li').length; ++count){
         var li = ul.getElementsByTagName('li')[count];
         if (li.getElementsByTagName('span').length > 0){
             var span = li.getElementsByTagName('span')[0];
-            if (span.className == 'jdatatree_content'){
+            if (span.className == 'datatree_content'){
                 var inner = span.innerHTML;
                 li.removeChild(span);
                 li.innerHTML = inner + li.innerHTML;
             }
         }
         if (li.getElementsByTagName('ul').length > 0){
-            JdatatreeRemoveContentSpanWrappers(li.getElementsByTagName('ul')[0]);
+            DatatreeRemoveContentSpanWrappers(li.getElementsByTagName('ul')[0]);
         }
     }
 }
-function JdatatreeRemoveAnchors(elmnt){
+function DatatreeRemoveAnchors(elmnt){
     var anchors = elmnt.getElementsByTagName('a');
     for (var count = 0; count < anchors.length; ++count){
         var anchor = anchors[count];
-        if (anchor.className == 'jdatatree_arrow'){
+        if (anchor.className == 'datatree_arrow'){
             anchor.parentNode.removeChild(anchor);
         }
     }
     return elmnt;
 }
-function JdatatreeRemoveEmptyLists(elmnt){
+function DatatreeRemoveEmptyLists(elmnt){
     var chils = elmnt.childNodes;
     for (var count = 0; count < chils.length; ++count){
         var c = chils[count];
         if (c.nodeName.toLowerCase() == "ul" && c.children.length <= 0){
             c.parentNode.removeChild(c);
         }
-        c = JdatatreeRemoveEmptyLists(c);
+        c = DatatreeRemoveEmptyLists(c);
     }
     return elmnt;
 }
-function JdatatreeUndoPreservedWhiteSpace(){
+function DatatreeUndoPreservedWhiteSpace(){
     this.PRESERVE_WHITE_SPACE = false;
     for (var count = 0; count < this.NODES.length; ++count){
         var node = this.NODES[count];
@@ -3987,14 +3987,14 @@ function JdatatreeUndoPreservedWhiteSpace(){
     }
     this.Synchronize();
 }
-function JdatatreeStripTags(line,remove_tables){ // remove tables when loading, don't when searching
+function DatatreeStripTags(line,remove_tables){ // remove tables when loading, don't when searching
     if (line.indexOf('table') >= 0){
       var div = document.createElement('div');
       div.innerHTML = line;
       var tables = div.getElementsByTagName('table');
       for (var count = 0; count < tables.length; ++count){
          var t = tables[count];
-         if (JdatatreeStripTags.arguments.length > 0 && remove_tables == true){
+         if (DatatreeStripTags.arguments.length > 0 && remove_tables == true){
                  t.parentNode.removeChild(t);
           } else {
                  var span = document.createElement('span');
@@ -4035,9 +4035,9 @@ function JdatatreeStripTags(line,remove_tables){ // remove tables when loading, 
     }
     return result;
 }
-function JdatatreeStringTrim(strng){
+function DatatreeStringTrim(strng){
     if (strng == null || strng == "undefined"){
-        if (JDATATREE.REPRESS_ALERTS == false){ alert("error in string trim"); }
+        if (DATATREE.REPRESS_ALERTS == false){ alert("error in string trim"); }
         return "";
     }
     var result = strng;
@@ -4069,7 +4069,7 @@ function JdatatreeStringTrim(strng){
     }
     return result;
 }
-function JdatatreeLeftStringTrim(strng){
+function DatatreeLeftStringTrim(strng){
     var result = "";
     var position = "left";
     for (var count = 0; count < strng.length; ++count){
@@ -4083,7 +4083,7 @@ function JdatatreeLeftStringTrim(strng){
     }
     return result;
 }
-function JdatatreeRightStringTrim(strng){
+function DatatreeRightStringTrim(strng){
     var result = "";
     var position = "left";
     for (var count = 0; count < strng.length; ++count){
@@ -4101,50 +4101,50 @@ function JdatatreeRightStringTrim(strng){
     }
     return result;
 }
-function JdatatreeArraySwap(index1, index2, aray){
+function DatatreeArraySwap(index1, index2, aray){
     var first = aray.slice(index1)[0];
     var second = aray.slice(index2)[0];
     aray.splice(index1, 1, second);
     aray.splice(index2, 1, first);
     return aray;
 }
-function JdatatreeRemoveBranch(index,update){
+function DatatreeRemoveBranch(index,update){
     try{
         this.CHILDREN.splice(index, 1);
         var macro_index = this.TREE.NODES.indexOf(this) + index;
-        if (JdatatreeRemoveBranch.arguments.length > 1 && update == true){
+        if (DatatreeRemoveBranch.arguments.length > 1 && update == true){
            this.TREE.NODES.splice(macro_index, 1);
         }
     } catch (exc) {
-        if (JDATATREE.REPRESS_ALERTS == false) { alert(exc); }
+        if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
     }
 }
-function JdatatreeRemoveAllBranches(update){
+function DatatreeRemoveAllBranches(update){
     for (var count = 0; count < this.CHILDREN.length; ++count){
           this.RemoveBranch(count);
           count -= 1;
     }
     //this.TREE.NODES.length = 0;
 }
-function JdatatreeListIterate(_click){
+function DatatreeListIterate(_click){
        var click = true;
-       if (JdatatreeListIterate.arguments.length > 0 && _click == false){
+       if (DatatreeListIterate.arguments.length > 0 && _click == false){
            click = false;
        } else {
            this.Click();
        }
-       var li = "<li class='jdatatree_li' style='white-space:nowrap;'>";
-       var a = "<a class='jdatatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
-       var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+       var li = "<li class='datatree_li' style='white-space:nowrap;'>";
+       var a = "<a class='datatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
+       var datatree = DATATREE.TREE? DATATREE.TREE : this;
        if (datatree.UNDERLINE_ICONS == true){
-          a = "<a class='jdatatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' >" + this.LINK + "</a>";
+          a = "<a class='datatree_arrow' href='javascript:void(0)' onclick='return clicktree(event);' >" + this.LINK + "</a>";
        }
-       var span = "<span class='jdatatree_content' style='white-space:pre-wrap;padding-left:10px;' onclick='return JdatatreeClickSpan(event);' onmousedown='return JdatatreeMouseDownSpan(event);' onmouseup='return JdatatreeMouseUpSpan(event);'>";
-       var text = JDATATREE.StringTrim(this.TEXT);
+       var span = "<span class='datatree_content' style='white-space:pre-wrap;padding-left:10px;' onclick='return DatatreeClickSpan(event);' onmousedown='return DatatreeMouseDownSpan(event);' onmouseup='return DatatreeMouseUpSpan(event);'>";
+       var text = DATATREE.StringTrim(this.TEXT);
        text = text.split("\n").join("");
        var _span = "</span>";
        var accordion = datatree.ACCORDION >= 0? "padding-left:" + datatree.ACCORDION + "pt;": "";
-       var ul = "<ul class='jdatatree_ul' style='list-style-type:none;display:" + this.DISPLAY + ";" + accordion + "' >";
+       var ul = "<ul class='datatree_ul' style='list-style-type:none;display:" + this.DISPLAY + ";" + accordion + "' >";
        for (var count = 0; count < this.CHILDREN.length; ++count){
           var c = this.CHILDREN[count];
           ul += c.Iterate(click);
@@ -4152,12 +4152,12 @@ function JdatatreeListIterate(_click){
        var _ul = "</ul>";
        var _li = "</li>";
        var result = li + a + span + text + _span + ul + _ul + _li;
-       if(text.search("jdatatree_content") >= 0){//*****************************************************************10.0
+       if(text.search("datatree_content") >= 0){//*****************************************************************10.0
            result = li + a + text + ul + _ul + _li;
        }
        return result;
 }
-function JdatatreeClick(){
+function DatatreeClick(){
        if (this.LINK == this.TREE.OPEN_ICON){
           this.LINK = this.TREE.CLOSED_ICON;
        } else if (this.LINK == this.TREE.CLOSED_ICON){
@@ -4169,7 +4169,7 @@ function JdatatreeClick(){
           this.DISPLAY = "block";
        }
 }
-function JdatatreeClose(){
+function DatatreeClose(){
        //if (this.DISPLAY == "block"){
           this.LINK = this.TREE.CLOSED_ICON;
           if (this.CHILDREN.length < 1){
@@ -4181,8 +4181,8 @@ function JdatatreeClose(){
           this.CHILDREN[count].Close();
        }
 }
-function JdatatreeGetLevel(MODE){
-    if (JdatatreeGetLevel.arguments.length <= 0){
+function DatatreeGetLevel(MODE){
+    if (DatatreeGetLevel.arguments.length <= 0){
        MODE = "";
     }
     var node = this;
@@ -4215,27 +4215,27 @@ function JdatatreeGetLevel(MODE){
        return (level_count - 1)/2;
     }**/
 }
-function JdatatreeGetChildCount(){
+function DatatreeGetChildCount(){
     return this.CHILDREN.length;
 }
-function JdatatreeGetIndex(test){
+function DatatreeGetIndex(test){
    var index = -1;
    if (this.PARENT_NODE.TEXT != "undefined" && this.PARENT_NODE.TEXT != null){
       index = this.PARENT_NODE.CHILDREN.indexOf(this);
    }
    return index;
 }
-function JdatatreeCountFromTop(){
+function DatatreeCountFromTop(){
    var number = -1;
    if (this.TREE && this.TREE.NODES){
       number = this.TREE.NODES.indexOf(this) + 1;//often finds -1 + 1 = 0
    }
    return number;
 }
-function JdatatreeIndexFromTop(node){
+function DatatreeIndexFromTop(node){
    var index = -1;
-   for (var count = 0; count < JDATATREE.TREE.NODES.length; ++count){
-      var n = JDATATREE.TREE.NODES[count];
+   for (var count = 0; count < DATATREE.TREE.NODES.length; ++count){
+      var n = DATATREE.TREE.NODES[count];
       if (node == n){
          index = count;
          break;
@@ -4243,7 +4243,7 @@ function JdatatreeIndexFromTop(node){
    }
    return index;
 }
-function JdatatreeRemoveEmptyEndTags(line){
+function DatatreeRemoveEmptyEndTags(line){
    var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
    var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
    var break_ends = ["</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>", "</div>", "</table>", "</form>", "</ul>", "</ol>", "</li>", "</blockquote>", "<br/>", "<br>", "<hr/>", "<hr>"];
@@ -4251,7 +4251,7 @@ function JdatatreeRemoveEmptyEndTags(line){
    var splits = line.split("<");
    for (var count = 0; count < splits.length; ++count){
       var s = "<" + splits[count];
-      var ss = JDATATREE.StringTrim(s);
+      var ss = DATATREE.StringTrim(s);
       if (break_ends.indexOf(ss) >= 0 && !line.indexOf(break_starts[break_ends.indexOf(ss)]) >= 0){
       //
       } else {
@@ -4260,7 +4260,7 @@ function JdatatreeRemoveEmptyEndTags(line){
    }
    return result;
 }
-function JdatatreeIsTableTag(tag){
+function DatatreeIsTableTag(tag){
     var result = false;
     var table_tags = ["<table>","<caption>","<thead>", "<tbody>", "<tr>", "<td>", "</table>","</caption>","</thead>", "</tbody>", "</tr>", "</td>", "<table ","<caption ","<thead ", "<tbody ", "<tr ", "<td "] ;
     for (t in table_tags){
@@ -4270,7 +4270,7 @@ function JdatatreeIsTableTag(tag){
     }
     return result;
 }
-function JdatatreeHtmlLineBreaks(HTML, nbsp){ 
+function DatatreeHtmlLineBreaks(HTML, nbsp){ 
     try{
     var html = HTML;
     var result = new Array();
@@ -4296,14 +4296,14 @@ function JdatatreeHtmlLineBreaks(HTML, nbsp){
           if (c.charCodeAt(0) == 160){
              c = ' ';
           }
-          if (tag == "" && c == ' ' && JdatatreeHtmlLineBreaks.arguments.length == 2 && nbsp == true){
+          if (tag == "" && c == ' ' && DatatreeHtmlLineBreaks.arguments.length == 2 && nbsp == true){
               c = "&nbsp;";
           }
           line += c;
           if (count + 1 == html.length){
-             if (JDATATREE.StringTrim(line) == ""){
+             if (DATATREE.StringTrim(line) == ""){
                ++SKIPPED_LINES;
-             } else if (break_ends.indexOf(JDATATREE.StringTrim(line)) >= 0){ // line is just an end tag
+             } else if (break_ends.indexOf(DATATREE.StringTrim(line)) >= 0){ // line is just an end tag
                ++SKIPPED_LINES;
              } else {
                result.push(line);
@@ -4316,7 +4316,7 @@ function JdatatreeHtmlLineBreaks(HTML, nbsp){
              tag += c;
              if (break_ends.indexOf(tag) >= 0){
                 var clear = false;
-                if (tag == JDATATREE.StringTrim(line) || JDATATREE.StringTrim(JDATATREE.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
+                if (tag == DATATREE.StringTrim(line) || DATATREE.StringTrim(DATATREE.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
                    if (tag == "</ul>" || tag == "</ol>"){
                       if (CURRENTLISTMARGIN.length > 0){
                          CURRENTLISTMARGIN = CURRENTLISTMARGIN.substring(LISTMARGIN.length);
@@ -4361,7 +4361,7 @@ function JdatatreeHtmlLineBreaks(HTML, nbsp){
              } else if (break_starts.indexOf(tag) >= 0){
                 if (lead_breaking_tag == ""){
                    lead_breaking_tag = tag;
-                   if (JDATATREE.StringTrim(line) != tag){
+                   if (DATATREE.StringTrim(line) != tag){
                      line = line.substring(0, line.length - tag.length);
                      var currentresult = PADLEFTMARGIN + CURRENTBLOCKQUOTEMARGIN + CURRENTLISTMARGIN + line.split("</blockquote>").join("");
                      result.push(currentresult);
@@ -4411,7 +4411,7 @@ function JdatatreeHtmlLineBreaks(HTML, nbsp){
                    var pl = null;
                    if (tg && tg.style){
                       if (tg.style.padding || tg.style.paddingTop || tg.style.paddingBottom || tg.style.paddingRight){}
-                      else if (tg.style.paddingLeft && JDATATREE.StringTrim(line.replace(tag, "")) == ""){
+                      else if (tg.style.paddingLeft && DATATREE.StringTrim(line.replace(tag, "")) == ""){
                          pl = tg.style.paddingLeft;
                          pl = pl.replace("px", "");
                          pl = parseInt(pl);
@@ -4462,7 +4462,7 @@ function JdatatreeHtmlLineBreaks(HTML, nbsp){
         return null;
     }
 }
-function JdatatreeRemoveHtmlComments(html){
+function DatatreeRemoveHtmlComments(html){
     var c = '';
     var text = "";
     var tag = "";
@@ -4497,28 +4497,28 @@ function JdatatreeRemoveHtmlComments(html){
     }
     return text;
 }
-function JdatatreeDivHasSelfIndentingTag(div){
+function DatatreeDivHasSelfIndentingTag(div){
     var result = false;
     if (div.getElementsByTagName('ul').length > 0 || div.getElementsByTagName('ol').length > 0 || div.getElementsByTagName('blockquote').length > 0 || div.getElementsByTagName('hr').length > 0){ // || div.getElementsByTagName('table').length > 0 
         result = true;
     }
     return result;
 }
-function JdatatreeTagRequiresLineBreak(div){ // if don't wrap tables with <p> then require <br> or else two consecutive lines with tables would merge into same line
+function DatatreeTagRequiresLineBreak(div){ // if don't wrap tables with <p> then require <br> or else two consecutive lines with tables would merge into same line
     var result = false;
     if (div.getElementsByTagName('table').length > 0){
         result = true;
     }
     return result;
 }
-function JdatatreeDivHasKeeperNonTextTag(div){ // components not allowed unless they are listed here (and maybe also DivHasContentTag)
+function DatatreeDivHasKeeperNonTextTag(div){ // components not allowed unless they are listed here (and maybe also DivHasContentTag)
     var result = false;
     if (div.getElementsByTagName('math') > 0 || div.getElementsByTagName('audio').length > 0 || div.getElementsByTagName('video').length > 0 || div.getElementsByTagName('embed').length > 0 || div.getElementsByTagName('object').length > 0 || div.getElementsByTagName('iframe').length > 0 || div.getElementsByTagName('img').length > 0 || div.getElementsByTagName('table').length > 0 || div.getElementsByTagName('ul').length > 0 || div.getElementsByTagName('ol').length > 0 || div.getElementsByTagName('blockquote').length > 0 || div.getElementsByTagName('hr').length > 0){
         result = true;
     }
     return result;
 }
-function JdatatreeDivHasContentTag(div){ // don't count blanks found inside content tag or after it
+function DatatreeDivHasContentTag(div){ // don't count blanks found inside content tag or after it
     var result = false;
     if (div.getElementsByTagName('audio').length > 0 || div.getElementsByTagName('video').length > 0 || div.getElementsByTagName('embed').length > 0 || div.getElementsByTagName('object').length > 0 || div.getElementsByTagName('iframe').length > 0 || div.getElementsByTagName('img').length > 0){ 
         result = true;
@@ -4527,7 +4527,7 @@ function JdatatreeDivHasContentTag(div){ // don't count blanks found inside cont
     }
     return result;
 }
-function JdatatreeIsRemovableFormatTag(tag){
+function DatatreeIsRemovableFormatTag(tag){
     var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<form>", "<li>"];
     var result = false;
     tag = tag.toLowerCase();
@@ -4539,7 +4539,7 @@ function JdatatreeIsRemovableFormatTag(tag){
     }
     return result;
 }
-function JdatatreeDoNotWrapOuterElement(line){
+function DatatreeDoNotWrapOuterElement(line){
     var returnvalue = false;
     var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
     var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
@@ -4551,7 +4551,7 @@ function JdatatreeDoNotWrapOuterElement(line){
        var result = line;
        // check for blanks before first tag
        var startingblanks = "";
-       if (result.substring(0, result.indexOf("<")).length > 0 && JDATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
+       if (result.substring(0, result.indexOf("<")).length > 0 && DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
            for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                startingblanks += " ";
            }
@@ -4564,8 +4564,8 @@ function JdatatreeDoNotWrapOuterElement(line){
           var end_of_last_tag = result.lastIndexOf(">");
           var starting_tag = result.substring(start_of_first_tag, end_of_first_tag + 1);
           var ending_tag = result.substring(start_of_last_tag, end_of_last_tag + 1);
-          starting_tag = JDATATREE.StringTrim(starting_tag);
-          ending_tag = JDATATREE.RightStringTrim(ending_tag);
+          starting_tag = DATATREE.StringTrim(starting_tag);
+          ending_tag = DATATREE.RightStringTrim(ending_tag);
           if (starting_tag.indexOf(" ") >= 0){
              starting_tag = starting_tag.split(" ")[0] + " ";
           }
@@ -4579,7 +4579,7 @@ function JdatatreeDoNotWrapOuterElement(line){
    }
    return returnvalue;
 }
-function JdatatreeGetOuterElement(line){
+function DatatreeGetOuterElement(line){
    var result = "";
    var break_starts = ["<p>", "<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>", "<div>", "<table>", "<form>", "<ul>", "<ol>", "<li>", "<blockquote>"];
    var break_half_starts = ["<p ", "<h1 ", "<h2 ", "<h3 ", "<h4 ", "<h5 ", "<h6 ", "<div ", "<table ", "<form ", "<ul ", "<ol ", "<li ", "<blockquote "];
@@ -4591,7 +4591,7 @@ function JdatatreeGetOuterElement(line){
        var result = line;
        // check for blanks before first tag
        var startingblanks = "";
-       if (result.substring(0, result.indexOf("<")).length > 0 && JDATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
+       if (result.substring(0, result.indexOf("<")).length > 0 && DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){
            for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                startingblanks += " ";
            }
@@ -4609,7 +4609,7 @@ function JdatatreeGetOuterElement(line){
        } else {
            var div = document.createElement("div");
            var trimmed = line.split("&nbsp;").join(" ");
-           trimmed = JDATATREE.StringTrim(line);
+           trimmed = DATATREE.StringTrim(line);
            if (trimmed == "" || trimmed == null || trimmed == "undefined"){
               result = null;
            } else {
@@ -4623,7 +4623,7 @@ function JdatatreeGetOuterElement(line){
    }
    return result.replace("<","").replace(">","");
 }
-function JdatatreeSetTableStyle(html){
+function DatatreeSetTableStyle(html){
     //html = html.split("</table><p>&nbsp;</p>").join("</table>");
     //html = html.split("</table><p> </p>").join("</table>");
     var div = document.createElement('div');
@@ -4635,7 +4635,7 @@ function JdatatreeSetTableStyle(html){
     }
     return div.innerHTML;
 }
-function JdatatreeRemoveTables(html){
+function DatatreeRemoveTables(html){
 try{
     var div = document.createElement('div');
     div.innerHTML = html;
@@ -4658,11 +4658,11 @@ try{
 } catch (exc) { }
     return html;
 }
-function JdatatreeRemoveTableWrappers(lines){
+function DatatreeRemoveTableWrappers(lines){
     var newlines = new Array();
     for (var count = 0; count < lines.length; ++count){
         var l = lines[count];
-        var outer = JdatatreeGetOuterElement(l);
+        var outer = DatatreeGetOuterElement(l);
         if (l.indexOf("<table ") >= 0 && outer.toUpperCase() != "TABLE"){
            if (outer.toUpperCase() == "P"){
               l = l.substring(l.indexOf(">") + 1, l.lastIndexOf("<"));
@@ -4672,25 +4672,25 @@ function JdatatreeRemoveTableWrappers(lines){
     }
     return newlines;
 }
-function JdatatreeGetHtmlLines(content, lines){
+function DatatreeGetHtmlLines(content, lines){
            lines.length = 0;
            content = this.HtmlBody(content);
            content = this.RemoveHtmlComments(content);
            lines = this.HtmlLineBreaks(content);
-           lines = JDATATREE.RemoveTableWrappers(lines);
+           lines = DATATREE.RemoveTableWrappers(lines);
            for (var count = 0; count < lines.length; ++count){ // strip leading p or div tags, save blanks in front
                var result = lines[count]; 
                // check for blanks before first tag
                var startingblanks = "";
                var startingtext = "";
                if (result.substring(0, result.indexOf("<")).length > 0){ // has blanks or letters/numbers before first tag
-                   if (JDATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){ // just blanks
+                   if (DATATREE.StringTrim(result.substring(0, result.indexOf("<"))) == ""){ // just blanks
                       for (var blanks = 0; blanks < result.indexOf("<"); ++blanks){
                           startingblanks += " ";
                       }
                    } else { // letters/numbers and possibly blanks
-                       startingtext = JDATATREE.StringTrim(result.substring(0, result.indexOf("<")));
-                       var numblanks = result.substring(0, result.indexOf("<")).length - JDATATREE.StringTrim(result.substring(0, result.indexOf("<"))).length;
+                       startingtext = DATATREE.StringTrim(result.substring(0, result.indexOf("<")));
+                       var numblanks = result.substring(0, result.indexOf("<")).length - DATATREE.StringTrim(result.substring(0, result.indexOf("<"))).length;
                        for (var blanks = 0; blanks < numblanks; ++blanks){
                            startingblanks += " ";
                        }
@@ -4707,11 +4707,11 @@ function JdatatreeGetHtmlLines(content, lines){
                       result = startingblanks + startingtext + result.substring(end_of_first_tag, start_of_last_tag);
                   }
                   // look for indentation...still might have tag in front
-                  trimmed = JDATATREE.StringTrim(result); // doesnt remove nested blanks, but does remove trailing end blanks
-                  tagless = JDATATREE.StripTagsPHPJS(this.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
-                  trimmed_and_tagless = JDATATREE.StringTrim(tagless); // should be left string trim, might leave nothing
+                  trimmed = DATATREE.StringTrim(result); // doesnt remove nested blanks, but does remove trailing end blanks
+                  tagless = DATATREE.StripTagsPHPJS(this.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
+                  trimmed_and_tagless = DATATREE.StringTrim(tagless); // should be left string trim, might leave nothing
                } else if (this.GetOuterElement(result).toLowerCase() == "table"){
-                   trimmed = JDATATREE.StringTrim(result);
+                   trimmed = DATATREE.StringTrim(result);
                    tagless = trimmed;
                    trimmed_and_tagless = tagless;
                } else { 
@@ -4720,7 +4720,7 @@ function JdatatreeGetHtmlLines(content, lines){
                var div = document.createElement('div');
                div.innerHTML = lines[count];
                if (trimmed_and_tagless == ""){ // line has just a tag, like img, or just blanks, like <font>   <img/></font>, don't add starting blanks again
-                   var numblanks = JDATATREE.StripTags(JDATATREE.RightStringTrim(result),true).length;
+                   var numblanks = DATATREE.StripTags(DATATREE.RightStringTrim(result),true).length;
                    var blanks = "";
                    for (var counter = 0; counter < numblanks - 1; ++counter){
                        blanks += " ";
@@ -4755,10 +4755,10 @@ function JdatatreeGetHtmlLines(content, lines){
            }
     return lines;
 }
-function JdatatreeTreeFromString(content, title, mode){ 
-    if (JdatatreeTreeFromString.arguments.length <= 0){ // ??????
+function DatatreeTreeFromString(content, title, mode){ 
+    if (DatatreeTreeFromString.arguments.length <= 0){ // ??????
         title = 'TREE';
-    } else if (JdatatreeTreeFromString.arguments.length < 3){ // ????????
+    } else if (DatatreeTreeFromString.arguments.length < 3){ // ????????
         mode = "html";
     }
     var EMPTY_FILE;
@@ -4772,7 +4772,7 @@ function JdatatreeTreeFromString(content, title, mode){
     switch(mode){
         case "text":
            if (content.indexOf("\t") >= 0){
-              content = content.split("\t").join(JDATATREE.TAB);
+              content = content.split("\t").join(DATATREE.TAB);
            }
            if (content.indexOf("\r\n") >= 0){
               lines = content.split("\r\n");
@@ -4781,23 +4781,23 @@ function JdatatreeTreeFromString(content, title, mode){
            } else {
               lines.push(content);
            }
-           if (JDATATREE.StringTrim(lines[0]) == "" && lines.length > 1){//7.9.8 allows newline
+           if (DATATREE.StringTrim(lines[0]) == "" && lines.length > 1){//7.9.8 allows newline
               lines.splice(0, 1);
            }
-           if (JDATATREE.StringTrim(lines[0]).indexOf("<!--") == 0 && JDATATREE.StringTrim(lines[lines.length - 1]).indexOf("-->") == JDATATREE.StringTrim(lines[lines.length-1]).length - "-->".length){//7.9.8
+           if (DATATREE.StringTrim(lines[0]).indexOf("<!--") == 0 && DATATREE.StringTrim(lines[lines.length - 1]).indexOf("-->") == DATATREE.StringTrim(lines[lines.length-1]).length - "-->".length){//7.9.8
                lines[0] = lines[0].replace("<!--","");//7.9.8
-               if (JDATATREE.StringTrim(lines[0]) == ""){
+               if (DATATREE.StringTrim(lines[0]) == ""){
                   lines.splice(0, 1);
                }
                lines[lines.length - 1] = lines[lines.length - 1].replace("-->","");
-               if (JDATATREE.StringTrim(lines[lines.length - 1]) == ""){
+               if (DATATREE.StringTrim(lines[lines.length - 1]) == ""){
                   lines.splice(lines.length - 1, 1);
                }
            }
            break;
         case "html":
            if (content.indexOf("\t") >= 0){
-              content = content.split("\t").join(JDATATREE.TAB);
+              content = content.split("\t").join(DATATREE.TAB);
            }
            lines = this.GetHtmlLines(content, lines);
            for (var count = 0; count < lines.length; ++count){ 
@@ -4805,7 +4805,7 @@ function JdatatreeTreeFromString(content, title, mode){
            }
            break;
         default:
-           if (JDATATREE.REPRESS_ALERTS == false) { alert("error in tree from string"); }
+           if (DATATREE.REPRESS_ALERTS == false) { alert("error in tree from string"); }
            break;
     }
     var Rawlines = new Array();
@@ -4818,7 +4818,7 @@ function JdatatreeTreeFromString(content, title, mode){
     Keys.length = 0;
     this.NODES.length = 0;
     for (var count = 0; count < lines.length; ++count){
-       if (JDATATREE.StringTrim(lines[count]) != ""){
+       if (DATATREE.StringTrim(lines[count]) != ""){
           Rawlines.push(lines[count]);
        }
     }
@@ -4827,7 +4827,7 @@ function JdatatreeTreeFromString(content, title, mode){
     }
     var empty_test = "";
     for (var count = 0; count < Rawlines.length; ++count){
-       empty_test += JDATATREE.StringTrim(Rawlines[count]);
+       empty_test += DATATREE.StringTrim(Rawlines[count]);
     }
     if (empty_test == ""){
         EMPTY_FILE = true;
@@ -4843,16 +4843,16 @@ function JdatatreeTreeFromString(content, title, mode){
         if (chars.length == 0) {
             continue;
         }
-        if (JDATATREE.StringTrim(s) == ""){
+        if (DATATREE.StringTrim(s) == ""){
             continue;
         }
         if (mode == "text"){
             s = s.split("<").join("&lt;").split(">").join("&gt;");
         }
         Masterlist.push(s);
-        Trimmedlines.push(JDATATREE.LeftStringTrim(s));
+        Trimmedlines.push(DATATREE.LeftStringTrim(s));
         var key = "";
-        var txtstrt = parseInt(s.length) - parseInt(JDATATREE.LeftStringTrim(s).length);
+        var txtstrt = parseInt(s.length) - parseInt(DATATREE.LeftStringTrim(s).length);
         for (var count2 = 0; count2 < txtstrt; ++count2){
            key += " ";
         }
@@ -4863,7 +4863,7 @@ function JdatatreeTreeFromString(content, title, mode){
     this.NODES = new Array();
     for (var count = 0; count < Masterlist.length; ++count){
         var m = Masterlist[count];
-        if (JDATATREE.StringTrim(m) != ""){
+        if (DATATREE.StringTrim(m) != ""){
            var node = new this.Branch(m, this);
            this.NODES.push(node);
         }
@@ -4877,22 +4877,22 @@ function JdatatreeTreeFromString(content, title, mode){
 }
 function Traverse(branch){
    Traverse2(branch,0);
-   return JDATATREE.TEMP;
+   return DATATREE.TEMP;
 }
 function Traverse2(branch,keeptrack){ // debugger
    if (branch == null || branch == "undefined"){
       return null;
    }
    if (keeptrack == 0){
-      JDATATREE.TEMP = "";
+      DATATREE.TEMP = "";
    }
    for (var count = 0; count < branch.CHILDREN.length; ++count){
       var node = branch.CHILDREN[count];
-      JDATATREE.TEMP += node.TEXT + "\n";
+      DATATREE.TEMP += node.TEXT + "\n";
       Traverse2(node,++keeptrack);
    }
 }
-function JdatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Trimmedlines, EMPTY_FILE) {
+function DatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Trimmedlines, EMPTY_FILE) {
      if (EMPTY_FILE) {
          return;
      }
@@ -4902,7 +4902,7 @@ function JdatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tr
         if (Keys.length == nextindex) {
             return;
         }
-        ++JDATATREE.COUNTER;
+        ++DATATREE.COUNTER;
         if (thisindex == -1) { // root node
             TEMPTREE.AddBranch(nodelist[0]);
             this.LEVELS.push(nodelist[0].GetLevel());
@@ -4945,7 +4945,7 @@ function JdatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tr
                    }
                }
                if (upper_right == null && upper_left == null){
-                   if (JDATATREE.REPRESS_ALERTS == false) { alert("error in process tree"); }
+                   if (DATATREE.REPRESS_ALERTS == false) { alert("error in process tree"); }
                } else if (upper_right == null){
                    acceptor = upper_left;
                } else if (upper_left == null){
@@ -4978,11 +4978,11 @@ function JdatatreeProcessTree(thisindex, nextindex, nodelist, TEMPTREE, Keys, Tr
         }
      }
 }
-function JdatatreeUpdateContent(){
+function DatatreeUpdateContent(){
    this.Query("CREATE FROM HTML " + this.ViewGetList());
 }
-function JdatatreeUpdateContentDeprecated(node){
-    if (JdatatreeUpdateContent.arguments.length <= 0){
+function DatatreeUpdateContentDeprecated(node){
+    if (DatatreeUpdateContent.arguments.length <= 0){
         node = this.ROOT_NODE;
         this.CONTENT = "";
     } else if (node == this.ROOT_NODE){
@@ -5015,7 +5015,7 @@ function JdatatreeUpdateContentDeprecated(node){
         }
     }
 }
-function JdatatreeContextMenu(popup_text, timing, x, y) {
+function DatatreeContextMenu(popup_text, timing, x, y) {
   try{
     if (document.documentElement.scrollTop){
        y += document.documentElement.scrollTop;
@@ -5024,20 +5024,20 @@ function JdatatreeContextMenu(popup_text, timing, x, y) {
        y += document.body.scrollTop;
        x += document.body.scrollLeft;
     }
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
-    JDATATREE.CloseContextMenu();
-    //if (JDATATREE.REPRESS_ALERTS == true) { return; }
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    DATATREE.CloseContextMenu();
+    //if (DATATREE.REPRESS_ALERTS == true) { return; }
     if (document.getElementById) {
-        if (document.getElementById('jdatatree_contextmenu')){
-            document.getElementById('jdatatree_contextmenu').parentNode.removeChild(document.getElementById('jdatatree_contextmenu'));
+        if (document.getElementById('datatree_contextmenu')){
+            document.getElementById('datatree_contextmenu').parentNode.removeChild(document.getElementById('datatree_contextmenu'));
         }
         var box = document.createElement('div');
-        box.id = 'jdatatree_contextmenu';
+        box.id = 'datatree_contextmenu';
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         box.style.border = "1px solid gray";
-        box.innerHTML = "<select style='background-color:#f5f2eb;overflow:visible;' id='jdatatree_context_message' onmouseover='return JdatatreeFocusContextMenu();' onblur='return JdatatreeCloseContextMenu();' multiple='multiple'></select>";
+        box.innerHTML = "<select style='background-color:#f5f2eb;overflow:visible;' id='datatree_context_message' onmouseover='return DatatreeFocusContextMenu();' onblur='return DatatreeCloseContextMenu();' multiple='multiple'></select>";
         document.body.appendChild(box);
         //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
         if (box) {
@@ -5052,7 +5052,7 @@ function JdatatreeContextMenu(popup_text, timing, x, y) {
                 box.style.left = (x - (boxwidth/2)) + "px";
                 box.style.top = (y - boxheight) + "px";
             }
-            message_text = document.getElementById("jdatatree_context_message");
+            message_text = document.getElementById("datatree_context_message");
             if (message_text) {
                 var txts = popup_text.split("\n");
                 message_text.innerHTML = "";
@@ -5064,51 +5064,51 @@ function JdatatreeContextMenu(popup_text, timing, x, y) {
                 }
                 message_text.innerHTML = message;
             }
-            window.clearTimeout(JDATATREE.TIMER);
-            JDATATREE.TIMER = setTimeout(JDATATREE.ClosePopupBox, timing);
+            window.clearTimeout(DATATREE.TIMER);
+            DATATREE.TIMER = setTimeout(DATATREE.ClosePopupBox, timing);
         }
     }
   } catch (exc) {  }
 }
-function JdatatreeFocusContextMenu(){
-   if (document.getElementById('jdatatree_context_message')){
-      document.getElementById('jdatatree_context_message').focus();
+function DatatreeFocusContextMenu(){
+   if (document.getElementById('datatree_context_message')){
+      document.getElementById('datatree_context_message').focus();
    }
 }
-function JdatatreeCloseContextMenu() { 
-    if (document.getElementById('jdatatree_contextmenu')) {
-        box = document.getElementById("jdatatree_contextmenu");
+function DatatreeCloseContextMenu() { 
+    if (document.getElementById('datatree_contextmenu')) {
+        box = document.getElementById("datatree_contextmenu");
         if (box) { 
             box.style.display = "none";
-            if (JDATATREE.TIMER) {
-                window.clearTimeout(JDATATREE.TIMER);
+            if (DATATREE.TIMER) {
+                window.clearTimeout(DATATREE.TIMER);
             }
         }
     }
 }
-function JdatatreeRightClick(){
-    if (JDATATREE.BACKSPACE_ALLOWED == true){
+function DatatreeRightClick(){
+    if (DATATREE.BACKSPACE_ALLOWED == true){
        return;
     }
-    var message = "JDATATREE v10.0\nCopyright &copy; 2015 Derek James Smith";
+    var message = "DATATREE v10.0\nCopyright &copy; 2015 Derek James Smith";
     var evt = window.event;
     var popupx = evt.clientX;
     var popupy = evt.clientY;
     popup_wait = 10000;
-    JDATATREE.ContextMenu(message, popup_wait, popupx, popupy);
+    DATATREE.ContextMenu(message, popup_wait, popupx, popupy);
     return false;
     //show_popup_box(instr, popup_wait, (window.screen.width/2) + 30, (window.screen.height/2));
 }
 
-function JdatatreeShowPopupBox(popup_text, timing, x, y) { 
+function DatatreeShowPopupBox(popup_text, timing, x, y) { 
   try{
     adjust = false;
-    if (JdatatreeShowPopupBox.arguments.length < 2){
+    if (DatatreeShowPopupBox.arguments.length < 2){
        timing = 100000;
        x = window.innerWidth/2;
        y = window.innerHeight/2;
        adjust = true;
-    } else if (JdatatreeShowPopupBox.arguments.length < 4){
+    } else if (DatatreeShowPopupBox.arguments.length < 4){
        x = window.innerWidth/2;
        y = window.innerHeight/2;
        adjust = true;
@@ -5122,31 +5122,31 @@ function JdatatreeShowPopupBox(popup_text, timing, x, y) {
          x += document.body.scrollLeft;
        }
     }
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
-    JDATATREE.ClosePopupBox();
-    if (JDATATREE.REPRESS_ALERTS == true) { return; }
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
+    DATATREE.ClosePopupBox();
+    if (DATATREE.REPRESS_ALERTS == true) { return; }
     if (document.getElementById) {
-        if (document.getElementById('jdatatree_popupbox')){
-            document.getElementById('jdatatree_popupbox').parentNode.removeChild(document.getElementById('jdatatree_popupbox'));
+        if (document.getElementById('datatree_popupbox')){
+            document.getElementById('datatree_popupbox').parentNode.removeChild(document.getElementById('datatree_popupbox'));
         }
         var box = document.createElement('div');
-        box.id = 'jdatatree_popupbox';
+        box.id = 'datatree_popupbox';
         box.style.position = "absolute";
         box.style.zIndex = "100";
         box.style.display = "none";
         //box.style.height = "100px";
         //box.style.width = "300px";
-        box.style.border = JDATATREE.POPUP_BORDER;
+        box.style.border = DATATREE.POPUP_BORDER;
         box.style.overflow = "auto";
         box.style.borderRadius = "20px";
         box.style.padding = "15px";
-        box.style.background = "#f5f2eb";// "white url('" + JDATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
+        box.style.background = "#f5f2eb";// "white url('" + DATATREE.POPUP_BACKGROUND + "') repeat scroll left top";
         box.style.maxWidth = "200px";
-        box.innerHTML = "<div onclick='return JdatatreeClosePopupBox();' id='jdatatree_closebutton' style='position:relative;color:red;font-size:1em;top:0px;right:0px;float:right;margin:3px;border:1px dotted red;padding:3px;'>X</div><p id='jdatatree_popup_message'></p>";
+        box.innerHTML = "<div onclick='return DatatreeClosePopupBox();' id='datatree_closebutton' style='position:relative;color:red;font-size:1em;top:0px;right:0px;float:right;margin:3px;border:1px dotted red;padding:3px;'>X</div><p id='datatree_popup_message'></p>";
         document.body.appendChild(box);
         //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
         if (box) {
-            message_text = document.getElementById("jdatatree_popup_message");
+            message_text = document.getElementById("datatree_popup_message");
             if (message_text) {
                 var txts = popup_text.split("\n");
                 message_text.innerHTML = "";
@@ -5168,64 +5168,64 @@ function JdatatreeShowPopupBox(popup_text, timing, x, y) {
             }
             box.style.left = x + "px";
             box.style.top = y + "px";
-            window.clearTimeout(JDATATREE.TIMER);
-            JDATATREE.TIMER = setTimeout(JDATATREE.ClosePopupBox, timing);
+            window.clearTimeout(DATATREE.TIMER);
+            DATATREE.TIMER = setTimeout(DATATREE.ClosePopupBox, timing);
         }
     }
   } catch (exc) {  }
 }
 
-function JdatatreeClosePopupBox() {
+function DatatreeClosePopupBox() {
     if (document.getElementById) {
-        box = document.getElementById("jdatatree_popupbox");
+        box = document.getElementById("datatree_popupbox");
         if (box) {
             box.style.display = "none";
-            if (JDATATREE.TIMER) {
-                window.clearTimeout(JDATATREE.TIMER);
+            if (DATATREE.TIMER) {
+                window.clearTimeout(DATATREE.TIMER);
             }
         }
     }
 }
-function JdatatreeGetView(click){
+function DatatreeGetView(click){
     if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
-       if (JdatatreeGetView.arguments.length == 0 || click == true){
+       if (DatatreeGetView.arguments.length == 0 || click == true){
 try{
            this.CloseTree();
            this.ROOT_NODE.Click();
 } catch (exc) {  }//7.8.7
        }
-       var ul = "<ul onmouseover='return JdatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return JdatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
     } else {
         return "";
     }
 }
-function JdatatreeGetList(){
+function DatatreeGetList(){
     return this.ViewGetList();
     //var result = this.SyncFromDataTree(this.GetCode(), true);
     //return result;
 }
-function JdatatreeGetCode(click){
+function DatatreeGetCode(click){
     this.UpdateContent();
     if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
-       if (JdatatreeGetCode.arguments.length == 0 || click == true){
+       if (DatatreeGetCode.arguments.length == 0 || click == true){
            this.SELECTED_SPAN = null;//7.8.6
            this.CloseTree();
            this.ROOT_NODE.Click();
        }
-       var ul = "<ul onmouseover='return JdatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return JdatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return ul + this.ROOT_NODE.Iterate(false) + _ul;
     } else {
         return "";
     }
 }
-function JdatatreeClear(node, what){
-    if (JdatatreeClear.arguments.length <= 0){
+function DatatreeClear(node, what){
+    if (DatatreeClear.arguments.length <= 0){
         node = this.ROOT_NODE;
         what = "search_results";
-    } else if (JdatatreeClear.arguments.length <= 1){
+    } else if (DatatreeClear.arguments.length <= 1){
         what = "search_results";
     } else if (what == "*" || what == "all" || what == "numbers" || what == "linenumbers" || what == "line_numbers" || what == "highlights" || what == "search_results"){
         what = what;
@@ -5234,11 +5234,11 @@ function JdatatreeClear(node, what){
         return;
     } else if (what == "replace_results"){
     } else {
-        if (JDATATREE.REPRESS_ALERTS == false) {  }
+        if (DATATREE.REPRESS_ALERTS == false) {  }
         return;
     }
     if (what == "replace_results" || what == "all" || what == "*"){
-       node.TEXT = node.TEXT.split(JDATATREE.SKIP_MESSAGE).join(this.REPLACE);
+       node.TEXT = node.TEXT.split(DATATREE.SKIP_MESSAGE).join(this.REPLACE);
     }
     var temp_div = document.createElement("div");
     temp_div.innerHTML = node.TEXT;
@@ -5272,16 +5272,16 @@ function JdatatreeClear(node, what){
         }
     }
 }
-function JdatatreeCloseTree(){
+function DatatreeCloseTree(){
        this.ROOT_NODE.Click();
        this.ROOT_NODE.Close();
        this.SELECTED_SPAN = null;
-       var ul = "<ul onmouseover='return JdatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return JdatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+       var ul = "<ul onmouseover='return DatatreeSetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return DatatreeRightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
        var _ul = "</ul>";
        return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
 }
 
-function JdatatreeHtmlBody(html){
+function DatatreeHtmlBody(html){
    var result = html;
    if (html.indexOf('<') >= 0 && html.indexOf('>') >= 0){
       if (html.indexOf('<body>') >= 0){
@@ -5302,7 +5302,7 @@ function JdatatreeHtmlBody(html){
    }
    return result;
 }
-function JdatatreeGetBrowser(){
+function DatatreeGetBrowser(){
      var result = "unknown";
      if (navigator.appName == 'Microsoft Internet Explorer' || navigator.userAgent.indexOf("IE") >= 0 || navigator.userAgent.indexOf("Trident") >= 0){
          result = "IE";
@@ -5317,9 +5317,9 @@ function JdatatreeGetBrowser(){
       }
       return result;
 }
-function JdatatreeWait(){
-   var tree = JDATATREE.TREE;
-   var name = JDATATREE.TREE.NAME;
+function DatatreeWait(){
+   var tree = DATATREE.TREE;
+   var name = DATATREE.TREE.NAME;
    var x = document.getElementById(name).offsetLeft;
    var y = document.getElementById(name).offsetTop;
    var _parent = document.getElementById(name).offsetParent;
@@ -5347,14 +5347,14 @@ function JdatatreeWait(){
    if (y + document.getElementById(name).offsetHeight <= window.innerHeight + scrollT){
       y += ycenter;
    }
-   var browser = JDATATREE.GetBrowser();   
+   var browser = DATATREE.GetBrowser();   
    if (browser == "Firefox"){
-	   JDATATREE.WAIT_IS_OPEN = true;
-	   JDATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	   DATATREE.WAIT_IS_OPEN = true;
+	   DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
        return "popup";
    /**
    } else if (browser == "IE"){
-	   JDATATREE.WAIT_IS_OPEN = true;
+	   DATATREE.WAIT_IS_OPEN = true;
       var left = x;
       var top = y;
       var wait = window.open("", '_blank', 'width=100,height=100,left=' + left + ',top=' + top);
@@ -5366,44 +5366,44 @@ function JdatatreeWait(){
       }
    **/
    } else if (browser == "Chrome"){
-	  JDATATREE.WAIT_IS_OPEN = true;
-	  JDATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	  DATATREE.WAIT_IS_OPEN = true;
+	  DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    } else if (browser == "Safari"){
-	  JDATATREE.WAIT_IS_OPEN = true;
-	  JDATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+	  DATATREE.WAIT_IS_OPEN = true;
+	  DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    } else if (browser == "Edge" || browser == "IE"){
-      JDATATREE.WAIT_IS_OPEN = true;
-      JDATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
+      DATATREE.WAIT_IS_OPEN = true;
+      DATATREE.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
       return "popup";
    }
 }
-function JdatatreeCloseWaitBox(wait){
-    JDATATREE.WAIT_IS_OPEN = false;
+function DatatreeCloseWaitBox(wait){
+    DATATREE.WAIT_IS_OPEN = false;
 	if (wait != null) {
 	   if (wait == "popup"){
-	      JDATATREE.ClosePopupBox();
+	      DATATREE.ClosePopupBox();
 	   } else {
 		   wait.close();
 	   }
 	}
 }
-function JdatatreeResetReplace(){
+function DatatreeResetReplace(){
     this.REPLACE_RESULTS.length = 0;
     this.CURRENT_REPLACE_INDEX = -1;
     this.REPLACE = "";
     this.REPLACE_WITH = "";
-    JDATATREE.SKIP_MESSAGE = JDATATREE.DEFAULT_SKIP_MESSAGE;
+    DATATREE.SKIP_MESSAGE = DATATREE.DEFAULT_SKIP_MESSAGE;
 }
-function JdatatreeQuery(query_string){
-    JDATATREE.TREE = this;
-    JDATATREE.SetInitiator(this);//7.9.8
+function DatatreeQuery(query_string){
+    DATATREE.TREE = this;
+    DATATREE.SetInitiator(this);//7.9.8
     var RESULT = '';
-    if (JDATATREE.INSERT == true && JDATATREE.StringTrim(query_string.toUpperCase()) != "UNINSERT"){
+    if (DATATREE.INSERT == true && DATATREE.StringTrim(query_string.toUpperCase()) != "UNINSERT"){
        this.SubmitEdit(query_string,"sibling",this.SELECTED_SPAN);
        var spanindex = 0;
-       var spans = this.ViewRoot().getElementsByClassName('jdatatree_content');
+       var spans = this.ViewRoot().getElementsByClassName('datatree_content');
        for (var count = 0; count < spans.length; ++count){
            if (spans[count] == this.SELECTED_SPAN){
               spanindex = count;
@@ -5419,7 +5419,7 @@ function JdatatreeQuery(query_string){
     }
     var strings = query_string.split(" ");
     for (var count = 0; count < strings.length; ++count){
-        if (JDATATREE.StringTrim(strings[count]) == ""){
+        if (DATATREE.StringTrim(strings[count]) == ""){
             strings.splice(count, 1);
             count -= 1;
         }
@@ -5431,33 +5431,33 @@ function JdatatreeQuery(query_string){
     var fifth = "";
     var sixth = "";
     if (strings.length > 0){
-      first = JDATATREE.StringTrim(strings[0]);
+      first = DATATREE.StringTrim(strings[0]);
     }
     if (strings.length > 1){
-      second = JDATATREE.StringTrim(strings[1]);
+      second = DATATREE.StringTrim(strings[1]);
     }
     if (strings.length > 2){
-      third = JDATATREE.StringTrim(strings[2]);
+      third = DATATREE.StringTrim(strings[2]);
     }
     if (strings.length > 3){
-      fourth = JDATATREE.StringTrim(strings[3]);
+      fourth = DATATREE.StringTrim(strings[3]);
     }
     if (strings.length > 4){
-      fifth = JDATATREE.StringTrim(strings[4]);
+      fifth = DATATREE.StringTrim(strings[4]);
     }
     if (strings.length > 5){
-      sixth = JDATATREE.StringTrim(strings[5]);
+      sixth = DATATREE.StringTrim(strings[5]);
     }
     switch(first.toUpperCase()){
           case "INSERT":
-             JDATATREE.INSERT = true;
+             DATATREE.INSERT = true;
              break;
           case "UNINSERT":
-             JDATATREE.INSERT = false;
+             DATATREE.INSERT = false;
              break;
           case "SELECT":
              try{//do not erase...checks parseInt
-             var what = JDATATREE.StringTrim(query_string.substring("SELECT".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("SELECT".length)).toLowerCase();
              var check = second.toUpperCase();
              if (check != "LINE" && check != "LINES" && check != "UP" && check != "DOWN"){//allow leave out 'LINE' or 'LINES'
                 third = second;
@@ -5469,16 +5469,16 @@ function JdatatreeQuery(query_string){
                    second = "LINE";
                 }
              }
-             var spans = this.ViewRoot().getElementsByClassName('jdatatree_content');
-             if (second != "" && third != "" && JDATATREE.StringTrim(second.toUpperCase()) == "LINE"){
-                var index = parseInt(JDATATREE.StringTrim(third));// - 1;
+             var spans = this.ViewRoot().getElementsByClassName('datatree_content');
+             if (second != "" && third != "" && DATATREE.StringTrim(second.toUpperCase()) == "LINE"){
+                var index = parseInt(DATATREE.StringTrim(third));// - 1;
                 if (index > 0 && index < spans.length){
                    if (this.SELECTED_SPAN){
-                      JdatatreeUnhighlightSpan(this.SELECTED_SPAN);
+                      DatatreeUnhighlightSpan(this.SELECTED_SPAN);
                    }
                    if (this.MOUSE_DRAG_SPANS){
                       for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                         JdatatreeUnhighlightSpan(this.MOUSE_DRAG_SPANS[count]);
+                         DatatreeUnhighlightSpan(this.MOUSE_DRAG_SPANS[count]);
                       }
                    }
                    var span = spans[index];
@@ -5487,7 +5487,7 @@ function JdatatreeQuery(query_string){
                    this.HighlightSpan(span);
                    this.SELECTED_SPAN = span;
                 }
-             } else if (second != "" && third != "" && JDATATREE.StringTrim(second.toUpperCase()) == "LINES" && (third.indexOf("-") >= 0 || (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"))){
+             } else if (second != "" && third != "" && DATATREE.StringTrim(second.toUpperCase()) == "LINES" && (third.indexOf("-") >= 0 || (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"))){
                 if (fourth != "" && fifth != "" && fourth.toUpperCase() == "TO"){
                    third = parseInt(third) + "-" + parseInt(fifth);
                 }
@@ -5535,12 +5535,12 @@ function JdatatreeQuery(query_string){
                    this.SELECTED_SPAN = span;
                 }
              }
-             }catch(exc){if(JDATATREE.REPRESS_ALERTS==false){alert(exc);}}
+             }catch(exc){if(DATATREE.REPRESS_ALERTS==false){alert(exc);}}
              break;
           case "OVERWRITE":
-             var what = JDATATREE.StringTrim(query_string.substring("OVERWRITE".length));
+             var what = DATATREE.StringTrim(query_string.substring("OVERWRITE".length));
              if (what == ""){
-                JDATATREE.ToolbarSelect("overwrite");
+                DATATREE.ToolbarSelect("overwrite");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"overwrite",this.SELECTED_SPAN);
              }
@@ -5550,10 +5550,10 @@ function JdatatreeQuery(query_string){
              if (first.toUpperCase() == "CHI"){
                 query_string = query_string.replace("CHI","CHILD");
              }
-             var what = JDATATREE.StringTrim(query_string.substring("CHILD".length));
+             var what = DATATREE.StringTrim(query_string.substring("CHILD".length));
              document.getElementById(this.TOOLBAR_QUERYWINDOW_NAME).value = '';
              if (what == ""){
-                JDATATREE.ToolbarSelect("child");
+                DATATREE.ToolbarSelect("child");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"child",this.SELECTED_SPAN);
              }
@@ -5563,105 +5563,105 @@ function JdatatreeQuery(query_string){
              if (first.toUpperCase() == "SIB"){
                 query_string = query_string.replace("SIB","SIBLING");
              }
-             var what = JDATATREE.StringTrim(query_string.substring("SIBLING".length));
+             var what = DATATREE.StringTrim(query_string.substring("SIBLING".length));
              document.getElementById(this.TOOLBAR_QUERYWINDOW_NAME).value = '';
              if (what == ""){
-                JDATATREE.ToolbarSelect("sibling");
+                DATATREE.ToolbarSelect("sibling");
              } else if (this.SELECTED_SPAN){
                 this.SubmitEdit(what,"sibling",this.SELECTED_SPAN);
              }
              break;
           case "MOVE":
-             var what = JDATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "selection right"){
-                JDATATREE.ToolbarSelect("selection right");
+                DATATREE.ToolbarSelect("selection right");
              } else if (what == "right" || what == "section right"){
-                JDATATREE.ToolbarSelect("section right");
+                DATATREE.ToolbarSelect("section right");
              } else if (what == "left" || what == "section left" || what == "selection left"){
-                JDATATREE.ToolbarSelect("left");
+                DATATREE.ToolbarSelect("left");
              } else if (what == "up" || what == "section up" || what == "selection up"){
-                JDATATREE.ToolbarSelect("up");
+                DATATREE.ToolbarSelect("up");
              } else if (what == "down" || what == "section down" || what == "selection down"){
-                JDATATREE.ToolbarSelect("down");
+                DATATREE.ToolbarSelect("down");
              }
              break;
           case "SELECTION":
-             var what = JDATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "right"){
-                JDATATREE.ToolbarSelect("selection right");
+                DATATREE.ToolbarSelect("selection right");
              } else if (what == "left"){
-                JDATATREE.ToolbarSelect("left");
+                DATATREE.ToolbarSelect("left");
              } else if (what == "up"){
-                JDATATREE.ToolbarSelect("up");
+                DATATREE.ToolbarSelect("up");
              } else if (what == "down"){
-                JDATATREE.ToolbarSelect("down");
+                DATATREE.ToolbarSelect("down");
              }
              break;
           case "SECTION":
-             var what = JDATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "right"){
-                JDATATREE.ToolbarSelect("section right");
+                DATATREE.ToolbarSelect("section right");
              } else if (what == "left"){
-                JDATATREE.ToolbarSelect("left");
+                DATATREE.ToolbarSelect("left");
              } else if (what == "up"){
-                JDATATREE.ToolbarSelect("up");
+                DATATREE.ToolbarSelect("up");
              } else if (what == "down"){
-                JDATATREE.ToolbarSelect("down");
+                DATATREE.ToolbarSelect("down");
              }
              break;
           case "RIGHT":
-             var what = JDATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("RIGHT".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "selection" || what == "selected" || what == "line" || what == "lines" || what == "outer" || what == "shallow"){
-                JDATATREE.ToolbarSelect("selection right");
+                DATATREE.ToolbarSelect("selection right");
              } else if (what == "" || what == "section" || what == "with children" || what == "w/children" || what == "w/chldrn" || what == "all" || what == "inner" || what == "deep"){
-                JDATATREE.ToolbarSelect("section right");
+                DATATREE.ToolbarSelect("section right");
              }
              break;
           case "LEFT":
-             JDATATREE.ToolbarSelect("left");
+             DATATREE.ToolbarSelect("left");
              break;
           case "UP":
-             JDATATREE.ToolbarSelect("up");
+             DATATREE.ToolbarSelect("up");
              break;
           case "DOWN":
-             JDATATREE.ToolbarSelect("down");
+             DATATREE.ToolbarSelect("down");
              break;
           case "CUT":
-             JDATATREE.ToolbarSelect("cut");
+             DATATREE.ToolbarSelect("cut");
              break;
           case "COPY":
-             var what = JDATATREE.StringTrim(query_string.substring("COPY".length)).toLowerCase();
+             var what = DATATREE.StringTrim(query_string.substring("COPY".length)).toLowerCase();
              what = what.toLowerCase();
              if (what == "" || what == "selection" || what == "selected" || what == "line" || what == "lines" || what == "outer" || what == "shallow"){
-                JDATATREE.ToolbarSelect("copy selected");
+                DATATREE.ToolbarSelect("copy selected");
              } else if (what == "section" || what == "with children" || what == "w/children" || what == "w/chldrn" || what == "all" || what == "inner" || what == "deep"){
-                JDATATREE.ToolbarSelect("copy w/children");
+                DATATREE.ToolbarSelect("copy w/children");
              }
              break;
           case "PASTE":
-             JDATATREE.ToolbarSelect("paste");
+             DATATREE.ToolbarSelect("paste");
              break;
           case "DELETE":
           case "REMOVE":
-             JDATATREE.ToolbarSelect("remove");
+             DATATREE.ToolbarSelect("remove");
              break;
           case "UNDO":
-             JDATATREE.ToolbarSelect("undo");
+             DATATREE.ToolbarSelect("undo");
              break;
           case "REDO":
-             JDATATREE.ToolbarSelect("redo");
+             DATATREE.ToolbarSelect("redo");
              break;
           case "COUNT":
-             var what = JDATATREE.StringTrim(query_string.substring("COUNT".length)).toLowerCase();
-             var root = JdatatreeViewRoot();
-             var lines = root.getElementsByClassName('jdatatree_content');
+             var what = DATATREE.StringTrim(query_string.substring("COUNT".length)).toLowerCase();
+             var root = DatatreeViewRoot();
+             var lines = root.getElementsByClassName('datatree_content');
              if (what == "lines"){
                    var result = lines.length-1;
-                   if (JDATATREE.REPRESS_ALERTS == false){
+                   if (DATATREE.REPRESS_ALERTS == false){
                       alert("lines: " + result);
                    }
                    RESULT = result;
@@ -5669,10 +5669,10 @@ function JdatatreeQuery(query_string){
                    var result = 0;
                    for (var count = 1; count < lines.length; ++count){
                       var line = lines[count];
-                      var text = JDATATREE.StripTags(line.innerHTML);
+                      var text = DATATREE.StripTags(line.innerHTML);
                       result += text.split(" ").length;
                    }
-                   if (JDATATREE.REPRESS_ALERTS == false){
+                   if (DATATREE.REPRESS_ALERTS == false){
                       alert("words: " + result);
                    }
                    RESULT = result;
@@ -5684,26 +5684,26 @@ function JdatatreeQuery(query_string){
                 if (third.toUpperCase() == "TO" || third == "="){
                    query = query.replace(" TO "," ").replace(" = "," ");
                 }
-                var type = JDATATREE.StringTrim(query.substring("CHANGE TYPE".length)).toLowerCase();
+                var type = DATATREE.StringTrim(query.substring("CHANGE TYPE".length)).toLowerCase();
                 if (type == "text" || type == "html"){
                    this.SetType(type);
-                   if (JDATATREE.REPRESS_ALERTS == false){
+                   if (DATATREE.REPRESS_ALERTS == false){
                       alert("TYPE has been set to " + type);
                    }
                 }
              }
              break;
 		case "TOOLBAR":
-		    var tools = JDATATREE.StringTrim(query_string.substring("TOOLBAR".length));
+		    var tools = DATATREE.StringTrim(query_string.substring("TOOLBAR".length));
                     if (tools != ""){
 				tools = tools.toLowerCase();
-				JDATATREE.TREE.TOOLBAR_TOOLS = tools;
+				DATATREE.TREE.TOOLBAR_TOOLS = tools;
                       this.SetToolbar(tools);
 				//this.Refresh();
                     }
 		    break;
           case "HEAD":
-                    var head = JDATATREE.StringTrim(query_string.substring("HEAD".length));
+                    var head = DATATREE.StringTrim(query_string.substring("HEAD".length));
                     if (head != ""){
                        if (window.confirm("Set head to " + head + "?")){
                           document.head.innerHTML = head;
@@ -5713,53 +5713,53 @@ function JdatatreeQuery(query_string){
 		case "SET":
 		    if (strings.length >= 2){ // allows setting to nothing
 			    var key = second;
-			    var value = JDATATREE.StringTrim(query_string.substring(query_string.indexOf(second) + second.length));
+			    var value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(second) + second.length));
 				if (third == "EQUAL" || third == "EQUALS" || third == "=" || third == "equals" || third == "Equals" || third == "equal" || third == "Equal"){
-				    var equals = JDATATREE.StringTrim(third);
-				    value = JDATATREE.StringTrim(query_string.substring(query_string.indexOf(equals) + equals.length));
+				    var equals = DATATREE.StringTrim(third);
+				    value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(equals) + equals.length));
 				} else if (third == "VAR" || third == "VARIABLE" || third == "VAL" || third == "VALUE" || third == "VALUEOF" || third == "VALUE_OF"){
-                           var val = JDATATREE.StringTrim(third);
-                           value = JDATATREE.StringTrim(query_string.substring(query_string.indexOf(val) + val.length));
+                           var val = DATATREE.StringTrim(third);
+                           value = DATATREE.StringTrim(query_string.substring(query_string.indexOf(val) + val.length));
                            value = "" + eval(value) + "";
                      }
 				var found = false;
 				var error = false;
 				var error_message = "";
-				for (k in JDATATREE){
+				for (k in DATATREE){
 					if (key == k.toString()){
-						if (JDATATREE.SETTABLE_PROPERTIES.indexOf(k.toString()) >= 0){} else {
+						if (DATATREE.SETTABLE_PROPERTIES.indexOf(k.toString()) >= 0){} else {
 							error = true;
 							error_message = "not allowed to set that property";
 							break;
 						}
-						switch(typeof(JDATATREE[k])){
+						switch(typeof(DATATREE[k])){
 							case "string":
                                          if (value == 'default' || value == 'DEFAULT'){
                                             var def = 'DEFAULT_' + key;
-                                            for (j in JDATATREE){
+                                            for (j in DATATREE){
                                                if (def == j.toString()){
-                                                  JDATATREE[k] = JDATATREE[j];
+                                                  DATATREE[k] = DATATREE[j];
                                                   found = true;
                                                }
                                             }
                                         } else {
-   							      JDATATREE[k] = value;
+   							      DATATREE[k] = value;
 						           found = true;
                                         }
 							   break;
 							case "number":
-							   if (parseInt(JDATATREE[k]) === JDATATREE[k]){
-  							       JDATATREE[k] = parseInt(value);
+							   if (parseInt(DATATREE[k]) === DATATREE[k]){
+  							       DATATREE[k] = parseInt(value);
 						       } else {
-								   JDATATREE[k] = parseFloat(value);
+								   DATATREE[k] = parseFloat(value);
 							   }
 						       found = true;
 							   break;
 							case "boolean":
 							   if (value == 'true'){
- 							       JDATATREE[k] = true;
+ 							       DATATREE[k] = true;
 							   } else if (value == 'false'){
-								   JDATATREE[k] = false;
+								   DATATREE[k] = false;
 							   } else {
 								   error = true;
 							   }
@@ -5785,9 +5785,9 @@ function JdatatreeQuery(query_string){
 							  case "string":
                                           if (value == 'default' || value == 'DEFAULT'){
                                             var def = 'DEFAULT_' + key;
-                                            for (j in JDATATREE){
+                                            for (j in DATATREE){
                                                if (def == j.toString()){
-                                                  this[k] = JDATATREE[j];
+                                                  this[k] = DATATREE[j];
                                                   found = true;
                                                }
                                             }
@@ -5823,7 +5823,7 @@ function JdatatreeQuery(query_string){
 					  }
 			   	   }
 			    }
-			if (JDATATREE.REPRESS_ALERTS == false){
+			if (DATATREE.REPRESS_ALERTS == false){
 				   if (error == true){
 					  alert("syntax error" + (error_message == ""? "" : ": " + error_message));
 				   } else if (found == true){
@@ -5836,19 +5836,19 @@ function JdatatreeQuery(query_string){
 		    break;
 		case "GET": 
 		    if (strings.length >= 2){
-				var key = JDATATREE.StringTrim(second.toUpperCase());
+				var key = DATATREE.StringTrim(second.toUpperCase());
 				var value = "?";
 				var found = false;
 				var type = "?";
 				var index = 0;
 				var index2 = 0;
-				for (k in JDATATREE){
+				for (k in DATATREE){
 					if (key == k.toString()){
-						value = JDATATREE[k];
-						type = typeof(JDATATREE[k]);
+						value = DATATREE[k];
+						type = typeof(DATATREE[k]);
 						found = true;
-						index = JDATATREE.SETTABLE_PROPERTIES.indexOf(k);
-						index2 = JDATATREE.SETTABLE_PROPERTIES.indexOf(JDATATREE[k]);
+						index = DATATREE.SETTABLE_PROPERTIES.indexOf(k);
+						index2 = DATATREE.SETTABLE_PROPERTIES.indexOf(DATATREE[k]);
 						break;
 					}
 				}
@@ -5864,7 +5864,7 @@ function JdatatreeQuery(query_string){
 					  }
 			   	   }
 			    }
-				if (JDATATREE.REPRESS_ALERTS == false){
+				if (DATATREE.REPRESS_ALERTS == false){
 					if (found){
 						alert(key + " = " + value + " and has type " + type);
   				    } else {
@@ -5876,12 +5876,12 @@ function JdatatreeQuery(query_string){
 		case "SITEMAP":
                     var links = new Array();
                     var files;
-		    if (JDATATREE.SITEMAP != null && JDATATREE.SITEMAP != "undefined" && JDATATREE.SITEMAP != ""){
-				files = JDATATREE.SITEMAP.split(",");
+		    if (DATATREE.SITEMAP != null && DATATREE.SITEMAP != "undefined" && DATATREE.SITEMAP != ""){
+				files = DATATREE.SITEMAP.split(",");
 				for (var count = 0; count < files.length; ++count){
 					var file = files[count];
-                                        var name = JDATATREE.GetFileNameFromPath(file);
-                                        if (JDATATREE.StringTrim(name) == ""){
+                                        var name = DATATREE.GetFileNameFromPath(file);
+                                        if (DATATREE.StringTrim(name) == ""){
                                            name = file;
                                         }
                                         file = escape(file);
@@ -5893,20 +5893,20 @@ function JdatatreeQuery(query_string){
 		    } else {
 			    alert("Error - could not load sitemap.");
 		    }
-		    if (JDATATREE.SITEMAP_FILE != null && JDATATREE.SITEMAP_FILE != "undefined" && JDATATREE.SITEMAP_FILE != ""){
-                                var temp = JDATATREE.REPRESS_ALERTS;
-                                JDATATREE.REPRESS_ALERTS = true;
-                                JDATATREE.PLEASE_WAIT = false;
-                                JDATATREE.Load(JDATATREE.SITEMAP_FILE);
-                                var sitemap = JDATATREE.TEMP;
+		    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != "undefined" && DATATREE.SITEMAP_FILE != ""){
+                                var temp = DATATREE.REPRESS_ALERTS;
+                                DATATREE.REPRESS_ALERTS = true;
+                                DATATREE.PLEASE_WAIT = false;
+                                DATATREE.Load(DATATREE.SITEMAP_FILE);
+                                var sitemap = DATATREE.TEMP;
                                 var linkcount = 0;
                                 for (var count = 0; count < files.length; ++count){
                                    var file = files[count];
                                    if (file == ""){
                                       continue;
                                    }
-                                   var name = JDATATREE.GetFileNameFromPath(file);
-                                   if (JDATATREE.StringTrim(name) == ""){
+                                   var name = DATATREE.GetFileNameFromPath(file);
+                                   if (DATATREE.StringTrim(name) == ""){
                                       name = file;
                                    }
                                    var link = links[count];
@@ -5944,14 +5944,14 @@ function JdatatreeQuery(query_string){
                                    sitemap = newmap;
                                    var newmaps = newmap.split("<br/>");
                                    var firstline = newmaps[0];
-                                   var firstletter = JDATATREE.StringTrim(firstline)[0];
+                                   var firstletter = DATATREE.StringTrim(firstline)[0];
                                    var spaces = firstline.indexOf(firstletter);
                                    for (var count = 0; count < newmaps.length; ++count){
                                       var line = newmaps[count];
-                                      var letter = JDATATREE.StringTrim(line)[0];
+                                      var letter = DATATREE.StringTrim(line)[0];
                                       var spaces2 = line.indexOf(letter);
                                       if (spaces2 == spaces){
-                                         newmaps[count] = JDATATREE.StringTrim(newmaps[count]);
+                                         newmaps[count] = DATATREE.StringTrim(newmaps[count]);
                                       }
                                    }
                                    sitemap = newmaps.join("<br/>");
@@ -5960,11 +5960,11 @@ function JdatatreeQuery(query_string){
                                    this.Query("SET TITLE " + "FILE VIEW");
                                 }
                                 this.Query("CREATE FROM HTML " + sitemap);
-                                JDATATREE.REPRESS_ALERTS = temp;
+                                DATATREE.REPRESS_ALERTS = temp;
 			}
 			break;
         case "EDIT":
-                    var extra = JDATATREE.StringTrim(query_string.substring("EDIT".length));
+                    var extra = DATATREE.StringTrim(query_string.substring("EDIT".length));
                     if (this.TYPE == null || this.TYPE == "undefined" || this.TYPE.toLowerCase() == "text"){
                        this.Edit("html", this.ViewGetList());
                     } else if (this.TYPE != null && this.TYPE != "undefined" && (this.TYPE.toLowerCase() == "html" || this.TYPE.toLowerCase() == "tree")){
@@ -5974,28 +5974,28 @@ function JdatatreeQuery(query_string){
                           this.Edit("html", this.ViewGetList());
                        }
                     } else {
-                       if (JDATATREE.REPRESS_ALERTS == false){
+                       if (DATATREE.REPRESS_ALERTS == false){
                           alert("problem determining text or html type");
                        }
                     }
             break;
         case "LOAD":
             try{
-            var filename = JDATATREE.StringTrim(query_string.substring("LOAD".length));
-            if (JDATATREE.StringTrim(filename) == ""){
+            var filename = DATATREE.StringTrim(query_string.substring("LOAD".length));
+            if (DATATREE.StringTrim(filename) == ""){
                this.LoadFromToolbar();
-            } else if (JDATATREE.StringTrim(filename).toUpperCase() == "TEXT"){
+            } else if (DATATREE.StringTrim(filename).toUpperCase() == "TEXT"){
                this.LoadFromTextarea('text');
-            } else if (JDATATREE.StringTrim(filename).toUpperCase() == "HTML" || JDATATREE.StringTrim(filename).toUpperCase() == "LIST"){
+            } else if (DATATREE.StringTrim(filename).toUpperCase() == "HTML" || DATATREE.StringTrim(filename).toUpperCase() == "LIST"){
                this.LoadFromTextarea('html');
-            } else if (JDATATREE.StringTrim(filename).toUpperCase() == "TREE" || JDATATREE.StringTrim(filename).toUpperCase() == "FILE") {
+            } else if (DATATREE.StringTrim(filename).toUpperCase() == "TREE" || DATATREE.StringTrim(filename).toUpperCase() == "FILE") {
                this.LoadFromTextarea('tree');
             } else if (filename.substring(filename.length - ".html".length) == ".html" || filename.substring(filename.length - ".txt".length) == ".txt" || filename.substring(filename.length - ".htm".length) == ".htm"){
-               JDATATREE.TEMP = "";
-               JDATATREE.Load(filename);
-               var tree = JDATATREE.TEMP;
-               if (JDATATREE.TEMP == "" || JDATATREE.TEMP == null || JDATATREE.TEMP == "undefined"){
-			  if (JDATATREE.REPRESS_ALERTS == false){
+               DATATREE.TEMP = "";
+               DATATREE.Load(filename);
+               var tree = DATATREE.TEMP;
+               if (DATATREE.TEMP == "" || DATATREE.TEMP == null || DATATREE.TEMP == "undefined"){
+			  if (DATATREE.REPRESS_ALERTS == false){
 				 alert("could not find the file: " + filename);
 			  } else {
                       this.ALERTS.push("could not find the file: " + filename);
@@ -6003,7 +6003,7 @@ function JdatatreeQuery(query_string){
 			  }
                   return;
                }
-               JDATATREE.PLEASE_WAIT = true;
+               DATATREE.PLEASE_WAIT = true;
                if (filename.substring(filename.length - ".tree.html".length) == ".tree.html"){
                   this.Query("CREATE FROM TREE " + tree);
                } else if (filename.substring(filename.length - ".html".length) == ".html" || filename.substring(filename.length - ".htm".length) == ".htm"){
@@ -6018,10 +6018,10 @@ function JdatatreeQuery(query_string){
             break;
         case "ALPHABETIZE":
         case "SORT":
-            JdatatreeViewReset();
+            DatatreeViewReset();
             var newTree = null;
             if (query_string.indexOf("LINE") >= 0 || query_string.indexOf("line") >= 0){
-               if (strings.length >= 5 && JDATATREE.StringTrim(second.toUpperCase()) == "FROM" && JDATATREE.StringTrim(third.toUpperCase()) == "LINE" && JDATATREE.StringTrim(fifth.toUpperCase()) == "TO" && JDATATREE.StringTrim(sixth.toUpperCase()) == "LINE"){
+               if (strings.length >= 5 && DATATREE.StringTrim(second.toUpperCase()) == "FROM" && DATATREE.StringTrim(third.toUpperCase()) == "LINE" && DATATREE.StringTrim(fifth.toUpperCase()) == "TO" && DATATREE.StringTrim(sixth.toUpperCase()) == "LINE"){
                   strings[2] = "LINE";
                   strings[5] = "LINE";
                   strings[1] = "FROM";
@@ -6034,12 +6034,12 @@ function JdatatreeQuery(query_string){
                      start = parseInt(strings[3]);
                      finish = parseInt(strings[6]);
                   } catch (exc) {
-                     if (JDATATREE.REPRESS_ALERTS == false) { alert(exc); }
+                     if (DATATREE.REPRESS_ALERTS == false) { alert(exc); }
                      return;
                   }
-                  JdatatreeViewAlphabetize("numbers",start,finish);
+                  DatatreeViewAlphabetize("numbers",start,finish);
                } else {
-                  if (JDATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+                  if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
                }
             } else if (strings.length >= 4 && strings[1].toUpperCase() == "FROM" && query_string.indexOf("TO")){
                strings[1] = "FROM";
@@ -6047,12 +6047,12 @@ function JdatatreeQuery(query_string){
                query_string = query_string.split(" to ").join(" TO ").split(" To ").join(" TO ");
                var startstring = "";
                var finishstring = "";
-               startstring = JDATATREE.StringTrim(query_string.split(" FROM ")[1].split(" TO ")[0]);
-               finishstring = JDATATREE.StringTrim(query_string.split(" TO ")[1]);
+               startstring = DATATREE.StringTrim(query_string.split(" FROM ")[1].split(" TO ")[0]);
+               finishstring = DATATREE.StringTrim(query_string.split(" TO ")[1]);
                if (startstring == "" || finishstring == ""){
                    if (POSTERTRO.REPRESS_ALERTS == false) { alert("error in alphabetize"); }
                } else {
-                   JdatatreeViewAlphabetize("strings",startstring,finishstring);
+                   DatatreeViewAlphabetize("strings",startstring,finishstring);
                }
             }
             break;
@@ -6060,7 +6060,7 @@ function JdatatreeQuery(query_string){
         case "RESET":
             var what = "";
             if (strings.length > 1){
-                switch(JDATATREE.StringTrim(strings[1].toUpperCase())){
+                switch(DATATREE.StringTrim(strings[1].toUpperCase())){
                     case "ALL":
                     case "*":
                         what = "*";
@@ -6085,9 +6085,9 @@ function JdatatreeQuery(query_string){
                 }
             }
             if (what != ""){
-                JdatatreeViewReset(what);
+                DatatreeViewReset(what);
             } else {
-                JdatatreeViewReset();
+                DatatreeViewReset();
             }
             this.SELECTED_SPAN = null;//7.8.6
             break;
@@ -6099,41 +6099,41 @@ function JdatatreeQuery(query_string){
  		 this.HAS_ERRORS = false;
 		 this.ALERTS.length = 0;
             this.SELECTED_SPAN = null;//7.8.7
-            if (strings.length >= 2 && (JDATATREE.StringTrim(second.toUpperCase()) == "TREE" || JDATATREE.StringTrim(second.toUpperCase()) == "DATATREE" || JDATATREE.StringTrim(second.toUpperCase()) == "DATA_TREE")){
+            if (strings.length >= 2 && (DATATREE.StringTrim(second.toUpperCase()) == "TREE" || DATATREE.StringTrim(second.toUpperCase()) == "DATATREE" || DATATREE.StringTrim(second.toUpperCase()) == "DATA_TREE")){
                 strings = strings.splice(1);
             }
-            if (strings.length < 3 || JDATATREE.StringTrim(strings[1].toUpperCase()) != "FROM" || (JDATATREE.StringTrim(strings[2].toUpperCase()) != "HTML" && JDATATREE.StringTrim(strings[2].toUpperCase()) != "TEXT" && JDATATREE.StringTrim(strings[2].toUpperCase()) != "TREE")){
-                if (JDATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+            if (strings.length < 3 || DATATREE.StringTrim(strings[1].toUpperCase()) != "FROM" || (DATATREE.StringTrim(strings[2].toUpperCase()) != "HTML" && DATATREE.StringTrim(strings[2].toUpperCase()) != "TEXT" && DATATREE.StringTrim(strings[2].toUpperCase()) != "TREE")){
+                if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
             } else {
                 this.AUTO_ADJUST = true;
                 this.AUTO_TRIM = true;
-                if (JDATATREE.TREE == "undefined" || JDATATREE.TREE == null){
-                    JDATATREE.TREE = this;
+                if (DATATREE.TREE == "undefined" || DATATREE.TREE == null){
+                    DATATREE.TREE = this;
                 }
-                var type = JDATATREE.StringTrim(strings[2].toUpperCase());
+                var type = DATATREE.StringTrim(strings[2].toUpperCase());
                 switch(type){
                     case "TREE":
-					    if (JDATATREE.PLEASE_WAIT == true && JDATATREE.WAIT_IS_OPEN != true){
-							var wait = JDATATREE.Wait();
+					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
+							var wait = DATATREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = false;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var tree = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
+								var tree = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
 								if (tree == ''){
 								   return;
 								}
 								that.SyncFromDataTree(tree);
                                            //that.EvenSpacing();
 								RESULT = that;
-								JDATATREE.CloseWaitBox(wait);
+								DATATREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 							//this.PLAIN_TEXT = false;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var tree = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
+							var tree = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TREE") + "CREATE FROM TREE".length));
 							if (tree == ''){
 							   return;
 							}
@@ -6141,17 +6141,17 @@ function JdatatreeQuery(query_string){
                                       //this.EvenSpacing();
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     case "HTML":
-					    if (JDATATREE.PLEASE_WAIT == true && JDATATREE.WAIT_IS_OPEN != true){
-							var wait = JDATATREE.Wait();
+					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
+							var wait = DATATREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = false;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var content = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
+								var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
 								if (content == ''){
 								   return;
 								} else {
@@ -6166,14 +6166,14 @@ function JdatatreeQuery(query_string){
 								   that.RefreshGUI();
 								}
 								RESULT = that;
-								JDATATREE.CloseWaitBox(wait);
+								DATATREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 							//this.PLAIN_TEXT = false;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var content = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
+							var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM HTML") + "CREATE FROM HTML".length));
 							if (content == ''){
 							   return;
 							} else {
@@ -6189,17 +6189,17 @@ function JdatatreeQuery(query_string){
 							}
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     case "TEXT":
-					    if (JDATATREE.PLEASE_WAIT == true && JDATATREE.WAIT_IS_OPEN != true){
-							var wait = JDATATREE.Wait();
+					    if (DATATREE.PLEASE_WAIT == true && DATATREE.WAIT_IS_OPEN != true){
+							var wait = DATATREE.Wait();
 							var that = this;
 							setTimeout(function(){
 								//that.PLAIN_TEXT = true;//7.9.7
                                            //that.SetTypeConditionally(type); // 7.9.4
-								var content = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
+								var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
 								if (content == ''){
 								   return;
 								} else {
@@ -6213,14 +6213,14 @@ function JdatatreeQuery(query_string){
 								   that.RefreshGUI();
 								}
 								RESULT = that;
-								JDATATREE.CloseWaitBox(wait);
+								DATATREE.CloseWaitBox(wait);
                      if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-				if (that.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+				if (that.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
 							}, 1);
 						} else {
 						     //this.PLAIN_TEXT = true;//7.9.7
                                      //this.SetTypeConditionally(type); // 7.9.4
-							var content = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
+							var content = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("CREATE FROM TEXT") + "CREATE FROM TEXT".length));
 							if (content == ''){
 							   return;
 							} else {
@@ -6235,11 +6235,11 @@ function JdatatreeQuery(query_string){
 							}
 							RESULT = this;
                      if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
-				if (this.HAS_ERRORS == true && JDATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
+				if (this.HAS_ERRORS == true && DATATREE.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
 						}
                         break;
                     default:
-                        if (JDATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+                        if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
                         break;
                 }
             }
@@ -6255,7 +6255,7 @@ function JdatatreeQuery(query_string){
                } else if (this.TYPE != null && this.TYPE != "undefined" && (this.TYPE.toLowerCase() == "html" || this.TYPE.toLowerCase() == "tree")){
                   this.Query("CREATE FROM HTML <p>click here to start</p>");
                } else {
-                  if (JDATATREE.REPRESS_ALERTS == false){
+                  if (DATATREE.REPRESS_ALERTS == false){
                      alert("problem determining text or html type");
                   }
                }
@@ -6263,21 +6263,21 @@ function JdatatreeQuery(query_string){
             break;
         case "NUMBER":
             if (strings.length >= 6 && strings[1].toUpperCase() == "NESTED" && strings[2].toUpperCase() == "FROM" && strings[4].toUpperCase() == "TO"){
-               JdatatreeViewIndex(strings[3],strings[5]);
+               DatatreeViewIndex(strings[3],strings[5]);
             } else {
-               JdatatreeViewNumber(this);
+               DatatreeViewNumber(this);
             }
             break;
         case "INDEX":
             if (strings.length >= 5 && strings[1].toUpperCase() == "FROM" && strings[3].toUpperCase() == "TO"){
-               JdatatreeViewIndex(strings[2],strings[4]);
+               DatatreeViewIndex(strings[2],strings[4]);
             }
             break;
         case "SAVE":
         case "PRINT":
             var what = "";
             if (strings.length > 1){
-                switch(JDATATREE.StringTrim(strings[1].toUpperCase())){
+                switch(DATATREE.StringTrim(strings[1].toUpperCase())){
                     case "TEXT":
                         what = "text";
                         break;
@@ -6336,7 +6336,7 @@ function JdatatreeQuery(query_string){
             this.Replay();
             break;
         case "SKIP":
-            JDATATREE.SKIPPED = true;
+            DATATREE.SKIPPED = true;
             if (this.REPLACE_RESULTS.length > 0 && this.CURRENT_REPLACE_INDEX >= 0 && this.REPLACE != "" && this.REPLACE_WITH != ""){
                 var msg = this.GetSkipMessage();
                 if (msg == ""){
@@ -6344,21 +6344,21 @@ function JdatatreeQuery(query_string){
                 }
                 var search_result = this.REPLACE_RESULTS[this.CURRENT_REPLACE_INDEX];
                 var outerspan = search_result;//7.9.8
-                while (outerspan.className != "jdatatree_content"){
+                while (outerspan.className != "datatree_content"){
                    outerspan = outerspan.parentNode;
                 }
                 var txt = search_result.innerHTML;
                 if (txt.indexOf(this.REPLACE) >= 0){
-                    var txtnode = document.createTextNode(JDATATREE.SKIP_MESSAGE);//7.9.8
+                    var txtnode = document.createTextNode(DATATREE.SKIP_MESSAGE);//7.9.8
                     var pN = search_result.parentNode;
                     pN.replaceChild(txtnode,search_result);
                     //var line = outerspan.innerHTML;
-                    //JDATATREE.PLEASE_WAIT = false;
-                    //JDATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
-                    if (JDATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < JDATATREE.TREE.REPLACE_RESULTS.length){
-                        JDATATREE.TREE.Query('WITH ' + JDATATREE.TREE.REPLACE_WITH);
-                        JDATATREE.TREE.Query('REPLACE ' + JDATATREE.TREE.REPLACE);
-                        if (JDATATREE.GetBrowser() == "IE" && JDATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == JDATATREE.TREE.REPLACE_RESULTS.length){
+                    //DATATREE.PLEASE_WAIT = false;
+                    //DATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
+                    if (DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < DATATREE.TREE.REPLACE_RESULTS.length){
+                        DATATREE.TREE.Query('WITH ' + DATATREE.TREE.REPLACE_WITH);
+                        DATATREE.TREE.Query('REPLACE ' + DATATREE.TREE.REPLACE);
+                        if (DATATREE.GetBrowser() == "IE" && DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == DATATREE.TREE.REPLACE_RESULTS.length){
                             this.Query('RESET *');
                             this.ResetReplace();
                         }
@@ -6372,18 +6372,18 @@ function JdatatreeQuery(query_string){
         case "WITH":
             this.REPLACE_RESULTS.length = 0;
             this.CURRENT_REPLACE_INDEX = -1;
-            var replace_with = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf('WITH') + 'WITH'.length));
+            var replace_with = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf('WITH') + 'WITH'.length));
             this.REPLACE_WITH = replace_with;
             this.WITH = true;
             break;
         case "REPLACE":
-            if (JDATATREE.SKIPPED == false){
+            if (DATATREE.SKIPPED == false){
                 //this.Clear();
             }
-            JDATATREE.SKIPPED = false;
+            DATATREE.SKIPPED = false;
             if (strings.length > 1 && this.WITH == true){
                 this.WITH = false;
-                var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
+                var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
                 if (searchterm == ''){
                     return;
                 }
@@ -6395,13 +6395,13 @@ function JdatatreeQuery(query_string){
                       this.SKIPPED = true;
                    }
                 }
-                JdatatreeViewReplace(searchterm,this.REPLACE_WITH,true,true);
-                JdatatreeViewInitReplaceResults();
+                DatatreeViewReplace(searchterm,this.REPLACE_WITH,true,true);
+                DatatreeViewInitReplaceResults();
             } else if (strings.length >= 4 && query_string.toUpperCase().indexOf("WITH") >= 0){
-                var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
-                var replace_with = JDATATREE.StringTrim(searchterm.substring(searchterm.toUpperCase().indexOf("WITH") + "WITH".length));
+                var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("REPLACE") + "REPLACE".length));
+                var replace_with = DATATREE.StringTrim(searchterm.substring(searchterm.toUpperCase().indexOf("WITH") + "WITH".length));
                 this.REPLACE_WITH = replace_with;
-                searchterm = JDATATREE.StringTrim(searchterm.substring(0, searchterm.toUpperCase().indexOf("WITH")));
+                searchterm = DATATREE.StringTrim(searchterm.substring(0, searchterm.toUpperCase().indexOf("WITH")));
                 if (searchterm == ''){
                     return;
                 }
@@ -6413,7 +6413,7 @@ function JdatatreeQuery(query_string){
                       this.SKIPPED = true;
                    }
                 }
-                JdatatreeViewReplace(searchterm,replace_with,true,true);
+                DatatreeViewReplace(searchterm,replace_with,true,true);
                 this.ViewInitReplaceResults();
             } else if (strings.length >= 2){
                 //
@@ -6421,7 +6421,7 @@ function JdatatreeQuery(query_string){
                 if (this.REPLACE_RESULTS.length > 0 && this.CURRENT_REPLACE_INDEX >= 0 && this.REPLACE != "" && this.REPLACE_WITH != ""){
                     var search_result = this.REPLACE_RESULTS[this.CURRENT_REPLACE_INDEX];//span containing search term
                     var outerspan = search_result;//7.9.8
-                    while (outerspan.className != "jdatatree_content"){
+                    while (outerspan.className != "datatree_content"){
                        outerspan = outerspan.parentNode;
                     }
                     var txt = search_result.innerHTML;
@@ -6431,13 +6431,13 @@ function JdatatreeQuery(query_string){
                         pN.replaceChild(txtnode,search_result);
 						
                         //var line = outerspan.innerHTML;
-                        //JDATATREE.PLEASE_WAIT = false;
-                        //JDATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
+                        //DATATREE.PLEASE_WAIT = false;
+                        //DATATREE.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
 						
-                        if (JDATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < JDATATREE.TREE.REPLACE_RESULTS.length){
-                           JDATATREE.TREE.Query('WITH ' + JDATATREE.TREE.REPLACE_WITH);
-                           JDATATREE.TREE.Query('REPLACE ' + JDATATREE.TREE.REPLACE);
-                           if (JDATATREE.GetBrowser() == "IE" && JDATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == JDATATREE.TREE.REPLACE_RESULTS.length){
+                        if (DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 < DATATREE.TREE.REPLACE_RESULTS.length){
+                           DATATREE.TREE.Query('WITH ' + DATATREE.TREE.REPLACE_WITH);
+                           DATATREE.TREE.Query('REPLACE ' + DATATREE.TREE.REPLACE);
+                           if (DATATREE.GetBrowser() == "IE" && DATATREE.TREE.CURRENT_REPLACE_INDEX + 1 == DATATREE.TREE.REPLACE_RESULTS.length){
                               this.Query('RESET *');
                               this.ResetReplace();
                            }
@@ -6451,47 +6451,47 @@ function JdatatreeQuery(query_string){
             break;
         case "SEARCH":
             //this.Clear();
-            JdatatreeViewReset();
+            DatatreeViewReset();
             if (strings.length >= 3 && second.toUpperCase() == "FOR" && third.toUpperCase() == "PATTERN"){
-                   var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
+                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
                    if (searchterm == ''){
                       return;
                    }
-                   JdatatreeViewSearch(searchterm,false,false,true);
+                   DatatreeViewSearch(searchterm,false,false,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 2 && second.toUpperCase() == "FOR"){
-                   var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   JdatatreeViewSearch(searchterm);
+                   DatatreeViewSearch(searchterm);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && second.toUpperCase() == "CASE_SENSITIVE" && third.toUpperCase() == "FOR"){
-                   var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   JdatatreeViewSearch(searchterm,true);
+                   DatatreeViewSearch(searchterm,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && second.toUpperCase() == "EXACT_MATCHES" && third.toUpperCase() == "FOR"){
-                   var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   JdatatreeViewSearch(searchterm,false,true);
+                   DatatreeViewSearch(searchterm,false,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 4 && (second.toUpperCase() == "EXACT_MATCHES" || third.toUpperCase() == "EXACT_MATCHES")
                        && (second.toUpperCase() == "CASE_SENSITIVE" || third.toUpperCase() == "CASE_SENSITIVE")
                        && fourth.toUpperCase() == "FOR"){
-                   var searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   var searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    if (searchterm == ''){
                       return;
                    }
-                   JdatatreeViewSearch(searchterm,true,true);
+                   DatatreeViewSearch(searchterm,true,true);
                    //this.InitSearchResults();
             } else if (strings.length >= 3 && (second.toUpperCase() == "FILES" || second.toUpperCase() == "TREES") && (third.toUpperCase() == "FOR" || third.toUpperCase() == "CASE_SENSITIVE" || third.toUpperCase() == "EXACT_MATCHES") && query_string.toUpperCase().indexOf("FOR") >= 0) {
-                if (JDATATREE.SITEMAP == "" || JDATATREE.SITEMAP == null || JDATATREE.SITEMAP == "undefined"){
-                   if (JDATATREE.REPRESS_ALERTS == false){
+                if (DATATREE.SITEMAP == "" || DATATREE.SITEMAP == null || DATATREE.SITEMAP == "undefined"){
+                   if (DATATREE.REPRESS_ALERTS == false){
                       alert("Error: the sitemap has not been defined.");
                    }
                    return;
@@ -6501,54 +6501,54 @@ function JdatatreeQuery(query_string){
                 var case_sensitive = false;
                 var exact_matches = false;
                 if (strings.length >= 4 && fourth.toUpperCase() == "PATTERN"){
-                   searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
+                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("PATTERN") + "PATTERN".length));
                    regular_expression = true;
                 } else if (strings.length >= 4 && third.toUpperCase() == "CASE_SENSITIVE" && fourth.toUpperCase() == "FOR"){
-                   searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    case_sensitive = true;
                 } else if (strings.length >= 4 && third.toUpperCase() == "EXACT_MATCHES" && fourth.toUpperCase() == "FOR"){
-                   searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    exact_matches = true;
                 } else if (strings.length >= 5 && (third.toUpperCase() == "EXACT_MATCHES" || fourth.toUpperCase() == "EXACT_MATCHES") && (third.toUpperCase() == "CASE_SENSITIVE" || fourth.toUpperCase() == "CASE_SENSITIVE") && fifth.toUpperCase() == "FOR"){
-                   searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                    case_sensitive = true;
                    exact_matches = true;
                 } else {
-                   searchterm = JDATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
+                   searchterm = DATATREE.StringTrim(query_string.substring(query_string.toUpperCase().indexOf("FOR") + "FOR".length));
                 }
                 if (searchterm == ''){
                    return;
                 }
-				var wait = JDATATREE.Wait();
+				var wait = DATATREE.Wait();
 				var that = this;
 				setTimeout(function(){
-					var results = JDATATREE.SearchMacro(searchterm,regular_expression,case_sensitive,exact_matches);
+					var results = DATATREE.SearchMacro(searchterm,regular_expression,case_sensitive,exact_matches);
 					var tree = "";
-					for (var count = 0; count < JDATATREE.MACRO_SEARCH_RESULTS.length; ++count){
-						var link = JDATATREE.MACRO_SEARCH_RESULTS[count];
-                                if (JDATATREE.WENT_TO_FILE == false && (JDATATREE.GO_TO_FILE == "" || JDATATREE.GO_TO_FILE == null || JDATATREE.GO_TO_FILE == "undefined")){
+					for (var count = 0; count < DATATREE.MACRO_SEARCH_RESULTS.length; ++count){
+						var link = DATATREE.MACRO_SEARCH_RESULTS[count];
+                                if (DATATREE.WENT_TO_FILE == false && (DATATREE.GO_TO_FILE == "" || DATATREE.GO_TO_FILE == null || DATATREE.GO_TO_FILE == "undefined")){
 						   tree += "<p><a href='" + link + "' target='_blank'>" + link + "</a></p>";
                                 } else {
                                    tree += "<p>" + link + "</p>";
-                                   if ((JDATATREE.GO_TO_FILE == null || JDATATREE.GO_TO_FILE == "undefined" || JDATATREE.GO_TO_FILE == "") && JDATATREE.WENT_TO_FILE == true){
-                                      JDATATREE.GO_TO_FILE = JDATATREE.DEFAULT_GO_TO_FILE;
-                                   } else if (JDATATREE.GO_TO_FILE == ""){
-                                      JDATATREE.DEFAULT_GO_TO_FILE = JDATATREE.GO_TO_FILE;//save their version
+                                   if ((DATATREE.GO_TO_FILE == null || DATATREE.GO_TO_FILE == "undefined" || DATATREE.GO_TO_FILE == "") && DATATREE.WENT_TO_FILE == true){
+                                      DATATREE.GO_TO_FILE = DATATREE.DEFAULT_GO_TO_FILE;
+                                   } else if (DATATREE.GO_TO_FILE == ""){
+                                      DATATREE.DEFAULT_GO_TO_FILE = DATATREE.GO_TO_FILE;//save their version
                                    }
-                                   JDATATREE.WENT_TO_FILE = true;
+                                   DATATREE.WENT_TO_FILE = true;
                                 }
 					}
-                                        JDATATREE.PLEASE_WAIT = false;
-                                        var if_repress = JDATATREE.REPRESS_ALERTS;
-                                        var go_to = JDATATREE.GO_TO_FILE;
-					JDATATREE.REPRESS_ALERTS = true;
+                                        DATATREE.PLEASE_WAIT = false;
+                                        var if_repress = DATATREE.REPRESS_ALERTS;
+                                        var go_to = DATATREE.GO_TO_FILE;
+					DATATREE.REPRESS_ALERTS = true;
 					if (tree == ""){
 						tree = "no results found";
 					}
 					that.Query("CREATE FROM HTML " + tree);
-                                        JDATATREE.REPRESS_ALERTS = if_repress;
-                                        JDATATREE.GO_TO_FILE = go_to;
-					JDATATREE.CloseWaitBox(wait);
+                                        DATATREE.REPRESS_ALERTS = if_repress;
+                                        DATATREE.GO_TO_FILE = go_to;
+					DATATREE.CloseWaitBox(wait);
 					if (results != null && results != "" && results != 0){
 						//alert("found " + results + " trees");
 					} else {
@@ -6556,40 +6556,40 @@ function JdatatreeQuery(query_string){
 					}
 				}, 1);
             } else {
-                if (JDATATREE.REPRESS_ALERTS == false) {  }
+                if (DATATREE.REPRESS_ALERTS == false) {  }
             }            
             break;
         case "NEXT":
-            JdatatreeViewNext();
+            DatatreeViewNext();
             break;
         case "PREVIOUS":
-            JdatatreeViewPrevious();
+            DatatreeViewPrevious();
             break;
         default:
-            if (JDATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
+            if (DATATREE.REPRESS_ALERTS == false) { alert("syntax error"); }
             break;
     }
     return RESULT;
 }
-function JdatatreeGetSkipMessage(){
-   var result = JDATATREE.SKIP_MESSAGE;
-   if (JDATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
-       JDATATREE.SKIP_MESSAGE = JDATATREE.ALT_SKIP_MESSAGE;
-       result = JDATATREE.SKIP_MESSAGE;
+function DatatreeGetSkipMessage(){
+   var result = DATATREE.SKIP_MESSAGE;
+   if (DATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
+       DATATREE.SKIP_MESSAGE = DATATREE.ALT_SKIP_MESSAGE;
+       result = DATATREE.SKIP_MESSAGE;
    }
-   if (JDATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
-       JDATATREE.SKIP_MESSAGE = JDATATREE.SKIP_MESSAGE.split(this.REPLACE).join("");
-       result = JDATATREE.SKIP_MESSAGE;
+   if (DATATREE.SKIP_MESSAGE.indexOf(this.REPLACE) >= 0){
+       DATATREE.SKIP_MESSAGE = DATATREE.SKIP_MESSAGE.split(this.REPLACE).join("");
+       result = DATATREE.SKIP_MESSAGE;
    }
-   if (JDATATREE.SKIP_MESSAGE.length < 5){
-       if (JDATATREE.REPRESS_ALERTS == false){
+   if (DATATREE.SKIP_MESSAGE.length < 5){
+       if (DATATREE.REPRESS_ALERTS == false){
           //alert("problem with skipping");
        }
        result = "";
    }
    return result;
 }
-function JdatatreeInitReplaceResults(){
+function DatatreeInitReplaceResults(){
     this.REPLACE_RESULTS.length = 0;
     this.CURRENT_REPLACE_INDEX = -1;
     var spans = document.getElementById(this.ELEMENT_OUTER_WRAPPER).getElementsByTagName("span");
@@ -6607,7 +6607,7 @@ function JdatatreeInitReplaceResults(){
        document.getElementById(this.ELEMENT_INNER_WRAPPER).scrollTop = y;
     }
 }
-function JdatatreeInitSearchResults(){
+function DatatreeInitSearchResults(){
     //this.SEARCH_RESULTS.length = 0;
     //this.CURRENT_SEARCH_INDEX = -1;
     /**
@@ -6631,7 +6631,7 @@ function JdatatreeInitSearchResults(){
 function findPos(obj) { var curleft = 0; var curtop = 0; if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft); if(obj.offsetTop) curtop += parseInt(obj.offsetTop); if(obj.scrollTop && obj.scrollTop > 0) curtop -= parseInt(obj.scrollTop); if(obj.offsetParent) { var pos = findPos(obj.offsetParent); curleft += pos[0]; curtop += pos[1]; } else if(obj.ownerDocument) { var thewindow = obj.ownerDocument.defaultView; if(!thewindow && obj.ownerDocument.parentWindow) thewindow = obj.ownerDocument.parentWindow; if(thewindow) { if(thewindow.frameElement) { var pos = findPos(thewindow.frameElement); curleft += pos[0]; curtop += pos[1]; } } } return [curleft,curtop]; }
 function findPos2(obj, foundScrollLeft, foundScrollTop) { var curleft = 0; var curtop = 0; if(obj.offsetLeft) curleft += parseInt(obj.offsetLeft); if(obj.offsetTop) curtop += parseInt(obj.offsetTop); if(obj.scrollTop && obj.scrollTop > 0) { curtop -= parseInt(obj.scrollTop); foundScrollTop = true; } if(obj.scrollLeft && obj.scrollLeft > 0) { curleft -= parseInt(obj.scrollLeft); foundScrollLeft = true; } if(obj.offsetParent) { var pos = findPos(obj.offsetParent, foundScrollLeft, foundScrollTop); curleft += pos[0]; curtop += pos[1]; } else if(obj.ownerDocument) { var thewindow = obj.ownerDocument.defaultView; if(!thewindow && obj.ownerDocument.parentWindow) thewindow = obj.ownerDocument.parentWindow; if(thewindow) { if (!foundScrollTop && thewindow.scrollY && thewindow.scrollY > 0) curtop -= parseInt(thewindow.scrollY); if (!foundScrollLeft && thewindow.scrollX && thewindow.scrollX > 0) curleft -= parseInt(thewindow.scrollX); if(thewindow.frameElement) { var pos = findPos(thewindow.frameElement); curleft += pos[0]; curtop += pos[1]; } } } return [curleft,curtop]; }
 
-function JdatatreeGetScrollForSearch(span){
+function DatatreeGetScrollForSearch(span){
    var y = span.offsetTop;
    var x = span.offsetLeft;
    var _parent = span.offsetParent;
@@ -6646,7 +6646,7 @@ function JdatatreeGetScrollForSearch(span){
    var scroll = y - top;
    return scroll;
 }
-function JdatatreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_tags/
+function DatatreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_tags/
   allowed = (((allowed || '') + '')
     .toLowerCase()
     .match(/<[a-z][a-z0-9]*>/g) || [])
@@ -6658,7 +6658,7 @@ function JdatatreeStripTagsPHPJS(input, allowed) { // phpjs.org/functions/strip_
       return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
     });
 }
-function JdatatreeEscapeTags(input, allowed){ // allowed example: "<span></span><font></font>"
+function DatatreeEscapeTags(input, allowed){ // allowed example: "<span></span><font></font>"
    var tags = allowed.split(">");
    var full_tags = new Array();
    var partial_tags = new Array();
@@ -6680,7 +6680,7 @@ function JdatatreeEscapeTags(input, allowed){ // allowed example: "<span></span>
    }
    return output;
 }
-function JdatatreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span></span><font></font>"
+function DatatreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span></span><font></font>"
    var tags = allowed.split(">");
    var full_tags = new Array();
    var partial_tags = new Array();
@@ -6702,7 +6702,7 @@ function JdatatreeEscapeTagsForPrint(input, allowed){ // allowed example: "<span
    }
    return output;
 }
-function JdatatreeGetTextForPrint(){
+function DatatreeGetTextForPrint(){
     this.UpdateContent();
     var content = this.CONTENT;
     var chars;
@@ -6710,7 +6710,7 @@ function JdatatreeGetTextForPrint(){
     content = this.HtmlBody(content);
     lines = this.HtmlLineBreaks(content);
     for (var count = 0; count < lines.length; ++count){
-       lines[count] = JDATATREE.StripTagsPHPJS(lines[count]);
+       lines[count] = DATATREE.StripTagsPHPJS(lines[count]);
     }
     var result = "";
     for (var count = 0; count < lines.length; ++count){
@@ -6718,17 +6718,17 @@ function JdatatreeGetTextForPrint(){
     }
     return result;
 }
-function JdatatreePrintText(){
+function DatatreePrintText(){
      var result = this.GetTextForPrint();
      this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
 }
-function JdatatreeGetHtmlParagraphs(){
+function DatatreeGetHtmlParagraphs(){
     this.UpdateHtmlContent();
     return this.CONTENT;
 }
-function JdatatreeUpdateHtmlContent(node){
-    if (JdatatreeUpdateHtmlContent.arguments.length <= 0){
+function DatatreeUpdateHtmlContent(node){
+    if (DatatreeUpdateHtmlContent.arguments.length <= 0){
         node = this.ROOT_NODE;
         this.CONTENT = "";
     } else if (node == this.ROOT_NODE){
@@ -6761,18 +6761,18 @@ function JdatatreeUpdateHtmlContent(node){
         }
     }
 }
-function JdatatreePrintHtmlLines(justreturnval){
+function DatatreePrintHtmlLines(justreturnval){
     try{
     var result;
     result = this.GetHtml();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
             //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (JdatatreePrintHtmlLines.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintHtmlLines.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
-       result = JDATATREE.EncodeArrows(result,true);//8.0
+       result = DATATREE.EncodeArrows(result,true);//8.0
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6781,21 +6781,21 @@ function JdatatreePrintHtmlLines(justreturnval){
         alert(exc);
     }
 }
-function JdatatreePrintHtml(justreturnval){
+function DatatreePrintHtml(justreturnval){
     this.PrintList(justreturnval);
 }
-function JdatatreePrintList(justreturnval){
+function DatatreePrintList(justreturnval){
     try{
     var result;
     result = this.ViewGetList();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
             //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (JdatatreePrintList.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintList.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
-       result = JDATATREE.EncodeArrows(result,true);//8.0
+       result = DATATREE.EncodeArrows(result,true);//8.0
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6804,16 +6804,16 @@ function JdatatreePrintList(justreturnval){
         
     }
 }
-function JdatatreePrintCode(justreturnval){
+function DatatreePrintCode(justreturnval){
     try{
     var result = this.GetCode();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should leave it as a text file. It is not possible to write about html from within html. Always write about computer code from a text file.");
     }
-    if (JdatatreePrintCode.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintCode.arguments.length < 1 || justreturnval != true){
        result = result.split("&nbsp;").join("&amp;nbsp;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6822,46 +6822,46 @@ function JdatatreePrintCode(justreturnval){
         
     }
 }
-function JdatatreePrintHead(){
+function DatatreePrintHead(){
      var result = document.head.innerHTML;
      this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+     document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
 }
-function JdatatreeGetOnload(datatree){
+function DatatreeGetOnload(datatree){
     var result = "";
     result += "onload = function(){ ";
-    result += "JDATATREE.REPRESS_ALERTS = " + !!JDATATREE.REPRESS_ALERTS + "; ";
-    result += "JDATATREE.TAB = \"" + JDATATREE.TAB + "\"; ";
-    result += "JDATATREE.ALT_EDITOR = " + JDATATREE.ALT_EDITOR + "; ";
-    result += "JDATATREE.TOOLBAR_ALIGN = \"" + datatree.TOOLBAR_ALIGN + "\"; ";
-    result += "JDATATREE.TOOLBAR_STYLE = \"" + JDATATREE.TOOLBAR_STYLE + "\"; ";
-    result += "JDATATREE.TOOLBAR_FREESTYLE = \"" + JDATATREE.TOOLBAR_FREESTYLE.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
-    result += "JDATATREE.TOOLBAR_FREESTYLE2 = \"" + JDATATREE.TOOLBAR_FREESTYLE2.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
-    result += "JDATATREE.GO_TO_FILE = \"" + JDATATREE.GO_TO_FILE + "\"; ";
-    result += JDATATREE.PRINT_EXTRA_SCRIPT_BEFORE;
-    result += "JDATATREE.PLEASE_WAIT = true;JDATATREE.AutoInit('" + datatree.NAME + "');";
-    result += JDATATREE.PRINT_EXTRA_SCRIPT_AFTER;
-    result += "JDATATREE.TREE.ACCORDION = " + parseInt(datatree.ACCORDION) + "; ";
-    result += "JDATATREE.TREE.LETTERING = \"" + datatree.LETTERING + "\"; ";
-    result += "JDATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR = \"" + datatree.HIGHLIGHT_BACKGROUND_COLOR + "\"; ";
-    result += "JDATATREE.TREE.HIGHLIGHT_TEXT_COLOR = \"" + datatree.HIGHLIGHT_TEXT_COLOR + "\"; ";
-    result += "JDATATREE.PRINT_EXTRA_SCRIPT_BEFORE = \"" + JDATATREE.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
-    result += "JDATATREE.PRINT_EXTRA_SCRIPT_AFTER = \"" + JDATATREE.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
+    result += "DATATREE.REPRESS_ALERTS = " + !!DATATREE.REPRESS_ALERTS + "; ";
+    result += "DATATREE.TAB = \"" + DATATREE.TAB + "\"; ";
+    result += "DATATREE.ALT_EDITOR = " + DATATREE.ALT_EDITOR + "; ";
+    result += "DATATREE.TOOLBAR_ALIGN = \"" + datatree.TOOLBAR_ALIGN + "\"; ";
+    result += "DATATREE.TOOLBAR_STYLE = \"" + DATATREE.TOOLBAR_STYLE + "\"; ";
+    result += "DATATREE.TOOLBAR_FREESTYLE = \"" + DATATREE.TOOLBAR_FREESTYLE.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
+    result += "DATATREE.TOOLBAR_FREESTYLE2 = \"" + DATATREE.TOOLBAR_FREESTYLE2.split("'").join("&apos;").split("\"").join("&quot;") + "\"; ";
+    result += "DATATREE.GO_TO_FILE = \"" + DATATREE.GO_TO_FILE + "\"; ";
+    result += DATATREE.PRINT_EXTRA_SCRIPT_BEFORE;
+    result += "DATATREE.PLEASE_WAIT = true;DATATREE.AutoInit('" + datatree.NAME + "');";
+    result += DATATREE.PRINT_EXTRA_SCRIPT_AFTER;
+    result += "DATATREE.TREE.ACCORDION = " + parseInt(datatree.ACCORDION) + "; ";
+    result += "DATATREE.TREE.LETTERING = \"" + datatree.LETTERING + "\"; ";
+    result += "DATATREE.TREE.HIGHLIGHT_BACKGROUND_COLOR = \"" + datatree.HIGHLIGHT_BACKGROUND_COLOR + "\"; ";
+    result += "DATATREE.TREE.HIGHLIGHT_TEXT_COLOR = \"" + datatree.HIGHLIGHT_TEXT_COLOR + "\"; ";
+    result += "DATATREE.PRINT_EXTRA_SCRIPT_BEFORE = \"" + DATATREE.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
+    result += "DATATREE.PRINT_EXTRA_SCRIPT_AFTER = \"" + DATATREE.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
     result += "}";
     return result;
 }
-function JdatatreeGetFile(){
+function DatatreeGetFile(){
     this.UpdateContent();
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
     var result = "<!doctype html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    result += "<" + "script type='text/javascript' src='" + JDATATREE.ADDRESS + "'><" + "/script>";
+    result += "<" + "script type='text/javascript' src='" + DATATREE.ADDRESS + "'><" + "/script>";
     result += "<" + "script type='text/javascript'>";
-    result += JDATATREE.GetOnload(datatree);
+    result += DATATREE.GetOnload(datatree);
     result += "<" + "/script>";
     result += "<" + "/head><" + "body>";
     var SITEMAP = "";
-    if (JDATATREE.SITEMAP_FILE != null && JDATATREE.SITEMAP_FILE != 'undefined' && JDATATREE.SITEMAP_FILE != ""){
-       SITEMAP = JDATATREE.SITEMAP_FILE;
+    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
+       SITEMAP = DATATREE.SITEMAP_FILE;
     }
     result += "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='html' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     if (this.CONTENT.indexOf('<table') >= 0){
@@ -6873,9 +6873,9 @@ function JdatatreeGetFile(){
     result += "</body></html>";
     return result;
 }
-function JdatatreeGetFileMax(){
+function DatatreeGetFileMax(){
     this.UpdateContent();
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
     var result = "<!doctype html><html><head>";
     result += "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
     var top = document.createElement('div');
@@ -6884,7 +6884,7 @@ function JdatatreeGetFileMax(){
     for (var s = 0; s < scripts.length; ++s){
        var script = scripts[s];
        try{
-          if (script.id == 'tree_script' || script.innerHTML.indexOf('JDATATREE') >= 0){
+          if (script.id == 'tree_script' || script.innerHTML.indexOf('DATATREE') >= 0){
              top.removeChild(script);
 			 --s;
           }
@@ -6892,14 +6892,14 @@ function JdatatreeGetFileMax(){
     }
     var script = document.createElement('script');
     script.setAttribute('type','text/javascript');
-    var onload = JDATATREE.GetOnload(datatree);
+    var onload = DATATREE.GetOnload(datatree);
     script.innerHTML = onload;
     top.appendChild(script);
     result += top.innerHTML;
     result += "<" + "/head><" + "body>";
     var SITEMAP = "";
-    if (JDATATREE.SITEMAP_FILE != null && JDATATREE.SITEMAP_FILE != 'undefined' && JDATATREE.SITEMAP_FILE != ""){
-       SITEMAP = JDATATREE.SITEMAP_FILE;
+    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
+       SITEMAP = DATATREE.SITEMAP_FILE;
     }
     var tree = "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='html' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     if (this.CONTENT.indexOf('<table') >= 0){
@@ -6921,18 +6921,18 @@ function JdatatreeGetFileMax(){
     result += "</body></html>";
     return result;
 }
-function JdatatreePrintFile(justreturnval){
+function DatatreePrintFile(justreturnval){
     try{
     var result = this.GetFile();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should use PRINT TEXT and save it as a text file. It is often not possible to write about code from within code, especially with html. Always write about computer code from a text file.");
     }
-    if (JdatatreePrintFile.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintFile.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6941,18 +6941,18 @@ function JdatatreePrintFile(justreturnval){
         
     }
 }
-function JdatatreePrintFileMax(justreturnval){
+function DatatreePrintFileMax(justreturnval){
     try{
     var result = this.GetFileMax();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() == "text"){
         //alert("WARNING: If your document contains computer code, especially html code or javascript, you should use PRINT TEXT and save it as a text file. It is often not possible to write about code from within code, especially with html. Always write about computer code from a text file.");
     }
-    if (JdatatreePrintFileMax.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintFileMax.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6961,19 +6961,19 @@ function JdatatreePrintFileMax(justreturnval){
         
     }
 }
-function JdatatreePrintTextTree(justreturnval){
+function DatatreePrintTextTree(justreturnval){
     try{
     var result = this.GetTextTreeFile();
     if (this.TYPE != null && this.TYPE != "undefined" && this.TYPE.toLowerCase() != "text"){
        //alert('For plain text trees only.');
        //return;
     }
-    if (JdatatreePrintTextTree.arguments.length < 1 || justreturnval != true){
+    if (DatatreePrintTextTree.arguments.length < 1 || justreturnval != true){
        //result = result.split("&nbsp;").join("&amp;nbsp;");
        result = result.split("<").join("&lt;");
        result = result.split(">").join("&gt;");
        this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML; 
-       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return JdatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
+       document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return DatatreeRestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
        return null;
     } else if (justreturnval == true){
        return result;
@@ -6982,19 +6982,19 @@ function JdatatreePrintTextTree(justreturnval){
         
     }
 }
-function JdatatreeGetTextTreeFile(){
+function DatatreeGetTextTreeFile(){
     this.UpdateContent();
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
     var result = "<!doctype html><html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    result += "<" + "script type='text/javascript' src='" + JDATATREE.ADDRESS + "'><" + "/script>";
+    result += "<" + "script type='text/javascript' src='" + DATATREE.ADDRESS + "'><" + "/script>";
     result += "<" + "script type='text/javascript'>";
-    result += JDATATREE.GetOnload(datatree);
+    result += DATATREE.GetOnload(datatree);
     result += "<" + "/script>";
     result += "<" + "/head><" + "body>";
-    var datatree = JDATATREE.TREE? JDATATREE.TREE : this;
+    var datatree = DATATREE.TREE? DATATREE.TREE : this;
     var SITEMAP = "";
-    if (JDATATREE.SITEMAP_FILE != null && JDATATREE.SITEMAP_FILE != 'undefined' && JDATATREE.SITEMAP_FILE != ""){
-        SITEMAP = JDATATREE.SITEMAP_FILE;
+    if (DATATREE.SITEMAP_FILE != null && DATATREE.SITEMAP_FILE != 'undefined' && DATATREE.SITEMAP_FILE != ""){
+        SITEMAP = DATATREE.SITEMAP_FILE;
     }
 	result += "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='text' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" sitemap='" + SITEMAP + "' >";
     result += "<!-- \n";
@@ -7004,12 +7004,12 @@ function JdatatreeGetTextTreeFile(){
     result += "</body></html>";
     return result;
 }
-function JdatatreePrint(){
+function DatatreePrint(){
     this.PrintList();
     //this.PrintText();
 }
-function JdatatreeReplay(returnvalue){
-	if (this.ALERTS.length < 2 && (JdatatreeReplay.arguments.length < 1 || returnvalue == false)){
+function DatatreeReplay(returnvalue){
+	if (this.ALERTS.length < 2 && (DatatreeReplay.arguments.length < 1 || returnvalue == false)){
            for (var count = 0; count < this.ALERTS.length; ++count){
               alert(this.ALERTS[count]);
            }
@@ -7018,8 +7018,8 @@ function JdatatreeReplay(returnvalue){
 	   for (var count = 0; count < this.ALERTS.length; ++count){
               alerts += this.ALERTS[count] + "\n";
            }
-           if (JdatatreeReplay.arguments.length < 1 || returnvalue == false){
-              JDATATREE.ShowPopupBox(alerts, 30000, (window.screen.width/3), (window.screen.height/3));
+           if (DatatreeReplay.arguments.length < 1 || returnvalue == false){
+              DATATREE.ShowPopupBox(alerts, 30000, (window.screen.width/3), (window.screen.height/3));
            } else if (returnvalue == true){
              return alerts;
            }
