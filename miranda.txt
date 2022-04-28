@@ -1,0 +1,33 @@
+Facts
+   The Supreme Court’s decision in Miranda v. Arizona addressed four different cases involving custodial interrogations.  In each of these cases, the defendant was questioned by police officers, detectives, or a prosecuting attorney in a room in which he was cut off from the outside world.  In none of these cases was the defendant given a full and effective warning of his rights at the outset of the interrogation process.  In all the cases, the questioning elicited oral admissions and, in three of them, signed statements that were admitted at trial.
+Miranda v. Arizona:  
+   Miranda was arrested at his home and taken in custody to a police station where he was identified by the complaining witness.  He was then interrogated by two police officers for two hours, which resulted in a signed, written confession.  At trial, the oral and written confessions were presented to the jury.  Miranda was found guilty of kidnapping and rape and was sentenced to 20-30 years imprisonment on each count.  On appeal, the Supreme Court of Arizona held that Miranda’s constitutional rights were not violated in obtaining the confession.
+Vignera v. New York:  
+   Vignera was picked up by New York police in connection with the robbery of a dress shop that had occurred three days prior.  He was first taken to the 17th Detective Squad headquarters. He was then taken to the 66th Detective Squad, where he orally admitted the robbery and was placed under formal arrest.  He was then taken to the 70th Precinct for detention, where he was questioned by an assistant district attorney in the presence of a hearing reporter who transcribed the questions and answers.
+At trial, the oral confession and the transcript were presented to the jury.  Vignera was found guilty of first degree robbery and sentenced to 30-60 years imprisonment.  The conviction was affirmed without opinion by the Appellate Division and the Court of Appeals.
+Westover v. United States:  
+   Westover was arrested by local police in Kansas City as a suspect in two Kansas City robberies and taken to a local police station.  A report was also received from the FBI that Westover was wanted on a felony charge in California.  Westover was interrogated the night of the arrest and the next morning by local police.  Then, FBI agents continued the interrogation at the station.  After two-and-a- half hours of interrogation by the FBI, Westover signed separate confessions, which had been prepared by one of the agents during the interrogation, to each of the two robberies in California.  These statements were introduced at trial.  Westover was convicted of the California robberies and sentenced to 15 years’ imprisonment on each count.  The conviction was affirmed by the Court of Appeals for the Ninth Circuit.
+California v. Stewart: 
+   In the course of investigating a series of purse-snatch robberies in which one of the victims died of injuries inflicted by her assailant, Stewart was identified as the endorser of checks stolen in one of the robberies.  Steward was arrested at his home.  Police also arrested Stewart’s wife and three other people who were visiting him.  Stewart was placed in a cell, and, over the next five days, was interrogated on nine different occasions.  During the ninth interrogation session, Stewart stated that he had robbed the deceased, but had not meant to hurt her.  At that time, police released the four other people arrested with Stewart because there was no evidence to connect any of them with the crime.  At trial, Stewart’s statements were introduced.  Stewart was convicted of robbery and first-degree murder and sentenced to death.  The Supreme Court of California reversed, holding that Stewart should have been advised of his right to remain silent and his right to counsel.
+Issues
+   Whether “statements obtained from an individual who is subjected to custodial police interrogation” are admissible against him in a criminal trial and whether “procedures which assure that the individual is accorded his privilege under the Fifth Amendment to the Constitution not to be compelled to incriminate himself” are necessary.
+Supreme Court Holding
+   The Court held that “there can be no doubt that the Fifth Amendment privilege is available outside of criminal court proceedings and serves to protect persons in all settings in which their freedom of action is curtailed in any significant way from being compelled to incriminate themselves.”  
+   As such, “the prosecution may not use statements, whether exculpatory or inculpatory, stemming from custodial interrogation of the defendant unless it demonstrates the use of procedural safeguards effective to secure the privilege against self-incrimination.  By custodial interrogation, we mean questioning initiated by law enforcement officers after a person has been taken into custody or otherwise deprived of his freedom of action in any significant way.”
+   The Court further held that “without proper safeguards the process of in-custody interrogation of persons suspected or accused of crime contains inherently compelling pressures which work to undermine the individual’s will to resist and to compel him to speak where he would otherwise do so freely.” 
+   Therefore, a defendant “must be warned prior to any questioning that he has the right to remain silent, that anything he says can be used against him in a court of law, that he has the right to the presence of an attorney, and that if he cannot afford an attorney one will be appointed for him prior to any questioning if he so desires.”
+   The Supreme Court reversed the judgment of the Supreme Court of Arizona in Miranda, reversed the judgment of the New York Court of Appeals in Vignera, reversed the judgment of the Court of Appeals for the Ninth Circuit in Westover, and affirmed the judgment of the Supreme Court of California in Stewart.
+Argued: 
+   Feb. 28, March 1 and 2, 1966
+Decided: 
+   June 13, 1966
+Vote: 
+   5-4
+Majority opinion 
+   written by Chief Justice Warren and joined by Justices Black, Douglas, Brennan, and Fortas.
+Dissenting opinion 
+   written by Justice Harlan and joined by Justices Stewart and White.
+Dissenting in part opinion 
+   written by Justice Clark.
+Follow-Up
+   Miranda v. Arizona: After Miranda’s conviction was overturned by the Supreme Court of the United States, the State of Arizona retried him.  At the second trial, Miranda’s confession was not introduced into evidence. Miranda was once again convicted and sentenced to 20-30 years in prison.
