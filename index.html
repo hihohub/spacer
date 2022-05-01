@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type='text/javascript' src='./Spacer10.0.js'>
+<script type='text/javascript' src='./Spacer10.1.js'>
 </script>
 <script type='text/javascript'>
    onload=function(){
@@ -29,7 +29,7 @@ The name 'Spacer' refers to the spaced text that serves as input to the tree. Th
 </div>
 
 <div class="container">
-<p class='well' style='font-family:Serif'>To install a datatree on your web page, simply include a container element with the id DATATREE and an indented outline between the tags. Or, import the indented text file with the attribute src='filename'. Spacer also accepts an HTML list, but you will have to add the attribute type='html'. The 'root' attribute designates the text for the root node, here 'Example'. The 'toolbar' attribute adds buttons, here 'collapse,expand,search,reset'. The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%. Finally, import Spacer10.0.js and add another script with one line in the onload handler, SPACER.AutoInit();</p>
+<p class='well' style='font-family:Serif'>To install a datatree on your web page, simply include a container element with the id DATATREE and an indented outline between the tags. Or, import the indented text file with the attribute src='filename'. Spacer also accepts an HTML list, but you will have to add the attribute type='html'. The 'root' attribute designates the text for the root node, here 'Example'. The 'toolbar' attribute adds buttons, here 'collapse,expand,search,reset'. The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%. Finally, import Spacer10.1.js and add another script with one line in the onload handler, SPACER.AutoInit();</p>
 </div>
 
 <div id='DATATREE' style='width:50%;margin-left:25%;' root='Example' toolbar='collapse,expand,search,reset' treeheight='200px' src='./miranda.txt'> 
@@ -46,7 +46,7 @@ The name 'Spacer' refers to the spaced text that serves as input to the tree. Th
    </div>
    <div id='collapse1' class='panel-collapse collapse'>
     <div class='panel-body'>
-     <p class='well' style='font-family:Serif'>search, search_horizontal, search_vertical, next, previous, reset, number, replace, edit, html, load, alphabetize. The 'save' button is not working, use 'html' instead. If the toolbar needs scrollbars or other styling, it should be possible to style it with CSS with the id spacer_toolbar.</p>
+     <p class='well' style='font-family:Serif'>search, search_horizontal, search_vertical, next, previous, reset, number, replace, edit, save, load, html, text, and alphabetize. If you add an 'edit' button, you'll also need 'save' and 'load'. The 'save' button has been changed to the same as the 'html' button, which saves an html list. Once text or html has been loaded into the tree, it's converted to html, so it's easier to save it as html. If you prefer plain text, the 'text' button saves just the text, however it's not working well, and typically only works once. As for styling, Spacer was designed for full-screen trees, and may someimtes not style properly for small trees. For example, excessive toolbar buttons will wrap to the next line on a small tree. If the toolbar needs scrollbars or other styling, it may be possible to style it with CSS with the id spacer_toolbar.</p>
     </div>
    </div>
   </div>
