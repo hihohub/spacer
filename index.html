@@ -16,10 +16,41 @@
       SPACER.TREE.HIGHLIGHT_TEXT_COLOR = "white";
    }
 </script>
+<style type="text/css">
+div.logo p {
+   letter-spacing: 1px;
+   font-size: 300%;
+   text-shadow: 1px 1px 5px hsl(0,0%,90%);
+}
+div.logo span {
+  padding: 5px; 
+  box-sizing: border-box;
+}
+.one {
+  color: hsl(0,0%,70%);
+  background-color: hsl(0,0%,35%);
+}
+.two {
+  color: hsl(0,0%,65%);
+  background-color: hsl(0,0%,40%);
+
+}
+.three {
+  color: hsl(0,0%,60%);
+  background-color: hsl(0,0%,30%);
+
+}
+.firstletter {
+  border-radius: 5px 0px 0px 5px;
+}
+.lastletter {
+  border-radius: 0px 5px 5px 0px;
+}
+</style>
 </head>
 <body>
-<div class="container">
-<h1 align='center' class='well'>Spacer</h1>
+<div align="center" class="logo">
+<p><span class="one firstletter">S</span><span class="two">P</span><span class="three">A</span><span class="one">C</span><span class="two">E</span><span class="three lastletter">R</span></p>
 </div>
 
 <div class="container">
@@ -127,4 +158,5 @@ The name 'Spacer' refers to the spaced text that serves as input to the tree. Th
 
 </body>
 </html>
+
 
