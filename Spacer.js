@@ -255,6 +255,7 @@ class Spacer {
      */
 
     SpacerGetTreeFromName(name){
+        // get named tree from hypertree list
         var tree = null;
         if (document.getElementById(name)){
             for (var count = 0; count < this.TREES.length; ++count){
@@ -267,7 +268,9 @@ class Spacer {
         }
         return tree;
     }
-    SpacerSetTreeFromName(name){ // 9.6
+
+    SpacerSetTreeFromName(name){
+        // set hypertree to tree that mouse is hovering over
         if (name != this.TREE.NAME){
             var tree = this.GetTreeFromName(name);
             if (tree != null){
@@ -278,7 +281,9 @@ class Spacer {
             }
         }
     }
-    SpacerHighlightTree(name){ // 9.6
+
+    SpacerHighlightTree(name){
+        // highlight tree that mouse is hovering over
         try{
             for (let t in this.TREES){
                 document.getElementById(this.TREES[t].NAME).style.border = "1px solid white";
@@ -1371,3 +1376,4 @@ class Spacer {
     }
 
 } // spacer
+

@@ -556,9 +556,9 @@ class SpacerTree {
 
     SetToolbar(toolbar_tools){
         toolbar_tools = toolbar_tools.toLowerCase();
-        this.SPACER.TREE.TOOLBAR_TOOLS = toolbar_tools;
+        this.TOOLBAR_TOOLS = toolbar_tools;
         var TOOLBAR = "";
-        this.SPACER.TREE = this;
+        // this = this;
         var trimmed = this.SPACER.StringTrim(toolbar_tools);
         if (trimmed.toUpperCase() == 'WRAP'){
             this.SPACER.TOOLBAR_STYLE = this.SPACER.TOOLBAR_WRAP_STYLE;
@@ -756,14 +756,34 @@ class SpacerTree {
                 this.VIEW = this.GetView();
             }
             document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
+            this.VIEW = "";
         } else if (document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER)){
             document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
+            this.VIEW = "";
         }
     }
 
     RestoreView(){
         // set inner html of html tree element to view string
-        document.getElementById(this.SPACER.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = this.SPACER.TREE.VIEW;
+        document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
+        this.VIEW = "";
+    }
+
+    GetView(click){
+        // build view string from present state of the html by traversing from root node
+        if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
+            if (arguments.length == 0 || click == true){
+                try{
+                    this.CloseTree();
+                    this.ROOT_NODE.Click();
+                } catch (exc) {  }
+            }
+            var ul = "<ul onmouseover='return SPACER.SetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return SPACER.RightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
+            var _ul = "</ul>";
+            return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -773,7 +793,7 @@ class SpacerTree {
      */
 
     Query(query_string){
-        this.SPACER.TREE = this;
+        // this = this;
         this.SPACER.SetInitiator(this);//7.9.8
         var RESULT = '';
         if (this.SPACER.INSERT == true && this.SPACER.StringTrim(query_string.toUpperCase()) != "UNINSERT"){
@@ -834,9 +854,9 @@ class SpacerTree {
                 } else {
                     this.AUTO_ADJUST = true;
                     this.AUTO_TRIM = true;
-                    if (this.SPACER.TREE == "undefined" || this.SPACER.TREE == null){
-                        this.SPACER.TREE = this;
-                    }
+                    // if (this == "undefined" || this == null){
+                    //     this = this;
+                    // }
                     var type = this.SPACER.StringTrim(strings[2].toUpperCase());
                     switch(type){
                         case "HTML":
@@ -853,7 +873,7 @@ class SpacerTree {
                                         this.CONTENT = content;
                                     }
                                     this.ROOT_NODE = this.TreeFromString(this.CONTENT, this.TITLE, "html");
-                                    this.VIEW = that.GetView();
+                                    this.VIEW = this.GetView();
                                     if (this.REFRESH_GUI == true){
                                         this.RefreshGUI();
                                     }
@@ -884,7 +904,7 @@ class SpacerTree {
                         case "TEXT":
                             if (this.SPACER.PLEASE_WAIT == true && this.SPACER.WAIT_IS_OPEN != true){
                                 var wait = this.SPACER.Wait();
-                                var that = this;
+                                // var that = this;
                                 setTimeout(function(){
                                     //that.PLAIN_TEXT = true;//7.9.7
                                     //that.SetTypeConditionally(type); // 7.9.4
@@ -1177,7 +1197,7 @@ class SpacerTree {
                 var tools = this.SPACER.StringTrim(query_string.substring("TOOLBAR".length));
                 if (tools != ""){
                     tools = tools.toLowerCase();
-                    this.SPACER.TREE.TOOLBAR_TOOLS = tools;
+                    this.TOOLBAR_TOOLS = tools;
                     this.SetToolbar(tools);
                 }
                 break;
@@ -1572,10 +1592,10 @@ class SpacerTree {
                         var txtnode = document.createTextNode(this.SPACER.SKIP_MESSAGE);//7.9.8
                         var pN = search_result.parentNode;
                         pN.replaceChild(txtnode,search_result);
-                        if (this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 < this.SPACER.TREE.REPLACE_RESULTS.length){
-                            this.SPACER.TREE.Query('WITH ' + this.SPACER.TREE.REPLACE_WITH);
-                            this.SPACER.TREE.Query('REPLACE ' + this.SPACER.TREE.REPLACE);
-                            if (this.SPACER.GetBrowser() == "IE" && this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 == this.SPACER.TREE.REPLACE_RESULTS.length){
+                        if (this.CURRENT_REPLACE_INDEX + 1 < this.REPLACE_RESULTS.length){
+                            this.Query('WITH ' + this.REPLACE_WITH);
+                            this.Query('REPLACE ' + this.REPLACE);
+                            if (this.SPACER.GetBrowser() == "IE" && this.CURRENT_REPLACE_INDEX + 1 == this.REPLACE_RESULTS.length){
                                 this.Query('RESET *');
                                 this.ResetReplace();
                             }
@@ -1643,10 +1663,10 @@ class SpacerTree {
                             var txtnode = document.createTextNode(this.REPLACE_WITH);//7.9.8
                             var pN = search_result.parentNode;
                             pN.replaceChild(txtnode,search_result);
-                            if (this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 < this.SPACER.TREE.REPLACE_RESULTS.length){
-                                this.SPACER.TREE.Query('WITH ' + this.SPACER.TREE.REPLACE_WITH);
-                                this.SPACER.TREE.Query('REPLACE ' + this.SPACER.TREE.REPLACE);
-                                if (this.SPACER.GetBrowser() == "IE" && this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 == this.SPACER.TREE.REPLACE_RESULTS.length){
+                            if (this.CURRENT_REPLACE_INDEX + 1 < this.REPLACE_RESULTS.length){
+                                this.Query('WITH ' + this.REPLACE_WITH);
+                                this.Query('REPLACE ' + this.REPLACE);
+                                if (this.SPACER.GetBrowser() == "IE" && this.CURRENT_REPLACE_INDEX + 1 == this.REPLACE_RESULTS.length){
                                     this.Query('RESET *');
                                     this.ResetReplace();
                                 }
@@ -1976,10 +1996,10 @@ class SpacerTree {
             }
         }
         if (source.nodeName.toLowerCase() == "span"){
-            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_OUTER_WRAPPER){
+            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.ELEMENT_OUTER_WRAPPER){
                 return;
             } else {
-                var tree = this.SPACER.TREE;
+                var tree = this;
                 if (tree){
                     tree.MOUSE_DOWN_SPAN = source;
                 }
@@ -2004,20 +2024,20 @@ class SpacerTree {
             }
         }
         //unhighlight
-        if (this.SPACER.TREE.SELECTED_SPAN){
-            this.UnhighlightSpan(this.SPACER.TREE.SELECTED_SPAN);
+        if (this.SELECTED_SPAN){
+            this.UnhighlightSpan(this.SELECTED_SPAN);
         }
-        if (this.SPACER.TREE.MOUSE_DRAG_SPANS){
-            for (var s in this.SPACER.TREE.MOUSE_DRAG_SPANS){
-                this.UnhighlightSpan(this.SPACER.TREE.MOUSE_DRAG_SPANS[s]);
+        if (this.MOUSE_DRAG_SPANS){
+            for (var s in this.MOUSE_DRAG_SPANS){
+                this.UnhighlightSpan(this.MOUSE_DRAG_SPANS[s]);
             }
         }
-        this.SPACER.TREE.MOUSE_DRAG_SPANS.length = 0;
+        this.MOUSE_DRAG_SPANS.length = 0;
         if (source.nodeName.toLowerCase() == "span"){
-            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_OUTER_WRAPPER){
+            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.ELEMENT_OUTER_WRAPPER){
                 return;
             } else {
-                var tree = this.SPACER.TREE;
+                var tree = this;
                 if (tree){
                     tree.MOUSE_UP_SPAN = source;
                     if (tree.MOUSE_DOWN_SPAN && tree.MOUSE_UP_SPAN){
@@ -2066,11 +2086,11 @@ class SpacerTree {
                     }}}}}
 
     ClickSpan(evt,span){
-        if (this.SPACER.TREE.SELECTED_SPAN){
-            this.UnhighlightSpan(this.SPACER.TREE.SELECTED_SPAN);
+        if (this.SELECTED_SPAN){
+            this.UnhighlightSpan(this.SELECTED_SPAN);
         }
-        for (var count = 0; count < this.SPACER.TREE.MOUSE_DRAG_SPANS.length; ++count){
-            this.UnhighlightSpan(this.SPACER.TREE.MOUSE_DRAG_SPANS[count]);
+        for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
+            this.UnhighlightSpan(this.MOUSE_DRAG_SPANS[count]);
         }
         if (!evt){
             evt = window.event;
@@ -2087,13 +2107,13 @@ class SpacerTree {
             }
         }
         if (source.nodeName.toLowerCase() == "span"){
-            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.SPACER.TREE.ELEMENT_OUTER_WRAPPER){
-                this.SPACER.TREE.SELECTED_SPAN = null; // ***
+            if (source.parentNode.nodeName.toLowerCase() == "li" && source.parentNode.parentNode.nodeName.toLowerCase() == "ul" && source.parentNode.parentNode.id == this.ELEMENT_INNER_WRAPPER && source.parentNode.parentNode.parentNode.nodeName.toLowerCase() == "div" && source.parentNode.parentNode.parentNode.id == this.ELEMENT_OUTER_WRAPPER){
+                this.SELECTED_SPAN = null; // ***
                 return;
             } else {
-                this.SPACER.TREE.SELECTED_SPAN = source;
-                this.SPACER.TREE.CLICK_X = evt.clientX;
-                this.SPACER.TREE.CLICK_Y = evt.clientY;
+                this.SELECTED_SPAN = source;
+                this.CLICK_X = evt.clientX;
+                this.CLICK_Y = evt.clientY;
                 if (source.innerHTML.indexOf('search_result') >= 0){
                     var search_result = source.getElementsByTagName('span')[0];
                     if (search_result.className && search_result.className == 'search_result'){
@@ -2101,8 +2121,8 @@ class SpacerTree {
                     }
                 }
                 this.HighlightSpan(source);
-                this.SPACER.TREE.MOUSE_DRAG_SPANS.length = 0;
-                this.SPACER.TREE.MOUSE_DRAG_SPANS.push(source);
+                this.MOUSE_DRAG_SPANS.length = 0;
+                this.MOUSE_DRAG_SPANS.push(source);
                 this.SPACER.GoToFile(source);
             }
         }
@@ -2123,8 +2143,8 @@ class SpacerTree {
                 }
             }
         }
-        span.style.backgroundColor = this.SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR;
-        span.style.color = this.SPACER.TREE.HIGHLIGHT_TEXT_COLOR;
+        span.style.backgroundColor = this.HIGHLIGHT_BACKGROUND_COLOR;
+        span.style.color = this.HIGHLIGHT_TEXT_COLOR;
     }
 
     UnhighlightSpan(span){
@@ -2575,7 +2595,6 @@ class SpacerTree {
         var text = "";
         this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
         document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button>" + "<button type='button' onclick='return SPACER.TREE.LoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return SPACER.TREE.LoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return LoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
-        //this.RefreshGUI();
     }
 
     LoadFromTextarea(type, preload){
@@ -2585,7 +2604,6 @@ class SpacerTree {
         }
         this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
         document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button><button type='button' onclick='return SPACER.TREE.LoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
-        //this.RefreshGUI();
     }
 
     LoadFromTextarea2(type){
@@ -2601,15 +2619,15 @@ class SpacerTree {
         txt = this.SPACER.EncodeArrows(txt,true);//8.0
 
         this.SPACER.FULL_SCREEN_MODE = false;
-        if (this.SPACER.TREE){
-            this.SPACER.TREE.SELECTED_SPAN = null;//7.8.7
+        if (this){
+            this.SELECTED_SPAN = null;//7.8.7
             this.SPACER.PLEASE_WAIT = true;
             if (c == 'text' || c == '' || c == 'undefined' || c == null){
-                this.SPACER.TREE.Query("CREATE FROM TEXT " + txt);
+                this.Query("CREATE FROM TEXT " + txt);
             } else if (c == 'tree' || c == 'file') {
-                this.SPACER.TREE.Query("CREATE FROM TREE " + txt);
+                this.Query("CREATE FROM TREE " + txt);
             } else if (c == 'html' || c == 'list') {
-                this.SPACER.TREE.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
+                this.Query("CREATE FROM HTML " + txt); // ************************* indents unindented tables
             } else {}
         } else {
             this.SELECTED_SPAN = null;//7.8.7
@@ -2624,22 +2642,6 @@ class SpacerTree {
 
     GetList(){
         return this.SpacerView.ViewGetList();
-    }
-
-    GetView(click){
-        if (this.ROOT_NODE != null && this.ROOT_NODE != "undefined" && this.ROOT_NODE != ""){
-            if (arguments.length == 0 || click == true){
-                try{
-                    this.CloseTree();
-                    this.ROOT_NODE.Click();
-                } catch (exc) {  }//7.8.7
-            }
-            var ul = "<ul onmouseover='return SPACER.SetTreeFromName(\"" + this.NAME + "\");' oncontextmenu='return SPACER.RightClick();' id='" + this.ELEMENT_INNER_WRAPPER + "' style='" + this.ELEMENT_INNER_WRAPPER_STYLE + this.GetLettering() + "height:" + this.ELEMENT_INNER_WRAPPER_HEIGHT + "'>";
-            var _ul = "</ul>";
-            return this.TOOLBAR + ul + this.ROOT_NODE.Iterate(false) + _ul;
-        } else {
-            return "";
-        }
     }
 
     UpdateContent(){
@@ -2851,3 +2853,4 @@ class SpacerTree {
     }
 
 } // spacer tree
+

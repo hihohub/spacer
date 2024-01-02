@@ -7,23 +7,24 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type='text/javascript' src='./Spacer.js'></script>
-<script type='text/javascript' src='./SpacerTree.js'></script>
-<script type='text/javascript' src='./SpacerView.js'></script>
-<script type='text/javascript' src='./SpacerBranch.js'></script>
-<script type='text/javascript'>
-    let SPACER;
-    onload = async function(){
-      let file = await fetch("./miranda.txt")
-        .then(data => data.text())
-        .then(text => document.getElementById('DATATREE').innerHTML = text);
-      SPACER = new Spacer();
-      SPACER.AutoInit("DATATREE");
-      // SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR = "gray";
-      // SPACER.TREE.HIGHLIGHT_TEXT_COLOR = "white";
-      }
-</script>
-
+    <script type="text/javascript" src="./Spacer.js"></script>
+    <script type='text/javascript' src='./SpacerTree.js'></script>
+    <script type='text/javascript' src='./SpacerView.js'></script>
+    <script type='text/javascript' src='./SpacerBranch.js'></script>
+    <script type="text/javascript">
+        var SPACER = new Spacer();
+        onload = async function(){
+          let file = await fetch("./miranda.txt")
+            .then(data => data.text())
+            .then(text => {
+                    document.getElementById('DATATREE').innerHTML = text;
+                    SPACER.AutoInit("DATATREE");
+                // SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR = "gray";
+                // SPACER.TREE.HIGHLIGHT_TEXT_COLOR = "white";
+                }
+            ).catch(exc => console.log(exc));
+          }
+    </script>
 </head>
 <body>
 
