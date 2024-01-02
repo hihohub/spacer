@@ -170,8 +170,6 @@ class SpacerTree {
         if (elmnt.getAttribute('lettering') != null && elmnt.getAttribute('lettering') != "undefined"){
             // font
             this.LETTERING = elmnt.getAttribute('lettering');
-            //var lettering = "font-family:" + this.LETTERING + ";";
-            //this.ELEMENT_INNER_WRAPPER_STYLE = this.ELEMENT_INNER_WRAPPER_STYLE + lettering;
         }
         if (elmnt.getAttribute('accordion') != null && elmnt.getAttribute('accordion') != "undefined" && parseInt(elmnt.getAttribute('accordion')) >= 0){
             this.ACCORDION = parseInt(elmnt.getAttribute('accordion'));
@@ -216,7 +214,6 @@ class SpacerTree {
                     break;
             }
         }
-        //SPACER.PLEASE_WAIT = true;
         var querystring = "CREATE FROM " + TYPE + " " + TEXT;
         this.Query(querystring);
     }
@@ -541,9 +538,8 @@ class SpacerTree {
         if (document.getElementById("edit_tree_script")){
             document.head.removeChild(document.getElementById("edit_tree_script"));
         }
-        var submitfromtoolbar = "function spacer_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('spacer_editor').value; var mode = document.getElementById('spacer_editbox_button').innerHTML;/**document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ SPACER.TREE.SubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);   }";
-        var altsubmitfromtoolbar = "function spacer_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = SpacerGetAltEditorContent();var mode = document.getElementById('spacer_editbox_button').innerHTML;SPACER.TREE.SubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);}";
-        return submitfromtoolbar + altsubmitfromtoolbar;
+        var submitfromtoolbar = "function spacer_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('spacer_editor').value; var mode = document.getElementById('spacer_editbox_button').innerHTML; SPACER.TREE.SubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);   }";
+        return submitfromtoolbar;
     }
 
     InsertEditTreeText(){
@@ -655,24 +651,11 @@ class SpacerTree {
                         TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return SPACER.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                         TOOLBAR += separator;
                         break;
-                    case "edit_with_popups":
-                        TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onclick='return SPACER.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='right_with_popups'>move right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
-                        TOOLBAR += separator;
-                        break;
-                    case "menu":
-                        TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return SPACER.OpenMenu(false);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
-                        TOOLBAR += separator;
-                        break;
-                    case "menu_with_popups":
-                        TOOLBAR += "<span id='" + this.TOOLBAR_SELECT_NAME + "' onmouseover='return SPACER.OpenMenu(true);' style='background-color:#eeeeee;padding:5px;'>MENU</span>";
-                        TOOLBAR += separator;
-                        break;
                     case "status":
                         TOOLBAR += "<span id='" + this.TOOLBAR_STATUS_NAME + "' title='' style='display:none;background-color:white;color:red;font-size:x-large;font-weight:bold;padding:7px;'>!</span>";
                     default:
                         break;
                 }
-
             }
             TOOLBAR += "</div>";
             this.TOOLBAR = TOOLBAR;
@@ -766,9 +749,26 @@ class SpacerTree {
         }
     }
 
+    RefreshGUI(){
+        // set inner html of html tree element to view string
+        if (this && document.getElementById(this.ELEMENT_OUTER_WRAPPER)){
+            if (this.VIEW == "undefined" || this.VIEW == null){
+                this.VIEW = this.GetView();
+            }
+            document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
+        } else if (document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER)){
+            document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
+        }
+    }
+
+    RestoreView(){
+        // set inner html of html tree element to view string
+        document.getElementById(this.SPACER.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = this.SPACER.TREE.VIEW;
+    }
+
     /**
      * -----------------------------------------------------------------------
-     * QUERIES (menu functions and other utilities)
+     * QUERIES (create tree, toolbar functions, and other utilities)
      * -----------------------------------------------------------------------
      */
 
@@ -842,7 +842,7 @@ class SpacerTree {
                         case "HTML":
                             if (this.SPACER.PLEASE_WAIT == true && this.SPACER.WAIT_IS_OPEN != true){
                                 var wait = this.SPACER.Wait();
-                                var that = this;
+                                // var that = this;
                                 setTimeout(function(){
                                     //that.PLAIN_TEXT = false;//7.9.7
                                     //that.SetTypeConditionally(type); // 7.9.4
@@ -850,17 +850,17 @@ class SpacerTree {
                                     if (content == ''){
                                         return;
                                     } else {
-                                        that.CONTENT = content;
+                                        this.CONTENT = content;
                                     }
-                                    that.ROOT_NODE = that.TreeFromString(that.CONTENT, that.TITLE, "html");
-                                    that.VIEW = that.GetView();
-                                    if (that.REFRESH_GUI == true){
-                                        that.RefreshGUI();
+                                    this.ROOT_NODE = this.TreeFromString(this.CONTENT, this.TITLE, "html");
+                                    this.VIEW = that.GetView();
+                                    if (this.REFRESH_GUI == true){
+                                        this.RefreshGUI();
                                     }
-                                    RESULT = that;
+                                    RESULT = this;
                                     this.SPACER.CloseWaitBox(wait);
-                                    if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-                                    if (that.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+                                    if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
+                                    if (this.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
                                 }.bind(this), 1);
                             } else {
                                 //this.PLAIN_TEXT = false;//7.9.7
@@ -892,17 +892,17 @@ class SpacerTree {
                                     if (content == ''){
                                         return;
                                     } else {
-                                        that.CONTENT = content;
+                                        this.CONTENT = content;
                                     }
-                                    that.ROOT_NODE = that.TreeFromString(that.CONTENT, that.TITLE, "text");
-                                    that.VIEW = that.GetView();
-                                    if (that.REFRESH_GUI == true){
-                                        that.RefreshGUI();
+                                    this.ROOT_NODE = this.TreeFromString(this.CONTENT, this.TITLE, "text");
+                                    this.VIEW = this.GetView();
+                                    if (this.REFRESH_GUI == true){
+                                        this.RefreshGUI();
                                     }
-                                    RESULT = that;
+                                    RESULT = this;
                                     this.SPACER.CloseWaitBox(wait);
-                                    if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
-                                    if (that.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
+                                    if (this.HAS_ERRORS == true && document.getElementById(this.TOOLBAR_STATUS_NAME) != null && document.getElementById(this.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(this.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(this.TOOLBAR_STATUS_NAME).title=this.Replay(true); }
+                                    if (this.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ this.Query("REPLAY"); }
                                 }.bind(this), 1);
                             } else {
                                 //this.PLAIN_TEXT = true;//7.9.7
@@ -1572,9 +1572,6 @@ class SpacerTree {
                         var txtnode = document.createTextNode(this.SPACER.SKIP_MESSAGE);//7.9.8
                         var pN = search_result.parentNode;
                         pN.replaceChild(txtnode,search_result);
-                        //var line = outerspan.innerHTML;
-                        //SPACER.PLEASE_WAIT = false;
-                        //SPACER.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
                         if (this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 < this.SPACER.TREE.REPLACE_RESULTS.length){
                             this.SPACER.TREE.Query('WITH ' + this.SPACER.TREE.REPLACE_WITH);
                             this.SPACER.TREE.Query('REPLACE ' + this.SPACER.TREE.REPLACE);
@@ -1646,11 +1643,6 @@ class SpacerTree {
                             var txtnode = document.createTextNode(this.REPLACE_WITH);//7.9.8
                             var pN = search_result.parentNode;
                             pN.replaceChild(txtnode,search_result);
-
-                            //var line = outerspan.innerHTML;
-                            //SPACER.PLEASE_WAIT = false;
-                            //SPACER.TREE.SubmitEdit(line, "overwrite", pN);//search_result.parentNode);//7.9.8
-
                             if (this.SPACER.TREE.CURRENT_REPLACE_INDEX + 1 < this.SPACER.TREE.REPLACE_RESULTS.length){
                                 this.SPACER.TREE.Query('WITH ' + this.SPACER.TREE.REPLACE_WITH);
                                 this.SPACER.TREE.Query('REPLACE ' + this.SPACER.TREE.REPLACE);
@@ -2152,23 +2144,6 @@ class SpacerTree {
         }
         span.style.backgroundColor = "";
         span.style.color = "";
-    }
-
-    RestoreView(){
-        document.getElementById(this.SPACER.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = this.SPACER.TREE.VIEW;
-    }
-
-    RefreshGUI(){
-        if (this && document.getElementById(this.ELEMENT_OUTER_WRAPPER)){
-            if (this.VIEW == "undefined"){
-                this.VIEW = this.GetView();
-            } else if (this.VIEW == null){
-                this.VIEW = this.GetView();
-            }
-            document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.VIEW;
-        } else if (document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER)){
-            document.getElementById(this.SPACER.DEFAULT_OUTER_WRAPPER).innerHTML = this.VIEW;
-        }
     }
 
     ScrollToSpan(span){

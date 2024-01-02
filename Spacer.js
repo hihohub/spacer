@@ -158,11 +158,11 @@ class Spacer {
         if (window.event){
             window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
         }
-        var datatree = SPACER.TREE? SPACER.TREE : this;
+        var datatree = this.TREE? this.TREE : this;
         var lower_bound = document.getElementById(datatree.TOOLBAR_LOWER_BOUND_NAME).value;
         var upper_bound = document.getElementById(datatree.TOOLBAR_UPPER_BOUND_NAME).value;
-        lower_bound = parseInt(SPACER.StringTrim(lower_bound));
-        upper_bound = parseInt(SPACER.StringTrim(upper_bound));
+        lower_bound = parseInt(this.StringTrim(lower_bound));
+        upper_bound = parseInt(this.StringTrim(upper_bound));
         if (typeof lower_bound == "number" && typeof upper_bound == "number" && !isNaN(lower_bound) && !isNaN(upper_bound)){
             var input = "ALPHABETIZE FROM LINE " + lower_bound + " TO LINE " + upper_bound;
             datatree.Query(input);
@@ -227,22 +227,23 @@ class Spacer {
         }
     }
     SpacerGetOnload(datatree){
+        // print tree file
         var result = "";
         result += "onload = function(){ ";
-        result += "SPACER.REPRESS_ALERTS = " + !!SPACER.REPRESS_ALERTS + "; ";
-        result += "SPACER.TAB = \"" + SPACER.TAB + "\"; ";
+        result += "SPACER.REPRESS_ALERTS = " + !!this.REPRESS_ALERTS + "; ";
+        result += "SPACER.TAB = \"" + this.TAB + "\"; ";
         result += "SPACER.TOOLBAR_ALIGN = \"" + datatree.TOOLBAR_ALIGN + "\"; ";
-        result += "SPACER.TOOLBAR_STYLE = \"" + SPACER.TOOLBAR_STYLE + "\"; ";
-        result += "SPACER.GO_TO_FILE = \"" + SPACER.GO_TO_FILE + "\"; ";
-        result += SPACER.PRINT_EXTRA_SCRIPT_BEFORE;
+        result += "SPACER.TOOLBAR_STYLE = \"" + this.TOOLBAR_STYLE + "\"; ";
+        result += "SPACER.GO_TO_FILE = \"" + this.GO_TO_FILE + "\"; ";
+        result += this.PRINT_EXTRA_SCRIPT_BEFORE;
         result += "SPACER.PLEASE_WAIT = true;SPACER.AutoInit('" + datatree.NAME + "');";
-        result += SPACER.PRINT_EXTRA_SCRIPT_AFTER;
+        result += this.PRINT_EXTRA_SCRIPT_AFTER;
         result += "SPACER.TREE.ACCORDION = " + parseInt(datatree.ACCORDION) + "; ";
         result += "SPACER.TREE.LETTERING = \"" + datatree.LETTERING + "\"; ";
         result += "SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR = \"" + datatree.HIGHLIGHT_BACKGROUND_COLOR + "\"; ";
         result += "SPACER.TREE.HIGHLIGHT_TEXT_COLOR = \"" + datatree.HIGHLIGHT_TEXT_COLOR + "\"; ";
-        result += "SPACER.PRINT_EXTRA_SCRIPT_BEFORE = \"" + SPACER.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
-        result += "SPACER.PRINT_EXTRA_SCRIPT_AFTER = \"" + SPACER.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
+        result += "SPACER.PRINT_EXTRA_SCRIPT_BEFORE = \"" + this.PRINT_EXTRA_SCRIPT_BEFORE.split("\"").join("\\\"") + "\"; ";
+        result += "SPACER.PRINT_EXTRA_SCRIPT_AFTER = \"" + this.PRINT_EXTRA_SCRIPT_AFTER.split("\"").join("\\\"") + "\"; ";
         result += "}";
         return result;
     }
@@ -296,37 +297,6 @@ class Spacer {
      * ---------------------------------------------------------
      */
 
-    SpacerOpenMenu(popups){
-        var menu = document.getElementById(this.TREE.TOOLBAR_SELECT_NAME);
-        var x = menu.offsetLeft;
-        var y = menu.offsetTop - 15 + menu.offsetHeight;
-        var p = menu.offsetParent;
-        while (p != document.body){
-            x += p.offsetLeft;
-            y += p.offsetTop;
-            p = p.offsetParent;
-        }
-        //x += document.body.scrollLeft;
-        //y += document.body.scrollTop;
-        var ul = document.createElement('ul');
-        ul.style.display = 'inline';
-        ul.style.position = 'absolute';
-        ul.style.zIndex = '1000';
-        ul.style.backgroundColor = '#eeeeee';
-        ul.id = 'spacer_menu';
-        ul.style.paddingLeft = '0px';
-        ul.style.paddingTop = '0px';
-        ul.style.listStyleType = 'none';
-        ul.style.border = '1px solid gray';
-        if (arguments.length > 0 && popups == true){
-            ul.innerHTML = "<li class='overwrite' onclick='return SPACER.MenuMouseClick(event,0);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return SPACER.MenuMouseClick(event,1);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return SPACER.MenuMouseClick(event,2);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return SPACER.MenuMouseClick(event,3);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move up</li><li class='down' onclick='return SPACER.MenuMouseClick(event,4);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move down</li><li class='right_with_popups' onclick='return SPACER.MenuMouseClick(event,5);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move right</li><li class='left' onclick='return SPACER.MenuMouseClick(event,6);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return SPACER.MenuMouseClick(event,7);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return SPACER.MenuMouseClick(event,8);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return SPACER.MenuMouseClick(event,9);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return SPACER.MenuMouseClick(event,10);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return SPACER.MenuMouseClick(event,11);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return SPACER.MenuMouseClick(event,12);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return SPACER.MenuMouseClick(event,13);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >redo</li><li class='close' onclick='return SPACER.MenuMouseClick(event,14);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);'>CLOSE</li>";
-        } else {
-            ul.innerHTML = "<li class='overwrite' onclick='return SPACER.MenuMouseClick(event,0);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >overwrite</li><li class='child' onclick='return SPACER.MenuMouseClick(event,1);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >child</li><li class='sibling' onclick='return SPACER.MenuMouseClick(event,2);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >sibling</li><li class='up' onclick='return SPACER.MenuMouseClick(event,3);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move up</li><li class='down' onclick='return SPACER.MenuMouseClick(event,4);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move down</li><li class='selection right' onclick='return SPACER.MenuMouseClick(event,5);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >selection right</li><li class='section right' onclick='return SPACER.MenuMouseClick(event,6);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >section right</li><li class='left' onclick='return SPACER.MenuMouseClick(event,7);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >move left</li><li class='copy selected' onclick='return SPACER.MenuMouseClick(event,8);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >copy selected</li><li class='copy w/children' onclick='return SPACER.MenuMouseClick(event,9);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >copy w/children</li><li class='cut' onclick='return SPACER.MenuMouseClick(event,10);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >cut</li><li class='paste' onclick='return SPACER.MenuMouseClick(event,11);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >paste</li><li class='remove' onclick='return SPACER.MenuMouseClick(event,12);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >remove</li><li class='undo' onclick='return SPACER.MenuMouseClick(event,13);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >undo</li><li class='redo' onclick='return SPACER.MenuMouseClick(event,14);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);' >redo</li><li class='close' onclick='return SPACER.MenuMouseClick(event,15);' onmouseover='return SPACER.MenuMouseOver(event);' onmouseout='return SPACER.MenuMouseOut(event);'>CLOSE</li>";
-        }
-        ul.style.left = x + "px";
-        ul.style.top = y + "px";
-        document.body.appendChild(ul);
-    }
     SpacerAutoToolbarSelect(choice){
         var TOOLBARTREE = this.TREE;
         if (TOOLBARTREE == null || TOOLBARTREE == "undefined"){
@@ -603,7 +573,7 @@ class Spacer {
 
     SpacerShowPopupBox(popup_text, timing, x, y) {
         try{
-            adjust = false;
+            let adjust = false;
             if (arguments.length < 2){
                 timing = 100000;
                 x = window.innerWidth/2;
@@ -635,19 +605,16 @@ class Spacer {
                 box.style.position = "absolute";
                 box.style.zIndex = "100";
                 box.style.display = "none";
-                //box.style.height = "100px";
-                //box.style.width = "300px";
                 box.style.border = this.POPUP_BORDER;
                 box.style.overflow = "auto";
                 box.style.borderRadius = "20px";
                 box.style.padding = "15px";
-                box.style.background = "#f5f2eb";// "white url('" + SPACER.POPUP_BACKGROUND + "') repeat scroll left top";
+                box.style.background = "#f5f2eb";
                 box.style.maxWidth = "200px";
                 box.innerHTML = "<div onclick='return SPACER.ClosePopupBox();' id='spacer_closebutton' style='position:relative;color:red;font-size:1em;top:0px;right:0px;float:right;margin:3px;border:1px dotted red;padding:3px;'>X</div><p id='spacer_popup_message'></p>";
                 document.body.appendChild(box);
-                //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
                 if (box) {
-                    message_text = document.getElementById("spacer_popup_message");
+                    let message_text = document.getElementById("spacer_popup_message");
                     if (message_text) {
                         var txts = popup_text.split("\n");
                         message_text.innerHTML = "";
@@ -688,7 +655,6 @@ class Spacer {
     }
     ShowEditBox(x, y, source, toolbar) {
         try{
-            //SPACER.CloseEditBox();
             var datatree;
             if (this.TREE){
                 datatree = this.TREE;
@@ -722,7 +688,6 @@ class Spacer {
             box.style.borderRadius = "20px";
             box.style.padding = "10px 10px 0px 10px";
             box.style.background = this.POPUP_BACKGROUND;
-            //box.style.background = "white url('" + SPACER.POPUP_BACKGROUND + "') repeat scroll left top";
             var datatree;
             var radio = "";
             var info = "";
@@ -920,18 +885,6 @@ class Spacer {
         }
         if (this.TREE){
             this.TREE.Query("PRINT HTML");
-            //if (SPACER.TREE.TYPE == "text"){
-            //SPACER.TREE.Query("PRINT TEXTTREE");
-            //alert('Please save your file as an html file with the double extension .tree.html');
-            //SPACER.TREE.Query("PRINT TEXT");
-            //alert('Please save your file as a text file with the extension .txt');
-            //} else if (SPACER.TREE.TYPE == "html"){
-            //SPACER.TREE.Query("PRINT HTML");
-            //alert('Please save your file as an html file with the extension .html');
-            //} else {
-            //SPACER.TREE.Query("PRINT HTML");//previously print file
-            //alert('Please save your file as an html file with the double extension .tree.html');
-            //}
         }
     }
     SpacerAutoPrintText(){
@@ -1000,19 +953,6 @@ class Spacer {
             this.WAIT_IS_OPEN = true;
             this.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
             return "popup";
-            /**
-             } else if (browser == "IE"){
-	   SPACER.WAIT_IS_OPEN = true;
-      var left = x;
-      var top = y;
-      var wait = window.open("", '_blank', 'width=100,height=100,left=' + left + ',top=' + top);
-      if (wait == null || typeof(wait) == 'undefined'){
-         return null;
-      } else {
-         wait.document.write("<p align='center'>PLEASE WAIT...</p><p>queries and button presses for this tree might have waits of approximately the length of this wait</p>");
-         return wait;
-      }
-             **/
         } else if (browser == "Chrome"){
             this.WAIT_IS_OPEN = true;
             this.ShowPopupBox("PLEASE WAIT...", 100000, x, y);
@@ -1055,7 +995,6 @@ class Spacer {
         var popup_wait = 10000;
         this.ContextMenu(message, popup_wait, popupx, popupy);
         return false;
-        //show_popup_box(instr, popup_wait, (window.screen.width/2) + 30, (window.screen.height/2));
     }
     ContextMenu(popup_text, timing, x, y) {
         try{
@@ -1068,7 +1007,6 @@ class Spacer {
             }
             var datatree = this.TREE? this.TREE : this;
             this.CloseContextMenu();
-            //if (SPACER.REPRESS_ALERTS == true) { return; }
             if (document.getElementById) {
                 if (document.getElementById('spacer_contextmenu')){
                     document.getElementById('spacer_contextmenu').parentNode.removeChild(document.getElementById('spacer_contextmenu'));
@@ -1081,7 +1019,6 @@ class Spacer {
                 box.style.border = "1px solid gray";
                 box.innerHTML = "<select style='background-color:#f5f2eb;overflow:visible;' id='spacer_context_message' onmouseover='return SPACER.FocusContextMenu();' onblur='return SPACER.CloseContextMenu();' multiple='multiple'></select>";
                 document.body.appendChild(box);
-                //document.getElementById(datatree.ELEMENT_OUTER_WRAPPER).appendChild(box);
                 if (box) {
                     box.style.display = "block";
                     if (true){
@@ -1089,12 +1026,12 @@ class Spacer {
                         box.style.top = (y - 10) + "px";
                     } else if (false)
                     {
-                        boxwidth = box.offsetWidth;
-                        boxheight = box.offsetHeight;
+                        let boxwidth = box.offsetWidth;
+                        let boxheight = box.offsetHeight;
                         box.style.left = (x - (boxwidth/2)) + "px";
                         box.style.top = (y - boxheight) + "px";
                     }
-                    message_text = document.getElementById("spacer_context_message");
+                    let message_text = document.getElementById("spacer_context_message");
                     if (message_text) {
                         var txts = popup_text.split("\n");
                         message_text.innerHTML = "";
@@ -1119,7 +1056,7 @@ class Spacer {
     }
     CloseContextMenu() {
         if (document.getElementById('spacer_contextmenu')) {
-            box = document.getElementById("spacer_contextmenu");
+            let box = document.getElementById("spacer_contextmenu");
             if (box) {
                 box.style.display = "none";
                 if (this.TIMER) {
