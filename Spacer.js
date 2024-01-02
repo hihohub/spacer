@@ -22,6 +22,7 @@
 /**
  * TASKS
  * search SPACER, remove from strings
+ * strict mode (for (let x =), for (s in), let x =)
  * add return values?
  */
 
@@ -278,7 +279,7 @@ class Spacer {
     }
     SpacerHighlightTree(name){ // 9.6
         try{
-            for (t in this.TREES){
+            for (let t in this.TREES){
                 document.getElementById(this.TREES[t].NAME).style.border = "1px solid white";
             }
             var tree = document.getElementById(name);
@@ -382,14 +383,14 @@ class Spacer {
                     combobox.selectedIndex = 0;
                     return;
                 }
-                TOOLBARTREE.View("up");
+                TOOLBARTREE.SpacerView.View("up");
                 break;
             case "down":
                 if (TOOLBARTREE.MOUSE_DRAG_SPANS.length > 1){
                     combobox.selectedIndex = 0;
                     return;
                 }
-                TOOLBARTREE.View("down");
+                TOOLBARTREE.SpacerView.View("down");
                 break;
             case "section right":
                 if (TOOLBARTREE.MOUSE_DRAG_SPANS.length == 0){
@@ -400,7 +401,7 @@ class Spacer {
                         TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
                     }
                 }
-                TOOLBARTREE.View("secright");
+                TOOLBARTREE.SpacerView.View("secright");
                 break;
             case "selection right":
                 if (TOOLBARTREE.MOUSE_DRAG_SPANS.length == 0){
@@ -411,7 +412,7 @@ class Spacer {
                         TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
                     }
                 }
-                TOOLBARTREE.View("selright");
+                TOOLBARTREE.SpacerView.View("selright");
                 break;
             case "left":
                 if (TOOLBARTREE.MOUSE_DRAG_SPANS.length == 0){
@@ -422,7 +423,7 @@ class Spacer {
                         TOOLBARTREE.MOUSE_DRAG_SPANS.push(TOOLBARTREE.SELECTED_SPAN);
                     }
                 }
-                TOOLBARTREE.View("left");
+                TOOLBARTREE.SpacerView.View("left");
                 break;
             case "copy selected":
                 if (TOOLBARTREE.MOUSE_DRAG_SPANS.length == 0){
@@ -439,7 +440,7 @@ class Spacer {
                         var tree = TOOLBARTREE;
                         if (tree.MOUSE_DRAG_SPANS.length > 0){
                             this.CLIPBOARD.length = 0;
-                            TOOLBARTREE.View("copysel");
+                            TOOLBARTREE.SpacerView.View("copysel");
                         }
                         if (this.GetBrowser() == "IE"){
                             if (document.getElementById(TOOLBARTREE.TOOLBAR_SEARCHBOX_NAME)){
@@ -447,7 +448,7 @@ class Spacer {
                             }
                         }
                         this.CloseWaitBox(wait);
-                    }, 1);
+                    }.bind(this), 1);
                 }
                 break;
             case "copy w/children":
@@ -469,9 +470,9 @@ class Spacer {
                         var index_above;
                         if (tree.MOUSE_DRAG_SPANS.length > 0){
                             if (selection == "cut"){
-                                TOOLBARTREE.View("cut");
+                                TOOLBARTREE.SpacerView.View("cut");
                             } else {
-                                TOOLBARTREE.View("copysec");
+                                TOOLBARTREE.SpacerView.View("copysec");
                             }
                         }
                         if (this.GetBrowser() == "IE"){
@@ -480,7 +481,7 @@ class Spacer {
                             }
                         }
                         this.CloseWaitBox(wait);
-                    }, 1);
+                    }.bind(this), 1);
                 }
                 break;
             case "paste":
@@ -503,7 +504,7 @@ class Spacer {
                         var index = 0;
                         var index_above = 0;
                         if (tree && tree.SELECTED_SPAN && this.CLIPBOARD.length > 0){
-                            TOOLBARTREE.View("paste");
+                            TOOLBARTREE.SpacerView.View("paste");
                             this.CLIPBOARD.length = 0;
                         }
                         if (this.GetBrowser() == "IE"){
@@ -512,7 +513,7 @@ class Spacer {
                             }
                         }
                         this.CloseWaitBox(wait);
-                    }, 1);
+                    }.bind(this), 1);
                 }
                 break;
             case "remove":
@@ -520,7 +521,7 @@ class Spacer {
                     combobox.selectedIndex = 0;
                     return;
                 }
-                TOOLBARTREE.View("remove");
+                TOOLBARTREE.SpacerView.View("remove");
                 break;
             case "undo":
                 if (TOOLBARTREE.UNDO == null || TOOLBARTREE.UNDO == "undefined"){ TOOLBARTREE.ResetToolbarSelect();return; }
@@ -650,7 +651,7 @@ class Spacer {
                     if (message_text) {
                         var txts = popup_text.split("\n");
                         message_text.innerHTML = "";
-                        for (txt in txts) {
+                        for (let txt in txts) {
                             var s = document.createTextNode(txts[txt]);
                             message_text.appendChild(s);
                             var br = document.createElement("br");
@@ -676,7 +677,7 @@ class Spacer {
     }
     ClosePopupBox() {
         if (document.getElementById) {
-            box = document.getElementById("spacer_popupbox");
+            let box = document.getElementById("spacer_popupbox");
             if (box) {
                 box.style.display = "none";
                 if (this.TIMER) {
@@ -725,7 +726,7 @@ class Spacer {
             var datatree;
             var radio = "";
             var info = "";
-            var reset = "<button type='button' onclick='return ResetEditBox();'>reset</button>";
+            var reset = "<button type='button' onclick='return SPACER.ResetEditBox();'>reset</button>";
             var equation = "";
             var delimiter = "&nbsp;&nbsp;&nbsp;";
             if (datatree){
@@ -739,17 +740,17 @@ class Spacer {
                 if (toolbar == "insert"){
                     displaytext = "";
                 }
-                box.innerHTML = "<table><tr><td><span onclick='return SPACER.CloseEditBox();' id='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
+                box.innerHTML = "<table><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
             } else {
                 return;
             }
             document.body.appendChild(box);
             if (box) {
                 box.style.display = "block";
-                boxwidth = box.offsetWidth;
-                boxheight = box.offsetHeight;
-                screenwidth = window.innerWidth;
-                screenheight = window.innerHeight;
+                let boxwidth = box.offsetWidth;
+                let boxheight = box.offsetHeight;
+                let screenwidth = window.innerWidth;
+                let screenheight = window.innerHeight;
                 if (x < 0){
                     x = x + boxwidth;
                 } else if (x + boxwidth > screenwidth){
@@ -762,7 +763,9 @@ class Spacer {
                 box.style.left = x + "px";
                 box.style.top = y + "px";
             } else {  }
-        } catch (exc) {  }
+        } catch (exc) {
+            console.log("exception " + exc);
+        }
     }
     CloseEditBox() {
         var box = document.getElementById("spacer_editbox");
@@ -1049,7 +1052,7 @@ class Spacer {
         var evt = window.event;
         var popupx = evt.clientX;
         var popupy = evt.clientY;
-        popup_wait = 10000;
+        var popup_wait = 10000;
         this.ContextMenu(message, popup_wait, popupx, popupy);
         return false;
         //show_popup_box(instr, popup_wait, (window.screen.width/2) + 30, (window.screen.height/2));
@@ -1096,7 +1099,7 @@ class Spacer {
                         var txts = popup_text.split("\n");
                         message_text.innerHTML = "";
                         var message = "";
-                        for (txt in txts) {
+                        for (let txt in txts) {
                             message += "<option value=''>";
                             message += txts[txt];
                             message += "</option>";
@@ -1225,7 +1228,7 @@ class Spacer {
         var newlines = new Array();
         for (var count = 0; count < lines.length; ++count){
             var l = lines[count];
-            var outer = SpacerGetOuterElement(l);
+            var outer = this.TREE.GetOuterElement(l);
             if (l.indexOf("<table ") >= 0 && outer.toUpperCase() != "TABLE"){
                 if (outer.toUpperCase() == "P"){
                     l = l.substring(l.indexOf(">") + 1, l.lastIndexOf("<"));

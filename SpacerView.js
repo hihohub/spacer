@@ -117,7 +117,7 @@ class SpacerView {
     }
 
     SpacerViewGetList(){
-        var UL = document.getElementById(this.ELEMENT_INNER_WRAPPER);
+        var UL = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
         var LI = UL.getElementsByTagName("li")[0];
         var list = LI.getElementsByTagName("ul")[0];
         this.SPACER.TEMP = document.createElement("div");
@@ -130,7 +130,7 @@ class SpacerView {
 
     SpacerViewGetList2(ul){
         var children = ul.childNodes;
-        for (c in children){
+        for (let c in children){
             var child = children[c];
             if (child && child.nodeName && child.nodeName.toLowerCase() == "li"){
                 child.className = '';
@@ -164,7 +164,7 @@ class SpacerView {
     }
 
     SpacerViewIndexOfSpan(searchforspan){
-        var root = document.getElementById(this.ELEMENT_INNER_WRAPPER);
+        var root = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
         var li = root.getElementsByTagName("li")[0];
         this.SPACER.TEMP = new Array();
         this.ViewSpandex(li,searchforspan,false);
@@ -190,7 +190,7 @@ class SpacerView {
             //return;
         }
         if (found == false && ul.hasChildNodes()){
-            for (n in ul.childNodes){
+            for (let n in ul.childNodes){
                 var node = ul.childNodes[n];
                 if (node.nodeName && node.nodeName.toLowerCase() == "li"){
                     this.ViewSpandex(node,searchforspan,found);
@@ -202,7 +202,7 @@ class SpacerView {
     SpacerViewOpenToSpan(span){
         var li = span.parentNode;
         var ul = li;
-        while(li && ul && ul.id != this.ELEMENT_INNER_WRAPPER){
+        while(li && ul && ul.id != this.SpacerTree.ELEMENT_INNER_WRAPPER){
             while (li.nodeName.toLowerCase() != "li"){
                 li = li.parentNode;//li containing span
             }
@@ -211,9 +211,9 @@ class SpacerView {
                 ul = ul.parentNode;//ul containing li
             }
             ul.style.display = "block";
-            if (ul.id != this.ELEMENT_INNER_WRAPPER){
+            if (ul.id != this.SpacerTree.ELEMENT_INNER_WRAPPER){
                 li = ul.parentNode;
-                li.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
+                li.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.OPEN_ICON;
             }
         }
     }
@@ -221,7 +221,7 @@ class SpacerView {
     SpacerViewFindSpanFromLi(li){
         var spans = li.getElementsByTagName("span");
         var span;
-        for (s in spans){
+        for (let s in spans){
             if (spans[s].className == "spacer_content"){
                 span = spans[s];
                 break;
@@ -285,7 +285,7 @@ class SpacerView {
     }
 
     SpacerViewOverwrite(newval){
-        this.SELECTED_SPAN.innerHTML = newval;
+        this.SpacerTree.SELECTED_SPAN.innerHTML = newval;
     }
 
     SpacerViewSwap(node1,node2,parent){
@@ -304,7 +304,7 @@ class SpacerView {
      */
 
     SpacerView(action,newval){
-        // add child or sibling, or execute command
+        // add child or sibling, or execute command, e.g. 'overwite' 'new val'
         if (arguments.length < 2){
             newval = "";
         }
@@ -330,53 +330,61 @@ class SpacerView {
                     break;
             }
         }
-        this.ResetToolbarSelect();
+        this.SpacerTree.ResetToolbarSelect();
     }
 
     SpacerViewChild(newnode){
         // add child
-        var source = this.SELECTED_SPAN;
-        var parent = source.parentNode;
-        while (parent.nodeName.toLowerCase() != "li"){
-            parent = parent.parentNode;
+        try {
+            var source = this.SpacerTree.SELECTED_SPAN;
+            var parent = source.parentNode;
+            while (parent.nodeName.toLowerCase() != "li") {
+                parent = parent.parentNode;
+            }
+            var grandparent = parent;
+            if (parent.getElementsByTagName("ul")) {
+                parent = parent.getElementsByTagName("ul")[0];
+            } else {
+                var temp = document.createElement("ul");
+                parent.appendChild(temp);
+                parent = temp;
+            }
+            var li = this.ViewListElement(newnode);
+            parent.appendChild(li);
+            grandparent.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.OPEN_ICON;
+            grandparent.getElementsByTagName("ul")[0].style.display = "block";
+        } catch(exc){
+            console.log("excpetion " + exc);
         }
-        var grandparent = parent;
-        if (parent.getElementsByTagName("ul")){
-            parent = parent.getElementsByTagName("ul")[0];
-        } else {
-            var temp = document.createElement("ul");
-            parent.appendChild(temp);
-            parent = temp;
-        }
-        var li = this.ViewListElement(newnode);
-        parent.appendChild(li);
-        grandparent.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
-        grandparent.getElementsByTagName("ul")[0].style.display = "block";
     }
 
     SpacerViewSibling(newnode){
         // add sibling
-        var source = this.SELECTED_SPAN;
-        var parent = source.parentNode;
-        while (parent.nodeName.toLowerCase() != "li"){
-            parent = parent.parentNode;
-        }
-        var child = parent;
-        while (parent.nodeName.toLowerCase() != "ul"){
-            parent = parent.parentNode;
-        }
-        var li = this.ViewListElement(newnode);
-        var children = parent.childNodes.length;
-        var index = 0;
-        var temp = parent.firstChild;
-        while (temp != child){
-            ++index;
-            temp = temp.nextSibling;
-        }
-        if (index == children){
-            parent.appendChild(li);
-        } else if (index+1 <= children){
-            parent.insertBefore(li,child.nextSibling);
+        try {
+            var source = this.SpacerTree.SELECTED_SPAN;
+            var parent = source.parentNode;
+            while (parent.nodeName.toLowerCase() != "li") {
+                parent = parent.parentNode;
+            }
+            var child = parent;
+            while (parent.nodeName.toLowerCase() != "ul") {
+                parent = parent.parentNode;
+            }
+            var li = this.ViewListElement(newnode);
+            var children = parent.childNodes.length;
+            var index = 0;
+            var temp = parent.firstChild;
+            while (temp != child) {
+                ++index;
+                temp = temp.nextSibling;
+            }
+            if (index == children) {
+                parent.appendChild(li);
+            } else if (index + 1 <= children) {
+                parent.insertBefore(li, child.nextSibling);
+            }
+        } catch(exc){
+            console.log("exception " + exc);
         }
     }
 
@@ -761,7 +769,7 @@ class SpacerView {
                         }
                     }
                     var difference = 0;
-                    for (g in goodindices){
+                    for (let g in goodindices){
                         var index = goodindices[g] + difference;
                         var firsthalf = line.substring(0, index);
                         var secondhalf = line.substring(index);
@@ -952,17 +960,17 @@ class SpacerView {
         if (arguments.length < 1 || with_children === ""){
             with_children = true;
         }
-        if (this.MOUSE_DRAG_SPANS.length > 1){
-            for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                var result = this.ViewRight(with_children,this.MOUSE_DRAG_SPANS[count]);
+        if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 1){
+            for (var count = 0; count < this.SpacerTree.MOUSE_DRAG_SPANS.length; ++count){
+                var result = this.ViewRight(with_children,this.SpacerTree.MOUSE_DRAG_SPANS[count]);
                 if (result == false){
                     break;
                 }
             }
-        } else if (this.SELECTED_SPAN){
-            this.ViewRight(with_children,this.SELECTED_SPAN);
-        } else if (this.MOUSE_DRAG_SPANS.length > 0){
-            this.ViewRight(with_children,this.MOUSE_DRAG_SPANS[0]);
+        } else if (this.SpacerTree.SELECTED_SPAN){
+            this.ViewRight(with_children,this.SpacerTree.SELECTED_SPAN);
+        } else if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 0){
+            this.ViewRight(with_children,this.SpacerTree.MOUSE_DRAG_SPANS[0]);
         } else {
             alert("error in secright");
         }
@@ -981,13 +989,13 @@ class SpacerView {
             return false;
         }
         if (with_children == false){
-            child.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;//make children siblings
+            child.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.EMPTY_ICON;//make children siblings
         }
         var outerarrow = parent;
         for (var count = 0; count < outerarrow.childNodes.length; ++count){//find previous sibling and change its icon to an arrow
             if (count+1 < outerarrow.childNodes.length && outerarrow.childNodes[count+1] == child){
                 outerarrow = outerarrow.childNodes[count];
-                outerarrow.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
+                outerarrow.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.OPEN_ICON;
                 outerarrow.getElementsByTagName("ul")[0].style.display = "block";
                 break;
             }
@@ -995,7 +1003,7 @@ class SpacerView {
         var children = new Array();
         var index = -1;
         var found = false;
-        for (n in parent.childNodes){
+        for (let n in parent.childNodes){
             if (parent.childNodes[n].nodeName && parent.childNodes[n].nodeName.toLowerCase() == "li"){
                 children.push(parent.childNodes[n]);
                 if (found == false){
@@ -1024,7 +1032,7 @@ class SpacerView {
                         --count;
                     }
                 }
-                for (n in grandchildren){
+                for (let n in grandchildren){
                     children[index-1].getElementsByTagName("ul")[0].appendChild(grandchildren[n]);
                 }
             }
@@ -1032,14 +1040,14 @@ class SpacerView {
     }
 
     SpacerViewLeft(){
-        if (this.MOUSE_DRAG_SPANS.length > 1){
-            for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                this.View_Left(this.MOUSE_DRAG_SPANS[count]);
+        if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 1){
+            for (var count = 0; count < this.SpacerTree.MOUSE_DRAG_SPANS.length; ++count){
+                this.View_Left(this.SpacerTree.MOUSE_DRAG_SPANS[count]);
             }
-        } else if (this.SELECTED_SPAN){
-            this.View_Left(this.SELECTED_SPAN);
-        } else if (this.MOUSE_DRAG_SPANS.length > 0){
-            this.View_Left(this.MOUSE_DRAG_SPANS[0]);
+        } else if (this.SpacerTree.SELECTED_SPAN){
+            this.View_Left(this.SpacerTree.SELECTED_SPAN);
+        } else if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 0){
+            this.View_Left(this.SpacerTree.MOUSE_DRAG_SPANS[0]);
         }
     }
 
@@ -1055,7 +1063,7 @@ class SpacerView {
         var children = new Array();
         var index = -1;
         var found = false;
-        for (n in parent.childNodes){//count parents children and find index of span
+        for (let n in parent.childNodes){//count parents children and find index of span
             if (parent.childNodes[n].nodeName && parent.childNodes[n].nodeName.toLowerCase() == "li"){
                 children.push(parent.childNodes[n]);
                 if (found == false){
@@ -1067,7 +1075,7 @@ class SpacerView {
             }
         }
         var numchildren = children.length;
-        if (parent.id == this.ELEMENT_INNER_WRAPPER){//can't go left
+        if (parent.id == this.SpacerTree.ELEMENT_INNER_WRAPPER){//can't go left
             return;
         } else {
             if (index < numchildren){//if span has siblings
@@ -1090,7 +1098,7 @@ class SpacerView {
             children.length = 0;
             index = -1;
             found = false;
-            for (n in grandparent.childNodes){//count children of grandparent, and find index of parent in grandparent
+            for (let n in grandparent.childNodes){//count children of grandparent, and find index of parent in grandparent
                 if (grandparent.childNodes[n].nodeName && grandparent.childNodes[n].nodeName.toLowerCase() == "li"){
                     children.push(grandparent.childNodes[n]);
                     if (found == false){
@@ -1109,7 +1117,7 @@ class SpacerView {
             }
 
             if (child.getElementsByTagName("ul")[0].hasChildNodes()){
-                child.getElementsByTagName("a")[0].innerHTML = this.OPEN_ICON;
+                child.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.OPEN_ICON;
                 child.getElementsByTagName("ul")[0].style.display = "block";
             }
             if (parent.hasChildNodes() == false){// || parent.childNodes.length == 1 || parent.firstChild == child){
@@ -1118,14 +1126,14 @@ class SpacerView {
                     outerarrow = outerarrow.parentNode;
                 }
                 outerarrow = outerarrow.getElementsByTagName("a")[0];
-                outerarrow.innerHTML = this.EMPTY_ICON;
+                outerarrow.innerHTML = this.SpacerTree.EMPTY_ICON;
             }
 
         }
     }
 
     SpacerViewUp(){
-        var source = this.SELECTED_SPAN;
+        var source = this.SpacerTree.SELECTED_SPAN;
         var parent = source.parentNode;
         while (parent.nodeName.toLowerCase() != "li"){
             parent = parent.parentNode;
@@ -1137,7 +1145,7 @@ class SpacerView {
         var children = new Array();
         var index = -1;
         var found = false;
-        for (n in parent.childNodes){//count parents children and find index of span
+        for (let n in parent.childNodes){//count parents children and find index of span
             if (parent.childNodes[n].nodeName && parent.childNodes[n].nodeName.toLowerCase() == "li"){
                 children.push(parent.childNodes[n]);
                 if (found == false){
@@ -1157,7 +1165,7 @@ class SpacerView {
     }
 
     SpacerViewDown(){
-        var source = this.SELECTED_SPAN;
+        var source = this.SpacerTree.SELECTED_SPAN;
         var parent = source.parentNode;
         while (parent.nodeName.toLowerCase() != "li"){
             parent = parent.parentNode;
@@ -1169,7 +1177,7 @@ class SpacerView {
         var children = new Array();
         var index = -1;
         var found = false;
-        for (n in parent.childNodes){
+        for (let n in parent.childNodes){
             if (parent.childNodes[n].nodeName && parent.childNodes[n].nodeName.toLowerCase() == "li"){
                 children.push(parent.childNodes[n]);
                 if (found == false){
@@ -1190,14 +1198,14 @@ class SpacerView {
 
     SpacerViewCut(){
         this.SPACER.CLIPBOARD.length = 0;
-        if (this.MOUSE_DRAG_SPANS.length > 1){
-            for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                this.View_Cut(this.MOUSE_DRAG_SPANS[count]);
+        if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 1){
+            for (var count = 0; count < this.SpacerTree.MOUSE_DRAG_SPANS.length; ++count){
+                this.View_Cut(this.SpacerTree.MOUSE_DRAG_SPANS[count]);
             }
-        } else if (this.SELECTED_SPAN){
-            this.View_Cut(this.SELECTED_SPAN);
-        } else if (this.MOUSE_DRAG_SPANS.length > 0){
-            this.View_Cut(this.MOUSE_DRAG_SPANS[0]);
+        } else if (this.SpacerTree.SELECTED_SPAN){
+            this.View_Cut(this.SpacerTree.SELECTED_SPAN);
+        } else if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 0){
+            this.View_Cut(this.SpacerTree.MOUSE_DRAG_SPANS[0]);
         }
     }
 
@@ -1217,33 +1225,33 @@ class SpacerView {
             while (grandparent.nodeName.toLowerCase() != "li"){
                 grandparent = grandparent.parentNode;
             }
-            grandparent.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
+            grandparent.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.EMPTY_ICON;
         }
     }
 
     SpacerViewCopysec(){
         this.SPACER.CLIPBOARD.length = 0;
-        if (this.MOUSE_DRAG_SPANS.length > 1){
-            for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                this.ViewCopy(this.MOUSE_DRAG_SPANS[count],true);
+        if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 1){
+            for (var count = 0; count < this.SpacerTree.MOUSE_DRAG_SPANS.length; ++count){
+                this.ViewCopy(this.SpacerTree.MOUSE_DRAG_SPANS[count],true);
             }
-        } else if (this.SELECTED_SPAN){
-            this.ViewCopy(this.SELECTED_SPAN,true);
-        } else if (this.MOUSE_DRAG_SPANS.length > 0){
-            this.ViewCopy(this.MOUSE_DRAG_SPANS[0],true);
+        } else if (this.SpacerTree.SELECTED_SPAN){
+            this.ViewCopy(this.SpacerTree.SELECTED_SPAN,true);
+        } else if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 0){
+            this.ViewCopy(this.SpacerTree.MOUSE_DRAG_SPANS[0],true);
         }
     }
 
     SpacerViewCopysel(){
         this.SPACER.CLIPBOARD.length = 0;
-        if (this.MOUSE_DRAG_SPANS.length > 1){
-            for (var count = 0; count < this.MOUSE_DRAG_SPANS.length; ++count){
-                this.ViewCopy(this.MOUSE_DRAG_SPANS[count],false);
+        if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 1){
+            for (var count = 0; count < this.SpacerTree.MOUSE_DRAG_SPANS.length; ++count){
+                this.ViewCopy(this.SpacerTree.MOUSE_DRAG_SPANS[count],false);
             }
-        } else if (this.SELECTED_SPAN){
-            this.ViewCopy(this.SELECTED_SPAN,false);
-        } else if (this.MOUSE_DRAG_SPANS.length > 0){
-            this.ViewCopy(this.MOUSE_DRAG_SPANS[0],false);
+        } else if (this.SpacerTree.SELECTED_SPAN){
+            this.ViewCopy(this.SpacerTree.SELECTED_SPAN,false);
+        } else if (this.SpacerTree.MOUSE_DRAG_SPANS.length > 0){
+            this.ViewCopy(this.SpacerTree.MOUSE_DRAG_SPANS[0],false);
         }
     }
 
@@ -1259,7 +1267,7 @@ class SpacerView {
         if (arguments.length > 1 && with_children == true){
             var clone = child.cloneNode(true);
             if (with_children == false){
-                clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
+                clone.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.EMPTY_ICON;
             }
             this.SPACER.CLIPBOARD.push(clone);
         } else {
@@ -1268,20 +1276,20 @@ class SpacerView {
                 clone.getElementsByTagName("ul")[0].innerHTML = "";
             }
             if (with_children == false){
-                clone.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
+                clone.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.EMPTY_ICON;
             }
             this.SPACER.CLIPBOARD.push(clone);
         }
     }
 
     SpacerViewPaste(){
-        if (this.SELECTED_SPAN && this.SPACER.CLIPBOARD.length > 0){
-            var temp = this.SELECTED_SPAN;
+        if (this.SpacerTree.SELECTED_SPAN && this.SPACER.CLIPBOARD.length > 0){
+            var temp = this.SpacerTree.SELECTED_SPAN;
             for (var count = 0; count < this.SPACER.CLIPBOARD.length; ++count){
-                this.View_Paste(this.SELECTED_SPAN,this.SPACER.CLIPBOARD[count]);
-                this.SELECTED_SPAN = this.ViewFindSpanFromLi(this.SPACER.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
+                this.View_Paste(this.SpacerTree.SELECTED_SPAN,this.SPACER.CLIPBOARD[count]);
+                this.SpacerTree.SELECTED_SPAN = this.ViewFindSpanFromLi(this.SPACER.CLIPBOARD[count]);//.getElementsByTagName("span")[0];
             }
-            this.SELECTED_SPAN = temp;
+            this.SpacerTree.SELECTED_SPAN = temp;
         }
     }
 
@@ -1297,7 +1305,7 @@ class SpacerView {
         var children = new Array();
         var index = -1;
         var found = false;
-        for (n in parent.childNodes){//count parents children and find index of span
+        for (let n in parent.childNodes){//count parents children and find index of span
             if (parent.childNodes[n].nodeName && parent.childNodes[n].nodeName.toLowerCase() == "li"){
                 children.push(parent.childNodes[n]);
                 if (found == false){
@@ -1311,7 +1319,7 @@ class SpacerView {
         var numchildren = children.length;
         var spans = li.getElementsByTagName("span");
         var span;
-        for (s in spans){
+        for (let s in spans){
             if (spans[s].className == "spacer_content"){
                 span = spans[s];
                 break;
@@ -1327,7 +1335,7 @@ class SpacerView {
     }
 
     SpacerViewRemove(){
-        var source = this.SELECTED_SPAN;
+        var source = this.SpacerTree.SELECTED_SPAN;
         var parent = source.parentNode;
         while (parent.nodeName.toLowerCase() != "li"){
             parent = parent.parentNode;
@@ -1342,7 +1350,7 @@ class SpacerView {
             while (grandparent.nodeName.toLowerCase() != "li"){
                 grandparent = grandparent.parentNode;//li containing ul
             }
-            grandparent.getElementsByTagName("a")[0].innerHTML = this.EMPTY_ICON;
+            grandparent.getElementsByTagName("a")[0].innerHTML = this.SpacerTree.EMPTY_ICON;
         }
     }
 } // spacer view

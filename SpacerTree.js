@@ -56,9 +56,9 @@ class SpacerTree {
         this.ProcessTree = this.ProcessTree;
         this.Query = this.Query;
         this.RefreshGUI = this.RefreshGUI;
-        this.RemoveEmptyEndTags = this.SPACER.RemoveEmptyEndTags;
+        // this.RemoveEmptyEndTags = this.SPACER.RemoveEmptyEndTags;
         this.RemoveHtmlComments = this.RemoveHtmlComments;
-        this.RemoveTableWrappers = this.SPACER.RemoveTableWrappers;
+        // this.RemoveTableWrappers = this.SPACER.RemoveTableWrappers;
         this.Replay = this.Replay;
         this.ResetReplace = this.ResetReplace;
         this.ResetToolbarSelect = this.ResetToolbarSelect;
@@ -347,7 +347,7 @@ class SpacerTree {
         content = this.HtmlBody(content);
         content = this.RemoveHtmlComments(content);
         lines = this.HtmlLineBreaks(content);
-        lines = this.RemoveTableWrappers(lines);
+        lines = this.SPACER.RemoveTableWrappers(lines);
         for (var count = 0; count < lines.length; ++count){ // strip leading p or div tags, save blanks in front
             var result = lines[count];
             // check for blanks before first tag
@@ -378,7 +378,7 @@ class SpacerTree {
                 }
                 // look for indentation...still might have tag in front
                 trimmed = this.SPACER.StringTrim(result); // doesnt remove nested blanks, but does remove trailing end blanks
-                tagless = this.SPACER.StripTagsPHPJS(this.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
+                tagless = this.SPACER.StripTagsPHPJS(this.SPACER.RemoveTables(result)); // *** not trimmed *** what if line is just a tag, like an image
                 trimmed_and_tagless = this.SPACER.StringTrim(tagless); // should be left string trim, might leave nothing
             } else if (this.GetOuterElement(result).toLowerCase() == "table"){
                 trimmed = this.SPACER.StringTrim(result);
@@ -541,8 +541,8 @@ class SpacerTree {
         if (document.getElementById("edit_tree_script")){
             document.head.removeChild(document.getElementById("edit_tree_script"));
         }
-        var submitfromtoolbar = "function spacer_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('spacer_editor').value; var mode = document.getElementById('spacer_editbox_button').innerHTML;/**document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ SpacerSubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);   }";
-        var altsubmitfromtoolbar = "function spacer_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = SpacerGetAltEditorContent();var mode = document.getElementById('spacer_editbox_button').innerHTML;SpacerSubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);}";
+        var submitfromtoolbar = "function spacer_submit_from_toolbar(e){ evt = e || window.event; if (!evt){ evt = window.event; } evt.preventDefault? evt.preventDefault() : evt.returnValue = false; var source = evt.target? evt.target : evt.srcElement; var html = document.getElementById('spacer_editor').value; var mode = document.getElementById('spacer_editbox_button').innerHTML;/**document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).options[document.getElementById(SPACER.TREE.TOOLBAR_SELECT_NAME).selectedIndex].value;**/ SPACER.TREE.SubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);   }";
+        var altsubmitfromtoolbar = "function spacer_alt_submit_from_toolbar(e){ evt = e || window.event; if (!evt){evt = window.event;}evt.preventDefault? evt.preventDefault() : evt.returnValue = false;var source = evt.target? evt.target : evt.srcElement;var html = SpacerGetAltEditorContent();var mode = document.getElementById('spacer_editbox_button').innerHTML;SPACER.TREE.SubmitEdit(html,mode,SPACER.TREE.SELECTED_SPAN);}";
         return submitfromtoolbar + altsubmitfromtoolbar;
     }
 
@@ -861,7 +861,7 @@ class SpacerTree {
                                     this.SPACER.CloseWaitBox(wait);
                                     if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
                                     if (that.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
-                                }, 1);
+                                }.bind(this), 1);
                             } else {
                                 //this.PLAIN_TEXT = false;//7.9.7
                                 //this.SetTypeConditionally(type); // 7.9.4
@@ -903,7 +903,7 @@ class SpacerTree {
                                     this.SPACER.CloseWaitBox(wait);
                                     if (that.HAS_ERRORS == true && document.getElementById(that.TOOLBAR_STATUS_NAME) != null && document.getElementById(that.TOOLBAR_STATUS_NAME) != 'undefined'){ document.getElementById(that.TOOLBAR_STATUS_NAME).style.display='inline';document.getElementById(that.TOOLBAR_STATUS_NAME).title=that.Replay(true); }
                                     if (that.HAS_ERRORS == true && this.SPACER.REPRESS_ALERTS == false){ that.Query("REPLAY"); }
-                                }, 1);
+                                }.bind(this), 1);
                             } else {
                                 //this.PLAIN_TEXT = true;//7.9.7
                                 //this.SetTypeConditionally(type); // 7.9.4
@@ -1821,14 +1821,14 @@ class SpacerTree {
 
             if (arguments.length < 2 || mode == "overwrite"){
 
-                TOOLBARTREE.View("overwrite",newnode.TEXT);
+                TOOLBARTREE.SpacerView.View("overwrite",newnode.TEXT);
             } else if (mode == "sibling") {
 
-                TOOLBARTREE.View("sibling",newnode);
+                TOOLBARTREE.SpacerView.View("sibling",newnode);
                 TOOLBARTREE.UnhighlightSpan(span);
             } else if (mode == "child") {
 
-                TOOLBARTREE.View("child",newnode);
+                TOOLBARTREE.SpacerView.View("child",newnode);
                 TOOLBARTREE.UnhighlightSpan(span);
             }
         } catch (exc) {
@@ -2326,7 +2326,7 @@ class SpacerTree {
                         tag += c;
                         if (break_ends.indexOf(tag) >= 0){
                             var clear = false;
-                            if (tag == this.SPACER.StringTrim(line) || this.SPACER.StringTrim(this.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
+                            if (tag == this.SPACER.StringTrim(line) || this.SPACER.StringTrim(this.SPACER.RemoveEmptyEndTags(line)) == ""){ // line is just an end tag
                                 if (tag == "</ul>" || tag == "</ol>"){
                                     if (CURRENTLISTMARGIN.length > 0){
                                         CURRENTLISTMARGIN = CURRENTLISTMARGIN.substring(LISTMARGIN.length);
@@ -2599,7 +2599,7 @@ class SpacerTree {
     LoadFromToolbar(){
         var text = "";
         this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-        document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button>" + "<button type='button' onclick='return LoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return LoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return LoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
+        document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button>" + "<button type='button' onclick='return SPACER.TREE.LoadFromTextarea2(\"text\");'>TEXT FILE</button><button type='button' onclick='return SPACER.TREE.LoadFromTextarea2(\"html\");'>HTML FILE</button><!--<button type='button' onclick='return LoadFromTextarea2(\"tree\");'>.tree.html FILE</button>--><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' ></textarea>";
         //this.RefreshGUI();
     }
 
@@ -2609,7 +2609,7 @@ class SpacerTree {
             text = preload;
         }
         this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
-        document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button><button type='button' onclick='return LoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
+        document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button><button type='button' onclick='return SPACER.TREE.LoadFromTextarea2();'>SUBMIT >>></button><br/><textarea id='spacer_load_area' style='white-space:pre;min-width:500px;min-height:500px;width:100%;' class='" + type + "'>" + text + "</textarea>";
         //this.RefreshGUI();
     }
 
@@ -2729,7 +2729,7 @@ class SpacerTree {
                 return result;
             }
         } catch(exc) {
-
+            console.log("exception " + exc);
         }
     }
 
