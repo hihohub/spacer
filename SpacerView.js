@@ -1,6 +1,6 @@
 /**
  * TASKS
- * search this.SPACER.TREE and replace with this.SpacerTree
+ * (done) search this.SPACER.TREE and replace with this.SpacerTree
  */
 
 class SpacerView {
@@ -70,7 +70,7 @@ class SpacerView {
      */
 
     SpacerViewRoot(){
-        return document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
+        return document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER).getElementsByTagName('li')[0];
     }
 
     SpacerViewClick(li){
@@ -79,10 +79,10 @@ class SpacerView {
             var ul = li.getElementsByTagName('ul')[0];
             if (ul.style.display == "block"){
                 ul.style.display = "none";
-                arrow.innerHTML = this.SPACER.TREE.CLOSED_ICON;
+                arrow.innerHTML = this.SpacerTree.CLOSED_ICON;
             } else if (ul.style.display == "none"){
                 ul.style.display = "block";
-                arrow.innerHTML = this.SPACER.TREE.OPEN_ICON;
+                arrow.innerHTML = this.SpacerTree.OPEN_ICON;
             }
         }
     }
@@ -97,19 +97,19 @@ class SpacerView {
         while (ul.nodeName.toLowerCase() != "ul"){
             ul = ul.parentNode;
         }
-        if (ul.id == this.SPACER.TREE.ELEMENT_INNER_WRAPPER){
+        if (ul.id == this.SpacerTree.ELEMENT_INNER_WRAPPER){
             ROOT = true;
         }
         return ROOT;
     }
 
     SpacerViewClose(){
-        this.SPACER.TREE.SELECTED_SPAN = null;
+        this.SpacerTree.SELECTED_SPAN = null;
         this.ViewCollapse();
     }
 
     SpacerViewCancelFullScreenEdit(){
-        document.getElementById(this.SPACER.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = this.SPACER.TREE.VIEW;
+        document.getElementById(this.SpacerTree.ELEMENT_OUTER_WRAPPER).innerHTML = this.SpacerTree.VIEW;
     }
 
     SpacerViewTrim(strng){
@@ -253,7 +253,7 @@ class SpacerView {
     }
 
     SpacerViewA(link){
-        return "<a class='spacer_arrow' style='text-decoration:none;' onclick='return clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
+        return "<a class='spacer_arrow' style='text-decoration:none;' onclick='return spacer_clicktree(event);' href='javascript:void(0);'>" + link + "</a>";
     }
 
     SpacerViewSpan(text){
@@ -392,7 +392,7 @@ class SpacerView {
         var ul;
         var root = false;
         if (arguments.length < 1 || span == null || span == "undefined"){
-            ul = document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER);
+            ul = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
             root = true;
         } else {
             ul = this.ViewFindUlFromSpan(span);
@@ -404,7 +404,7 @@ class SpacerView {
                 if (li){
                     var arrow = li.getElementsByClassName('spacer_arrow')[0];
                     if (arrow && arrow.firstChild.className != "empty"){
-                        arrow.innerHTML = this.SPACER.TREE.OPEN_ICON;
+                        arrow.innerHTML = this.SpacerTree.OPEN_ICON;
                     }
                 }
             }
@@ -416,7 +416,7 @@ class SpacerView {
             for (var count = 0; count < arrows.length; ++count){
                 var arrow = arrows[count];
                 if (arrow.firstChild.className != "empty"){
-                    arrow.innerHTML = this.SPACER.TREE.OPEN_ICON;
+                    arrow.innerHTML = this.SpacerTree.OPEN_ICON;
                 }
             }
             if (root){
@@ -428,7 +428,7 @@ class SpacerView {
         var ul;
         var root = false;
         if (arguments.length < 1 || span == null || span == "undefined"){
-            ul = document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER);
+            ul = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
             root = true;
         } else {
             ul = this.ViewFindUlFromSpan(span);
@@ -440,7 +440,7 @@ class SpacerView {
                 if (li){
                     var arrow = li.getElementsByClassName('spacer_arrow')[0];
                     if (arrow && arrow.firstChild.className != "empty"){
-                        arrow.innerHTML = this.SPACER.TREE.CLOSED_ICON;
+                        arrow.innerHTML = this.SpacerTree.CLOSED_ICON;
                     }
                 }
             }
@@ -452,7 +452,7 @@ class SpacerView {
             for (var count = 0; count < arrows.length; ++count){
                 var arrow = arrows[count];
                 if (arrow.firstChild.className != "empty"){
-                    arrow.innerHTML = this.SPACER.TREE.CLOSED_ICON;
+                    arrow.innerHTML = this.SpacerTree.CLOSED_ICON;
                 }
             }
             if (root){
@@ -552,7 +552,7 @@ class SpacerView {
 
     SpacerViewSearch(searchterm,case_sensitive,exact_matches,regular_expression,dont_change_view){
         if (arguments.length < 1 || searchterm == null || searchterm == "undefined" || searchterm == ""){
-            searchterm = document.getElementById(this.SPACER.TREE.TOOLBAR_SEARCHBOX_NAME).value;
+            searchterm = document.getElementById(this.SpacerTree.TOOLBAR_SEARCHBOX_NAME).value;
         }
         if (arguments.length < 2 || case_sensitive != true){
             case_sensitive = false;
@@ -567,7 +567,7 @@ class SpacerView {
             dont_change_view = false;
         }
         if (searchterm == ''){return;}
-        var tree = document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER);
+        var tree = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
         if (dont_change_view == false){
             this.ViewCollapse();
             this.ViewReset2(tree);
@@ -585,8 +585,8 @@ class SpacerView {
 
     SpacerViewSearch2(searchterm, ul, case_sensitive, exact_matches, regular_expression, dont_change_view){
         try{
-            this.SPACER.TREE.CURRENT_SEARCH_INDEX = -1;
-            this.SPACER.TREE.SEARCH_RESULTS.length = 0;
+            this.SpacerTree.CURRENT_SEARCH_INDEX = -1;
+            this.SpacerTree.SEARCH_RESULTS.length = 0;
             var chldrn = ul.getElementsByClassName('spacer_content');
             for (var count = 0; count < chldrn.length; ++count){
                 var span = chldrn[count];
@@ -624,17 +624,17 @@ class SpacerView {
                 if (ROOT == false && MATCHES){
                     ++this.SPACER.TEMP;
                     if (dont_change_view == false){
-                        var TEXT = "<span class='search_result' style='background-color:" + this.SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + this.SPACER.TREE.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + this.SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
+                        var TEXT = "<span class='search_result' style='background-color:" + this.SpacerTree.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + this.SpacerTree.HIGHLIGHT_TEXT_COLOR + ";border:1px solid " + this.SpacerTree.HIGHLIGHT_BACKGROUND_COLOR + ";'>" + txt + "</span>";
                         span.innerHTML = TEXT;
                     }
-                    this.SPACER.TREE.SEARCH_RESULTS.push(span);
+                    this.SpacerTree.SEARCH_RESULTS.push(span);
                     if (dont_change_view == false){
                         var node = span.parentNode;
                         while (node.nodeName.toLowerCase() != 'div'){
                             if (node.nodeName.toLowerCase() == 'ul'){
                                 node.style.display = 'block';
                             } else if (node.nodeName.toLowerCase() == 'li' && node != span.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-                                node.getElementsByTagName('a')[0].innerHTML = this.SPACER.TREE.OPEN_ICON;
+                                node.getElementsByTagName('a')[0].innerHTML = this.SpacerTree.OPEN_ICON;
                             }
                             if (node.parentNode){
                                 node = node.parentNode;
@@ -656,47 +656,47 @@ class SpacerView {
     }
 
     SpacerViewNext(){
-        if (this.SPACER.TREE.CURRENT_SEARCH_INDEX < this.SPACER.TREE.SEARCH_RESULTS.length - 1){
-            ++this.SPACER.TREE.CURRENT_SEARCH_INDEX;
+        if (this.SpacerTree.CURRENT_SEARCH_INDEX < this.SpacerTree.SEARCH_RESULTS.length - 1){
+            ++this.SpacerTree.CURRENT_SEARCH_INDEX;
         }
-        if (this.SPACER.TREE.CURRENT_SEARCH_INDEX < this.SPACER.TREE.SEARCH_RESULTS.length){
-            var span = this.SPACER.TREE.SEARCH_RESULTS[this.SPACER.TREE.CURRENT_SEARCH_INDEX];
+        if (this.SpacerTree.CURRENT_SEARCH_INDEX < this.SpacerTree.SEARCH_RESULTS.length){
+            var span = this.SpacerTree.SEARCH_RESULTS[this.SpacerTree.CURRENT_SEARCH_INDEX];
             if (span){
-                this.SPACER.TREE.ViewOpenToSpan(span);
-                this.SPACER.TREE.ScrollToSpan(span);
+                this.ViewOpenToSpan(span);
+                this.SpacerTree.ScrollToSpan(span);
             }
         }
     }
 
     SpacerViewPrevious(){
-        if (this.SPACER.TREE.CURRENT_SEARCH_INDEX > 0){
-            --this.SPACER.TREE.CURRENT_SEARCH_INDEX;
+        if (this.SpacerTree.CURRENT_SEARCH_INDEX > 0){
+            --this.SpacerTree.CURRENT_SEARCH_INDEX;
         }
-        if (this.SPACER.TREE.CURRENT_SEARCH_INDEX >= 0){
-            var span = this.SPACER.TREE.SEARCH_RESULTS[this.SPACER.TREE.CURRENT_SEARCH_INDEX];
-            this.SPACER.TREE.ViewOpenToSpan(span);
-            this.SPACER.TREE.ScrollToSpan(span);
+        if (this.SpacerTree.CURRENT_SEARCH_INDEX >= 0){
+            var span = this.SpacerTree.SEARCH_RESULTS[this.SpacerTree.CURRENT_SEARCH_INDEX];
+            this.ViewOpenToSpan(span);
+            this.SpacerTree.ScrollToSpan(span);
         }
     }
 
     SpacerViewReplace(searchterm,replace_with,case_sensitive,exact_matches){
-        document.getElementById(this.SPACER.TREE.TOOLBAR_REPLACE_NAME).value = "";
-        document.getElementById(this.SPACER.TREE.TOOLBAR_REPLACE_WITH_NAME).value = "";
+        document.getElementById(this.SpacerTree.TOOLBAR_REPLACE_NAME).value = "";
+        document.getElementById(this.SpacerTree.TOOLBAR_REPLACE_WITH_NAME).value = "";
         this.ViewSearch(searchterm,case_sensitive,exact_matches,false,true);
-        if (this.SPACER.TREE.REPLACE_RESULT_MESSAGE == true){
-            if (this.SPACER.TREE.SEARCH_RESULTS.length > 0){
-                if (this.SPACER.REPRESS_ALERTS == false) { alert('Your search returned: ' + this.SPACER.TREE.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
+        if (this.SpacerTree.REPLACE_RESULT_MESSAGE == true){
+            if (this.SpacerTree.SEARCH_RESULTS.length > 0){
+                if (this.SPACER.REPRESS_ALERTS == false) { alert('Your search returned: ' + this.SpacerTree.SEARCH_RESULTS.length + ' results. You might have to scroll to view them.'); }
             } else {
                 if (this.SPACER.REPRESS_ALERTS == false) { alert('No results.'); }
             }
         }
-        var amount = this.SPACER.TREE.SEARCH_RESULTS.length;
-        if (this.SPACER.TREE.SEARCH_RESULTS != null && this.SPACER.TREE.SEARCH_RESULTS.length > 0){
+        var amount = this.SpacerTree.SEARCH_RESULTS.length;
+        if (this.SpacerTree.SEARCH_RESULTS != null && this.SpacerTree.SEARCH_RESULTS.length > 0){
             this.ViewClose();
-            for (var count = 0; count < this.SPACER.TREE.SEARCH_RESULTS.length; ++count){
-                var locate = this.SPACER.TREE.SEARCH_RESULTS[count]; // span
+            for (var count = 0; count < this.SpacerTree.SEARCH_RESULTS.length; ++count){
+                var locate = this.SpacerTree.SEARCH_RESULTS[count]; // span
                 if (locate != null){
-                    var replace_result = "<span class=\"replace_result\" style=\"background-color:" + this.SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + this.SPACER.TREE.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
+                    var replace_result = "<span class=\"replace_result\" style=\"background-color:" + this.SpacerTree.HIGHLIGHT_BACKGROUND_COLOR + ";color:" + this.SpacerTree.HIGHLIGHT_TEXT_COLOR + ";\">" + searchterm + "</span>";
                     // apparently, the string could already have the replace result in it, if it was a line with multiple search results
                     var temp = "*****temp*****";
                     if (temp.indexOf(searchterm) >= 0){
@@ -784,7 +784,7 @@ class SpacerView {
                         if (node.nodeName.toLowerCase() == 'ul'){
                             node.style.display = 'block';
                         } else if (node.nodeName.toLowerCase() == 'li' && node != locate.parentNode && node.getElementsByTagName('ul').length > 0 && node.getElementsByTagName('ul')[0].getElementsByTagName('li').length > 0){
-                            node.getElementsByTagName('a')[0].innerHTML = this.SPACER.TREE.OPEN_ICON;
+                            node.getElementsByTagName('a')[0].innerHTML = this.SpacerTree.OPEN_ICON;
                         }
                         if (node.parentNode){
                             node = node.parentNode;
@@ -798,21 +798,21 @@ class SpacerView {
     }
 
     SpacerViewInitReplaceResults(){
-        this.SPACER.TREE.REPLACE_RESULTS.length = 0;
-        this.SPACER.TREE.CURRENT_REPLACE_INDEX = -1;
-        var spans = document.getElementById(this.SPACER.TREE.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
+        this.SpacerTree.REPLACE_RESULTS.length = 0;
+        this.SpacerTree.CURRENT_REPLACE_INDEX = -1;
+        var spans = document.getElementById(this.SpacerTree.ELEMENT_OUTER_WRAPPER).getElementsByClassName("replace_result");
         for (var count = 0; count < spans.length; ++count){
             var span = spans[count];
             //if (span.className && span.className == "replace_result"){
-            this.SPACER.TREE.REPLACE_RESULTS.push(span);
+            this.SpacerTree.REPLACE_RESULTS.push(span);
             //}
         }
-        if (this.SPACER.TREE.REPLACE_RESULTS.length > 0){
-            document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER).scrollTop = 0;
-            this.SPACER.TREE.CURRENT_REPLACE_INDEX = 0;
-            var span = this.SPACER.TREE.REPLACE_RESULTS[0];
-            var y = this.SPACER.TREE.GetScrollForSearch(span);
-            document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER).scrollTop = y;
+        if (this.SpacerTree.REPLACE_RESULTS.length > 0){
+            document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER).scrollTop = 0;
+            this.SpacerTree.CURRENT_REPLACE_INDEX = 0;
+            var span = this.SpacerTree.REPLACE_RESULTS[0];
+            var y = this.SpacerTree.GetScrollForSearch(span);
+            document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER).scrollTop = y;
         }
     }
 
@@ -882,31 +882,31 @@ class SpacerView {
         }
         this.SPACER.CloseEditBox();
         if (what == "title"){
-            this.SPACER.TREE.Query('CREATE FROM HTML ' + this.SPACER.TREE.PrintHtml(true));
+            this.SpacerTree.Query('CREATE FROM HTML ' + this.SpacerTree.PrintHtml(true));
             return;
         }
-        var ul = document.getElementById(this.SPACER.TREE.ELEMENT_INNER_WRAPPER);
+        var ul = document.getElementById(this.SpacerTree.ELEMENT_INNER_WRAPPER);
         if (ul){
             this.ViewReset2(ul,what);
         } else {//?
             //document.getElementById(SPACER.TREE.ELEMENT_OUTER_WRAPPER).innerHTML = SPACER.TREE.VIEW;
         }
         if (what == "*"){
-            this.SPACER.TREE.SELECTED_SPAN = null;
+            this.SpacerTree.SELECTED_SPAN = null;
             this.ViewCollapse();
         }
     }
 
     SpacerViewReset2(ul,what){
         if (what == "*"){
-            for (let s in this.SPACER.TREE.MOUSE_DRAG_SPANS){
-                var span = this.SPACER.TREE.MOUSE_DRAG_SPANS[s];
+            for (let s in this.SpacerTree.MOUSE_DRAG_SPANS){
+                var span = this.SpacerTree.MOUSE_DRAG_SPANS[s];
                 this.SpacerTree.UnhighlightSpan(span);
             }
-            if (this.SPACER.TREE.SELECTED_SPAN){
-                this.SpacerTree.UnhighlightSpan(this.SPACER.TREE.SELECTED_SPAN);
+            if (this.SpacerTree.SELECTED_SPAN){
+                this.SpacerTree.UnhighlightSpan(this.SpacerTree.SELECTED_SPAN);
             }
-            this.SPACER.TREE.SELECTED_SPAN = null;
+            this.SpacerTree.SELECTED_SPAN = null;
         }
         if (what == "*" || what == "linenumbers"){
             while (ul.getElementsByClassName('linenumber').length > 0){
@@ -930,7 +930,7 @@ class SpacerView {
             }
         }
         if (what == "*" || what == "replace_results"){
-            ul.innerHTML = ul.innerHTML.split(this.SPACER.SKIP_MESSAGE).join(this.SPACER.TREE.REPLACE);
+            ul.innerHTML = ul.innerHTML.split(this.SPACER.SKIP_MESSAGE).join(this.SpacerTree.REPLACE);
             while (ul.getElementsByClassName('replace_result').length > 0){
                 var spans = ul.getElementsByClassName('replace_result');
                 for (var count = 0; count < spans.length; ++count){
@@ -949,7 +949,7 @@ class SpacerView {
                 }
             }
         }
-        this.SPACER.TREE.ResetReplace();
+        this.SpacerTree.ResetReplace();
     }
 
     SpacerViewSelright(){

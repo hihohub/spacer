@@ -5,7 +5,7 @@
 
 class SpacerBranch {
     constructor(txt, tree, SPACER) {
-        // hypertree
+        // umbrella tree
         this.SPACER = SPACER;
         // tree, branch, and children
         this.TREE = tree;
@@ -127,10 +127,10 @@ class SpacerBranch {
             this.Click();
         }
         var li = "<li class='spacer_li' style='white-space:nowrap;'>";
-        var a = "<a class='spacer_arrow' href='javascript:void(0)' onclick='return clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
+        var a = "<a class='spacer_arrow' href='javascript:void(0)' onclick='return spacer_clicktree(event);' style='text-decoration:none;' >" + this.LINK + "</a>";
         var datatree = this.SPACER.TREE? this.SPACER.TREE : this;
         if (datatree.UNDERLINE_ICONS == true){
-            a = "<a class='spacer_arrow' href='javascript:void(0)' onclick='return clicktree(event);' >" + this.LINK + "</a>";
+            a = "<a class='spacer_arrow' href='javascript:void(0)' onclick='return spacer_clicktree(event);' >" + this.LINK + "</a>";
         }
         var span = "<span class='spacer_content' style='white-space:pre-wrap;padding-left:10px;' onclick='return SPACER.TREE.ClickSpan(event);' onmousedown='return SPACER.TREE.MouseDownSpan(event);' onmouseup='return SPACER.TREE.MouseUpSpan(event);'>";
         var text = this.SPACER.StringTrim(this.TEXT);

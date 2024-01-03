@@ -1,17 +1,12 @@
 /**
  * TASKS
  * search SPACER, remove from strings
- * search this.SPACER.TREE, replace with 'this'
+ * (done) search this.SPACER.TREE, replace with 'this'
  */
 
 class SpacerTree {
-    constructor(outer_wrapper, hypertree) {
-        // add to parent hypertree
-        this.SPACER = hypertree;
-        this.SPACER.TREES.push(this);
-        // subclasses
-        this.Branch = SpacerBranch;
-        this.SpacerView = new SpacerView(this);
+    constructor(outer_wrapper, umbrella_tree) {
+        this.SPACER = umbrella_tree;
         // function declarations
         this.AutoInitialize = this.AutoInitialize;
         this.ClickSpan = this.ClickSpan;
@@ -40,7 +35,7 @@ class SpacerTree {
         this.HtmlBody = this.HtmlBody;
         this.HtmlLineBreaks = this.HtmlLineBreaks;
         this.InitReplaceResults = this.InitReplaceResults;
-        this.InsertClickTreeText = this.SpacerInsertClickTreeText; // was commented out
+        this.InsertClickTreeText = this.SpacerInsertClickTreeText;
         this.InsertEditTreeText = this.InsertEditTreeText;
         this.IsRemovableFormatTag = this.IsRemovableFormatTag;
         this.LoadFromToolbar = this.LoadFromToolbar;
@@ -152,6 +147,9 @@ class SpacerTree {
         this.UNDO;
         this.VIEW = "";
         this.WITH = false;
+        // add to umbrella tree
+        this.SpacerView = new SpacerView(this);
+        this.SPACER.TREES.push(this);
     }
 
     /**
@@ -172,6 +170,7 @@ class SpacerTree {
             this.LETTERING = elmnt.getAttribute('lettering');
         }
         if (elmnt.getAttribute('accordion') != null && elmnt.getAttribute('accordion') != "undefined" && parseInt(elmnt.getAttribute('accordion')) >= 0){
+            // reduce all indentation to specified numeric value
             this.ACCORDION = parseInt(elmnt.getAttribute('accordion'));
         }
         if (elmnt.getAttribute('open')){
@@ -327,12 +326,12 @@ class SpacerTree {
         for (var count = 0; count < Masterlist.length; ++count){
             var m = Masterlist[count];
             if (this.SPACER.StringTrim(m) != ""){
-                var node = new this.Branch(m, this, this.SPACER);
+                var node = new SpacerBranch(m, this, this.SPACER);
                 this.NODES.push(node);
             }
         }
         this.LEVELS.length = 0;
-        var TEMPTREE = new this.Branch(title, this, this.SPACER);
+        var TEMPTREE = new SpacerBranch(title, this, this.SPACER);
         this.ProcessTree(-1, 0, this.NODES, TEMPTREE, Keys, Trimmedlines, EMPTY_FILE);
         this.InsertClickTreeText();
         this.InsertEditTreeText();
@@ -530,7 +529,7 @@ class SpacerTree {
         var ENCODE_CLOSED = _CLOSED_.split("\"").join("\'").split("\\").join("/");
         _CLOSED_ = ENCODE_CLOSED;
         var _EMPTY_ = this.EMPTY_ICON;
-        var clicktree = "function clicktree(evt){if (!evt){evt = window.event;}var source = evt.target? evt.target : evt.srcElement;if (source.nodeName.toLowerCase() == 'img' && source.className=='closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'img' && source.className=='open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";}if (source.firstChild.nodeName.toLowerCase() == 'img' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}} else if (source.firstChild.nodeName.toLowerCase() == 'span' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}}}";
+        var clicktree = "function spacer_clicktree(evt){if (!evt){evt = window.event;}var source = evt.target? evt.target : evt.srcElement;if (source.nodeName.toLowerCase() == 'img' && source.className=='closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'img' && source.className=='open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'closed'){source = source.parentNode;source.innerHTML = \"" + _OPEN_ + "\";} else if (source.nodeName.toLowerCase() == 'span' && source.className == 'open'){source = source.parentNode;source.innerHTML = \"" + _CLOSED_ + "\";}if (source.firstChild.nodeName.toLowerCase() == 'img' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}} else if (source.firstChild.nodeName.toLowerCase() == 'span' && source.firstChild.className != 'empty'){chldrn = source.parentNode.getElementsByTagName('ul')[0];if (chldrn.style.display == 'block'){chldrn.style.display = 'none';} else {chldrn.style.display = 'block';}}}";
         return clicktree;
     }
 
@@ -854,9 +853,10 @@ class SpacerTree {
                 } else {
                     this.AUTO_ADJUST = true;
                     this.AUTO_TRIM = true;
-                    // if (this == "undefined" || this == null){
-                    //     this = this;
-                    // }
+                    if (this == "undefined" || this == null){
+                        console.log("error - tree is undefined");
+                        // this = this;
+                    }
                     var type = this.SPACER.StringTrim(strings[2].toUpperCase());
                     switch(type){
                         case "HTML":
@@ -1827,7 +1827,7 @@ class SpacerTree {
                 }
             }
 
-            var newnode = new TOOLBARTREE.Branch(html, TOOLBARTREE, TOOLBARTREE.SPACER);
+            var newnode = new SpacerBranch(html, TOOLBARTREE, TOOLBARTREE.SPACER);
             var macro_index = index - 1;
             var micro_index = 0;
 

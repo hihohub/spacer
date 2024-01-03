@@ -21,9 +21,13 @@
 
 /**
  * TASKS
+ * cross browser compatibility
+ * publish tree file
+ * improve imports and onload
  * search SPACER, remove from strings
- * strict mode (for (let x =), for (s in), let x =)
- * add return values?
+ * strict mode (for (let x =), for (s in), let x =, cannot make function alias for function from other class)
+ * (done) find all dynamic scripts and document them or place at top of file
+ * search for other html injection strings
  */
 
 class Spacer {
@@ -153,24 +157,6 @@ class Spacer {
         this.WENT_TO_FILE = false;
     }
 
-    // was removed
-    SpacerAutoAlphabetize(){
-        if (window.event){
-            window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
-        }
-        var datatree = this.TREE? this.TREE : this;
-        var lower_bound = document.getElementById(datatree.TOOLBAR_LOWER_BOUND_NAME).value;
-        var upper_bound = document.getElementById(datatree.TOOLBAR_UPPER_BOUND_NAME).value;
-        lower_bound = parseInt(this.StringTrim(lower_bound));
-        upper_bound = parseInt(this.StringTrim(upper_bound));
-        if (typeof lower_bound == "number" && typeof upper_bound == "number" && !isNaN(lower_bound) && !isNaN(upper_bound)){
-            var input = "ALPHABETIZE FROM LINE " + lower_bound + " TO LINE " + upper_bound;
-            datatree.Query(input);
-        } else {
-            alert("Line numbers only. Please press/query number, find the appropriate lines, then press/query reset.");
-        }
-    }
-
     /**
      * -------------------------------------------------------------------
      * LOAD
@@ -184,25 +170,28 @@ class Spacer {
             console.log("error - no outer wrapper");
             return;
         }
-        var TEXT;
-        // let that = this;
         if (document.getElementById(this.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')){
+            let tree = this.TREE;
+            let src = function(){return document.getElementById(tree.ELEMENT_OUTER_WRAPPER).getAttribute('src');}.bind(tree);
+            let ai = function(text){tree.AutoInitialize(text);}.bind(tree);
             await fetch(
-                document.getElementById(this.TREE.ELEMENT_OUTER_WRAPPER).getAttribute('src')
+                src()
             ).then(
                 response => response.text()
             ).then(
-                text => this.TREE.AutoInitialize(text)
+                text => ai(text)
             ).catch(
                 exc => console.log("error fetching file " + exc)
-            );
+            )
         } else {
+            var TEXT;
             if (document.getElementById(this.TREE.ELEMENT_OUTER_WRAPPER)){
                 var TEXT = document.getElementById(this.TREE.ELEMENT_OUTER_WRAPPER).innerHTML;
             }
             this.TREE.AutoInitialize(TEXT);
         }
     }
+
     async SpacerAutoLoad(src){
         // load from file
         console.log(`fetching ${src}`);
@@ -250,12 +239,12 @@ class Spacer {
 
     /**
      * ------------------------------------------------------
-     * HYPERTREE MANAGER
+     * UMBRELLA TREE MANAGER
      * ------------------------------------------------------
      */
 
     SpacerGetTreeFromName(name){
-        // get named tree from hypertree list
+        // get named tree from umbrella tree list
         var tree = null;
         if (document.getElementById(name)){
             for (var count = 0; count < this.TREES.length; ++count){
@@ -270,13 +259,13 @@ class Spacer {
     }
 
     SpacerSetTreeFromName(name){
-        // set hypertree to tree that mouse is hovering over
+        // set umbrella tree to tree that mouse is hovering over
         if (name != this.TREE.NAME){
             var tree = this.GetTreeFromName(name);
             if (tree != null){
                 this.TREE = tree;
                 if (this.TREES.length > 1){
-                    SpacerHighlightTree(name);
+                    this.HighlightTree(name);
                 }
             }
         }
@@ -762,6 +751,23 @@ class Spacer {
      * OTHER TOOLBAR OPTIONS
      * ------------------------------------------------------------------------
      */
+
+    SpacerAutoAlphabetize(){
+        if (window.event){
+            window.event.preventDefault? window.event.preventDefault() : window.event.returnValue = false;
+        }
+        var datatree = this.TREE? this.TREE : this;
+        var lower_bound = document.getElementById(datatree.TOOLBAR_LOWER_BOUND_NAME).value;
+        var upper_bound = document.getElementById(datatree.TOOLBAR_UPPER_BOUND_NAME).value;
+        lower_bound = parseInt(this.StringTrim(lower_bound));
+        upper_bound = parseInt(this.StringTrim(upper_bound));
+        if (typeof lower_bound == "number" && typeof upper_bound == "number" && !isNaN(lower_bound) && !isNaN(upper_bound)){
+            var input = "ALPHABETIZE FROM LINE " + lower_bound + " TO LINE " + upper_bound;
+            datatree.Query(input);
+        } else {
+            alert("Line numbers only. Please press/query number, find the appropriate lines, then press/query reset.");
+        }
+    }
 
     Collapse(evt){
         if (!evt){ evt = window.event; }
