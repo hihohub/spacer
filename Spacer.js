@@ -1,39 +1,34 @@
 /**
- * example script
- * let SPACER = new Spacer();
- * onload = () => { SPACER.AutoInit("DATATREE"); }
+ * author Derek James Smith
  */
 
 /**
- * To install a datatree on your web page, simply include a container element with the id DATATREE and an indented outline between the tags.
- * Or, import the indented text file with the attribute src='filename'.
- * Spacer also accepts an HTML list, but you will have to add the attribute type='html'.
- * The 'root' attribute designates the text for the root node, here 'Example'.
- * The 'toolbar' attribute adds buttons, here 'collapse,expand,search,reset'.
- * The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%.
- * Finally, import Spacer10.1.js and add another script with one line in the onload handler, SPACER.AutoInit();
- */
+ * example scripts
+ * <script type="text/javascript" src="Spacer.js"></script>
+ * <script type='text/javascript' src='SpacerTree.js'></script>
+ * <script type='text/javascript' src='SpacerView.js'></script>
+ * <script type='text/javascript' src='SpacerBranch.js'></script>
+ * <script type='text/javascript'>
+ * let SPACER = new Spacer();
+ * onload = () => { SPACER.AutoInit("DATATREE"); }
+ * </script>
+ * example html
+ * <div id="DATATREE" src="input.txt" toolbar="collapse,expand,search_horizontal,reset" treeheight="500px"/>
+ * example input.txt
+ * one
+ *    two
+ *    three
+ *    four
+ * five
+` */
 
 /** starts with data model to build first view, returns tree object **/
 /** data models: tree, linear nodes array, content outline **/
 /** after initialization, View-Controller model only **/
-/** list model: ul:li:(a:span:ul) WARNING:"a" could have span**/
-
-/**
- * TASKS
- * cross browser compatibility
- * publish tree file
- * improve imports and onload
- * search SPACER, remove from strings
- * strict mode (for (let x =), for (s in), let x =, cannot make function alias for function from other class)
- * (done) find all dynamic scripts and document them or place at top of file
- * search for other html injection strings
- */
+/** list model: ul:li:(a:span:ul) WARNING:"a" could have span and nested ul **/
 
 class Spacer {
     constructor() {
-        // subclasses
-        // this.Tree;
         // function declarations
         this.Alphabetize = this.SpacerAutoAlphabetize;
         this.AllowBackspace = this.SpacerAllowBackspace;
@@ -1382,4 +1377,3 @@ class Spacer {
     }
 
 } // spacer
-

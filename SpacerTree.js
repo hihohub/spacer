@@ -1,7 +1,5 @@
 /**
- * TASKS
- * search SPACER, remove from strings
- * (done) search this.SPACER.TREE, replace with 'this'
+ * author Derek James Smith
  */
 
 class SpacerTree {

@@ -1,6 +1,5 @@
 /**
- * TASKS
- * (done) search this.SPACER.TREE and replace with this.SpacerTree
+ * author Derek James Smith
  */
 
 class SpacerView {

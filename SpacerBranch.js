@@ -1,6 +1,5 @@
 /**
- * TASKS
- * remove SPACER.TREE from strings
+ * author Derek James Smith
  */
 
 class SpacerBranch {
