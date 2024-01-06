@@ -637,19 +637,24 @@ class SpacerTree {
                         TOOLBAR += separator;
                         break;
                     case "text":
-                        TOOLBAR += "<button onclick='return SPACER.PrintText(event);' title='copy and paste to save your text changes'>TEXT</button>";
+                        TOOLBAR += "<button onclick='return SPACER.PrintText(event);' title='copy paste to save your text changes'>TEXT</button>";
                         TOOLBAR += separator;
                         break;
                     case "html":
-                        TOOLBAR += "<button onclick='return SPACER.PrintHtml(event);' title='copy and paste to save your text changes'>HTML</button>";
+                        TOOLBAR += "<button onclick='return SPACER.PrintHtml(event);' title='copy paste to save your text changes'>HTML</button>";
                         TOOLBAR += separator;
                         break;
                     case "edit":
                         TOOLBAR += "<select id='" + this.TOOLBAR_SELECT_NAME + "' onchange='return SPACER.ToolbarSelect();'><option selected='selected'>EDIT</option><option value='overwrite'>overwrite</option><option value='child'>child</option><option value='sibling'>sibling</option><option value='up'>move up</option><option value='down'>move down</option><option value='selection right'>selection right</option><option value='section right'>section right</option><option value='left'>move left</option><option value='copy selected'>copy selected</option><option value='copy w/children'>copy w/children</option><option value='cut'>cut</option><option value='paste'>paste</option><option value='remove'>remove</option><option value='undo'>undo</option><option value='redo'>redo</option></select>";
                         TOOLBAR += separator;
                         break;
+                    case "publish":
+                        TOOLBAR += "<button onclick='return SPACER.PrintFile(event);' title='copy paste into an html file to publish your tree'>PUBLISH</button>";
+                        TOOLBAR += separator;
+                        break;
                     case "status":
                         TOOLBAR += "<span id='" + this.TOOLBAR_STATUS_NAME + "' title='' style='display:none;background-color:white;color:red;font-size:x-large;font-weight:bold;padding:7px;'>!</span>";
+                        break;
                     default:
                         break;
                 }
@@ -846,7 +851,7 @@ class SpacerTree {
                 this.HAS_ERRORS = false;
                 this.ALERTS.length = 0;
                 this.SELECTED_SPAN = null;//7.8.7
-                if (strings.length < 3 || this.SPACER.StringTrim(strings[1].toUpperCase()) != "FROM" || (this.SPACER.StringTrim(strings[2].toUpperCase()) != "HTML" && this.SPACER.StringTrim(strings[2].toUpperCase()) != "TEXT" && this.SPACER.StringTrim(strings[2].toUpperCase()) != "TREE")){
+                if (strings.length < 3 || this.SPACER.StringTrim(strings[1].toUpperCase()) != "FROM" || (this.SPACER.StringTrim(strings[2].toUpperCase()) != "HTML" && this.SPACER.StringTrim(strings[2].toUpperCase()) != "TEXT")){
                     if (this.SPACER.REPRESS_ALERTS == false) { alert("syntax error"); }
                 } else {
                     this.AUTO_ADJUST = true;
@@ -2779,6 +2784,7 @@ class SpacerTree {
     }
 
     PrintText(){
+        this.SPACER.PLEASE_WAIT = false;
         var result = this.GetTextForPrint();
         this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
         document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
