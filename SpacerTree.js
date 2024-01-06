@@ -2654,8 +2654,8 @@ class SpacerTree {
             }
             if (arguments.length < 1 || justreturnval != true){
                 //result = result.split("&nbsp;").join("&amp;nbsp;");
-                result = result.split("<").join("&lt;");
-                result = result.split(">").join("&gt;");
+                // result = result.split("<").join("&lt;");
+                // result = result.split(">").join("&gt;");
                 this.VIEW = document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML;
                 document.getElementById(this.ELEMENT_OUTER_WRAPPER).innerHTML = this.TOOLBAR + "<button type='button' onclick='return SPACER.TREE.RestoreView();'>CANCEL</button><br/>" + "<textarea style='white-space:pre-wrap;min-width:500px;min-height:500px;width:100%;'>" + result + "</textarea>";
                 return null;
@@ -2676,12 +2676,24 @@ class SpacerTree {
         result += this.SPACER.GetOnload(datatree);
         result += "<" + "/script>";
         result += "<" + "/head><" + "body>";
-        result += "<div id='" + datatree.ELEMENT_OUTER_WRAPPER + "' type='html' toolbar='" + datatree.TOOLBAR_TOOLS + "' root=\"" + datatree.TITLE + "\" open=\"" + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" closed=\"" + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;") + "\" empty=\"" + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;") + " >";
+        result += "<div id='"
+            + datatree.ELEMENT_OUTER_WRAPPER
+            + "' type='html' toolbar='"
+            + datatree.TOOLBAR_TOOLS
+            + "' root=\"" + datatree.TITLE
+            + "\" open=\""
+            + datatree.OPEN_ICON.split("'").join("&apos;").split("\"").join("&quot;")
+            + "\" closed=\""
+            + datatree.CLOSED_ICON.split("'").join("&apos;").split("\"").join("&quot;")
+            + "\" empty=\""
+            + datatree.EMPTY_ICON.split("'").join("&apos;").split("\"").join("&quot;")
+            + "\" >";
         if (this.CONTENT.indexOf('<table') >= 0){
             result += this.CONTENT; // slower, but GetList indents unindented tables
         } else {
             result += this.GetList(); // faster
         }
+        // result = this.SPACER.EncodeArrows(result,true);
         result += "</div>";
         result += "</body></html>";
         return result;

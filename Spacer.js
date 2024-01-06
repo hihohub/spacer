@@ -91,7 +91,7 @@ class Spacer {
         this.Wait = this.SpacerWait;
         // properties
         // repeats with datatree properties not allowed
-        this.ADDRESS = "http://3.144.127.167/welcome/scripts/Spacer10.2.js";
+        this.ADDRESS = "https://hihohub.github.io/spacer/Spacer10.2.js";
         this.ALT_SKIP_MESSAGE = "%%%%% SKIPPED %%%%%";
         this.BACKSPACE_ALLOWED = false;
         this.CLIPBOARD = new Array();
@@ -102,7 +102,7 @@ class Spacer {
         this.DEFAULT_TOOLBAR_NAME = "spacer_toolbar";
         this.DEFAULT_EDITBOX_NAME = "spacer_editbox";
         this.DEFAULT_CLOSED_ICON = "<span class='closed'>&rArr;</span>";
-        this.DEFAULT_EMPTY_ICON = "<span class='empty'>&EmptySmallSquare;</span>";
+        this.DEFAULT_EMPTY_ICON = "<span class='empty'>&EmptySmallSquar</span>";
         this.DEFAULT_GO_TO_FILE = "if(this.TEMP.toLowerCase().indexOf('.txt')>=0 || this.TEMP.toLowerCase().indexOf('.html')>=0 || this.TEMP.toLowerCase().indexOf('.htm')>=0){this.TREE.Query('LOAD ' + this.TEMP);this.GO_TO_FILE = '';this.WENT_TO_FILE = true;this.TREE.Query('collapse');};";
         this.DEFAULT_HIGHLIGHT_BACKGROUND_COLOR = "hsl(0,0%,60%)";
         this.DEFAULT_HIGHLIGHT_TEXT_COLOR = "white";
@@ -212,7 +212,7 @@ class Spacer {
     }
     SpacerGetOnload(datatree){
         // print tree file
-        var result = "";
+        var result = "let SPACER = new Spacer();";
         result += "onload = function(){ ";
         result += "SPACER.REPRESS_ALERTS = " + !!this.REPRESS_ALERTS + "; ";
         result += "SPACER.TAB = \"" + this.TAB + "\"; ";
@@ -684,17 +684,17 @@ class Spacer {
             var equation = "";
             var delimiter = "&nbsp;&nbsp;&nbsp;";
             if (datatree){
-                if (datatree.TYPE != "text"){ // 7.9.4
+                // if (datatree.TYPE != "text"){ // 7.9.4
                     radio = "<input type='radio' name='spacer_text_or_html' value='text'>text</input><input type='radio' name='spacer_text_or_html' value='html' checked='checked'>html</input>";
                     equation = "<a href='https://codecogs.com/latex/eqneditor.php' target='_blank'>equation</a>";
-                }
+                // }
             }
             if (arguments.length == 4){
                 var displaytext = this.StringTrim(source.innerHTML);
                 if (toolbar == "insert"){
                     displaytext = "";
                 }
-                box.innerHTML = "<table><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
+                box.innerHTML = "<table><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;margin-left:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
             } else {
                 return;
             }
