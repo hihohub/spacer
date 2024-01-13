@@ -73,6 +73,7 @@ class Spacer {
         this.Replace = this.SpacerAutoReplace;
         this.Reset = this.SpacerAutoReset;
         this.ResetEditBox = this.ResetEditBox;
+        this.ResizeEditBox = this.ResizeEditBox;
         this.RightClick = this.SpacerRightClick;
         this.RightStringTrim = this.SpacerRightStringTrim;
         this.Save = this.SpacerAutoSave;
@@ -110,7 +111,11 @@ class Spacer {
         this.DEFAULT_SKIP_MESSAGE = "***** PLEASE WAIT *****";
         this.DEFAULT_TOOLBAR_ALIGN = "left";
         this.DEFAULT_TOOLBAR_TOOLS = "collapse,expand,search_horizontal,next,previous,resets,edit,replace,alphabetize,query,number";
-        this.DOCUMENTATION_ADDRESS = "http://www.spacer.com/proxy/documentation.tree.html";
+        this.DOCUMENTATION_ADDRESS = "https://hihohub.github.io/spacer/index.html";
+        this.EDITBOX_HEIGHT = 100;
+        this.EDITBOX_WIDTH = 400;
+        this.EDITBOX_HEIGHT_ADJUSTMENT = 70;
+        this.EDITBOX_WIDTH_ADJUSTMENT = 50;
         this.INSERT = false;
         this.FULL_SCREEN_MODE = false;
         this.GO_TO_FILE = ""; // go to file when click on line...insert function behavior here...does not require 'function(){...}'...text of line clicked stored in SPACER.TEMP variable
@@ -135,6 +140,7 @@ class Spacer {
         this.REPRESS_ALERTS = true;
         this.REPRESS_EDITS = false;
         this.REQUEST;
+        this.RESIZE_EDITBOX_OBSERVER;
         this.SETTABLE_PROPERTIES = ["DEFAULT_CLOSED_ICON", "DEFAULT_EMPTY_ICON", "DEFAULT_OPEN_ICON", "POPUP_BACKGROUND", "PRINT_EXTRA_SCRIPT_BEFORE", "PRINT_EXTRA_SCRIPT_AFTER", "REPRESS_ALERTS", "REPRESS_EDITS", "TAB", "TOOLBAR_ALIGN", "TOOLBAR_STYLE"];
         this.SKIP_MESSAGE = "***** PLEASE WAIT *****";
         this.SKIPPED = false;
@@ -642,6 +648,34 @@ class Spacer {
             }
         }
     }
+    ResizeEditBox(){
+        if(!document.getElementById("spacer_editor")){
+            return;
+        }
+        var textarea_height = document.getElementById("spacer_editor").style.height;
+        var textarea_width = document.getElementById("spacer_editor").style.width;
+        textarea_height = textarea_height.replace("px","");
+        textarea_width = textarea_width.replace("px","");
+        textarea_height = Number(textarea_height);
+        textarea_width = Number(textarea_width);
+        var editbox_height = document.getElementById("spacer_editbox").style.height;
+        var editbox_width = document.getElementById("spacer_editbox").style.width;
+        editbox_height = editbox_height.replace("px", "");
+        editbox_width = editbox_width.replace("px", "");
+        editbox_height = Number(editbox_height);
+        editbox_width = Number(editbox_width);
+        // cannot read "this" variable from resize observer
+        var editbox_height_adjustment = eval("SPACER.EDITBOX_HEIGHT_ADJUSTMENT");
+        var editbox_width_adjustment = eval("SPACER.EDITBOX_WIDTH_ADJUSTMENT");
+        if(editbox_height - editbox_height_adjustment < textarea_height){
+            var height = "" + (textarea_height + editbox_height_adjustment) + "px";
+            document.getElementById("spacer_editbox").style.height = height;
+        }
+        if(editbox_width - editbox_width_adjustment < textarea_width){
+            var width = "" + (textarea_width + editbox_width_adjustment) + "px";
+            document.getElementById("spacer_editbox").style.width = width;
+        }
+    }
     ShowEditBox(x, y, source, toolbar) {
         try{
             var datatree;
@@ -670,12 +704,15 @@ class Spacer {
             box.style.position = "absolute";
             box.style.zIndex = "100";
             box.style.display = "none";
-            box.style.height = "100px";
-            box.style.width = "400px";
             box.style.border = this.POPUP_BORDER;
-            box.style.overflow = "auto";
+            box.style.overflow = "visible";
             box.style.borderRadius = "20px";
-            box.style.padding = "10px 10px 0px 10px";
+            let padding = 10;
+            box.style.padding = `${padding}px ${padding}px 0px ${padding}px`;
+            let margin = 10;
+            box.style.margin = `${margin}px`;
+            box.style.height = this.EDITBOX_HEIGHT + padding + margin + "px";
+            box.style.width = this.EDITBOX_WIDTH + "px";
             box.style.background = this.POPUP_BACKGROUND;
             var datatree;
             var radio = "";
@@ -694,11 +731,17 @@ class Spacer {
                 if (toolbar == "insert"){
                     displaytext = "";
                 }
-                box.innerHTML = "<table><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;margin-left:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40'>" + displaytext + "</textarea></td></tr></table>";
+                box.innerHTML = "<table style='margin-bottom:10px;'><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;margin-left:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40' >" + displaytext + "</textarea></td></tr></table>";
             } else {
                 return;
             }
             document.body.appendChild(box);
+            if(box && typeof ResizeObserver === "function"){
+                this.ResizeEditBox();
+                this.RESIZE_EDITBOX_OBSERVER = new ResizeObserver(this.ResizeEditBox).observe(document.getElementById("spacer_editor"));
+            } else {
+                console.log("resize observer undefined")
+            }
             if (box) {
                 box.style.display = "block";
                 let boxwidth = box.offsetWidth;
@@ -722,6 +765,9 @@ class Spacer {
         }
     }
     CloseEditBox() {
+        if(this.RESIZE_EDITBOX_OBSERVER && typeof ResizeObserver === "function") {
+            this.RESIZE_EDITBOX_OBSERVER.disconnect();
+        }
         var box = document.getElementById("spacer_editbox");
         if (box) {
             box.style.display = "none";
@@ -732,6 +778,9 @@ class Spacer {
         }
     }
     ResetEditBox(){
+        if(this.RESIZE_EDITBOX_OBSERVER && typeof ResizeObserver === "function") {
+            this.RESIZE_EDITBOX_OBSERVER.disconnect();
+        }
         document.getElementById('spacer_editor').innerHTML = "";
     }
     SpacerGetPopupEditInitiator(){

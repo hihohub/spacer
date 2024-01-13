@@ -1,3 +1,6 @@
+# For instructions please refer to
+- https://hihohub.github.io/spacer/
+
 # NEW IN VERSION 10.2
 - All initializations require a container id, even for only one tree.
 - - SPACER.AutoInit("DATATREE")
