@@ -2,12 +2,13 @@
 - https://hihohub.github.io/spacer/
 
 # NEW IN VERSION 10.2
+- Object oriented design.
 - All initializations require a container id, even for only one tree.
 - - SPACER.AutoInit("DATATREE")
 - Users are also responsible for declaring the SPACER global variable themselves.
 - Hence, the onload handler has changed.
-- It should look like this the following.
-- let SPACER = new Spacer()
+- It should look like the following.
+- let SPACER = new Spacer();
 - onload = () => {
 - - SPACER.AutoInit("DATATREE");
 - }
