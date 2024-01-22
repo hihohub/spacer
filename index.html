@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+ <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="Spacer10.2.js"></script>
+ <script type='text/javascript'>
+  let SPACER = new Spacer();
+  onload=function(){
+   SPACER.AutoInit("DATATREE");
+   SPACER.TREE.HIGHLIGHT_BACKGROUND_COLOR = "gray";
+   SPACER.TREE.HIGHLIGHT_TEXT_COLOR = "white";
+  }
+ </script>
+ <style type="text/css">
+  div.logo p {
+   letter-spacing: 1px;
+   font-size: 300%;
+   text-shadow: 1px 1px 3px hsl(0,0%,40%);
+   padding: 10px;
+  }
+  div.logo span {
+   padding: 5px;
+   box-sizing: border-box;
+  }
+  .letterone {
+   color: hsl(0,0%,55%);
+   background-color: hsl(0,0%,90%);
+  }
+  .lettertwo {
+   color: hsl(0,0%,65%);
+   background-color: hsl(0,0%,85%);
+
+  }
+  .letterthree {
+   color: hsl(0,0%,60%);
+   background-color: hsl(0,0%,95%);
+
+  }
+  .firstletter {
+   border-radius: 5px 0px 0px 5px;
+  }
+  .lastletter {
+   border-radius: 0px 5px 5px 0px;
+  }
+ </style>
+</head>
+<body>
+<div align="center" class="logo">
+ <p><span class="letterone firstletter">S</span><span class="lettertwo">P</span><span class="letterthree">A</span><span class="letterone">C</span><span class="lettertwo">E</span><span class="letterthree lastletter">R</span></p>
+</div>
+
+<div class="container">
+ <p class='well' style='font-family:Serif'>To install a datatree on your web page, simply include a container element with an id, for example "DATATREE", and an indented outline between the tags. Or, import the indented text file with the attribute src='filename'. Spacer also accepts an HTML list, but you will have to add the attribute type='html'. The 'root' attribute designates the text for the root node, here 'Example'. The 'toolbar' attribute adds buttons, here 'collapse,expand,search,reset'. The 'treeheight' attribute restricts the height. We have also added a style attribute of width:50%;margin-left:25%. Finally, import Spacer10.2.js and add another script with two lines, let SPACER = new Spacer();onload = () => {SPACER.AutoInit("DATATREE");}</p>
+</div>
+<div id='DATATREE' style='width:80%;margin:auto;' root='Example' toolbar='collapse,expand,search,reset' treeheight='200px' src='./miranda.txt'>
+</div>
+
+<div class="container">
+ <div class='panel-group' id='accordion'>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse1'>Toolbar attributes of interest</a>
+    </h4>
+   </div>
+   <div id='collapse1' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>search, search_horizontal, search_vertical, next, previous, reset, number, replace, edit, save, load, html, text, alphabetize, and publish. If you add an 'edit' button, you'll also need 'save' and 'load'. The 'save' button has been changed to the same as the 'html' button, which saves an html list. To save text, add a 'text' button. To publish a tree file, add a 'publish' button, then copy the text into an html file.</p>
+    </div>
+   </div>
+  </div>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse2'>Attributes of interest</a>
+    </h4>
+   </div>
+   <div id='collapse2' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>Attributes are set within the container tag. The attributes 'src' and 'type' allow you to load a file. If the file is a text file, set type='text'. If the file is an html list, set type='html'. Other attributes are lettering='font' for the font family, open, closed, and empty for the three types of arrows. The arrows may be replaced with text, tags, or images. For example, open='+', closed='-', empty='#', or the same text between span tags (within quotes). Or, html img tags (between quotes) for each of them with images of your choice.</p>
+    </div>
+   </div>
+  </div>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse3'>Properties of interest</a>
+    </h4>
+   </div>
+   <div id='collapse3' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>
+      Properties are set from javascript. After AutoInit, set properties of the SPACER.TREE object. If you have multiple trees, they are stored in the TREES array, so set properties of, for example, SPACER.TREES[1], starting from zero. Some helpful properties of the tree object are HIGHLIGHT_BACKGROUND_COLOR, and HIGHLIGHT_TEXT_COLOR.
+     </p>
+    </div>
+   </div>
+  </div>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse4'>Multiple trees on same page</a>
+    </h4>
+   </div>
+   <div id='collapse4' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>The default id is DATATREE. Instead, give each tree a different id attribute, then initialize each of them with their id as a parameter. For example, SPACER.AutoInit('tree1'); SPACER.AutoInit('tree2'); SPACER.AutoInit('tree3');</p>
+    </div>
+   </div>
+  </div>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse5'>Support</a>
+    </h4>
+   </div>
+   <div id='collapse5' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>Spacer was written by D. James Smith. For support, contact derekjsmit@gmail.com.</p>
+    </div>
+   </div>
+  </div>
+
+  <div class='panel panel-default'>
+   <div class='panel-heading'>
+    <h4 class='panel-title'>
+     <a data-toggle='collapse' data-parent='#accordion' href='#collapse6'>Disclaimer</a>
+    </h4>
+   </div>
+   <div id='collapse6' class='panel-collapse collapse'>
+    <div class='panel-body'>
+     <p class='well' style='font-family:Serif'>Spacer was designed for private use and has not been thoroughly tested. Spacer has been tested on Safari and Google Chrome. Spacer is not guaranteed to work properly on your website. No responsibility is assumed by D. James Smith for damages related to use of Spacer. For support, contact the email above. If you would like to help improve Spacer, make a pull request or contact D. James Smith.</p>
+    </div>
+   </div>
+  </div>
+
+ </div>
+</div>
+
+<footer align='center'>
+ <p>&copy; James Smith 2015</p>
+</footer>
+
+</body>
+</html>
+

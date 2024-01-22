@@ -13,7 +13,7 @@
  * onload = () => { SPACER.AutoInit("DATATREE"); }
  * </script>
  * example html
- * <div id="DATATREE" src="input.txt" toolbar="collapse,expand,search_horizontal,reset" treeheight="500px"/>
+ * <div id="DATATREE" src="input.txt" type="text" toolbar="collapse,expand,search_horizontal,reset" treeheight="500px"/>
  * example input.txt
  * one
  *    two
@@ -658,20 +658,25 @@ class Spacer {
         textarea_width = textarea_width.replace("px","");
         textarea_height = Number(textarea_height);
         textarea_width = Number(textarea_width);
+        const min_resize_width = 350;
         var editbox_height = document.getElementById("spacer_editbox").style.height;
         var editbox_width = document.getElementById("spacer_editbox").style.width;
         editbox_height = editbox_height.replace("px", "");
         editbox_width = editbox_width.replace("px", "");
         editbox_height = Number(editbox_height);
         editbox_width = Number(editbox_width);
+        var spacer_editor_table = document.getElementById("spacer_editor_table");
+        if(textarea_height * textarea_width * editbox_height * editbox_width == 0){
+            return;
+        }
         // cannot read "this" variable from resize observer
         var editbox_height_adjustment = eval("SPACER.EDITBOX_HEIGHT_ADJUSTMENT");
         var editbox_width_adjustment = eval("SPACER.EDITBOX_WIDTH_ADJUSTMENT");
-        if(editbox_height - editbox_height_adjustment < textarea_height){
+        if((editbox_height - editbox_height_adjustment < textarea_height) || (editbox_height > textarea_height * 1.2)){
             var height = "" + (textarea_height + editbox_height_adjustment) + "px";
             document.getElementById("spacer_editbox").style.height = height;
         }
-        if(editbox_width - editbox_width_adjustment < textarea_width){
+        if((editbox_width - editbox_width_adjustment < textarea_width) || (editbox_width > textarea_width * 1.1 && textarea_width > min_resize_width)){
             var width = "" + (textarea_width + editbox_width_adjustment) + "px";
             document.getElementById("spacer_editbox").style.width = width;
         }
@@ -731,7 +736,7 @@ class Spacer {
                 if (toolbar == "insert"){
                     displaytext = "";
                 }
-                box.innerHTML = "<table style='margin-bottom:10px;'><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;margin-left:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40' >" + displaytext + "</textarea></td></tr></table>";
+                box.innerHTML = "<table id='spacer_editor_table' style='margin-bottom:10px;'><tr><td><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;color:red;font-size:1em;border:1px dotted red;padding:3px;'>X</span><label>&nbsp;&nbsp;&nbsp;</label>" + delimiter + reset + delimiter + radio + info + delimiter + equation + delimiter + "<button type='button' id='spacer_editbox_button' onclick='return spacer_submit_from_toolbar(event);'>" + toolbar + "</button><span onclick='return SPACER.CloseEditBox();' class='spacer_close_editorbutton' style='position:relative;float:right;color:red;font-size:1em;border:1px dotted red;padding:3px;margin-left:3px;'>X</span></td></tr><tr><td><textarea id='spacer_editor' rows='3' cols='40' >" + displaytext + "</textarea></td></tr></table>";
             } else {
                 return;
             }
