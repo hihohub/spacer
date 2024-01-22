@@ -153,7 +153,7 @@ class Spacer {
         this.TOOLBAR_SEPARATOR = "<span>|</span>";
         this.TOOLBAR_STYLE = "background-color:#cccccc;white-space:wrap;overflow:hidden;clear:both;";
         this.TREE;
-        this.TREES = new Array(); // stores data tree components, not files
+        this.TREES = new Array(); // umbrella tree, stores data tree components, not files
         this.WAIT_IS_OPEN = false;
         this.WENT_TO_FILE = false;
     }
@@ -1431,7 +1431,6 @@ class Spacer {
     }
 
 } // spacer
-
 /**
  * author Derek James Smith
  */
@@ -5659,7 +5658,6 @@ class SpacerView {
         }
     }
 } // spacer view
-
 /**
  * author Derek James Smith
  */
@@ -5687,6 +5685,7 @@ class SpacerBranch {
         this.GetLevel = this.SpacerGetLevel;
         this.InsertBranch = this.SpacerInsertBranch;
         this.Iterate = this.SpacerListIterate;
+        this.IsOuterBranch = this.SpacerIsOuterBranch;
     }
 
     SpacerAddBranch(node){
@@ -5778,6 +5777,13 @@ class SpacerBranch {
         } catch (exc) {
             if (SPACER.REPRESS_ALERTS == false) { alert(exc); }
         }
+    }
+
+    SpacerIsOuterBranch(){
+        if(!this.PARENT_NODE || !this.PARENT_NODE.PARENT_NODE){
+            return true;
+        }
+        return false;
     }
 
     SpacerListIterate(_click){

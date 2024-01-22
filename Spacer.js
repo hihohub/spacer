@@ -153,7 +153,7 @@ class Spacer {
         this.TOOLBAR_SEPARATOR = "<span>|</span>";
         this.TOOLBAR_STYLE = "background-color:#cccccc;white-space:wrap;overflow:hidden;clear:both;";
         this.TREE;
-        this.TREES = new Array(); // stores data tree components, not files
+        this.TREES = new Array(); // umbrella tree, stores data tree components, not files
         this.WAIT_IS_OPEN = false;
         this.WENT_TO_FILE = false;
     }
