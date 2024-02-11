@@ -92,7 +92,7 @@ class Spacer {
         this.Wait = this.SpacerWait;
         // properties
         // repeats with datatree properties not allowed
-        this.ADDRESS = "https://hihohub.github.io/spacer/Spacer10.2.js";
+        this.ADDRESS = "https://hihohub.github.io/spacer/versions/Spacer10.2.js";
         this.ALT_SKIP_MESSAGE = "%%%%% SKIPPED %%%%%";
         this.BACKSPACE_ALLOWED = false;
         this.CLIPBOARD = new Array();
