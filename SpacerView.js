@@ -122,41 +122,42 @@ class SpacerView {
         this.SPACER.TEMP = document.createElement("div");
         this.SPACER.TEMP.innerHTML = "<ul>" + list.innerHTML + "</ul>";
         var ul = this.SPACER.TEMP.getElementsByTagName("ul")[0];
-        this.ViewGetList2(ul);//***********************************************************************************
+        this.ViewGetList2(ul);
         var result = this.SPACER.TEMP.innerHTML;
         return result;
     }
 
-    SpacerViewGetList2(ul){
-        var children = ul.childNodes;
+    SpacerViewGetList2(parent_ul){
+        var children = parent_ul.childNodes;
         for (let c in children){
             var child = children[c];
             if (child && child.nodeName && child.nodeName.toLowerCase() == "li"){
                 child.className = '';
-                child.setAttribute('class','');
                 child.removeAttribute('class');
-                child.setAttribute('style','');
-                child.removeAttribute('style');
-                //child.style = ""; // 9.7
+                if(child.getAttribute('style')) {
+                    child.removeAttribute('style');
+                }
                 var arrow = child.getElementsByTagName("a")[0];
-                var span = child.getElementsByTagName("span")[0];
-                ul = child.getElementsByTagName("ul")[0];
-                ul.className = '';
-                ul.setAttribute('class','');
-                ul.removeAttribute('class');
-                ul.setAttribute('style','');
-                ul.removeAttribute('style');
-                //ul.style = ""; // 9.7
                 if (arrow && arrow.className && arrow.className == "spacer_arrow"){
                     child.removeChild(arrow);
                 }
-                if (span && span.className && span.className == "spacer_content"){
-                    var txt = span.innerHTML;
-                    child.removeChild(span);
-                    child.removeChild(ul);
-                    child.innerHTML = txt;
-                    child.appendChild(ul);
+                var span = child.getElementsByTagName("span")[0];
+                var text = "";
+                if(span) {
+                    text = span.innerHTML;
                 }
+                if (span && span.className && span.className == "spacer_content"){
+                    child.removeChild(span);
+                }
+                var ul = child.getElementsByTagName("ul")[0];
+                ul.className = '';
+                ul.removeAttribute('class');
+                if(ul.getAttribute('style')) {
+                    ul.removeAttribute('style');
+                }
+                child.removeChild(ul);
+                child.innerHTML = text;
+                child.appendChild(ul);
                 this.ViewGetList2(ul);
             }
         }
